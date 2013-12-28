@@ -1,0 +1,104 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Cadastrar Igreja'); ?></title>
+</head>
+
+<body>
+
+<div id="form">
+
+	<?php echo $this->form; ?>
+	
+</div>
+
+<div id="grid">
+	<br />
+		
+		<?php echo $this->busca; ?>
+		
+	<br />
+	
+	<div id="chamada">
+		<div id="igrej">Igreja</div><div id="tel">Telefone</div><div id="pastor">Pastor</div><div id="action">Ações</div>
+	</div>
+	
+	<?php foreach($this->rows as $lista){
+		if($this->query != false){
+			foreach($this->query as $data){
+				if($data->idIgreja == $lista->idIgreja){?>
+					<div id="igrej_res"><?php echo $lista->Igreja; ?></div>
+					
+					<?php if($lista->Telefone == null){
+						
+						echo '<div id="tel_res">' . ' - ' . '</div>';
+						
+					} else{
+						
+						echo '<div id="tel_res">' . $lista->Telefone . '</div>';
+						
+					}?>
+					
+					<div id="tel_res"><?php echo $lista->Telefone; ?></div>
+					<div id="pastor_res"><?php echo $lista->Pastor; ?></div>
+					<div id="action_res">
+						<a href="<?php echo $this->url(
+							array(
+								'controller'	=>	'igreja',
+								'action'		=>	'editar',
+								'idIgreja'		=>	$lista->idIgreja
+							));?>">
+							<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+						</a>
+						
+						<a href="<?php echo $this->url(
+							array(
+								'controller'	=>	'igreja',
+								'action'		=>	'delete',
+								'idIgreja'		=>	$lista->idIgreja
+							));?>">
+							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+						</a>
+					</div>
+		<?php 	}
+			}	
+		}
+		else{ ?>
+			<div id="igrej_res"><?php echo $lista->Igreja; ?></div>
+			<?php if($lista->Telefone == null){
+				echo '<div id="tel_res">' . ' - ' . '</div>';
+			} else{
+				echo '<div id="tel_res">' . $lista->Telefone . '</div>';
+			}
+			?>
+			<div id="pastor_res"><?php echo $lista->Pastor; ?></div>
+			<div id="action_res">
+				<a href="<?php echo $this->url(
+					array(
+						'controller'	=>	'igreja',
+						'action'		=>	'editar',
+						'idIgreja'		=>	$lista->idIgreja
+					));?>">
+					<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+				</a>
+						
+				<a href="<?php echo $this->url(
+					array(
+						'controller'	=>	'igreja',
+						'action'		=>	'delete',
+						'idIgreja'		=>	$lista->idIgreja
+					));?>">
+					<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+				</a>
+			</div>
+<?php 	}
+	}
+
+?>
+
+</div>
+
+<br /><br />
+
+</body>
+</html>

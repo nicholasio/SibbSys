@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title><?php $this->headTitle('Histórico'); ?></title>
+</head>
+
+<body>
+
+<?php 
+
+ $tableNota = new Application_Model_DbTable_Nota();
+ $presenca = new Application_Model_DbTable_Presenca();
+
+$file = APPLICATION_PATH . '/models/Historico/Historico-aluno.pdf';
+ 
+ $pdf = Zend_Pdf::load($file);
+ $page = $pdf->pages[0];
+ $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES_ROMAN);
+ $page->setFont($font, 10);
+ 
+ $posY = 600;
+ 
+foreach ($this->rows as $users){
+	
+	$id = $users->idUsuario_has_Turma;
+	$chamada = $presenca->contaPresenca($id);
+	$media = $tableNota->somaNota($id);
+	
+		
+		$page->drawText($users->findParentRow('Application_Model_DbTable_Usuario')->Nome, 125, 651.5);
+		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Nome, 57, $posY); 
+		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Ano . '.', 250, $posY); 
+		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Semestre, 272, $posY);
+		
+		
+		$page->drawText(substr($media["SUM(Nota)"]/3,0,4), 400, $posY);
+		
+		$page->drawText($users->Status, 497, $posY);
+		
+	$posY -=22.7;
+	
+}
+
+	header("Content-Type: application/x-pdf");
+	header("Content-Disposition: attachment; filename=Histórico" . ".pdf");
+	
+	echo $pdf->render();
+
+
+?>
+
+</body>
+</html>

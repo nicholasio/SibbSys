@@ -1,0 +1,32 @@
+<title><?php $this->headTitle('Cadastrar Curso'); ?></title>
+<?php echo $this->form; ?>
+
+<div id="listar">
+	<h3>Lista de Cursos</h3>
+	
+	<?php foreach ($this->rows as $lista){?>
+	
+		<p>Curso: <?php echo $lista->Nome;?>
+		
+			<a href="<?php echo $this->url(
+				array(
+					'controller'=>'curso',
+					'action'	=>'editar',
+					'idCurso'	=>$lista->idCurso
+				)
+			);
+			?>"><img src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img></a>
+			
+			<a href="<?php echo $this->url(
+				array(
+					'controller'=>'curso',
+					'action'	=>'delete',
+					'idCurso'	=>$lista->idCurso
+				)
+			);
+			?>"><img src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img></a>
+		</p>
+		
+	<?php }?>
+	
+</div>

@@ -1,0 +1,78 @@
+<html>
+<head><title><?php $this->headTitle('Cadastrar Curso'); ?></title></head>	
+<body>
+
+<div id="form">
+
+<?php echo $this->form; ?>
+
+</div>
+
+<div id="grid">
+	<br />
+		<?php echo $this->busca; ?>
+	<br />
+	
+	<div id="chamada">
+		<div id="curso">Curso</div><div id="duracao">Duração</div><div id="action">Ações</div>
+	</div>
+		<?php foreach ($this->rows as $lista){?>
+			<?php if($this->query != false){
+				foreach($this->query as $data){
+					if($data->idCurso == $lista->idCurso){?>
+						<div id="curso_res"><?php echo $lista->Nome; ?></div>
+						<div id="duracao_res"><?php echo $lista->Duracao; ?></div>
+						<div id="action_res">
+							<a href="<?php echo $this->url(
+								array(
+									'controller'=>'curso',
+									'action'	=>'editar',
+									'idCurso'	=>$lista->idCurso
+								));?>">
+									<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+							</a>
+							
+							<a href="<?php echo $this->url(
+								array(
+									'controller'=>'curso',
+									'action'	=>'delete',
+									'idCurso'	=>$lista->idCurso
+								));?>">
+									<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+							</a>		
+						</div>
+				<?php }
+				}
+			}
+			
+			else{?>
+				<div id="curso_res"><?php echo $lista->Nome; ?></div>
+				<div id="duracao_res"><?php echo $lista->Duracao; ?></div>
+				<div id="action_res">
+					<a href="<?php echo $this->url(
+						array(
+							'controller'=>'curso',
+							'action'	=>'editar',
+							'idCurso'	=>$lista->idCurso
+						));?>">
+							<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+					</a>
+			
+					<a href="<?php echo $this->url(
+						array(
+							'controller'=>'curso',
+							'action'	=>'delete',
+							'idCurso'	=>$lista->idCurso
+						));?>">
+							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+					</a>	
+				</div>
+			
+			<?php }
+		}?>
+</div>
+
+<br/>		
+
+</body>
+</html>

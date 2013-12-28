@@ -1,0 +1,128 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Cadastrar Usuario'); ?></title>
+</head>
+
+<body>
+
+<div id="form">
+
+	<?php echo $this->form;	?>
+	 
+</div>
+
+<div id="grid">
+	<br />
+	
+	<?php echo $this->busca; ?>
+	
+	<br />
+	
+	<div id="chamada">
+		<div id="user">Nome</div><div id="tipo">Tipo</div><div id="fone">Telefone</div><div id="email">Email</div><div id="igreja">Igreja</div><div id="action">Ações</div>
+	</div>
+	
+		<?php foreach ($this->rows as $lista){?>
+		
+			<?php if($this->query != false){
+				foreach($this->query as $data){
+					if($data->idUsuario == $lista->idUsuario){
+						echo '<div id="user_res">' . $lista->Nome . '</div>';
+						if($lista->Tipo == 1){
+							echo '<div id="tipo_res">' . "Admin" . '</div>';	
+						}
+						if($lista->Tipo == 2){
+							echo '<div id="tipo_res">' . "Professor" . '</div>';
+						}
+						if($lista->Tipo == 3){
+							echo '<div id="tipo_res">' . "Aluno" . '</div>';
+						}
+						echo '<div id="email_res">' . $lista->Email . '</div>';
+						echo '<div id="fone_res">' . $lista->Telefone . '</div>';
+						echo '<div id="igreja_res">' . $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja . '</div>';
+						echo '<div id="action_res">'; ?>
+						<a href="<?php echo $this->url(
+							array(
+								'controller'	=>	'usuario',
+								'action'		=>	'editar',
+								'idUsuario'		=>	$lista->idUsuario
+							));?>">
+								<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+						</a>
+						
+						<a href="<?php echo $this->url(
+							array(
+								'controller'	=>	'historico',
+								'action'		=>	'usuario',
+								'idUsuario'		=>	$lista->idUsuario
+							));?>">
+								<img title="Historico" src="/../images/historico.png" alt="Historico" width="20" height="20"></img>
+						</a>
+							
+						<a href="<?php echo $this->url(
+							array(
+									'controller'	=>	'usuario',
+									'action'		=>	'delete',
+									'idUsuario'		=>	$lista->idUsuario
+							));?>">
+								<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+						</a>
+						
+						<?php echo '</div>';?>
+				<?php }
+				}
+			}
+			else{?>
+				
+				<div id="user_res"><?php echo $lista->Nome; ?></div>
+				<?php
+				if($lista->Tipo == 1){
+					echo '<div id="tipo_res">' . "Admin" . '</div>';
+				}
+				if($lista->Tipo == 2){
+					echo '<div id="tipo_res">' . "Professor" . '</div>';
+				}
+				if($lista->Tipo == 3){
+					echo '<div id="tipo_res">' . "Aluno" . '</div>';
+				}?>
+				<div id="email_res"><?php echo $lista->Email; ?></div>
+				<div id="fone_res"><?php echo $lista->Telefone; ?></div>
+				<div id="igreja_res"><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></div>
+				<div id="action_res">
+					<a href="<?php echo $this->url(
+						array(
+							'controller'	=>	'usuario',
+							'action'		=>	'editar',
+							'idUsuario'		=>	$lista->idUsuario
+						));?>">
+							<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+					</a>
+				
+					<a href="<?php echo $this->url(
+						array(
+							'controller'	=>	'historico',
+							'action'		=>	'usuario',
+							'idUsuario'		=>	$lista->idUsuario
+						));?>">
+							<img title="Historico" src="/../images/historico.png" alt="Historico" width="20" height="20"></img>
+					</a>
+		
+					<a href="<?php echo $this->url(
+						array(
+							'controller'	=>	'usuario',
+							'action'		=>	'delete',
+							'idUsuario'		=>	$lista->idUsuario
+						));?>">
+							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+					</a>
+				</div>
+		<?php }?>
+	<?php }  ?>
+</div>
+	
+<br />
+<br />
+
+</body>
+</html>

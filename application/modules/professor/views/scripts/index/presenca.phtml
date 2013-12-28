@@ -1,0 +1,104 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Chamada'); ?></title>
+</head>
+
+<body>
+
+<div id="presenca">
+
+	<?php if($this->row != null){
+		echo '<h3>'. 'Lista de Chamada' . '</h3>';
+		
+			foreach($this->rows as $nome){
+				if($nome->Status != 'inativo'){
+					echo '<strong>' . $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome . '</strong>' ; ?>
+		
+					<form action="/professor/index/post-presenca" method="post" id="form">
+
+						Data: <input type="text" name="data" size="8" value="<?php print date('d/m/Y');?>"/>
+						Faltas: <input type="text" name="faltas" size="8"/>
+						
+						<input type="hidden" name="idMatricula" value="<?php echo $nome->idUsuario_has_Turma; ?>"/>
+						<input type="hidden" name="idTurma" value="<?php echo $nome->Turma_idTurma; ?>"/>
+						<input type="submit" name="submit" value="Inserir"/>
+						<br /><br />
+					</form>			
+	<?php }
+
+		   }?>	
+
+
+				<form action="/professor/index/nota" method="post">
+					<p><input type="submit" name="voltar" value="Voltar"/></p>
+				</form>
+	
+</div>
+	
+	<br />
+	<div id="grid">
+	
+		<?php echo $this->form; ?>
+	
+		<br />
+	
+	
+		<div id="chamada">
+			<div id="nome">Nome</div><div id="data">Data</div><div id="falt">Faltas</div><div id="action">Ação</div>
+		</div>
+		
+			<div id="lista">
+				<?php $model = new Application_Model_DbTable_Matricula();
+			
+				foreach($this->result as $result){
+					$idUser = $result->idUsuario_has_Turma;	
+					$query = $model->getId($idUser);
+					
+						if($this->query != false){
+							foreach($this->query as $data){
+								if($data->idUsuario == $query->Usuario_idUsuario){
+									echo '<div id="nome_res">' . $data->Nome . '</div>';
+									echo '<div id="data_res">' . $result->Data .'</div>';
+									echo '<div id="falt_res">' . $result->Faltas. '</div>';?>
+									<div id="action_res">
+										<a href="<?php echo $this->url(
+											array(
+												'controller' 	=>	'index',
+												'action' 		=>	'excluir',
+												'idPresenca'	=>	$result->idPresenca		
+											));
+											?>">
+											<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+										</a>
+									</div>
+								<?php }
+							}//fim 2º foreach
+						}
+				else{?>
+				
+					<div id="nome_res"><?php echo $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></div>
+					<div id="data_res"><?php echo $result->Data; ?></div>
+					<div id="falt_res"><?php echo $result->Faltas; ?></div>
+					<div id="action_res"><a href="<?php echo $this->url(
+							array(
+									'controller' 	=> 'index',
+									'action' 		=> 'excluir',
+									'idPresenca' 	=> $result->idPresenca
+							));
+						?>"><img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img></a></div>	
+				<?php }
+				}//fim 1º foreach?>
+			</div>
+	</div>
+	
+	<br />
+	<br />
+	
+<?php } else{
+	
+	echo 'Ainda não há alunos matriculados nessa disciplina';
+}?>
+
+</body>
+</html>

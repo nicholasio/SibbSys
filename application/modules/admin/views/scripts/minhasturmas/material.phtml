@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Matérial de Aulas'); ?></title>
+</head>
+
+<body>
+
+<h3>Matérial das Aulas de <?php echo $this->row->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?></h3>
+
+<br />
+
+<div id="material">
+<b><span>Data de Publi.</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Material</span></b>
+
+<p>
+
+<?php 
+
+	if(!empty($this->rows['Nome'])){
+	
+		foreach($this->rows as $file){
+	
+			echo $file->Data . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?> 
+			
+			<a href="<?php echo $this->url(
+				array(
+					'controller'=>	'minhasturmas',
+					'action'	=>	'download',
+					'idArquivo' =>	$file->idArquivos));?>"><?php echo $file->Nome; ?></a></p>
+<?php				
+		}
+	} 
+	
+	else{
+ 		echo '<p>' . 'Nenhum matérial disponível no momento!' . '</p>';
+	}
+
+?>
+
+</div>
+
+<br />
+
+</body>
+
+</html>

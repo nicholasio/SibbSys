@@ -1,0 +1,35 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Início'); ?></title>
+</head>
+
+<body>
+
+<h3>
+	<img src="/../files/<?= $this->data->Foto; ?>" width="60" height="90"></img>
+		<?php 
+			$model = new Application_Model_DbTable_Usuario();
+			$query = $model->selecionar();
+			if(substr($query->DataNascimento,0,5) == date('d/m')){
+				echo 'Feliz Aniversário, ';
+			}
+			else{ 
+				echo 'Olá, ';
+			}
+		
+		echo $this->data->Nome . '!';?>
+</h3>
+					
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>">Matrícula</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'usuario','action'=>'index'),null,1); ?>">Cadastrar Usuário</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'curso','action'=>'index'),null,1); ?>">Cadastrar Curso</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'index'),null,1); ?>">Cadastrar Disciplina</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'turma','action'=>'index'),null,1); ?>">Cadastrar Turma</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>">Cadastrar Igreja</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'financeiro','action'=>'index'),null,1); ?>">Financeiro</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1); ?>">Alterar Senha</a></h4>
+	
+</body>
+</html>

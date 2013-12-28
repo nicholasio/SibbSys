@@ -1,0 +1,32 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Matérial de Aulas');?></title>
+</head>
+
+<body>
+
+<p>
+
+<?php 
+
+if(!empty($this->rows['Nome'])){
+	foreach($this->rows as $turma){?>
+		<a href="<?php echo $this->url(
+		array(
+			'controller'	=>	'minhasturmas',
+			'action'		=>	'material',
+			'idDisciplina'		=>	$turma->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina	
+		))?>">
+		<strong> <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?> </strong> </a> </p>
+	<?php }
+	
+}
+else{
+	
+	echo 'Usuário matriculado em nenhuma turma até o momento.';
+}
+?>
+
+</body>
+</html>

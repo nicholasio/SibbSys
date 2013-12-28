@@ -1,0 +1,101 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Boletim'); ?></title>
+</head>
+
+<body>
+
+<div id="boletim">
+	<?php if($this->row != null){?>
+	<h2>Boletim</h2>
+	<div id="cabeca">
+		<div>Turma</div><div>Unid. 1</div><div>Unid. 2</div><div>Unid. 3</div><div>Faltas</div><div>Média Final</div><div>Situação</div>
+	</div>
+<?php
+ $tableNota = new Application_Model_DbTable_Nota();
+ $presenca = new Application_Model_DbTable_Presenca();
+ $model = new Application_Model_DbTable_Matricula();
+ 	
+		echo '<div id="corpo">';
+		foreach($this->rows as $turma){
+			
+			$id = $turma->idUsuario_has_Turma;
+			$result = $tableNota->getNota($id);
+			$media = $tableNota->somaNota($id);
+			$conta = $presenca->contaPresenca($id);
+			
+			if($turma->Status != 'inativo'){
+				echo '<div id="turma">';
+					echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome;
+				echo '</div>';
+			}
+				foreach($result as $nota){
+					
+					$unit1 = $nota['Unidade'] == 1;
+					$unit2 = $nota['Unidade'] == 2;
+					$unit3 = $nota['Unidade'] == 3;
+					
+					if($unit1){
+						echo '<div id="nota1">';
+							echo $nota['Nota'];
+						echo '</div>';	
+					}
+					
+					if($unit2){
+						echo '<div id="nota2">';
+							echo $nota['Nota'];
+						echo '</div>';
+					}
+					
+					if($unit3){
+						echo '<div id="nota3">';
+							echo $nota['Nota'];
+						echo '</div>';
+					}
+					
+					if(! empty($conta["SUM(Faltas)"])){
+						echo '<div id="faltas">';
+							print $conta["SUM(Faltas)"];
+						echo '</div>';
+					}
+					
+					if(! empty($media["SUM(Nota)"])){
+						echo '<div id="media">';
+							$total = $media["SUM(Nota)"] / 3;
+							print substr($total,0,4);
+							
+							if($media["SUM(Nota)"] < 7 || $conta["SUM(Faltas)"] >= 9){
+								$idStatus = $this->row['idUsuario_has_Turma'];
+								$model->statusPresenca($idStatus);
+							}
+							else{
+								$idStatus = $this->row['idUsuario_has_Turma'];
+								$model->statusNota($idStatus);
+							}
+							
+						echo '</div>';
+					}
+				
+				}//fim foreach 2
+			if($turma->Status != 'inativo'){
+				echo '<div id="status">';
+				
+					echo $turma->Status;
+					
+				echo '</div>';
+			}
+		}//fim foreach 1
+			
+		echo '</div>';
+	 	
+	}
+	else{
+		echo 'Usuário matriculado em nenhuma turma até o momento.';
+	}
+?>
+
+</div>
+
+</body>
+</html>

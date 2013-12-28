@@ -1,0 +1,79 @@
+<html>
+<head><title><?php $this->headTitle('Cadastrar Disciplina'); ?></title></head>
+<body>
+
+<div id="form">
+	<?php echo $this->form; ?>
+</div>	
+	
+<div id="grid">
+
+	<br />
+	
+		<?php echo $this->busca; ?>
+		
+	<br />
+	
+		<div id="chamada">
+			<div id="curso">Disciplina</div><div id="duracao">Quantidade Crédito</div><div id="action">Ações</div>
+		</div>
+		
+		<?php foreach($this->rows as $lista){ ?>
+			<?php if($this->query != false){
+				foreach($this->query as $data){
+					if($data->idDisciplina == $lista->idDisciplina){
+						echo '<div id="curso_res">' . $lista->Disciplina . '</div>';
+						echo '<div id="duracao_res">' . $lista->QntdCred . '</div>';?>
+						<div id="action_res">
+							<a href="<?php echo $this->url(
+								array(
+									'controller'=>'disciplina',
+									'action'=>'editar',
+									'idDisciplina'=>$lista->idDisciplina
+								));?>">
+								<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+							</a>
+			
+							<a href="<?php echo $this->url(
+								array(
+									'controller'=>'disciplina',
+									'action'=>'delete',
+									'idDisciplina'=>$lista->idDisciplina
+								));?>">
+								<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+							</a>
+						</div>
+				<?php }
+				}
+			}
+			else{
+				echo '<div id="curso_res">' . $lista->Disciplina . '</div>';
+				echo '<div id="duracao_res">' . $lista->QntdCred . '</div>'; ?>
+				<div id="action_res">
+					<a href="<?php echo $this->url(
+						array(
+							'controller'=>'disciplina',
+							'action'=>'editar',
+							'idDisciplina'=>$lista->idDisciplina
+						));?>">
+						<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+					</a>
+			
+					<a href="<?php echo $this->url(
+						array(
+							'controller'=>'disciplina',
+							'action'=>'delete',
+							'idDisciplina'=>$lista->idDisciplina
+						));?>">
+						<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+					</a>		
+				</div>
+	<?php }
+		}?>
+		
+</div>
+	
+<br /><br />
+
+</body>
+</html>

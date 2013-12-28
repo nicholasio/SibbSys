@@ -1,0 +1,116 @@
+<html>
+
+<head>
+<title><?php $this->headTitle('Matérial de Aulas'); ?></title>
+</head>
+
+<body>
+
+<br />
+<div id="form">
+
+<?php echo $this->form; ?>
+
+</div>
+
+<br /><br />
+
+	<div id="grid">
+
+		<?php echo $this->pesq; ?>
+	
+		<br />
+	
+		<div id="chamada">
+			<div id="nome">Nome</div><div id="ano">Ano/Semestre</div><div id="date">Data</div><div id="compartilha">Compartilhado</div><div id="action">Ações</div>
+		</div>
+	
+			<div id="lista">
+				
+				<?php foreach($this->rows as $rows){
+					if($this->query != false){
+						foreach($this->query as $data){
+							if($data->idArquivos == $rows->idArquivos){
+								echo '<div id="nome_res">'.$rows->Nome.'</div>';
+								echo '<div id="ano_res">'.$rows->Ano.'.'.$rows->Semestre.'</div>';
+								echo '<div id="date_res">'.$rows->Data.'</div>';
+								echo '<div id="compartilha_res">'.$rows->Status.'</div>'; ?>
+								<div id="action_res">
+									<a href="<?php echo $this->url(
+										array(
+											'controller'	=>	'index',
+											'action'		=>	'editar',
+											'idArquivo'		=>	$rows->idArquivos
+										));?>">
+										<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+									</a>
+									
+									<a href="<?php echo $this->url(
+										array(
+											'controller'	=>	'index',
+											'action'		=>	'download',
+											'idArquivo'		=>	$rows->idArquivos
+										));?>">
+										<img title="Download" src="/../images/download.png" alt="Download" width="20" height="20"></img>
+									</a>
+									
+									<a href="<?php echo $this->url(
+										array(
+											'controller'	=>	'index',
+											'action'		=>	'delete',
+											'idArquivo'		=>	$rows->idArquivos
+										));?>">
+										<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+									</a>
+									
+								</div>
+							<?php }
+						} //fim 2º foreach
+					}
+					
+					else{
+					
+						echo '<div id="nome_res">'.$rows->Nome.'</div>';
+						echo '<div id="ano_res">'.$rows->Ano.'.'.$rows->Semestre.'</div>';
+						echo '<div id="date_res">'.$rows->Data.'</div>';
+						echo '<div id="compartilha_res">'.$rows->Status.'</div>'; ?>
+						<div id="action_res">
+							<a href="<?php echo $this->url(
+								array(
+									'controller'	=>	'index',
+									'action'		=>	'editar',
+									'idArquivo'		=>	$rows->idArquivos
+								));?>">
+								<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>	
+							</a>
+						
+							<a href="<?php echo $this->url(
+								array(
+									'controller'	=>	'index',
+									'action'		=>	'download',
+									'idArquivo'		=>	$rows->idArquivos
+								));?>">
+								<img title="Download" src="/../images/download.png" alt="Download" width="20" height="20"></img>	
+							</a>
+						
+							<a href="<?php echo $this->url(
+								array(
+									'controller'	=>	'index',
+									'action'		=>	'delete',
+									'idArquivo'		=>	$rows->idArquivos
+								));?>">
+								<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>	
+							</a>
+						</div>
+				
+				<?php  }
+					
+					}//fim 1º foreach?>
+			</div>
+	
+	</div>
+
+<br/><br/>
+
+</body>
+</html>

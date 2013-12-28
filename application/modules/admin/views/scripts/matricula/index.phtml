@@ -1,0 +1,44 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Matrícula');?></title>
+</head>
+
+<body>
+
+<h3>Matricular Usuario</h3>
+
+<?php echo $this->form;?>
+
+<h4>Alunos Matriculados</h4>
+<?php foreach ($this->rows as $lista){ ?>
+		
+	<p>
+		Nome: <?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome;?> /
+		Turma: <?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
+							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
+							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?> /
+							
+		<?php foreach ($this->prof as $prof){?>
+				<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
+						 $lista->findParentRow('Application_Model_DbTable_Turma')->Usuario_idUsuario){?>
+						Professor(a): <?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
+										 
+				<?php }?> <!-- fim if -->
+				
+		<?php }?> <!-- fim foreach -->
+			
+			<a href="<?php echo $this->url(
+				array(
+					'controller'			=>	'matricula',
+					'action'				=>	'delete',
+					'idUsuario_has_Turma'	=>	$lista->idUsuario_has_Turma
+				));
+			?>"><img src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img></a>
+	</p>
+	
+<?php }?> <!-- fim foreach -->
+
+
+</body>
+</html>

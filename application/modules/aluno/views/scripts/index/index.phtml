@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Início'); ?></title>
+</head>
+
+<body>
+
+	<h3>
+		<img src="/../files/<?= $this->data->Foto; ?>" width="60" height="90"></img>
+			<?php
+				$model = new Application_Model_DbTable_Usuario();
+				$query = $model->selecionar();
+				if(substr($query->DataNascimento,0,5) == date('d/m')){
+					echo 'Feliz Aniversário, ';
+				}
+				else{
+					echo 'Olá, ';
+				} 
+			
+			echo $this->data->Nome . '!'; ?>
+	</h3>
+
+		<h4><a href="<?php echo $this->url(array(
+				'module'	=>	'aluno',
+				'controller'=>	'index',
+				'action'	=>	'boletim'),null,1);?>">Boletim</a></h4>
+				
+		<h4><a href="<?php echo $this->url(array(
+				'module'	=>	'aluno',
+				'controller'=>	'index',
+				'action'	=>	'turma'), null, 1);?>">Material</a></h4>		
+				
+		<h4><a href="<?php echo $this->url(array(
+				'module'	=>	'aluno',
+				'controller'=>	'index',
+				'action'	=>	'altera-senha'),null,1);?>">Alterar Senha</a></h4>
+
+		<h4><a href="<?php echo $this->url(array(
+				'module'	=>	'aluno',
+				'controller'=>	'index',
+				'action'	=>	'historico'),null,1);?>">Histórico</a></h4>
+	 				
+</body>
+</html>

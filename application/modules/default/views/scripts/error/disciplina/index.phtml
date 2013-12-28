@@ -1,0 +1,27 @@
+<title><?php $this->headTitle('Cadastrar Disciplina'); ?></title>
+<?php echo $this->form; ?>
+
+<div id="listar">
+	<h3>Lista de Disciplinas</h3>
+	
+	<?php foreach($this->rows as $lista){ ?>
+	
+		<p>Disciplina: <?php echo $lista->Disciplina;?>
+			<a href="<?php echo $this->url(array(
+				'controller'=>'disciplina',
+				'action'=>'editar',
+				'idDisciplina'=>$lista->idDisciplina
+			));
+			?>"><img src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img></a>
+			
+			<a href="<?php echo $this->url(array(
+				'controller'=>'disciplina',
+				'action'=>'delete',
+				'idDisciplina'=>$lista->idDisciplina
+			));
+			?>"><img src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img></a>
+		</p>
+		
+	<?php }?>
+		
+</div> 

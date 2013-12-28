@@ -1,0 +1,132 @@
+<html>
+
+<head>
+	<title><?php $this->headTitle('Inserir Notas'); ?></title>
+</head>
+
+<body>
+
+<?php if($this->row != null){ ?>
+
+<?php foreach ($this->linha as $disc){?>
+
+	<h3>Lista de Alunos Matrículados na Turma de 
+	<?php echo $disc->Nome;?></h3>
+				 
+<?php }?>
+ 
+
+<?php foreach($this->rows as $users){?>
+	
+	<?php if($users->Status != 'inativo'){?>
+	
+	<p><b><?php echo $users->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></b></p>
+				
+			<form action="/professor/index/post-nota" method="post" id="form">
+			
+				Nota: <input type="text" name="nota" size="8"/>
+				Unidade: <select name="unidade">
+  							<option value=""> </option>
+  							<option value="1">Unidade 1</option>
+  							<option value="2">Unidade 2</option>
+  							<option value="3">Unidade 3</option>
+						</select> 
+				<input type="hidden" name="idMatricula" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
+				<input type="hidden" name="idTurma" value="<?php echo $users->Turma_idTurma; ?>"/>
+				<input type="submit" name="submit" value="Inserir"/>
+			
+			</form>
+			
+	<?php }?>	
+	
+<?php }?>
+
+<br /><br />
+
+	<form action="/professor/index/nota" method="post">
+	
+		<input type="submit" name="voltar" value="Voltar"/>
+	
+	</form>
+
+
+<br /><br />
+
+<div id="grid">
+
+	<?php echo $this->form; ?>
+
+<br />
+
+	<div id="chamada">
+	
+		<div id="nome">Nome</div><div id="ano">Unidade</div><div id="prof">Nota</div><div id="action">Ações</div>
+		
+	</div>
+	
+		<div id="lista">
+			<?php $model = new Application_Model_DbTable_Matricula();
+
+			foreach($this->result as $result){
+				
+				$idUser = $result->idUsuario_has_Turma;
+				$query = $model->getId($idUser);
+				
+					if($this->query != false){
+						foreach($this->query as $data){
+							if($data->idUsuario == $query->Usuario_idUsuario){
+								echo '<div id="nome_res">' . $query->findParentRow('Application_Model_DbTable_Usuario')->Nome . '</div>';
+								echo '<div id="ano_res">' . $result->Unidade . '</div>'; 
+								echo '<div id="prof_res">' . $result->Nota . '</div>'; ?>
+								
+								<div id="action_res">
+									<a href="<?php echo $this->url(
+										array(
+											'controller' 	=>	'index',
+											'action' 		=>	'excluir',
+											'idNota'	=>	$result->idNota		
+										));
+										?>">
+										<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+									</a>
+								</div>
+							<?php }
+							
+						}
+					}
+					else{
+						
+						echo '<div id="nome_res">' . $query->findParentRow('Application_Model_DbTable_Usuario')->Nome . '</div>';
+						echo '<div id="ano_res">' . $result->Unidade . '</div>'; 
+						echo '<div id="prof_res">' . $result->Nota . '</div>'; ?>
+						<div id="action_res">
+								<a href="<?php echo $this->url(
+									array(
+										'controller' 	=>	'index',
+										'action' 		=>	'excluir',
+										'idNota'	=>	$result->idNota		
+									));
+									?>">
+									<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+								</a>
+						</div>
+			<?php
+					}
+			}
+			
+			?>
+		
+		</div>
+
+</div>
+
+<br /><br />
+
+
+<?php } else{
+	echo 'Ainda não há alunos matriculados nessa disciplina';
+}?>
+
+</body>
+
+</html>
