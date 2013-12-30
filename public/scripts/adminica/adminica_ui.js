@@ -129,7 +129,7 @@ function adminicaUi(){
 
 	// Button Classes
 
-		$("input[type=button]").notClass("btn").addClass("button");
+		$("input[type=button]")/*.notClass("btn")*/.addClass("button");
 
 		$('.button').each(function(){
 			if (! $(this).children().is('span')){
