@@ -1,4 +1,3 @@
-
 <div class="grid_16">
   	<div class="page-header">
 	    <h1>Matricular Aluno
@@ -25,9 +24,9 @@
 	      </tr>
 	    </thead>
 	    <tbody>
-<?php foreach ($this->rows as $lista){ ?>
+<?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td>#id</td>
+		<td><?php echo $lista->idUsuario_has_Turma ?></td>
 		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></td>
 		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 

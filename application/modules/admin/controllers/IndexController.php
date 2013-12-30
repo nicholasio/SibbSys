@@ -17,9 +17,9 @@ class Admin_IndexController extends Zend_Controller_Action{
 	
     public function indexAction(){
     	
-    	$auth = Zend_Auth::getInstance();
+    	/*$auth = Zend_Auth::getInstance();
     	$data = $auth->getStorage()->read();
-    	$this->view->data = $data;
+    	$this->view->data = $data;*/
   
     }
     
