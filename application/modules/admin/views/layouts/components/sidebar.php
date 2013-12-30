@@ -4,9 +4,21 @@
 	<a href="index.php" class="logo display_none"><span>Adminica</span></a>
 
 	<div class="user_box dark_box clearfix">
-		<img src="images/interface/profile.jpg" width="55" alt="Profile Pic" />
+
+		<?php 
+			/*$model = new Application_Model_DbTable_Usuario();
+			$query = $model->selecionar();
+			if(substr($query->DataNascimento,0,5) == date('d/m')){
+				echo 'Feliz Aniversário, ';
+			}
+			else{ 
+				echo 'Olá, ';
+			}
+		
+		echo $this->data->Nome . '!';*/?>
+		<img src="/files/>" width="60" height="90"></img>
 		<h2>Administrator</h2>
-		<h3><a href="#">John Smith</a></h3>
+		<h3><a href="#"></a></h3>
 		<ul>
 			<li><a href="#">settings</a><span class="divider">|</span></li>
 			<li><a href="login_slide.php" class="dialog_button" data-dialog="dialog_logout">Logout</a></li>
@@ -15,7 +27,7 @@
 
 	<ul class="side_accordion" id="nav_side"> <!-- add class 'open_multiple' to change to from accordion to toggles -->
 		<li><a href="layout.php"><img src="images/icons/small/grey/laptop.png"/><span>Home</span></a></li>
-		<li><a href="layout.php"><img src="images/icons/small/grey/frames.png"/><span>Layout</span></a></li>
+		<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>"><img src="images/icons/small/grey/frames.png"/><span>Matrícula</span></a></li>
 		<li><a href="#"><img src="images/icons/small/grey/list.png"/><span>Base</span></a>
 			<ul class="drawer">
 				<li><a href="typography.php"><span>Typography</span></a></li>

@@ -39,6 +39,7 @@ class Application_Form_Matricula extends Zend_Form{
 
     	
 		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('class', 'btn btn-primary');
 		$submit->setLabel('Matricular')
 				->setDecorators(array(
 			 	'ViewHelper',
@@ -47,6 +48,7 @@ class Application_Form_Matricula extends Zend_Form{
 			 ));
 			 
 		$botao = new Zend_Form_Element_Submit('Voltar');
+		$botao->setAttrib('class', 'btn');
 		$botao->setDecorators(array(
 			 	'ViewHelper',
 			   	'Errors',

@@ -1,44 +1,58 @@
-<html>
 
-<head>
-	<title><?php $this->headTitle('Matrícula');?></title>
-</head>
+<div class="grid_16">
+  	<div class="page-header">
+	    <h1>Matricular Aluno
+		    <small>Gerenciamento de matrículas<small>
+	    </h1>
+  	</div>
+  	<p>Aqui é possível realizar matrícula dos alunos</p>	
 
-<body>
+	<?php echo $this->form;?>
 
-<h3>Matricular Usuario</h3>
-
-<?php echo $this->form;?>
-
-<h4>Alunos Matriculados</h4>
+  	<div class="page-header">
+	    <h1>Alunos Matriculados
+		    <small>Veja toda a lista de alunos Matriculados<small>
+	    </h1>
+  	</div>
+  	<table class="table table-striped data-table" style="margin-bottom:0;">
+	    <thead>
+	      <tr>
+	        <th>#</th>
+	        <th>Nome</th>
+	        <th>Turma</th>
+	        <th>Professor</th>
+	        <th>Ações</th>
+	      </tr>
+	    </thead>
+	    <tbody>
 <?php foreach ($this->rows as $lista){ ?>
-		
-	<p>
-		Nome: <?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome;?> /
-		Turma: <?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
+	<tr>
+		<td>#id</td>
+		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></td>
+		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
-							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?> /
-							
+							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?> </td>
+		<td>					
 		<?php foreach ($this->prof as $prof){?>
 				<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
 						 $lista->findParentRow('Application_Model_DbTable_Turma')->Usuario_idUsuario){?>
 						Professor(a): <?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
 										 
 				<?php }?> <!-- fim if -->
-				
-		<?php }?> <!-- fim foreach -->
 			
-			<a href="<?php echo $this->url(
+		<?php }?> <!-- fim foreach -->
+		</td>
+		<td>
+			<a class="icon icon-remove" href="<?php echo $this->url(
 				array(
 					'controller'			=>	'matricula',
 					'action'				=>	'delete',
 					'idUsuario_has_Turma'	=>	$lista->idUsuario_has_Turma
 				));
-			?>"><img src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img></a>
-	</p>
+			?>"></a>
+		</td>
+	</tr>
 	
 <?php }?> <!-- fim foreach -->
-
-
-</body>
-</html>
+</table>
+</div>
