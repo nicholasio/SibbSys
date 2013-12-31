@@ -2,11 +2,12 @@
 	<div id="pjax">
 		<div id="wrapper">
 			<div class="isolate">
-				<div class="center narrow" style="margin-top:100px;">
+				<div class="center narrow" >
+					<img class="center" style="width: 200px; " src="/images/logosibb2.gif" />
 					<div class="main_container full_size container_16 clearfix">
 						<div class="box">
 							<div class="block">
-
+							<?php echo $this->messages;  ?>
 							<form class="form-horizontal" style="margin: 0px 0 0; padding-top:20px;" action="" method="post">
 					        <fieldset>
 					          <div class="control-group">
@@ -32,10 +33,9 @@
 							</div>
 						</div>
 					</div>
-					<a href="index.php" id="login_logo"><span>Adminica</span></a>
 					<button data-dialog="dialog_register" class="btn btn-inverse dialog_button send_right" style="margin-top:10px;">
 						<img src="images/icons/small/white/user.png">
-						<span>Not Registered ?</span>
+						<span>Não registrado ?</span>
 					</button>
 				</div>
 			</div>

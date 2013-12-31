@@ -1,6 +1,6 @@
 <div id="topbar" class="clearfix">
 
-	<a href="dashboard_sorter.php" class="logo"><span>Adminica</span></a>
+	<img  style="width: 100px; " src="/images/logosibb2.gif" />
 
 	<div class="user_box dark_box clearfix">
 		<img src="images/interface/profile.jpg" width="55" alt="Profile Pic" />

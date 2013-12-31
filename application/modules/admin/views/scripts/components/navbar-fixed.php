@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="#" style="">Adminica Bootstrap</a>
+      <a class="brand" href="#" style="">Sistema Acadêmico - SibbSys</a>
       <ul class="nav pull-right">
         <li class="active dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Adminica <b class="caret"></b></a>
