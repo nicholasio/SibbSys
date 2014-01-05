@@ -7,19 +7,21 @@
 
 		<?php 
 			$auth = Zend_Auth::getInstance();
-	    	$data = $auth->getStorage()->read()
-			/*$model = new Application_Model_DbTable_Usuario();
-			$query = $model->selecionar();
-			if(substr($query->DataNascimento,0,5) == date('d/m')){
-				echo 'Feliz Aniversário, ';
-			}
-			else{ 
-				echo 'Olá, ';
-			}
-		
-		echo $this->data->Nome . '!';*/
+	    	$data = $auth->getStorage()->read();
 
 		?>
+		
+		
+		<?php /*if(substr($data->DataNascimento,0,5) == date('d/m')){
+				echo 'Feliz Aniversário, ';
+			} 
+			else{
+				echo 'Olá, ';
+			}
+			*/
+		?>
+		
+		
 		<img src="/files/<?php echo $data->Foto; ?>" width="60" height="90"></img>
 		<h2>
 			<?php switch($data->Tipo){
@@ -34,7 +36,7 @@
 					break;
 			} ?>
 		</h2>
-		<h3><a href="#"><?php echo $data->Nome; ?></a></h3>
+		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
 		<ul>
 			<li><a href="#">settings</a><span class="divider">|</span></li>
 			<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>" class="dialog_button" data-dialog="dialog_logout">Logout</a></li>

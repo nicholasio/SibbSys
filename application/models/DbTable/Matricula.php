@@ -39,6 +39,15 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	}
 	
 	
+	public function verificar($idUsuario, $idTurma){
+		
+		$sql = $this->select()->where('Usuario_idUsuario = ?', $idUsuario)
+							  ->where('Turma_idTurma = ?', $idTurma);
+		
+		return $this->fetchRow($sql);
+	}
+	
+	
 	public function deletar($id){
 		
 		$sql = $this->select()->where('idUsuario_has_Turma = ?', $id);

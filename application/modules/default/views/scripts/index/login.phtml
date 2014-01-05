@@ -1,24 +1,13 @@
-<html>
+<?php $this->headTitle('Tela de Login')?>
 
-<head>
-	<title><?php $this->headTitle('Tela de Login')?></title>
-</head>
-
-<body>
 
 <?php echo $this->form; ?>
+
 <h5><a href="<?php echo $this->url(
-	array(
-		'module'		=>	'default',
-		'controller'	=>	'index',
-		'action'		=>	'recupera-senha'
-	),null,1);?>">Esqueci minha senha</a></h5>
+		array(
+			'module'		=>	'default',
+			'controller'	=>	'index',
+			'action'		=>	'recupera-senha'
+		),null,1);?>">Esqueci minha senha</a></h5>
 	
 <?php echo $this->messages; ?>
-
-</body>
-</html>
-
-
-
-

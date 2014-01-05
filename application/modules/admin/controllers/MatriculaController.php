@@ -6,8 +6,8 @@ class Admin_MatriculaController extends Zend_Controller_Action{
     	
     	$form = new Application_Form_Matricula();
 		$model = new Application_Model_DbTable_Matricula();
-		
 		$turma = new Application_Model_DbTable_Turma();
+		
 		$this->view->prof = $turma->listar();
 		
 		$this->view->rows = $model->listar();
@@ -21,8 +21,26 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 			if($form->isValid($this->_request->getPost())){
 
 				$data = $form->getValues();
-				$model->insert($data);
-				$this->_redirect('/admin/matricula');
+				
+				$idTurma = $data['Turma_idTurma'];
+				$idUsuario = $data['Usuario_idUsuario'];
+				
+				$this->find = $model->verificar($idUsuario, $idTurma);
+				$this->user = $turma->find($idUsuario);
+				
+				if(is_null($this->find)){
+					if(is_null($this->user)){
+						$model->insert($data);
+						$this->_redirect('/admin/matricula');
+					}
+					else{
+						echo "O Usuário é o professor da Turma";
+					}
+				}
+				else{
+					echo "O Usuário já está matriculado na Turma";
+				}
+				
 			}
 		}
 		$this->view->form = $form;

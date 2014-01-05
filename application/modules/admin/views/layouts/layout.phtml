@@ -3,7 +3,8 @@
 		<div id="wrapper" data-adminica-nav-top="1" data-adminica-side-top="1" class="has_fixed_bar">
 			<?php echo $this->partial('components/topbar.php'); ?>
 			<?php echo $this->partial('components/sidebar.php'); ?>
-			<?php echo $this->partial('components/stackbar.php'); ?></div><!-- Closing Div for Stack Nav, you can boxes under the stack before this -->
+			<?php echo $this->partial('components/stackbar.php'); ?>
+		</div><!-- Closing Div for Stack Nav, you can boxes under the stack before this -->
 
 			<?php echo $this->partial('components/navbar-fixed.php'); ?>
 			<div id="main_container" class="main_container container_16 clearfix">
@@ -21,6 +22,7 @@
 			<?php echo $this->layout()->content; ?>
 
 			</div>
+	</div>
 		<?php echo $this->partial('dialogs/dialog_welcome.php'); ?>
 		<?php echo $this->partial('dialogs/dialog_logout.php'); ?>
 <?php echo $this->partial("_footer.phtml"); ?>
