@@ -26,7 +26,7 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 				$idUsuario = $data['Usuario_idUsuario'];
 				
 				$this->find = $model->verificar($idUsuario, $idTurma);
-				$this->user = $turma->find($idUsuario);
+				$this->user = $turma->_find($idUsuario);
 				
 				if(is_null($this->find)){
 					if(is_null($this->user)){

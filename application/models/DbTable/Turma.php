@@ -37,7 +37,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
     }
 	
     
-    public function find($idUsuario){
+    public function _find($idUsuario){
     	
     	$sql = $this->select()->where('Usuario_idUsuario = ?', $idUsuario);
     	
