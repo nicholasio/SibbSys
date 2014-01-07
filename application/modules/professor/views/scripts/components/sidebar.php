@@ -22,7 +22,7 @@
 		?>
 		
 		
-		<img src="/files/<?php echo $data->Foto; ?>" width="60" height="90"></img>
+		<img src="/files/<?php echo $data->Foto; ?>" width="75" height="90"></img>
 		<h3>
 			<?php switch($data->Tipo){
 				case 1:
@@ -46,7 +46,7 @@
 
 	<ul class="side_accordion" id="nav_side"> <!-- add class 'open_multiple' to change to from accordion to toggles -->
 		<li><a href="<?php echo $this->url(array('controller'=>'index'),null,1); ?>"><img src="images/icons/small/grey/laptop.png"/><span>Home</span></a></li>
-		<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>"><img src="images/icons/small/grey/frames.png"/><span>Matrícula</span></a></li>
+		<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'index'),null,1); ?>"><img src="images/icons/small/grey/frames.png"/><span>Minhas Turmas</span></a></li>
 		<li><a href="#"><img src="images/icons/small/grey/list.png"/><span>Base</span></a>
 			<ul class="drawer">
 				<li><a href="typography.php"><span>Typography</span></a></li>

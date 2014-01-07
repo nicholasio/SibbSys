@@ -71,7 +71,7 @@ class Application_Form_Usuario extends Zend_Form
        	$nasc = new Zend_Form_Element_Text('DataNascimento');
        	$nasc->setLabel('Data de Nacimento (dd/mm/aaaa):* ')
        		 ->setAttrib('size', 10)
-       		 ->addErrorMessage('Entre com o formato da data correto. Ex. 00/00/0000')
+       		 ->addErrorMessage('Insira o formato correto. Ex: DD/MM/AAAA')
        		 ->setRequired(true);
        	
        		 

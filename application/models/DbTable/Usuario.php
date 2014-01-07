@@ -5,9 +5,11 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	protected $_name = 'Usuario';
 	protected $_primary = 'idUsuario';
 	
-	protected $_dependentTables = array('Application_Model_DbTable_Matricula', 'Application_Model_DbTable_Turma');
+	protected $_dependentTables = array('Application_Model_DbTable_Matricula','Application_Model_DbTable_Turma', 
+										'Application_Model_DbTable_Usuario_has_Servicos','Application_Model_DbTable_Faturas');
 	
 	protected $_referenceMap = array(
+		
 		'Igreja' => array(
 			'columns'		=> array('Igreja_idIgreja'),
 			'refTableClass'	=> 'Application_Model_DbTable_Igreja',

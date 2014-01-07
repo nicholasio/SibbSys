@@ -1,10 +1,10 @@
 <?php $this->headTitle('Início'); ?>
 
-
-	<h3>
-		<img src="/../files/<?= $this->data->Foto; ?>" width="60" height="90"></img>
+<h3>
+	<img src="/../files/<?= $this->data->Foto; ?>" width="60" height="90"></img>
+</h3>
 			<?php
-				$model = new Application_Model_DbTable_Usuario();
+			/*	$model = new Application_Model_DbTable_Usuario();
 				$query = $model->selecionar();
 				if(substr($query->DataNascimento,0,5) == date('d/m')){
 					echo 'Feliz Aniversário, ';
@@ -13,8 +13,7 @@
 					echo 'Olá, ';
 				}
 				
-				echo $this->data->Nome . '!'; ?>
-	</h3>
+				echo $this->data->Nome . '!'; */?>
 		
 	<h4><a href="<?= $this->url(array('module'=>'professor','controller'=>'index','action'=>'turmas'),null,1); ?>">Turmas que Leciona</a></h4>
 	<h4><a href="<?= $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
