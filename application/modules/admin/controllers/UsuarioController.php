@@ -4,9 +4,9 @@ class Admin_UsuarioController extends Zend_Controller_Action{
 
     public function indexAction(){
 	
-    	$busca = new Application_Form_Pesquisar();
+    	//$busca = new Application_Form_Pesquisar();
     	$model = new Application_Model_DbTable_Usuario();
-    	$form = new Application_Form_Usuario();
+    	//$form = new Application_Form_Usuario();
     	
     	//Buscar
     	if($this->_request->isPost()){
@@ -16,7 +16,7 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     			$this->view->query = $model->buscar($keyword);
     		}
     	}
-    	$this->view->busca = $busca;
+    	//$this->view->busca = $busca;
     	
     	
     	//Cadastrar Usuario
@@ -27,7 +27,7 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     			$this->_redirect("/admin/usuario");
     		}
     	}
-    	$this->view->form = $form;
+    	//$this->view->form = $form;
     	
     	//Botão Voltar
     	if($this->getRequest()->getPost('Voltar')){
@@ -38,6 +38,10 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     	
     }
 
+    public function novoAction() {
+        $form = new Application_Form_Usuario();
+        $this->view->form = $form;
+    }
     public function editarAction(){
 
     	$model = new Application_Model_DbTable_Usuario();

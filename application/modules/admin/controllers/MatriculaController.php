@@ -16,8 +16,11 @@ class Admin_MatriculaController extends Zend_Controller_Action{
     	if($this->getRequest()->getPost('Voltar')){
     		$this->_redirect("/admin");
     	}
-		
-		if($this->_request->isPost()){
+				
+    }
+
+    public function novoAction() {
+    	if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 
 				$data = $form->getValues();
@@ -44,10 +47,8 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 			}
 		}
 		$this->view->form = $form;
-		
     }
 
-    
 	public function editarAction(){
 		
 		$id = $this->_getParam('idUsuario_has_Turma');

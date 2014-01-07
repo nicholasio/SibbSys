@@ -2,15 +2,6 @@
 
 <div class="grid_16">
   	<div class="page-header">
-	    <h1>Matricular Aluno
-		    <small>Gerenciamento de matrículas<small>
-	    </h1>
-  	</div>
-  	<p>Aqui é possível realizar matrícula dos alunos</p>	
-
-	<?php echo $this->form;?>
-
-  	<div class="page-header">
 	    <h1>Alunos Matriculados
 		    <small>Veja toda a lista de alunos Matriculados<small>
 	    </h1>
@@ -44,13 +35,13 @@
 		<?php }?> <!-- fim foreach -->
 		</td>
 		<td>
-			<a class="icon icon-remove" href="<?php echo $this->url(
+			<a class="btn btn-warning" href="<?php echo $this->url(
 				array(
 					'controller'			=>	'matricula',
 					'action'				=>	'delete',
 					'idUsuario_has_Turma'	=>	$lista->idUsuario_has_Turma
 				));
-			?>"></a>
+			?>">Excluir</a>
 		</td>
 	</tr>
 	
