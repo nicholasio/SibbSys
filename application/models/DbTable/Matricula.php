@@ -5,7 +5,7 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	protected $_name = 'Usuario_has_Turma';
 	protected $_primary = 'idUsuario_has_Turma';
 	
-	protected $_dependentTables = array('Application_Model_DbTable_Nota','Application_Model_DbTable_Presenca');
+	protected $_dependentTables = array('Application_Model_DbTable_Nota','Application_Model_DbTable_Presenca','Application_Model_DbTable_Debitos');
 	
 	protected $_referenceMap = array
 	(

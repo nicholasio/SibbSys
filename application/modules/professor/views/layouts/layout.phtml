@@ -1,18 +1,18 @@
-<?php echo $this->doctype(); ?>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-	<?php echo $this->headMeta(); ?>
-	<?php echo $this->headTitle(); ?>
-	<?php echo $this->headLink(); ?>
-</head>
-<body>
-		<div id="tudo">
-			<?php echo $this->partial("_header.phtml"); ?>
-			<?php echo $this->partial("_menu.phtml"); ?>
-					<div id="conteudo">
-						<?php echo $this->layout()->content; ?>
-					</div>
-			<?php echo $this->partial("_footer.phtml"); ?>
-		</div>
-	</body>
-</html>
+<?php echo $this->partial("_header.phtml", 'admin'); ?>
+	<div id="pjax">
+		<div id="wrapper" data-adminica-nav-top="1" data-adminica-side-top="1" class="has_fixed_bar">
+			<?php echo $this->partial('components/topbar.php'); ?>
+			<?php echo $this->partial('components/sidebar.php'); ?>
+			<?php echo $this->partial('components/stackbar.php'); ?>
+		</div>	
+			<?php echo $this->partial('components/navbar-fixed.php'); ?>
+		
+			<div id="main_container" class="main_container container_16 clearfix">
+			
+			<?php echo $this->layout()->content; ?>
+				
+			</div>
+	</div>
+	<?php echo $this->partial('dialogs/dialog_welcome.php', 'admin'); ?>
+	<?php echo $this->partial('dialogs/dialog_logout.php', 'admin'); ?>
+<?php echo $this->partial("_footer.phtml", 'admin'); ?>

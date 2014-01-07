@@ -1,4 +1,5 @@
 <?php
+
 class Application_Model_DbTable_Igreja extends Zend_Db_Table_Abstract{
 	
 	protected $_name = 'Igreja';
