@@ -20,7 +20,7 @@ class Application_Model_DbTable_Servicos extends Zend_Db_Table_Abstract{
 		$row = $this->fetchRow($sql);
 		
 		if(null !== $row)
-		return $row->toArray();
+			return $row->toArray();
 	}
 	
 	

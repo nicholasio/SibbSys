@@ -1,3 +1,30 @@
 <?php $this->headTitle('Pagamento'); ?>
 
 <?php echo $this->form; ?>
+
+
+<div>Valor</div><div>Data de Pagamento</div>
+
+<?php foreach ($this->rows as $lista){?>
+
+		<div><?php echo $lista->valorPagamento; ?></div>
+		<div><?php echo $lista->dataPagamento; ?></div>
+			<a href="<?php echo $this->url(
+				array(
+					'module'		=>	'admin',
+					'controller'	=>	'pagamento',
+					'action'		=>	'editar',
+					'idPagamento'	=>	$lista->idPagamento
+				),null,1); ?>">Editar
+			</a>
+			
+			<a href="<?php echo $this->url(
+				array(
+					'module'		=>	'admin',
+					'controller'	=>	'pagamento',
+					'action'		=>	'delete',
+					'idPagamento'	=>	$lista->idPagamento
+				),null,1); ?>">Deletar
+			</a>
+			
+<?php }?>

@@ -1,3 +1,31 @@
 <?php $this->headTitle('Fatura'); ?>
 
 <?php echo $this->form; ?>
+
+<div>Valor</div><div>Desconto</div><div>Mês</div><div>Ano</div>
+
+<?php 
+
+	foreach ($this->rows as $lista){?>
+		<div><?php echo $lista->valorFatura; ?></div>
+		<div><?php echo $lista->desconto; ?></div>
+		<div><?php echo $lista->mes; ?></div>
+		<div><?php echo $lista->ano; ?></div>
+			<a href="<?php echo $this->url(
+				array(
+					'module'	=>	'admin',
+					'controller'=>	'faturas',
+					'action'	=>	'editar',
+					'idFatura'	=>	$lista->idFatura
+				),null,1);?>">Editar
+			</a>
+			
+			<a href="<?php echo $this->url(
+				array(
+					'module'	=>	'admin',
+					'controller'=>	'faturas',
+					'action'	=>	'delete',
+					'idFatura'	=>	$lista->idFatura
+				),null,1);?>">Deletar
+			</a>
+<?php }?>
