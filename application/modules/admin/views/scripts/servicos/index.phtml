@@ -1,3 +1,31 @@
 <?php $this->headTitle('Cadastrar Serviços'); ?>
 
 <?php echo $this->form; ?>
+
+
+<div>Nome do Serviço</div><div>Descrição do Serviço</div><div>Valor do Serviço</div>
+
+<?php foreach ($this->rows as $lista){ ?>
+
+	<div><?php echo $lista->nome; ?></div>
+	<div><?php echo $lista->descricao; ?></div>
+	<div><?php echo $lista->valor; ?></div>
+		<a href="<?php echo $this->url(
+			array(
+				'module'	 => 'admin',
+				'controller' => 'servicos',
+				'action'	 => 'editar',
+				'idServicos' => $lista->idServicos
+			),null,1); ?>">Editar
+		</a>
+		
+		<a href="<?php echo $this->url(
+			array(
+				'module'	 => 'admin',
+				'controller' => 'servicos',
+				'action'	 => 'delete',
+				'idServicos' => $lista->idServicos
+			),null,1); ?>">Deletar
+		</a>
+	
+<?php }?>
