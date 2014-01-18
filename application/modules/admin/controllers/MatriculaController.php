@@ -4,7 +4,7 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 
     public function indexAction(){
     	
-    	$form = new Application_Form_Matricula();
+    	
 		$model = new Application_Model_DbTable_Matricula();
 		$turma = new Application_Model_DbTable_Turma();
 		
@@ -20,6 +20,10 @@ class Admin_MatriculaController extends Zend_Controller_Action{
     }
 
     public function novoAction() {
+    	$form = new Application_Form_Matricula();
+    	$model = new Application_Model_DbTable_Matricula();
+    	$turma = new Application_Model_DbTable_Turma();
+
     	if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 
@@ -46,6 +50,7 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 				
 			}
 		}
+		
 		$this->view->form = $form;
     }
 

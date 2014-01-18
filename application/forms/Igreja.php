@@ -43,8 +43,8 @@ class Application_Form_Igreja extends Zend_Form{
 			 
 		
 			 
-        $submit = new Zend_Form_Element_Submit('Cadastrar');
-        $botao = new Zend_Form_Element_Submit('Voltar');
+        $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
+        $botao = new Zend_Form_Element_Submit('Voltar', array('class' => 'btn'));
 
         
         $this->addElements(

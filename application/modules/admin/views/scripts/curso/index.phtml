@@ -1,12 +1,53 @@
-<?php $this->headTitle('Cadastro de Cursos'); ?>
+<?php $this->headTitle('Listagem de Cursos'); ?>
 
-<div id="form">
-
-<?php echo $this->form; ?>
-
+<div class="grid_16">
+  	<div class="page-header">
+	    <h1>Listagem de Cursos
+		    <small>Veja toda a lista de alunos Matriculados<small>
+	    </h1>
+  	</div>
+  	<table class="table table-striped data-table" style="margin-bottom:0;">
+	    <thead>
+	      <tr>
+	        <th>#</th>
+	        <th>Curso</th>
+	        <th>Duração</th>
+	        <th>Ações</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+<?php foreach ($this->rows as $lista) { ?>
+	<tr>
+		<td>#</td>
+		<td><?php echo $lista->Nome; ?></td>
+		<td><?php echo $lista->Duracao; ?></td>
+		<td id="action_res">
+			<a class="btn btn-primary" href="<?php echo $this->url(
+				array(
+					'controller'=>'curso',
+					'action'	=>'editar',
+					'idCurso'	=>$lista->idCurso
+				));?>">
+					Editar
+			</a>
+			
+			<a class="btn btn-warning" href="<?php echo $this->url(
+				array(
+					'controller'=>'curso',
+					'action'	=>'delete',
+					'idCurso'	=>$lista->idCurso
+				));?>">
+					Excluir
+			</a>		
+		</td>
+	</tr>
+	
+<?php }?> <!-- fim foreach -->
+</table>
 </div>
 
-<div id="grid">
+<!-- 
+	<div id="grid">
 	<br />
 		<?php echo $this->busca; ?>
 	<br />
@@ -69,3 +110,4 @@
 			<?php }
 		}?>
 </div>
+-->

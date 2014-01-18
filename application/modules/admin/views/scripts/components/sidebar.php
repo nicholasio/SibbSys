@@ -43,46 +43,46 @@
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Matrículas</span></a>
 			<ul class="drawer">
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>"><span>Matricular</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'novo'),null,1); ?>"><span>Matricular</span></a></li>
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>"><span>Listar Matrículas</span></a></li>
 
 			</ul>
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/list.png" /><span>Igreja</span></a>
 			<ul class="drawer">
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Cadastrar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Curso</span></a>
 			<ul class="drawer">
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Cadastrar</span></a></li>
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'curso','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'curso','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/list.png"/><span>Disciplina</span></a>
 			<ul class="drawer">
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Cadastrar</span></a></li>
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Turma</span></a>
 			<ul class="drawer">
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Cadastrar</span></a></li>
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'turma','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'turma','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
 	</ul>
 
-	<div id="search_side" class="dark_box"><form><input class="" type="text" placeholder="Search Adminica..."></form></div>
+	<!--<div id="search_side" class="dark_box"><form><input class="" type="text" placeholder="Search Adminica..."></form></div>
 
 	<ul id="side_links" class="side_links" style="margin-bottom:0;">
 		<li><a target="_blank" href="http://twitter.github.com/bootstrap/">Bootstrap</a>
 		<li><a target="_blank" href="https://github.com/twitter/bootstrap/">Source</a></li>
 		<li><a target="_blank" href="http://tricycle.ticksy.com/">Support</a></li>
-	</ul>
+	</ul>-->
 </div><!-- #sidebar -->

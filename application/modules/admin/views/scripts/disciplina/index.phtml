@@ -1,73 +1,47 @@
-<?php $this->headTitle('Cadastrar Disciplina'); ?>
+<?php $this->headTitle('Listagme de Disciplinas'); ?>
 
-<div id="form">
-	<?php echo $this->form; ?>
-</div>	
-	
-<div id="grid">
-
-	<br />
-	
-		<?php echo $this->busca; ?>
-		
-	<br />
-	
-		<div id="chamada">
-			<div id="curso">Disciplina</div><div id="duracao">Quantidade Crédito</div><div id="action">Ações</div>
-		</div>
-		
-		<?php foreach($this->rows as $lista){ ?>
-			<?php if($this->query != false){
-				foreach($this->query as $data){
-					if($data->idDisciplina == $lista->idDisciplina){
-						echo '<div id="curso_res">' . $lista->Disciplina . '</div>';
-						echo '<div id="duracao_res">' . $lista->QntdCred . '</div>';?>
-						<div id="action_res">
-							<a href="<?php echo $this->url(
-								array(
-									'controller'=>'disciplina',
-									'action'=>'editar',
-									'idDisciplina'=>$lista->idDisciplina
-								));?>">
-								<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-							</a>
+<div class="grid_16">
+  	<div class="page-header">
+	    <h1>Listagem de Disciplina
+		    <small>Veja toda a lista Disciplinas<small>
+	    </h1>
+  	</div>
+  	<table class="table table-striped data-table" style="margin-bottom:0;">
+	    <thead>
+	      <tr>
+	        <th>#</th>
+	        <th>Disciplina</th>
+	        <th>Qtd. Créditos</th>
+	        <th>Ações</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+<?php foreach ($this->rows as $lista) { ?>
+	<tr>
+		<td>#</td>
+		<td><?php echo $lista->Disciplina; ?></td>
+		<td><?php echo $lista->QntdCred; ?></td>
+		<td id="action_res">
+			<a class="btn btn-primary" href="<?php echo $this->url(
+				array(
+					'controller'=>'disciplina',
+					'action'	=>'editar',
+					'idDisciplina'	=>$lista->idDisciplina
+				));?>">
+					Editar
+			</a>
 			
-							<a href="<?php echo $this->url(
-								array(
-									'controller'=>'disciplina',
-									'action'=>'delete',
-									'idDisciplina'=>$lista->idDisciplina
-								));?>">
-								<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-							</a>
-						</div>
-				<?php }
-				}
-			}
-			else{
-				echo '<div id="curso_res">' . $lista->Disciplina . '</div>';
-				echo '<div id="duracao_res">' . $lista->QntdCred . '</div>'; ?>
-				<div id="action_res">
-					<a href="<?php echo $this->url(
-						array(
-							'controller'=>'disciplina',
-							'action'=>'editar',
-							'idDisciplina'=>$lista->idDisciplina
-						));?>">
-						<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-					</a>
-			
-					<a href="<?php echo $this->url(
-						array(
-							'controller'=>'disciplina',
-							'action'=>'delete',
-							'idDisciplina'=>$lista->idDisciplina
-						));?>">
-						<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-					</a>		
-				</div>
-	<?php }
-		}?>
-		
+			<a class="btn btn-warning" href="<?php echo $this->url(
+				array(
+					'controller'=>'disciplina',
+					'action'	=>'delete',
+					'idDisciplina'	=>$lista->idDisciplina
+				));?>">
+					Excluir
+			</a>		
+		</td>
+	</tr>
+	
+<?php }?> <!-- fim foreach -->
+</table>
 </div>
-	

@@ -4,7 +4,7 @@ class Application_Form_Turma extends Zend_Form
 {
 
     public function init(){
-        
+        $this->setMethod("post");
     	$nome = new Zend_Form_Element_Text('Nome');
     	$nome->setLabel('Nome da Turma:* ')
     		 ->addValidator('regex', false, array('/[a-z]/'))
@@ -59,12 +59,11 @@ class Application_Form_Turma extends Zend_Form
 		}
 		
 		
-		$submit = new Zend_Form_Element_Submit('Cadastrar');
-		$botao = new Zend_Form_Element_Submit('Voltar');
+		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
 
 		$this->addElements(
 			array(
-				$nome,$desc,$ano,$semestre,$disc,$prof,$submit,$botao
+				$nome,$desc,$ano,$semestre,$disc,$prof,$submit
 			)
 		);
 		

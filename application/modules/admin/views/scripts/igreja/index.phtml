@@ -1,41 +1,35 @@
-<?php $this->headTitle('Cadastrar Igrejas'); ?>
+<?php $this->headTitle('Listar Igrejas'); ?>
+<?php $this->headTitle('Matrícula'); ?>
 
-<div id="form">
-
-	<?php echo $this->form; ?>
-	
-</div>
-
-<div id="grid">
-	<br />
-		
-		<?php echo $this->busca; ?>
-		
-	<br />
-	
-	<div id="chamada">
-		<div id="igrej">Igreja</div><div id="tel">Telefone</div><div id="pastor">Pastor</div><div id="action">Ações</div>
-	</div>
-	
+<div class="grid_16">
+  	<div class="page-header">
+	    <h1>Alunos Matriculados
+		    <small>Veja toda a lista de alunos Matriculados<small>
+	    </h1>
+  	</div>
+  	<table class="table table-striped data-table" style="margin-bottom:0;">
+	    <thead>
+	      <tr>
+	        <th>#</th>
+	        <th>Igreja</th>
+	        <th>Pastor</th>
+	        <th>Telefone</th>
+	        <th>Ações</th>
+	      </tr>
+	    </thead>
+	    <tbody>
 	<?php foreach($this->rows as $lista){
+		echo '<tr>';
+		echo '<td>#</td>';
 		if($this->query != false){
 			foreach($this->query as $data){
 				if($data->idIgreja == $lista->idIgreja){?>
-					<div id="igrej_res"><?php echo $lista->Igreja; ?></div>
+
+					<td><?php echo $lista->Igreja; ?></td>
 					
-					<?php if($lista->Telefone == null){
-						
-						echo '<div id="tel_res">' . ' - ' . '</div>';
-						
-					} else{
-						
-						echo '<div id="tel_res">' . $lista->Telefone . '</div>';
-						
-					}?>
-					
-					<div id="tel_res"><?php echo $lista->Telefone; ?></div>
-					<div id="pastor_res"><?php echo $lista->Pastor; ?></div>
-					<div id="action_res">
+					<td><?php echo $lista->Telefone; ?></td>
+					<td><?php echo $lista->Pastor; ?></td>
+					<td>
 						<a href="<?php echo $this->url(
 							array(
 								'controller'	=>	'igreja',
@@ -53,42 +47,49 @@
 							));?>">
 							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
 						</a>
-					</div>
+					</td>
 		<?php 	}
 			}	
 		}
 		else{ ?>
-			<div id="igrej_res"><?php echo $lista->Igreja; ?></div>
-			<?php if($lista->Telefone == null){
-				echo '<div id="tel_res">' . ' - ' . '</div>';
-			} else{
-				echo '<div id="tel_res">' . $lista->Telefone . '</div>';
-			}
-			?>
-			<div id="pastor_res"><?php echo $lista->Pastor; ?></div>
-			<div id="action_res">
-				<a href="<?php echo $this->url(
+			<td><?php echo $lista->Igreja; ?></td>
+			<td>
+				<?php if($lista->Telefone == null){
+					echo ' - ';
+				} else{
+					echo $lista->Telefone;
+				}
+				?>
+			</td>
+			<td><?php echo $lista->Pastor; ?></td>
+			<td>
+				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'editar',
 						'idIgreja'		=>	$lista->idIgreja
-					));?>">
-					<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+					));?>">Editar
 				</a>
 						
-				<a href="<?php echo $this->url(
+				<a class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'delete',
 						'idIgreja'		=>	$lista->idIgreja
 					));?>">
-					<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+					Excluir
 				</a>
-			</div>
+			</td>
 <?php 	}
+		echo '</tr>';
 	}
 
 ?>
 
+</table>
 </div>
+
+
+
+	
 
