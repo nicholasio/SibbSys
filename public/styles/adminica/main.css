@@ -1249,3 +1249,9 @@ body .dropdown-menu .active > a,
 body .dropdown-menu .active > a:hover {
   background: #313841;
 }
+
+body .dataTables_length { float:right; }
+body .dataTables_filter { float:left; }
+body .dataTable { float:left; clear: left; } 
+body .dataTables_info, body .dataTables_paginate { float:left;}
+body .dataTables_paginate { clear:left;}

@@ -148,15 +148,15 @@ class Application_Form_Usuario extends Zend_Form
     	}
 		
     	
-        $submit = new Zend_Form_Element_Submit('Cadastrar');
-        $botao = new Zend_Form_Element_Submit('Voltar');
+        $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
+        //$botao = new Zend_Form_Element_Submit('Voltar', array('class' => 'btn') );
         
         
         $this->addElements(array
         (
         	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,
         	$mae,$pai,$cpf,$rg,$igreja,$tipo,$curso,
-        	$email,$senha,$confsenha,$foto,$submit,$botao
+        	$email,$senha,$confsenha,$foto,$submit
         ));
 
         

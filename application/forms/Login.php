@@ -16,7 +16,7 @@ class Application_Form_Login extends Zend_Form{
     		'filters'	=>	array('StringTrim'),
     	));
     	
-    	$this->addElement('submit', 'Entrar');
+    	$this->addElement('submit', 'entrar', array('label' => 'Entrar','class' => "btn btn-primary"));
     	
     	
     	$this->setMethod('post');

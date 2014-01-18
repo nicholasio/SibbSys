@@ -6,20 +6,8 @@ class Admin_TurmaController extends Zend_Controller_Action
     public function indexAction(){
     
     	$model = new Application_Model_DbTable_Turma();
-    	$form = new Application_Form_Turma();
-    	$busca = new Application_Form_Pesquisar();
     	
-    	
-    	if($this->_request->isPost()){
-    		if($busca->isValid($this->_request->getPost())){
-    			$data = $busca->getValues();
-    			$keyword = $data['Usuario'];
-    			$this->view->query = $model->buscar($keyword);
-    		}
-    	}
-    	$this->view->busca = $busca;
-    	
-    	
+	
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
@@ -27,16 +15,25 @@ class Admin_TurmaController extends Zend_Controller_Action
     			$this->_redirect('/admin/turma');
     		}
     	}
-    	$this->view->form = $form;
-    	
-
-    	if($this->getRequest()->getPost('Voltar')){
-    		$this->_redirect("/admin");
-    	}
     	
     	$this->view->rows = $model->listar();	
     }
 
+    public function novoAction() {
+        $model = new Application_Model_DbTable_Turma();
+        $form = new Application_Form_Turma();
+        
+    
+        if($this->_request->isPost()){
+            if($form->isValid($this->_request->getPost())){
+                $data = $form->getValues();
+                $model->insert($data);
+                $this->_redirect('/admin/turma');
+            }
+        }
+        $this->view->form = $form;
+        
+    }
     public function editarAction(){
 
     	$model = new Application_Model_DbTable_Turma();

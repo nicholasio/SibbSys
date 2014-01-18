@@ -42,24 +42,24 @@ class Application_Form_Disciplina extends Zend_Form{
 			 ));
        	
        	      
-        $submit = new Zend_Form_Element_Submit('Cadastrar');
+        $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
         $submit->setDecorators(array(
 			 	'ViewHelper',
 			   	'Errors',
 			 	array('HtmlTag', array('tag'=>'span')),
 			 ));
         
-        $botao = new Zend_Form_Element_Submit('Voltar');
+        /*$botao = new Zend_Form_Element_Submit('Voltar');
         $botao->setDecorators(array(
 			 	'ViewHelper',
 			   	'Errors',
 			 	array('HtmlTag', array('tag'=>'span')),
-			 ));
+			 ));*/
         
         
         $this->addElements(array
         	(
-        		$nome,$qtd,$valor,$submit,$botao
+        		$nome,$qtd,$valor,$submit
         	)
         );
         

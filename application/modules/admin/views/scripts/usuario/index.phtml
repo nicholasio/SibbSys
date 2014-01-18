@@ -10,8 +10,8 @@
 			<tr>
 				<th>Nome</th>
 				<th>Tipo</th>
-				<th>Telefone</th>
 				<th>E-mail</th>
+				<th>Telefone</th>
 				<th>Igreja</th>
 				<th>Ações</th>
 			</tr>
@@ -42,7 +42,7 @@
 						'action'		=>	'editar',
 						'idUsuario'		=>	$lista->idUsuario
 					));?>">
-						<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
+					Editar
 				</a>
 			
 				<a class="btn"href="<?php echo $this->url(
@@ -51,7 +51,7 @@
 						'action'		=>	'usuario',
 						'idUsuario'		=>	$lista->idUsuario
 					));?>">
-						<img title="Historico" src="/../images/historico.png" alt="Historico" width="20" height="20"></img>
+					Histórico
 				</a>
 	
 				<a class="btn btn-warning" href="<?php echo $this->url(
@@ -60,7 +60,7 @@
 						'action'		=>	'delete',
 						'idUsuario'		=>	$lista->idUsuario
 					));?>">
-						<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
+					Excluir
 				</a></td>
 		</tr>
 	

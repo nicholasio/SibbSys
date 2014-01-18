@@ -1,81 +1,52 @@
-<?php $this->headTitle('Cadastrar Turmas'); ?>
+<?php $this->headTitle('Listagme de Turmas'); ?>
 
-
-<div id="form">
-
-	<?php echo $this->form; ?>
+<div class="grid_16">
+  	<div class="page-header">
+	    <h1>Listagem de turmas
+		    <small>Veja toda a lista de turmas<small>
+	    </h1>
+  	</div>
+  	<table class="table table-striped data-table" style="margin-bottom:0;">
+	    <thead>
+	      <tr>
+	        <th>#</th>
+	        <th>Turma</th>
+	        <th>Ano/Semestre</th>
+	        <th>Professor</th>
+	        <th>Ações</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+<?php foreach ($this->rows as $lista) { ?>
+	<tr>
+		<td>#</td>
+		<td><?php echo $lista->Nome; ?></td>
+		<td><?php echo $lista->Ano . '.' . $lista->Semestre; ?></</td>
+		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></td>
+		<td>
+			<a class="btn btn-primary" href="<?php echo $this->url(
+				array(
+					'controller'	=>	'turma',
+					'action'		=>	'editar',
+					'idTurma'		=>	$lista->idTurma
+				));
+				?>">
+				Editar
+			</a>
 	
+			<a class="btn btn-warning" href="<?php echo $this->url(
+				array(
+					'controller'	=>	'turma',
+					'action'		=>	'delete',
+					'idTurma'		=>	$lista->idTurma
+				));
+				?>">
+				Excluir
+			</a>
+		</td>
+	</tr>
+	
+<?php }?> <!-- fim foreach -->
+</table>
 </div>
-
-<div id="grid">
-	<br />
 	
-		<?php echo $this->busca; ?>
-		
-	<br />
-	
-	<div id="chamada">
-		<div id="nome">Turma</div><div id="ano">Ano/Semestre</div><div id="prof">Professor</div><div id="action">Ações</div>
-	</div>
-	
-	<?php foreach($this->rows as $lista){
-		if($this->query != false){
-			foreach($this->query as $data){
-				if($data->idTurma == $lista->idTurma){?>
-					<div id="nome_res"><?php echo $lista->Nome; ?></div>
-					<div id="ano_res"><?php echo $lista->Ano . '.' . $lista->Semestre; ?></div>
-					<div id="prof_res"><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></div>
-					<div id="action_res">
-						<a href="<?php echo $this->url(
-							array(
-								'controller'	=>	'turma',
-								'action'		=>	'editar',
-								'idTurma'		=>	$lista->idTurma
-							));
-							?>">
-							<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-						</a>
-				
-						<a href="<?php echo $this->url(
-							array(
-								'controller'	=>	'turma',
-								'action'		=>	'delete',
-								'idTurma'		=>	$lista->idTurma
-							));
-							?>">
-							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-						</a>
-					</div>
-		<?php	}
-			}
-		}
-		
-		else{?>
-			<div id="nome_res"><?php echo $lista->Nome; ?></div>
-			<div id="ano_res"><?php echo $lista->Ano . '.' . $lista->Semestre; ?></div>
-			<div id="prof_res"><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></div>
-			<div id="action_res">
-				<a href="<?php echo $this->url(
-					array(
-						'controller'	=>	'turma',
-						'action'		=>	'editar',
-						'idTurma'		=>	$lista->idTurma
-					));
-					?>">
-					<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-				</a>
-				
-				<a href="<?php echo $this->url(
-					array(
-						'coontroller'	=>	'turma',
-						'action'		=>	'delete',
-						'idTurma'		=>	$lista->idTurma
-					));
-					?>">
-					<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-				</a>
-			</div>
-<?php 	}
-	}
-	?>
-</div>
