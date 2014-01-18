@@ -1,6 +1,6 @@
 <?php 
 
-class Application_Model_DbTable_Usuario_has_Servicos extends Zend_Db_Table_Abstract{
+class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 	
 	protected $_name = 'Usuario_has_Servicos';
 	protected $_primary = 'idUsuario_has_Servicos';
@@ -25,8 +25,23 @@ class Application_Model_DbTable_Usuario_has_Servicos extends Zend_Db_Table_Abstr
 	);
 	
 	
-	public function insert( array $data){
+	public function insert( Array $data){
 		
 		parent::insert($data);
+	}
+	
+	
+	public function listar($id){
+		
+		$sql = $this->select()->where('Usuario_idUsuario = ?', $id);
+		
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+	}
+	
+	public function deletar($id){
+		
+		
 	}
 }

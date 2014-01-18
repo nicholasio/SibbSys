@@ -21,7 +21,7 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     	
     	//Cadastrar Usuario
     	if($this->_request->isPost()){
-    		if($form->isValid($this->_request->getPost())){
+    		if($form_isValid($this->_request->getPost())){
     			$data = $form->getValues();
     			$model->insert($data);
     			$this->_redirect("/admin/usuario");
@@ -39,9 +39,12 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     }
 
     public function novoAction() {
-        $form = new Application_Form_Usuario();
+        
+    	$form = new Application_Form_Usuario();
+        
         $this->view->form = $form;
     }
+    
     public function editarAction(){
 
     	$model = new Application_Model_DbTable_Usuario();
@@ -57,8 +60,8 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
-    			$data['Senha'] = sha1($data['Senha']);
-				$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
+    			//$data['Senha'] = sha1($data['Senha']);
+				//$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
     				$model->update($data, $where);

@@ -51,7 +51,16 @@
 						'action'		=>	'usuario',
 						'idUsuario'		=>	$lista->idUsuario
 					));?>">
-						<img title="Historico" src="/../images/historico.png" alt="Historico" width="20" height="20"></img>
+						<img title="Histórico" src="/../images/historico.png" alt="Historico" width="20" height="20"></img>
+				</a>
+				
+				<a class="btn" href="<?php echo $this->url(
+					array(
+						'controller'	=>	'usuarioservicos',
+						'action'		=>	'index',
+						'idUsuario'		=>	$lista->idUsuario
+					));?>">
+						<img title="Serviços" src="" alt=""></img>
 				</a>
 	
 				<a class="btn btn-warning" href="<?php echo $this->url(

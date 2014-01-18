@@ -1,15 +1,6 @@
-<html>
+<?php $this->headTitle('Minhas Turmas'); ?>
 
-<head>
-	<title><?php $this->headTitle('Minhas Turmas'); ?></title>
-</head>
-
-<body>
 
 <h4><a href="<?= $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'historico'),null,1); ?>">Histórico</a></h4>
 <h4><a href="<?= $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'turma'),null,1); ?>">Material</a></h4>
 <h4><a href="<?= $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'boletim'),null,1); ?>">Boletim</a></h4>
-
-
-</body>
-</html>

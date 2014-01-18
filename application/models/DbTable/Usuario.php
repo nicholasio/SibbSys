@@ -6,7 +6,7 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	protected $_primary = 'idUsuario';
 	
 	protected $_dependentTables = array('Application_Model_DbTable_Matricula','Application_Model_DbTable_Turma', 
-										'Application_Model_DbTable_Usuario_has_Servicos','Application_Model_DbTable_Faturas');
+										'Application_Model_DbTable_Usuarioservicos','Application_Model_DbTable_Faturas');
 	
 	protected $_referenceMap = array(
 		
@@ -24,6 +24,7 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	);
 	
 	public function insert(Array $data){
+		
 		$data['Senha'] = sha1($data['Senha']);
 		$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
 	
