@@ -108,7 +108,7 @@ class Application_Form_UsuarioEdit extends Zend_Form
     	foreach($model->fetchAll() as $c){
     		$curso->addMultiOption($c->idCurso, $c->Nome);
     	}
-		
+    	
     	
         $submit = new Zend_Form_Element_Submit('Cadastrar');
         $botao = new Zend_Form_Element_Submit('Voltar');
@@ -116,8 +116,8 @@ class Application_Form_UsuarioEdit extends Zend_Form
         
         $this->addElements(array
         (
-        	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,
-        	$mae,$pai,$cpf,$rg,$igreja,$tipo,$curso,
+        	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,$mae,
+        	$pai,$cpf,$rg,$igreja,$tipo,$curso,
         	$submit,$botao
         ));
 

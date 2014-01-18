@@ -1,0 +1,22 @@
+<div class="page-header">
+	<h4>Adicione serviços ao usuário <?php echo $this->row['Nome'];?></h4>
+	
+	<?php echo $this->form; ?>
+	
+	<h4>Lista de todos os serviços utilizados pelo usuário</h4>
+	
+	<?php foreach ($this->rows as $lista){?>
+	<tr>	
+		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></td> 
+		<td><?php echo ' R$ ' . ' ' . $lista->findParentRow('Application_Model_DbTable_Servicos')->valor; ?></td>
+		<td><a class="btn btn-warning" href="<?php echo $this->url(
+				array(
+					'controller'	=>	'usuarioservicos',
+					'action'		=>	'delete',
+					'idServico'		=>	$lista->Servicos_idServicos
+			));?>"></a>
+	</tr>
+
+	<?php }?>
+	
+</div>

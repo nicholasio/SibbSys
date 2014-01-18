@@ -21,4 +21,15 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 		parent::insert($data);
 	}
 	
+	
+	
+	public function listar(){
+		
+		$sql = $this->select()->order('idDebitos ASC');
+
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+	}
+	
 }

@@ -148,8 +148,18 @@ class Application_Form_Usuario extends Zend_Form
     	}
 		
     	
+
+    	$serv = new Zend_Form_Element_Select('Servicos_idServicos');
+    	$serv->setLabel('Serviços: ')->addMultiOption('','');
+    	
+    	$servTable = new Application_Model_DbTable_Servicos;
+    		foreach($servTable->fetchAll() as $s){
+    			$serv->addMultiOption($s->idServicos, $s->nome);
+    		}
+    	
+    		
+
         $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
-        //$botao = new Zend_Form_Element_Submit('Voltar', array('class' => 'btn') );
         
         
         $this->addElements(array
