@@ -1,34 +1,29 @@
 <?php
 
-class Admin_CursoController extends Zend_Controller_Action
-{
+class Admin_CursoController extends Zend_Controller_Action{
 
-    public function indexAction()
-    {
+	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
+    public function indexAction(){
         
     	$model = new Application_Model_DbTable_Curso();
-    	$form = new Application_Form_Curso();
-    	//$busca = new Application_Form_Pesquisar();
-    	
-    	
-    	/*if($this->_request->isPost()){
-    		if($busca->isValid($this->_request->getPost())){
-    			$data = $busca->getValues();
-    			$keyword = $data['Usuario'];
-    			$this->view->query = $model->buscar($keyword);
-    		}
-    	}
-    	$this->view->busca = $busca;*/
-    	
-    	/*if($this->getRequest()->getPost('Voltar')){
-    		$this->_redirect("/admin");
-    	}*/
     	
     	$this->view->rows = $model->listar();
     }
 
+    
     public function novoAction() {
-        $model = new Application_Model_DbTable_Curso();
+
+    	$model = new Application_Model_DbTable_Curso();
         $form  = new Application_Form_Curso();
 
         if($this->_request->isPost()){
@@ -42,8 +37,7 @@ class Admin_CursoController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
-    public function editarAction()
-    {
+    public function editarAction(){
         
     	$model = new Application_Model_DbTable_Curso();
     	$form = new Application_Form_Curso();
@@ -78,10 +72,4 @@ class Admin_CursoController extends Zend_Controller_Action
     	
     	$this->_redirect("/admin/curso");
     }
-
 }
-
-
-
-
-

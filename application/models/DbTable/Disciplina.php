@@ -52,13 +52,4 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 		return $rows;
 	}
 	
-	public function buscar($keyword){
-	
-		$sql = $this->select()->where('Disciplina LIKE ?', "%$keyword%");
-		
-		$query = $this->fetchAll($sql);
-		
-		return $query;
-	}
-	
 }

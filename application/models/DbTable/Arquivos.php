@@ -38,20 +38,13 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 	public function listar($idDisc){
 	
-		$select = $this->select()->where('Disciplina_idDisciplina = ?', $idDisc);
+		$sql = $this->select()->where('Disciplina_idDisciplina = ?', $idDisc);
 		
-		return $this->fetchAll($select);
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
 	}
 	
-	
-	public function buscar($keyword){
-	
-		$select = $this->select()->where('Nome LIKE ?', "%$keyword%");
-		
-		$query = $this->fetchAll($select);
-		
-		return $query;
-	}
 	
 	public function download($id){
 		

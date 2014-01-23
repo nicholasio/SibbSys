@@ -95,16 +95,4 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 			return $row->toArray();
 	}
 	
-	
-	public function buscar($keyword){
-	
-		$sql = $this->select()->where('Nome LIKE ?', "%$keyword%");
-		
-		$query = $this->fetchAll($sql);
-		
-		return $query;
-		
-	}
-	
-	
 }

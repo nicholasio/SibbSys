@@ -2,8 +2,8 @@
 
 <div class="grid_16">
   	<div class="page-header">
-	    <h1>Listagem de turmas
-		    <small>Veja toda a lista de turmas<small>
+	    <h1>Turmas Cadastradas
+		    <small>Veja toda a lista das turmas cadastradas<small>
 	    </h1>
   	</div>
   	<table class="table table-striped data-table" style="margin-bottom:0;">
@@ -19,7 +19,7 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td>#</td>
+		<td><?php echo $lista->idTurma?></td>
 		<td><?php echo $lista->Nome; ?></td>
 		<td><?php echo $lista->Ano . '.' . $lista->Semestre; ?></</td>
 		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></td>

@@ -9,6 +9,8 @@ class SIBB_Plugins_Acl extends Zend_Controller_Plugin_Abstract {
         
         $auth = Zend_Auth::getInstance();
         
+        
+        
         if($auth->hasIdentity()){
         	$user = $auth->getIdentity();
         		if(is_object($user)){
@@ -23,6 +25,7 @@ class SIBB_Plugins_Acl extends Zend_Controller_Plugin_Abstract {
         			}
         		}
         }
+        
     }
 }
         

@@ -2,6 +2,7 @@
 
 class Aluno_IndexController extends Zend_Controller_Action{
 
+	
     public function preDispatch(){
 	
     	parent::preDispatch();
@@ -15,9 +16,6 @@ class Aluno_IndexController extends Zend_Controller_Action{
 
     public function indexAction(){
     	
-        $auth = Zend_Auth::getInstance();
-    	$data = $auth->getStorage()->read();
-    	$this->view->data = $data;
     }
 
     public function boletimAction(){
@@ -56,10 +54,6 @@ class Aluno_IndexController extends Zend_Controller_Action{
     	}
     	
     	$this->view->form = $form;
-    	
-    	if($this->getRequest()->getPost('Voltar')){
-    		$this->_redirect("/aluno");
-    	}
     	
     }
 

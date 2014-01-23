@@ -1,31 +1,49 @@
-<?php $this->headTitle('Cadastrar Serviços'); ?>
+<?php $this->headTitle('Listagem de Serviços'); ?>
 
-<?php echo $this->form; ?>
-
-
-<div>Nome do Serviço</div><div>Descrição do Serviço</div><div>Valor do Serviço</div>
-
-<?php foreach ($this->rows as $lista){ ?>
-
-	<div><?php echo $lista->nome; ?></div>
-	<div><?php echo $lista->descricao; ?></div>
-	<div><?php echo $lista->valor; ?></div>
-		<a href="<?php echo $this->url(
-			array(
-				'module'	 => 'admin',
-				'controller' => 'servicos',
-				'action'	 => 'editar',
-				'idServicos' => $lista->idServicos
-			),null,1); ?>">Editar
-		</a>
-		
-		<a href="<?php echo $this->url(
-			array(
-				'module'	 => 'admin',
-				'controller' => 'servicos',
-				'action'	 => 'delete',
-				'idServicos' => $lista->idServicos
-			),null,1); ?>">Deletar
-		</a>
-	
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Serviços Cadastrados
+			<small>Veja toda a lista dos serviços cadastrados</small>
+		</h1>
+	</div>
+	<table class="table table-striped data-table" style="margin-bottom:0;">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nome</th>
+				<th>Descrição</th>
+				<th>Valor</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+	<?php foreach ($this->rows as $lista){ ?>
+		<tr>
+			<td><?php echo $lista->idServicos; ?></td>
+			<td><?php echo $lista->nome; ?></td>
+			<td><?php echo $lista->descricao; ?></td>
+			<td><?php echo $lista->valor; ?></td>
+			<td>
+				<a class="btn btn-primary" href="<?php echo $this->url(
+					array(
+						'controller' => 'servicos',
+						'action'	 => 'editar',
+						'idServicos' => $lista->idServicos
+					));?>">
+						Editar
+				</a>
+				
+				<a class="btn btn-warning" href="<?php echo $this->url(
+					array(
+						'controller' => 'servicos',
+						'action'	 => 'delete',
+						'idServicos' => $lista->idServicos
+					));?>">
+						Excluir
+				</a>
+			</td>
+		</tr>
 <?php }?>
+	</tbody>
+	</table>
+</div>

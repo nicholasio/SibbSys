@@ -2,9 +2,9 @@
 
 class Application_Form_Arquivo extends Zend_Form{
 
+	
 	public function init(){
 	
-		
 		$nome = new Zend_Form_Element_Text('Nome');
 		$nome->setLabel('Nome: ')
 			 ->addValidator('regex', false, array('/[a-z]/'))
@@ -40,7 +40,7 @@ class Application_Form_Arquivo extends Zend_Form{
 		$file->setLabel('Insira um Arquivo: ')
 			 ->setDestination(APPLICATION_PATH . '/../public/arquivos/')
 			 ->addValidator('Count', false, 1)
-			 ->addValidator('Size', false, '50MB')
+			 ->addValidator('Size', false, '100MB')
 			 ->addValidator('Extension', false, 'jpg,png,docx,doc,pdf,odt,ods,ppt,pptx');
 			 
 			 
@@ -56,12 +56,18 @@ class Application_Form_Arquivo extends Zend_Form{
 			   ->addValidator('NotEmpty', true);
 			   
 			   
-		$submit = new Zend_Form_Element_Submit('Enviar');
-		$botao = new Zend_Form_Element_Submit('Voltar');
+		$submit = new Zend_Form_Element_Submit('Inserir', array('class'=>'btn btn-success'));
 			 
-		$this->addElements(array
-		(
-			$file, $nome, $ano, $semestre, $data, $status, $submit, $botao
+		$this->addElements(array(
+			$nome, $ano, $semestre, $data, $status
 		));
+		
+		$this->setElementDecorators(array(
+			'Errors',
+			'ViewHelper',
+			'Label',
+		));
+		
+		$this->addElements(array($file, $submit));
 	}
 }

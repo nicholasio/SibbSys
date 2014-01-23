@@ -110,22 +110,25 @@ class Application_Form_UsuarioEdit extends Zend_Form
     	}
     	
     	
-        $submit = new Zend_Form_Element_Submit('Cadastrar');
-        $botao = new Zend_Form_Element_Submit('Voltar');
+        $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
         
         
-        $this->addElements(array
-        (
-        	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,$mae,
-        	$pai,$cpf,$rg,$igreja,$tipo,$curso,
-        	$submit,$botao
+        $this->addElements(array(
+        	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,
+        	$mae,$pai,$cpf,$rg,$igreja,$tipo,$curso,
         ));
 
+        $this->setElementDecorators(array(
+      	 	'Errors',
+         	'ViewHelper',
+        	'Label',
+        ));
         
+        $this->addElements(array($submit));
+               
         $this->addElement('hidden', 'Status', 
         	array(
         		'value' => 'ativo'
-        	)
-        );
+        	));
     }
 }

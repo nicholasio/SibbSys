@@ -9,18 +9,27 @@ class Application_Form_AlteraSenha extends Zend_Form{
 			  ->addValidator('StringLength', false, array('min' => 6))
 			  ->setRequired(true);
 			  
+		
 		$confsenha = new Zend_Form_Element_Password('ConfirmaSenha');
 		$confsenha->setLabel('Confirmar Senha: ')
 				  ->setRequired(true)
 				  ->addValidator('Identical', false, array('token' => 'Senha'))
 				  ->addErrorMessage('Senhas não combinam');
 
-		$submit = new Zend_Form_Element_Submit('Atualizar');
+		
+		$submit = new Zend_Form_Element_Submit('Atualizar', array('class' => 'btn btn-success'));
 	
 			  
 		$this->addElements(array(
-			$senha,$confsenha,$submit
+			$senha,$confsenha
 		));
 		
+		$this->setElementDecorators(array(
+			'Errors',
+			'ViewHelper',
+			'Label',
+		));
+		
+		$this->addElements(array($submit));
 	}
 }

@@ -3,23 +3,40 @@
 class Admin_DebitosController extends Zend_Controller_Action{
 	
 	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
 	public function indexAction(){
 
 		$model = new Application_Model_DbTable_Debitos();
+				
+		$this->view->rows = $model->listar();
+	}
+	
+	
+	public function novoAction(){
+		
+		$model = new Application_Model_DbTable_Debitos();
 		$form = new Application_Form_Debitos();
-
+		
 		if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 				$data = $form->getValues();
 				$model->insert($data);
-				$this->_redirect("/admin/faturas");
+				$this->_redirect("/admin/debitos");
 			}
 		}
 		
 		$this->view->form = $form;
-		
-		$this->view->rows = $model->listar();
 	}
+	
 	
 	public function editarAction(){
 		

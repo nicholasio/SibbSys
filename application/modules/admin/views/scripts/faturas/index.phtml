@@ -1,31 +1,59 @@
-<?php $this->headTitle('Fatura'); ?>
+<?php $this->headTitle('Faturas'); ?>
 
-<?php echo $this->form; ?>
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Cadastrar Faturar
+			<small>Preencha o formulário abaixo para cadastrar uma fatura</small>
+		</h1>
+	</div>
+	
+	<?php echo $this->form; ?>
 
-<div>Valor</div><div>Desconto</div><div>Mês</div><div>Ano</div>
-
-<?php 
-
-	foreach ($this->rows as $lista){?>
-		<div><?php echo $lista->valorFatura; ?></div>
-		<div><?php echo $lista->desconto; ?></div>
-		<div><?php echo $lista->mes; ?></div>
-		<div><?php echo $lista->ano; ?></div>
-			<a href="<?php echo $this->url(
-				array(
-					'module'	=>	'admin',
-					'controller'=>	'faturas',
-					'action'	=>	'editar',
-					'idFatura'	=>	$lista->idFatura
-				),null,1);?>">Editar
-			</a>
-			
-			<a href="<?php echo $this->url(
-				array(
-					'module'	=>	'admin',
-					'controller'=>	'faturas',
-					'action'	=>	'delete',
-					'idFatura'	=>	$lista->idFatura
-				),null,1);?>">Deletar
-			</a>
+	<br />
+	<div class=page-header></div>
+	<br /><br />
+		
+	<table class="table table-striped data-table" style="margin-bottom:0;">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Mês</th>
+				<th>Ano</th>
+				<th>Desconto</th>
+				<th>Valor</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+	<?php foreach ($this->rows as $lista){ ?>
+		<tr>
+			<td><?php echo $lista->idFatura; ?></td>
+			<td><?php echo $lista->mes; ?></td>
+			<td><?php echo $lista->ano; ?></td>
+			<td><?php echo $lista->desconto; ?></td>
+			<td><?php echo $lista->valorFatura; ?></td>
+			<td>
+				<a class="btn btn-primary" href="<?php echo $this->url(
+					array(
+						'controller'	=>	'faturas',
+						'action'		=>	'editar',
+						'idFaturas'		=>	$lista->idFatura
+					));?>">
+						Editar
+				</a>
+				
+				<a class="btn btn-warning" href="<?php echo $this->url(
+					array(
+						'controller'	=>	'faturas',
+						'action'		=>	'delete',
+						'idFaturas'		=>	$lista->idFatura
+					));?>">
+						Excluir
+				</a>
+			</td>
+		</tr>
 <?php }?>
+		</tbody>
+	</table>
+</div>

@@ -1,55 +1,69 @@
 <?php $this->headTitle('Turmas'); ?>
 
-
-<br />
-
-<?php if($this->row != null){
-	foreach($this->rows as $turma){ ?>
-		Turma: <?php echo $turma->Nome . '/' . $turma->Ano . '-' . $turma->Semestre;?>
-		&nbsp;
-			<a href="<?php echo $this->url(
-				array(
-					'controller'	=>	'index',
-					'action'		=>	'nota',
-					'idTurma'		=>	$turma->idTurma
-				));?>"><img title="Inserir Nota" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20">&nbsp;&nbsp;
-			</a>
-			
-			<a href="<?php echo $this->url(
-				array(
-					'controller'	=>	'index',
-					'action'		=>	'presenca',
-					'idTurma'		=>	$turma->idTurma
-				));?>"><img title="Chamada" src="/../images/presenca.gif" alt="Presenca" width="20" height="20">&nbsp;&nbsp;
-			</a>
-			
-			
-			<a href="<?php echo $this->url(
-				array(
-					'controller'	=>	'index',
-					'action'		=>	'upload',
-					'idTurma'		=>	$turma->idTurma
-				));?>"><img title="Inserir Arquivo" src="/../images/upload.jpg" alt="Ins. Arquivo" width="20" height="20">&nbsp;&nbsp;
-			</a>
-			
-			
-			<a href="<?php echo $this->url(
-				array(
-					'controller'	=>	'index',
-					'action'		=>	'encerrar-turma',
-					'idTurma'		=>	$turma->idTurma
-				))?>"><img title="Encerrar Turma" src="/../images/check.gif" alt="Encerrar Turma" width="20" height="20"></img>
-			</a>
-
-<?php } //fim foreach
-	} else{
-		echo 'Usuário não leciona nenhuma turma até o momento.';
-	}?>
-
-<br />
-<br />
-	<form action="/professor/index/nota" method="post">
-		<input type="submit" name="back" value="Voltar"></input>
-	</form>
-
-<br /><br />
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Lista de Turmas que Leciona
+			<small>Veja todas as Turmas que leciona no semestre corrente</small>
+		</h1>
+	</div>
+	<table class="table table-striped data-table" style="margin-bottom:0;">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Turmas</th>
+				<th>Ano/Semestre</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if($this->row != null){
+				foreach($this->rows as $lista){?>
+					<tr>
+						<td><?php echo $lista->idTurma;?></td>
+						<td><?php echo $lista->Nome; ?></td>
+						<td><?php echo $lista->Ano . '-' . $lista->Semestre; ?></td>
+						<td>
+							<a class="btn btn-primary" href="<?= $this->url(
+								array(
+									'controller'	=>	'Nota',
+									'action'		=>	'index',
+									'idTurma'		=>	$lista->idTurma	
+								));?>">
+									Inserir Nota
+							</a>
+							
+							<a class="btn btn-success" href="<?= $this->url(
+								array(
+									'controller'	=>	'presenca',
+									'action'		=>	'index',
+									'idTurma'		=>	$lista->idTurma
+								));?>">
+									Chamada
+							</a>
+							
+							<a class="btn" href="<?= $this->url(
+								array(
+									'controller'	=>	'arquivo',
+									'action'		=>	'index',
+									'idTurma'		=>	$lista->idTurma
+								));?>">
+									Ins. Arquivo
+							</a>
+							
+							<a class="btn btn-warning" href="<?= $this->url(
+								array(
+									'controller'	=>	'index',
+									'action'		=>	'encerrar-turma',
+									'idTurma'		=>	$lista->idTurma
+								));?>">
+									Encerrar Turma
+							</a>
+						</td>
+					</tr>		
+			<?php }
+			}else{
+				echo 'Usuário não leciona nenhuma turma até o momento.';		
+			}?>			
+		</tbody>
+	</table>
+</div>

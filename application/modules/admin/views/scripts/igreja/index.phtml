@@ -1,10 +1,9 @@
 <?php $this->headTitle('Listar Igrejas'); ?>
-<?php $this->headTitle('Matrícula'); ?>
 
 <div class="grid_16">
   	<div class="page-header">
-	    <h1>Alunos Matriculados
-		    <small>Veja toda a lista de alunos Matriculados<small>
+	    <h1>Igrejas Cadastradas
+	    	<small>Veja toda a lista das igrejas cadastradas</small>
 	    </h1>
   	</div>
   	<table class="table table-striped data-table" style="margin-bottom:0;">
@@ -18,41 +17,10 @@
 	      </tr>
 	    </thead>
 	    <tbody>
-	<?php foreach($this->rows as $lista){
-		echo '<tr>';
-		echo '<td>#</td>';
-		if($this->query != false){
-			foreach($this->query as $data){
-				if($data->idIgreja == $lista->idIgreja){?>
-
-					<td><?php echo $lista->Igreja; ?></td>
-					
-					<td><?php echo $lista->Telefone; ?></td>
-					<td><?php echo $lista->Pastor; ?></td>
-					<td>
-						<a href="<?php echo $this->url(
-							array(
-								'controller'	=>	'igreja',
-								'action'		=>	'editar',
-								'idIgreja'		=>	$lista->idIgreja
-							));?>">
-							<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-						</a>
-						
-						<a href="<?php echo $this->url(
-							array(
-								'controller'	=>	'igreja',
-								'action'		=>	'delete',
-								'idIgreja'		=>	$lista->idIgreja
-							));?>">
-							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-						</a>
-					</td>
-		<?php 	}
-			}	
-		}
-		else{ ?>
-			<td><?php echo $lista->Igreja; ?></td>
+	<?php foreach($this->rows as $lista){?>
+		<tr>
+			<td><?php echo $lista->idIgreja?></td>
+			<td><?php echo $lista->Igreja?></td>
 			<td>
 				<?php if($lista->Telefone == null){
 					echo ' - ';
@@ -61,35 +29,28 @@
 				}
 				?>
 			</td>
-			<td><?php echo $lista->Pastor; ?></td>
+			<td><?php echo $lista->Pastor?></td>
 			<td>
 				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'editar',
 						'idIgreja'		=>	$lista->idIgreja
-					));?>">Editar
+					))?>">
+						Editar
 				</a>
-						
+				
 				<a class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'delete',
 						'idIgreja'		=>	$lista->idIgreja
-					));?>">
-					Excluir
+					))?>">
+						Excluir	
 				</a>
 			</td>
-<?php 	}
-		echo '</tr>';
-	}
-
-?>
-
+		</tr>
+	<?php } ?>
+</tbody>
 </table>
 </div>
-
-
-
-	
-

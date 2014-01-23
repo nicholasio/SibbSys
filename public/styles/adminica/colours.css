@@ -126,3 +126,6 @@
   background-color: #e8ecee;
   background-image: linear-gradient(top, #e8ecee, #f4f7f9);
 }
+.errors{
+	color: red;
+}

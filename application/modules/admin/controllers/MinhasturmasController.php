@@ -1,15 +1,23 @@
 <?php
 
-class Admin_MinhasTurmasController extends Zend_Controller_Action
-{
+class Admin_MinhasTurmasController extends Zend_Controller_Action{
 
-    public function init()
-    {
+    
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
+	public function init(){
         /* Initialize action controller here */
     }
 
-    public function indexAction()
-    {
+    public function indexAction(){
         // action body
     }
     
@@ -125,5 +133,4 @@ class Admin_MinhasTurmasController extends Zend_Controller_Action
     	$this->view->row = $model->getTurma($id);
     	
     }
-    
 }

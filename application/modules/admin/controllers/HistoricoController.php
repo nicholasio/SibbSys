@@ -2,17 +2,20 @@
 
 class Admin_HistoricoController extends Zend_Controller_Action{
 
-    public function indexAction(){
-    	
-        
-    	//$id = $this->_getParam('idUsuario');
+	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+    
+	
+	public function indexAction(){
     	
     	$model = new Application_Model_DbTable_Matricula();
-    	
-    	
-    	//$result = $model->lista();
-    	
-    	//print_r($result); die;
     	
     	$this->view->rows = $model->lista();
     	
@@ -26,7 +29,5 @@ class Admin_HistoricoController extends Zend_Controller_Action{
     	$model = new Application_Model_DbTable_Matricula();
     	
     	$this->view->rows = $model->turmas($id);
-    	
-    	
     }
 }

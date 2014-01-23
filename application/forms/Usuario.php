@@ -8,26 +8,13 @@ class Application_Form_Usuario extends Zend_Form
         $nome = new Zend_Form_Element_Text('Nome');
         $nome->setLabel('Nome:* ')
         	 ->addValidator('regex', false, array('/[a-z]/'))
-        	 ->setRequired(true)
-        	 ->setAttrib('title', 'Informe o nome')
-        	 ->setDecorators(array(
-        	 	'ViewHelper',
-        	 	'Label',
-        	 	'Errors',
-        	 	array('HtmlTag', array('tag'=>'p')),
-        	 ));
+        	 ->setRequired(true);
         	 
 
        	$end = new Zend_Form_Element_Text('Endereco');
        	$end->setLabel('Endereço:* ')
        		->addValidator('regex', false, array('/[a-z]/'))
-       		->setRequired(true)
-       		->setDecorators(array(
-        	 	'ViewHelper',
-        	 	'Label',
-        	 	'Errors',
-        	 	array('HtmlTag', array('tag'=>'p')),
-        	 ));
+       		->setRequired(true);
        	
        		
        	$bairro = new Zend_Form_Element_Text('Bairro');
@@ -88,8 +75,7 @@ class Application_Form_Usuario extends Zend_Form
        		
         $igreja = new Zend_Form_Element_Select('Igreja_idIgreja');
         $igreja->setLabel('Igreja: ')
-        	   ->addMultiOption('','')
-        	   ->setRequired(true);
+        	   ->addMultiOption('','');
         
         $option = new Application_Model_DbTable_Igreja();
         foreach($option->fetchAll() as $i){
@@ -128,52 +114,48 @@ class Application_Form_Usuario extends Zend_Form
 		
 		$tipo->setLabel('Tipo: ')
 			 ->addMultiOptions($lista)
-			 ->setRequired(true)->addValidator('NotEmpty', true);
+			 ->setRequired(true)
+			 ->addValidator('NotEmpty', true);
 			 
 		
 		$foto = new Zend_Form_Element_File('Foto');
 		$foto->setLabel('Insira uma Foto: ')
 			 ->setDestination('files/')
 			 ->addValidator('Count', false, 1)
-			 ->addValidator('Size', false, '10MB')
+			 ->addValidator('Size', false, '15MB')
 			 ->addValidator('Extension', false, 'jpg,png,gif');
-			 
+		
 			 
     	$curso = new Zend_Form_Element_Select('Curso_idCurso');
-    	$curso->setLabel('Cursos: ')->addMultiOption('','')->setRequired(true);
+    	$curso->setLabel('Cursos: ')
+    		  ->addMultiOption('','');
     	
     	$model = new Application_Model_DbTable_Curso;
     	foreach($model->fetchAll() as $c){
     		$curso->addMultiOption($c->idCurso, $c->Nome);
     	}
-		
-    	
-
-    	$serv = new Zend_Form_Element_Select('Servicos_idServicos');
-    	$serv->setLabel('Serviços: ')->addMultiOption('','');
-    	
-    	$servTable = new Application_Model_DbTable_Servicos;
-    		foreach($servTable->fetchAll() as $s){
-    			$serv->addMultiOption($s->idServicos, $s->nome);
-    		}
-    	
     		
 
-        $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
+        $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
         
         
-        $this->addElements(array
-        (
+        $this->addElements(array(
         	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,
         	$mae,$pai,$cpf,$rg,$igreja,$tipo,$curso,
-        	$email,$senha,$confsenha,$foto,$submit
+        	$email,$senha,$confsenha
         ));
-
+        
+        $this->setElementDecorators(array(
+    		'Errors',
+       		'ViewHelper',
+       		'Label',
+       	));       
+		
+        $this->addElements(array($foto, $submit));
         
         $this->addElement('hidden', 'Status', 
         	array(
         		'value' => 'ativo'
-        	)
-        );
+        	));
     }
 }

@@ -51,7 +51,8 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		$sql = $this->select()->where('idTurma = ?', $id);
 		$row = $this->fetchRow($sql);
 		
-		return $row;
+		if(null !== $row)
+			return $row->toArray();
 		
 	}
 	
@@ -126,13 +127,4 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		$this->update($linha, $where);
 	}
 	
-	
-	public function buscar($keyword){
-	
-		$sql = $this->select()->where('Nome LIKE ?', "%$keyword%");
-		
-		$query = $this->fetchAll($sql);
-		
-		return $query;
-	}
 }

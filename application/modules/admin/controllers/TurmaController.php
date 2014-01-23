@@ -1,13 +1,22 @@
 <?php
 
-class Admin_TurmaController extends Zend_Controller_Action
-{
+class Admin_TurmaController extends Zend_Controller_Action{
 
+	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
     public function indexAction(){
     
     	$model = new Application_Model_DbTable_Turma();
     	
-	
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
@@ -20,6 +29,7 @@ class Admin_TurmaController extends Zend_Controller_Action
     }
 
     public function novoAction() {
+    	
         $model = new Application_Model_DbTable_Turma();
         $form = new Application_Form_Turma();
         
@@ -34,6 +44,8 @@ class Admin_TurmaController extends Zend_Controller_Action
         $this->view->form = $form;
         
     }
+    
+    
     public function editarAction(){
 
     	$model = new Application_Model_DbTable_Turma();
@@ -45,6 +57,7 @@ class Admin_TurmaController extends Zend_Controller_Action
     	if(is_array($data)){
     		$form->populate($data);
     	}
+    	
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();

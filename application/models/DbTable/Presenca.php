@@ -1,7 +1,6 @@
 <?php
 
-class Application_Model_DbTable_Presenca extends Zend_Db_Table_Abstract
-{
+class Application_Model_DbTable_Presenca extends Zend_Db_Table_Abstract{
 
 	protected $_name = 'Presenca';
 	protected $_primary = 'idPresenca';
@@ -41,7 +40,7 @@ class Application_Model_DbTable_Presenca extends Zend_Db_Table_Abstract
 	}
 	
 	
-	public function excluirPresenca($id){
+	public function deletar($id){
 	
 		$sql = $this->select()->where('idPresenca = ?', $id);
 		

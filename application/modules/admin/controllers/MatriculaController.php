@@ -2,7 +2,18 @@
 
 class Admin_MatriculaController extends Zend_Controller_Action{
 
-    public function indexAction(){
+    
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
+	public function indexAction(){
     	
     	
 		$model = new Application_Model_DbTable_Matricula();
@@ -11,18 +22,15 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 		$this->view->prof = $turma->listar();
 		
 		$this->view->rows = $model->listar();
-		
-		
-    	if($this->getRequest()->getPost('Voltar')){
-    		$this->_redirect("/admin");
-    	}
 				
     }
 
     public function novoAction() {
+    	
     	$form = new Application_Form_Matricula();
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
+ 
 
     	if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
@@ -41,11 +49,13 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 						$this->_redirect('/admin/matricula');
 					}
 					else{
-						echo "O Usuário é o professor da Turma";
+						$msg = "O Usuário é o professor da Turma";
+						$this->view->messages = $msg;
 					}
 				}
 				else{
-					echo "O Usuário já está matriculado na Turma";
+					$msg = "O Usuário já está matriculado na Turma";
+					$this->view->messages = $msg;
 				}
 				
 			}
@@ -91,5 +101,4 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 		
 		$this->_redirect("/admin/matricula");
 	}
-
 }

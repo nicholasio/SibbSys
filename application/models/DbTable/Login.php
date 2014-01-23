@@ -38,7 +38,9 @@ class Application_Model_DbTable_Login{
 
 	
 	public function getMessages(Zend_Auth_Result $result){
+		
 		$resultCode = $result->getCode();		
+		
 		switch($resultCode){
 			case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
 				$msg = 'Login não encontrado';
@@ -57,7 +59,6 @@ class Application_Model_DbTable_Login{
 				break;
 		}
 		return $msg;
-		
 		
 	}	
 }

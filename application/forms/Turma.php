@@ -1,7 +1,6 @@
 <?php
 
-class Application_Form_Turma extends Zend_Form
-{
+class Application_Form_Turma extends Zend_Form{
 
     public function init(){
         $this->setMethod("post");
@@ -59,19 +58,24 @@ class Application_Form_Turma extends Zend_Form
 		}
 		
 		
-		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-primary'));
+		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
 
 		$this->addElements(
 			array(
-				$nome,$desc,$ano,$semestre,$disc,$prof,$submit
-			)
-		);
+				$nome,$desc,$ano,$semestre,$disc,$prof
+		));
+		
+		$this->setElementDecorators(array(
+			'Errors',
+			'ViewHelper',
+			'Label',
+		));
+		
+		$this->addElements(array($submit));
 		
 		$this->addElement('hidden','Status',
-				array(
-					'value' => 'ativo'		
-				)
-		);
-		
+			array(
+				'value' => 'ativo'		
+		));		
     }
 }

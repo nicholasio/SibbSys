@@ -1,0 +1,43 @@
+<?php $this->headTitle('Inserir Notas'); ?>
+
+<div class="grid_16">
+	<div class="page-header">
+		<?php if($this->row != null){
+			foreach ($this->linha as $disc){?>
+				<h2>Alunos Matrículados na Turma de <?= $disc->Nome;?></h2>
+	</div>
+		<?php }?>
+ 
+<?php foreach($this->rows as $users){
+		if($users->Status != 'inativo'){?>
+	
+	<h5><?php echo $users->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></h5>
+	<br/>
+		<form action="/professor/nota/post-nota" method="post" id="form">
+			<fieldset>
+					Unidade 1 
+	           		<input type="text" class="input-small" name="unit1" value=""/>
+				
+	       			Unidade 2 
+	       			<input type="text" class="input-small" name="unit2" value=""/>
+						
+		   	    	Unidade 3 
+	           		<input type="text" class="input-small" name="unit3" value=""/>
+					          
+					<input type="hidden" name="idMatricula" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
+					<input type="hidden" name="idTurma" value="<?php echo $users->Turma_idTurma; ?>"/>
+					<input class="btn btn-primary" type="submit" name="submit" value="Inserir"/>
+						
+			</fieldset>
+		</form>
+			
+		<?php }?>	
+<?php }?>
+
+<?php } 
+	else{?>
+	
+	<strong><?= 'Ainda não há alunos matriculados nessa disciplina';?></strong>
+	
+	<?php }?>
+</div>

@@ -1,24 +1,45 @@
-<?php $this->headTitle('Matérial de Aulas'); ?>
+<?php $this->headTitle('Matérial de Aulas');?>
 
+<div class="grid_16">
+	<div class="page-header">
+		<h2>
+			Lista de Turmas em que há matérial de aulas disponíveis
+		</h2>
+	</div>
+	
+	<br />
+	
+	<table class="table table-striped data-table" style="margin-bottom:0;">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Turma</th>
+				<th>Ação</th>
+			</tr>
+		</thead>
+		<tbody>
+	<?php if(!empty($this->rows['Nome'])){
+		foreach($this->rows as $lista){?>
+			<tr>
+				<td><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></td>
+				<td><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></td>
+				<td>
+					<a class="btn btn-primary" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'index',
+							'action'		=>	'material',
+							'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+						));?>">
+							Exibir
+					</a>
+				</td>
+			</tr>
 
-<p>
-
-<?php 
-
-if(!empty($this->rows['Nome'])){
-	foreach($this->rows as $turma){?>
-		<a href="<?php echo $this->url(
-		array(
-			'controller'	=>	'index',
-			'action'		=>	'material',
-			'idDisciplina'		=>	$turma->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina	
-		))?>">
-		<strong> <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?> </strong> </a> </p>
 	<?php }
 	
-}
-else{
-	
-	echo 'Usuário matriculado em nenhuma turma até o momento.';
-}
-?>
+	}else{
+		echo 'Não há matérial disponível até o momento';	
+	}?>	
+		</tbody>
+	</table>
+</div>

@@ -3,6 +3,16 @@
 class Admin_FaturasController extends Zend_Controller_Action{
 	
 	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
 	public function indexAction(){
 		
 		$model = new Application_Model_DbTable_Faturas();

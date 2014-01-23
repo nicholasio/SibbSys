@@ -1,16 +1,28 @@
 <?php
 
-class Admin_DisciplinaController extends Zend_Controller_Action
-{
+class Admin_DisciplinaController extends Zend_Controller_Action{
 
-    public function indexAction()
-    {
+	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
+    public function indexAction(){
+    	
         $model = new Application_Model_DbTable_Disciplina();
 
     	$this->view->rows = $model->listar();
     }
 
-    public function novoAction() {
+    
+    public function novoAction(){
+    	
         $model = new Application_Model_DbTable_Disciplina();
         $form = new Application_Form_Disciplina();
 
@@ -61,6 +73,5 @@ class Admin_DisciplinaController extends Zend_Controller_Action
         $model->deletar($id);
         
         $this->_redirect("/admin/disciplina");
-    }
-    
+    }    
 }

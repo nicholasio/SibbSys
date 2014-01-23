@@ -49,14 +49,4 @@ class Application_Model_DbTable_Curso extends Zend_Db_Table_Abstract{
     	
     }
     
-	public function buscar($keyword){
-	
-		$sql = $this->select()->where('Nome LIKE ?', "%$keyword%");
-		
-		$query = $this->fetchAll($sql);
-		
-		return $query;
-	}
-    
 }
-

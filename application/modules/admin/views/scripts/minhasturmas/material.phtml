@@ -1,37 +1,46 @@
 <?php $this->headTitle('Matérial de Aulas'); ?>
 
-<h3>Matérial das Aulas de <?php echo $this->row->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?></h3>
+<div class="grid_16">
+	<div class="page-header">
+		<h2>
+			Matérial das Aulas de <?php echo $this->row->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?>
+		</h2>
+	</div>
 
 <br />
 
-<div id="material">
-<b><span>Data de Publi.</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Material</span></b>
-
-<p>
-
-<?php 
-
-	if(!empty($this->rows['Nome'])){
-	
-		foreach($this->rows as $file){
-	
-			echo $file->Data . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?> 
-			
-			<a href="<?php echo $this->url(
-				array(
-					'controller'=>	'minhasturmas',
-					'action'	=>	'download',
-					'idArquivo' =>	$file->idArquivos));?>"><?php echo $file->Nome; ?></a></p>
-<?php				
-		}
-	} 
-	
-	else{
- 		echo '<p>' . 'Nenhum matérial disponível no momento!' . '</p>';
+<table class="table table-striped data-table" style="margin-bottom:0;">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Data da Publicação</th>
+			<th>Matérial</th>
+			<th>Ação</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php if(!empty($this->rows['Nome'])){
+		foreach($this->rows as $lista){?>
+			<tr>
+				<td><?php echo $lista->idArquivos; ?></td>
+				<td><?php echo $lista->Data; ?></td>
+				<td><?php echo $lista->Nome; ?></td>
+				<td>
+					<a class="btn btn-success" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'minhasturmas',
+							'action'		=>	'download',
+							'idArquivo'		=>	$lista->idArquivos
+						));?>">
+							Download	
+					</a>
+				</td>
+			</tr>		
+	<?php }
+	}else{
+		echo 'Nenhum matérial disponível no momento!';
 	}
-
-?>
-
+	?>
+	</tbody>
+</table>	
 </div>
-
-<br />

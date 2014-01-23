@@ -2,6 +2,7 @@
 
 class Admin_IndexController extends Zend_Controller_Action{
 
+	
 	public function preDispatch(){
 	
 		parent::preDispatch();
@@ -11,15 +12,12 @@ class Admin_IndexController extends Zend_Controller_Action{
 		if(!$auth->hasIdentity()){
 			$this->_redirect('/default');	
 		}
-		
 	}
 	
 	
     public function indexAction(){
     	
-    	/*$auth = Zend_Auth::getInstance();
-    	$data = $auth->getStorage()->read();
-    	$this->view->data = $data;*/
+    	
   
     }
     

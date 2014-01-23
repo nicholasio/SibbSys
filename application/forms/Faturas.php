@@ -41,12 +41,19 @@ class Application_Form_Faturas extends Zend_Form{
 			  ->addValidator('regex', true, array('/[.]/'));
 		
 		
-		$submit = new Zend_Form_Element_Submit('Inserir');
+		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class'=>'btn btn-success'));
 		
-		$this->addElements(array
-			(
-				$mes, $ano, $valor, $desconto, $submit
-			)
-		);
+		$this->addElements(array(
+			$mes, $ano, $valor, $desconto
+		));
+		
+		
+		$this->setElementDecorators(array(
+			'Errors',
+			'Label',
+			'ViewHelper',
+		));
+		
+		$this->addElements(array($submit));
 	}
 }

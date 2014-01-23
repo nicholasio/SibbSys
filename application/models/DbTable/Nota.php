@@ -23,11 +23,11 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     
      public function findForSelect($id){
     	
-    	$sql = $this->select()->where('Turma_idTurma = ?', $id)->order('idNota DESC');
+    	$sql = $this->select()->where('Turma_idTurma = ?', $id);
 
     	$result = $this->fetchAll($sql);
     	
-    	return $result;
+		return $result;
     }
     
     
@@ -51,6 +51,7 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	return $query;
     }
     
+    
     public function findUnit($idUser){
     
     	$sql = $this->select()->where('idUsuario_has_Turma = ?', $idUser);
@@ -60,7 +61,8 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	return $row;
     }
     
-    public function excluir($id){
+    
+    public function deletar($id){
     
     	$sql = $this->select()->where('idNota = ?', $id);
     	
@@ -68,5 +70,4 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	
     	$row->delete();
     }
-
 }

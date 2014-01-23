@@ -6,13 +6,7 @@ class Application_Form_Matricula extends Zend_Form{
     	
     	$usuario = new Zend_Form_Element_Select('Usuario_idUsuario');
     	$usuario->setLabel('Usuario: ')->setRequired(true)
-    			->addMultiOption('','')
-    			->setDecorators(array(
-			 	'ViewHelper',
-    		  	'Label',
-			   	'Errors',
-			 	array('HtmlTag', array('tag'=>'p')),
-			 ));
+    			->addMultiOption('','');
     			
     	$model = new Application_Model_DbTable_Usuario();
     	foreach($model->fetchAll() as $user){
@@ -23,13 +17,7 @@ class Application_Form_Matricula extends Zend_Form{
     	$turma = new Zend_Form_Element_Select('Turma_idTurma');
     	$turma->setLabel('Turma: ')
     		  ->setRequired(true)
-    		  ->addMultiOption('','')
-    		  ->setDecorators(array(
-			 	'ViewHelper',
-    		  	'Label',
-			   	'Errors',
-			 	array('HtmlTag', array('tag'=>'p')),
-			 ));
+    		  ->addMultiOption('','');
     	
     	$model = new Application_Model_DbTable_Turma();
     	$result = $model->listar();
@@ -38,35 +26,24 @@ class Application_Form_Matricula extends Zend_Form{
     	}
 
     	
-		$submit = new Zend_Form_Element_Submit('Submit');
-		$submit->setAttrib('class', 'btn btn-primary');
-		$submit->setLabel('Matricular')
-				->setDecorators(array(
-			 	'ViewHelper',
-			   	'Errors',
-			 	array('HtmlTag', array('tag'=>'span')),
-			 ));
-			 
-		$botao = new Zend_Form_Element_Submit('Voltar');
-		$botao->setAttrib('class', 'btn');
-		$botao->setDecorators(array(
-			 	'ViewHelper',
-			   	'Errors',
-			 	array('HtmlTag', array('tag'=>'span')),
-			 ));
+		$submit = new Zend_Form_Element_Submit('Submit', array('class'=>'btn btn-primary'));
 		
-		$this->addElements(
-			array(
-				$usuario,$turma,$submit,$botao
-			)
-		);
+		
+		$this->addElements(array(
+			$usuario,$turma
+		));
+		
+		$this->setElementDecorators(array(
+			'Errors',
+			'ViewHelper',
+			'Label',
+		));
+		
+		$this->addElements(array($submit));
 		
 		$this->addElement('hidden','Status',
-				array(
-					'value' => 'Cursando'
-				)
-		);
-		
+			array(
+				'value' => 'Cursando'
+		));		
     }
 }
-

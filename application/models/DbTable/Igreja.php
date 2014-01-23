@@ -57,14 +57,4 @@ class Application_Model_DbTable_Igreja extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
-	
-	
-	public function buscar($keyword){
-	
-		$sql = $this->select()->where('Igreja LIKE ?', "%$keyword%");
-		
-		$query = $this->fetchAll($sql);
-		
-		return $query;
-	}
 }

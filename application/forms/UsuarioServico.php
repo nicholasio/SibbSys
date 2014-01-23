@@ -14,12 +14,23 @@ class Application_Form_UsuarioServico extends Zend_Form{
 				 ->addValidator('NotEmpty', true);
 		}
 		
+		
 		$valor = new Zend_Form_Element_Text('valor');
 		$valor->setLabel('Valor: ')
 			  ->addValidator('regex', true, array('/[.]/'));
 		
-		$submit = new Zend_Form_Element_Submit('Inserir');
 		
-		$this->addElements(array ($serv,$valor,$submit));
+		$submit = new Zend_Form_Element_Submit('Inserir', array('class' => 'btn btn-success'));
+		
+		
+		$this->addElements(array ($serv,$valor));
+		
+		$this->setElementDecorators(array(
+        	'Errors',
+        	'ViewHelper',
+        	'Label',
+		));
+		
+		$this->addElements(array($submit));
 	} 
 }

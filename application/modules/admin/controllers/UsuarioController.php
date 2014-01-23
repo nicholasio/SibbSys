@@ -2,8 +2,18 @@
 
 class Admin_UsuarioController extends Zend_Controller_Action{
 
-
-    public function indexAction() {
+	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+    
+	
+	public function indexAction() {
 	   $model = new Application_Model_DbTable_Usuario();
 
     	
@@ -43,8 +53,6 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
-    			//$data['Senha'] = sha1($data['Senha']);
-				//$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
     				$model->update($data, $where);
@@ -61,12 +69,21 @@ class Admin_UsuarioController extends Zend_Controller_Action{
 
     public function deleteAction(){
         
-        $model = new Application_Model_DbTable_Usuario();
-    	
+        $model = new Application_Model_DbTable_Usuario();    	
     	$id = $this->_getParam('idUsuario');
     	
-    	$model->deletar($id);
+    	$auth = Zend_Auth::getInstance();
+    	$data = $auth->getStorage()->read();
     	
-    	$this->_redirect("/admin/usuario");
+    	if($data->idUsuario == $id){
+    		
+    		$this->_redirect("/admin/usuario");
+    		
+    	} else{
+    		
+    		$model->deletar($id);
+    		 
+    		$this->_redirect("/admin/usuario");
+    	}
     }
 }

@@ -9,11 +9,13 @@ class Application_Form_ArquivoEdit extends Zend_Form{
 			 ->addValidator('regex', false, array('/[a-z]/'))
 			 ->setRequired(true);
 			 
+		
 		$ano = new Zend_Form_Element_Text('Ano');
 		$ano->setLabel('Ano: ')
 			->addValidator('digits')
 			->setRequired(true);
-			
+
+		
 		$semestre = new Zend_Form_Element_Select('Semestre');
 			$lista = array(
 				'' 	=>	'',
@@ -24,7 +26,8 @@ class Application_Form_ArquivoEdit extends Zend_Form{
 				 ->addMultiOptions($lista)
 				 ->setRequired(true)
 				 ->addValidator('NotEmpty', true);
-				 
+
+		
 		$status = new Zend_Form_Element_Select('Status');
 			$list = array(
 				''			=>	'',
@@ -35,14 +38,21 @@ class Application_Form_ArquivoEdit extends Zend_Form{
 			   ->addMultiOptions($list)
 			   ->setRequired(true)
 			   ->addValidator('NotEmpty', true);
-			   
-		$submit = new Zend_Form_Element_Submit('Enviar');
-		$botao = new Zend_Form_Element_Submit('Voltar');
+
+		
+		$submit = new Zend_Form_Element_Submit('Enviar', array('class'=>'btn btn-success'));
 			 
 		$this->addElements(array
 		(
-			$nome, $ano, $semestre, $status, $submit, $botao
+			$nome, $ano, $semestre, $status
 		));
+		
+		$this->setElementDecorators(array(
+				'Errors',
+				'ViewHelper',
+				'Label',
+		));
+		
+		$this->addElements(array($submit));
 	}
-	
 }

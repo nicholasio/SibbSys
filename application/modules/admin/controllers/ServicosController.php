@@ -3,8 +3,26 @@
 class Admin_ServicosController extends Zend_Controller_Action{
 
 	
+	public function preDispatch(){
+	
+		parent::preDispatch();
+		$auth = Zend_Auth::getInstance();
+		if(!$auth->hasIdentity()){
+			$this->_redirect('/default');
+		}
+	}
+	
+	
 	public function indexAction(){
 
+		$model = new Application_Model_DbTable_Servicos();
+		
+		$this->view->rows = $model->listar();
+	}
+	
+	
+	public function novoAction(){
+		
 		$model = new Application_Model_DbTable_Servicos();
 		$form = new Application_Form_Servicos();
 		
@@ -19,7 +37,6 @@ class Admin_ServicosController extends Zend_Controller_Action{
 		
 		$this->view->form = $form;
 		
-		$this->view->rows = $model->listar();
 	}
 	
 	

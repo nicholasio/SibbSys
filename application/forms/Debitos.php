@@ -2,6 +2,7 @@
 
 class Application_Form_Debitos extends Zend_Form{
 	
+	
 	public function init(){
 		
 		$mes = new Zend_Form_Element_Select('mesPagamento');
@@ -33,12 +34,18 @@ class Application_Form_Debitos extends Zend_Form{
 		$ano = new Zend_Form_Element_Text('anoPagamento');
 		$ano->setLabel('Ano: ');
 		
-		$submit = new Zend_Form_Element_Submit('Inserir');
+		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class'=>'btn btn-success'));
 		
-		$this->addElements(array
-			(
-				$mes, $ano, $desconto, $submit
-			)
-		);
+		$this->addElements(array(
+			$mes, $ano, $desconto,
+		));
+		
+		$this->setElementDecorators(array(
+			'Errors',
+			'Label',
+			'ViewHelper'
+		));
+		
+		$this->addElements(array($submit));
 	}
 }

@@ -1,0 +1,59 @@
+<?php $this->headTitle('Lista')?>
+
+<div class="grid_16">
+	<div class="page-header">
+		<h2>Lista de arquivos da disciplina de <?= $this->turma; ?></h2>
+	</div>
+	
+	<table class="table table-striped data-table" style="margin-bottom:0;">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nome</th>
+				<th>Ano/Semestre</th>
+				<th>Data</th>
+				<th>Compartilhado</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($this->rows as $lista){?>
+			<tr>
+				<td><?= $lista->idArquivos; ?></td>
+				<td><?= $lista->Nome; ?></td>
+				<td><?= $lista->Ano . '/' . $lista->Semestre; ?></td>
+				<td><?= $lista->Data; ?></td>
+				<td><?= $lista->Status; ?></td>
+				<td>
+					<a class="btn btn-primary" href="<?= $this->url(
+						array(
+							'controller'	=>	'arquivo',
+							'action'		=>	'editar',
+							'idArquivo'		=>	$lista->idArquivos
+						));?>">
+							Editar
+					</a>
+					
+					<a class="btn btn-success" href="<?= $this->url(
+						array(
+							'controller'	=>	'arquivo',
+							'action'		=>	'download',
+							'idArquivo'		=>	$lista->idArquivos
+						));?>">
+							Download
+					</a>
+					
+					<a class="btn btn-warning" href="<?= $this->url(
+						array(
+							'controller'	=>	'arquivo',
+							'action'		=>	'delete',
+							'idArquivo'		=>	$lista->idArquivos
+						));?>">
+							Excluir
+					</a>
+				</td>
+			</tr>
+			<?php }?>
+		</tbody>
+	</table>
+</div>
