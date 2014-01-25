@@ -133,4 +133,12 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
+	
+	
+	public function _findId($id){
+		
+		$sql = $this->select()->where('Turma_idTurma = ?', $id);
+		
+		return $this->fetchRow($sql);
+	}
 }

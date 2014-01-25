@@ -3,27 +3,41 @@
 <div class="grid_16">
 
 	<div class="page-header">
+	
 		<?php if($this->row != null){
 			foreach ($this->linha as $disc){?>
-				<h2>Lista de presença da Turma de <?= $disc->Nome;?></h2>
-			<?php } //fim foreach ?> 
+				<h2>Lista de chamada da Turma de <?= $disc->Nome;?></h2>
+			 
 	</div>
-		<?php foreach($this->rows as $nome){
-				if($nome->Status != 'inativo'){ ?>
-					<strong><?= $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong>
-					<form action="/professor/presenca/post-presenca" method="post" id="form">
-						<fieldset>
-							Data: 
-								<input type="text" class="input-small" name="data" value="<?php print date('d/m/Y');?>"/>
-							Faltas:
-								<input type="text" class="input-small" name="faltas"/>
-								<input type="hidden" name="idMatricula" value="<?php echo $nome->idUsuario_has_Turma; ?>"/>
-								<input type="hidden" name="idTurma" value="<?php echo $nome->Turma_idTurma; ?>"/>
-								<input class="btn btn-primary "type="submit" name="submit" value="Inserir"/>
-						</fieldset>
-					</form>
-				<?php }?>
-			<?php }
+		
+		<?php }?>
+		
+<?php foreach($this->rows as $nome){
+		if($nome->Status != 'inativo'){ ?>
+			
+		<h5><?= $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></h5>
+			
+			<form action="/professor/presenca/post-presenca" method="post" id="form">
+				<fieldset>
+					<strong>Data</strong> 
+						<input type="text" class="input-small" name="data" value="<?php print date('d/m/Y');?>"/>
+						
+					&nbsp;&nbsp;&nbsp;<strong>Faltas</strong>
+						<input type="text" class="input-small" name="faltas"/>
+						
+						<input type="hidden" name="idMatricula" value="<?php echo $nome->idUsuario_has_Turma; ?>"/>
+						<input type="hidden" name="idTurma" value="<?php echo $nome->Turma_idTurma; ?>"/>
+						<input class="btn btn-primary "type="submit" name="submit" value="Inserir"/>
+						
+				</fieldset>
+			</form>
+		<?php }?>
+	<?php }
+	
 	} else{?>
+	
 		<strong><?= "Ainda não há alunos matriculados nessa disciplina"; ?></strong>
+		
 <?php }?>
+
+</div>

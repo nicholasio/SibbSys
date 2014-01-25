@@ -62,6 +62,16 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     }
     
     
+    public function editar($id){
+    	
+    	$sql = $this->select()->where('idNota = ?', $id);
+    	
+    	$row = $this->fetchRow($sql);
+    	
+    	return $row;
+    }
+    
+    
     public function deletar($id){
     
     	$sql = $this->select()->where('idNota = ?', $id);

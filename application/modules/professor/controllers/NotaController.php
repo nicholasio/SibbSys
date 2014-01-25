@@ -19,13 +19,14 @@ class Professor_NotaController extends Zend_Controller_Action{
 	public function indexAction(){
 		
 		$id = $this->_getParam('idTurma');
-		 
-		$matric = new Application_Model_DbTable_Matricula();
-			$this->view->rows = $matric->findForSelect($id);
-		 
+			
 		$user = new Application_Model_DbTable_Usuario();
 		$turma = new Application_Model_DbTable_Turma();
-		 
+		$model = new Application_Model_DbTable_Nota();
+		$matric = new Application_Model_DbTable_Matricula();
+		
+		$this->view->nota = $model->findForSelect($id);
+		$this->view->rows = $matric->findForSelect($id);
 		$this->view->linha = $turma->findForSelect($id);
 		$this->view->row = $turma->hasTurma($id);
 		
@@ -34,20 +35,31 @@ class Professor_NotaController extends Zend_Controller_Action{
 	
 	public function postNotaAction(){
 		
-		$data['Nota'] = $_POST['nota'];
-		$data['Unidade'] = $_POST['unidade'];
+		$data['Unit1'] = $_POST['unit1'];
+		$data['Unit2'] = $_POST['unit2'];
+		$data['Unit3'] = $_POST['unit3'];
 		$data['idUsuario_has_Turma'] = $_POST['idMatricula'];
 		$data['Turma_idTurma'] = $_POST['idTurma'];
+		$id = $_POST['idNota'];
 		$idTurma = $_POST['idTurma'];
 		
 		$model = new Application_Model_DbTable_Nota();
-		 
 		
 		if($this->_request->isPost()){
-			if(! empty($data['Nota']))
-		
-				$model->insert($data);
-			$this->_redirect("/professor/index/nota/idTurma/$idTurma");
+			if(! empty($data['Unit1'])){
+				if($id){
+					$where = $model->getAdapter()->quoteInto('idNota = ?', $id);
+					$model->update($data, $where);
+					$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+				}
+				else{
+					$model->insert($data);
+					$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+				}
+			}
+			else{
+				$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+			}
 		}
 	}
 	
@@ -56,15 +68,10 @@ class Professor_NotaController extends Zend_Controller_Action{
 		
 		$id = $this->_getParam('idTurma');
 			
-		$matric = new Application_Model_DbTable_Matricula();
-		$this->view->rows = $matric->findForSelect($id);
-			
 		$model = new Application_Model_DbTable_Nota();
-		$this->view->result = $model->findForSelect($id);
-			
-		$user = new Application_Model_DbTable_Usuario();
 		$turma = new Application_Model_DbTable_Turma();
-			
+		
+		$this->view->result = $model->findForSelect($id);
 		$this->view->linha = $turma->findForSelect($id);
 		$this->view->row = $turma->hasTurma($id);
 		

@@ -50,7 +50,7 @@ class Professor_PresencaController extends Zend_Controller_Action{
 		if($this->_request->isPost()){
 			if(! empty($data['Faltas']))
 				$model->insert($data);
-			$this->_redirect("/professor/index/presenca/idTurma/$idTurma");
+			$this->_redirect("/professor/presenca/index/idTurma/$idTurma");
 		}
 	}
 	

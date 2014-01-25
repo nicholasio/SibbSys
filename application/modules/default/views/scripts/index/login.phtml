@@ -1,7 +1,25 @@
 <?php $this->headTitle('Tela de Login')?>
 
+<div class="grid_16">
+	<div class="controls-group">
+	 	<div class="controls">
+	 		<?= $this->form; ?>
+	 		
+	 		<?= $this->messages; ?>
+		</div>
+	</div>
 
-<?php echo $this->form; ?>
+<a href="<?= $this->url(
+		
+	array(
+		'module'	=>	'default',
+		'controller'=>	'index',
+		'action'	=>	'recupera-senha'
+	),null,1);?>"   class="btn btn-inverse dialog_button send_right" style="margin-top:-10px; margin-right: -5px">
+		<img src="/images/icons/small/white/user.png">
+	<span>Esqueceu sua senha?</span>
+</a>
 
-	
-<?php echo $this->messages; ?>
+
+
+</div>

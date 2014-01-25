@@ -127,5 +127,8 @@
   background-image: linear-gradient(top, #e8ecee, #f4f7f9);
 }
 .errors{
-	color: red;
+	color: #FF0000;
+	margin: 0 .5em 0 0;
+	vertical-align: top;
+	list-style: none;
 }

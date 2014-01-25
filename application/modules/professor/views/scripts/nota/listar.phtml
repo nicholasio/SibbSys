@@ -14,9 +14,10 @@
 			<tr>
 				<th>#</th>
 				<th>Nome</th>
-				<th>Unidade</th>
-				<th>Nota</th>
-				<th>Ações</th>
+				<th>Unidade 1</th>
+				<th>Unidade 2</th>
+				<th>Unidade 3</th>
+				<th>Ação</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,8 +28,9 @@
 					<?php $idUser = $lista->idUsuario_has_Turma;
 						  $query = $model->getId($idUser); ?>
 					<td><?= $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></td>
-					<td><?= $lista->Unidade; ?></td>
-					<td><?= $lista->Nota; ?></td>
+					<td><? if($lista->Unit1 == 0){echo '-';}else{echo $lista->Unit1;} ?></td>
+					<td><? if($lista->Unit2 == 0){echo '-';}else{echo $lista->Unit2;} ?></td>
+					<td><? if($lista->Unit3 == 0){echo '-';}else{echo $lista->Unit3;} ?></td>
 					<td>
 						<a class="btn btn-warning" href="<?= $this->url(
 							array(

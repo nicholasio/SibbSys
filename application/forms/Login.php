@@ -5,7 +5,7 @@ class Application_Form_Login extends Zend_Form{
     public function init(){    	
 		
     	$this->addElement('text','login', array(
-    		'label'		=>	'Login',
+    		'label'		=>	'Email',
     		'required'	=>	true,
     		'filters' 	=>	array('StringTrim'),
         ));
@@ -16,8 +16,15 @@ class Application_Form_Login extends Zend_Form{
     		'filters'	=>	array('StringTrim'),
     	));
     	
-    	$this->addElement('submit', 'entrar', array('label' => 'Entrar','class' => "btn btn-primary"));
+    	$this->setElementDecorators(array(
+    		'Errors',
+    		'ViewHelper',
+    		'Label',
+    	));
     	
+    	$submit = new Zend_Form_Element_Submit('Entrar', array('class'=>'btn btn-primary'));
+    	
+    	$this->addElements(array($submit));
     	
     	$this->setMethod('post');
     }
