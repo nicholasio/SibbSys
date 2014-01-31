@@ -4,17 +4,17 @@ class Application_Form_Turma extends Zend_Form{
 
     public function init(){
         $this->setMethod("post");
+        
     	$nome = new Zend_Form_Element_Text('Nome');
     	$nome->setLabel('Nome da Turma:* ')
     		 ->addValidator('regex', false, array('/[a-z]/'))
     		 ->setRequired(true);
 
     		 
-    	$desc = new Zend_Form_Element_Text('Descricao');
-    	$desc->setLabel('Descrição da Turma:*')
-    		 ->addValidator('regex', false, array('/[a-z]/'))
-    		 ->setRequired(true);
-		
+    	$desc = new Zend_Form_Element_Textarea('Descricao');
+    	$desc->setLabel('Descrição da Turma:')
+    		 ->setAttrib('rows','3')
+    		 ->addValidator('regex', false, array('/[a-z]/'));
 		
 		$ano = new Zend_Form_Element_Text('Ano');
 		$ano->setLabel('Ano:* ')
@@ -34,19 +34,16 @@ class Application_Form_Turma extends Zend_Form{
 				 ->addValidator('NotEmpty', true);
 
 				 
-		$disc = new Zend_Form_Element_Select('Disciplina_idDisciplina');
-		$disc->setLabel('Disciplina: ')
-			 ->addMultiOption('','');
-
-		$model = new Application_Model_DbTable_Disciplina();
-		$rows = $model->findForSelect();
+		$disc = new Zend_Form_Element_Text('Disciplina_idDisciplina');
+		$disc->setLabel('Disciplina:* ')
+			 ->setDecorators(array(
+			 	'ViewHelper',
+			 	array('HtmlTag', 'class'=>'turma')
+			 ));
+			 
+			
 		
-		foreach($rows as $d){
-			$disc->addMultiOption($d->idDisciplina, $d->Disciplina);
-		}
-
-		
-		$prof = new Zend_Form_Element_Select('Usuario_idUsuario');
+		$prof = new Zend_Form_Element_Select('idUsuario');
 		$prof->setLabel('Professor: ')
 			 ->addMultiOption('','');
 		

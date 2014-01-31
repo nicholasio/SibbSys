@@ -3,25 +3,37 @@
 <div class="grid_16">
   	<div class="page-header">
 	    <h1>Cursos Cadastrados
-		    <small>Veja toda a lista de cursos cadastrados<small>
+		    <small>Veja toda a lista de cursos cadastrados</small>
 	    </h1>
   	</div>
+  	
   	<table class="table table-striped data-table" style="margin-bottom:0;">
 	    <thead>
 	      <tr>
-	        <th>#</th>
-	        <th>Curso</th>
-	        <th>Duração</th>
-	        <th>Ações</th>
+	        <th><h5>#</h5></th>
+	        <th><h5>Curso</h5></th>
+	        <th><h5>Duração</h5></th>
+	        <th><h5>Ações</h5></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><?php echo $lista->idCurso; ?></td>
-		<td><?php echo $lista->Nome; ?></td>
-		<td><?php echo $lista->Duracao; ?></td>
-		<td id="action_res">
+		<td><strong><?= $lista->idCurso; ?></strong></td>
+		<td><strong><?= $lista->Nome; ?></strong></td>
+		<td><strong><?= $lista->Duracao; ?></strong></td>
+		<td>
+			<a href="<?= $this->url(
+				array(
+					'controller'	=>	'curso',
+					'action'		=>	'detalhes',
+					'idCurso'		=>	$lista->idCurso	
+				))?>">
+					<img src="/images/icons/small/grey/lupa.png" title="Detallhes"/>
+			</a>
+		
+		
+		
 			<a class="btn btn-primary" href="<?php echo $this->url(
 				array(
 					'controller'=>'curso',
@@ -45,69 +57,3 @@
 <?php }?> <!-- fim foreach -->
 </table>
 </div>
-
-<!-- 
-	<div id="grid">
-	<br />
-		<?php echo $this->busca; ?>
-	<br />
-	
-	<div id="chamada">
-		<div id="curso">Curso</div><div id="duracao">Duração</div><div id="action">Ações</div>
-	</div>
-		<?php foreach ($this->rows as $lista){?>
-			<?php if($this->query != false){
-				foreach($this->query as $data){
-					if($data->idCurso == $lista->idCurso){?>
-						<div id="curso_res"><?php echo $lista->Nome; ?></div>
-						<div id="duracao_res"><?php echo $lista->Duracao; ?></div>
-						<div id="action_res">
-							<a href="<?php echo $this->url(
-								array(
-									'controller'=>'curso',
-									'action'	=>'editar',
-									'idCurso'	=>$lista->idCurso
-								));?>">
-									<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-							</a>
-							
-							<a href="<?php echo $this->url(
-								array(
-									'controller'=>'curso',
-									'action'	=>'delete',
-									'idCurso'	=>$lista->idCurso
-								));?>">
-									<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-							</a>		
-						</div>
-				<?php }
-				}
-			}
-			
-			else{?>
-				<div id="curso_res"><?php echo $lista->Nome; ?></div>
-				<div id="duracao_res"><?php echo $lista->Duracao; ?></div>
-				<div id="action_res">
-					<a href="<?php echo $this->url(
-						array(
-							'controller'=>'curso',
-							'action'	=>'editar',
-							'idCurso'	=>$lista->idCurso
-						));?>">
-							<img title="Editar" src="/../images/ico_editar.gif" alt="Editar" width="20" height="20"></img>
-					</a>
-			
-					<a href="<?php echo $this->url(
-						array(
-							'controller'=>'curso',
-							'action'	=>'delete',
-							'idCurso'	=>$lista->idCurso
-						));?>">
-							<img title="Excluir" src="/../images/excluir.gif" alt="Excluir" width="20" height="20"></img>
-					</a>	
-				</div>
-			
-			<?php }
-		}?>
-</div>
--->

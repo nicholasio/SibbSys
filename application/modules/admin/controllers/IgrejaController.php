@@ -64,6 +64,16 @@ class Admin_IgrejaController extends Zend_Controller_Action{
     }
 
     
+    public function detalhesAction(){
+    	
+    	$model = new Application_Model_DbTable_Igreja();
+    	
+    	$id = $this->_getParam('idIgreja');
+    	
+    	$this->view->row = $model->editar($id);
+    }
+    
+    
     public function deleteAction(){
         
     	$model = new Application_Model_DbTable_Igreja();

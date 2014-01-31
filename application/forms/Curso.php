@@ -18,11 +18,10 @@ class Application_Form_Curso extends Zend_Form
         	  ->setRequired(true);
         	  
         	  
-        $desc = new Zend_Form_Element_Text('Descricao');
+        $desc = new Zend_Form_Element_Textarea('Descricao');
         $desc->setLabel('Descrição do Curso:* ')
-        	 ->addValidator('regex', false, array('/[a-z]/'))
-        	 ->setRequired(true);
-        	 
+        	 ->setAttrib('rows', '3')
+        	 ->addValidator('regex', false, array('/[a-z]/'));
         
         $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
         

@@ -122,15 +122,28 @@ class Admin_MinhasTurmasController extends Zend_Controller_Action{
     
     public function boletimAction(){
     	
-    	$auth = Zend_Auth::getInstance();
-    	$data = $auth->getStorage()->read();
+    	    	$auth = Zend_Auth::getInstance();
+    	$result = $auth->getStorage()->read();
     	
-    	$id = $data->idUsuario;
+    	$id = $result->idUsuario;
     	
     	$model = new Application_Model_DbTable_Matricula();
+    	$turma = new Application_Model_DbTable_Turma();
     	
-    	$this->view->rows = $model->turmas($id);
-    	$this->view->row = $model->getTurma($id);
-    	
+    	if($this->_request->isPost()){
+    		
+    		$data['semestre'] = $_POST['semestre'];
+    		$data['ano'] = $_POST['ano'];
+    		 
+    		$ano = $data['ano'];
+    		$semestre = $data['semestre'];
+    		
+    		$this->view->data = $data;
+    	}
+
+    		$this->view->rows = $model->turmas($id);
+    		$this->view->row = $model->getTurma($id);
+    		$this->view->ano = $turma->_findAno($id);
+    		$this->view->semes = $turma->_findSemestre($id);
     }
 }

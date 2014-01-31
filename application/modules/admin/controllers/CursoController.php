@@ -62,6 +62,18 @@ class Admin_CursoController extends Zend_Controller_Action{
     	$this->view->form = $form;
     }
 
+    
+    public function detalhesAction(){
+    	
+    	$model = new Application_Model_DbTable_Curso();
+    	
+    	$id = $this->_getParam('idCurso');
+    	
+    	$this->view->row = $model->editar($id);
+    	
+    }
+    
+    
     public function deleteAction(){
     
     	$model = new Application_Model_DbTable_Curso();

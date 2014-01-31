@@ -95,4 +95,13 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 			return $row->toArray();
 	}
 	
+	
+	public function getUser($id){
+		
+		$sql = $this->select()->where('idUsuario = ?', $id);
+		
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+	}
 }

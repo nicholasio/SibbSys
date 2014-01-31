@@ -27,7 +27,7 @@
 		<td>					
 		<?php foreach ($this->prof as $prof){?>
 				<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
-						 $lista->findParentRow('Application_Model_DbTable_Turma')->Usuario_idUsuario){?>
+						 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
 						Professor(a): <?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
 										 
 				<?php }?> <!-- fim if -->

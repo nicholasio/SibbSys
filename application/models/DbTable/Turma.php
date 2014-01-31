@@ -16,7 +16,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
     	),
     	
     	'Usuario'	=> array(
-    		'columns'		=>	array('Usuario_idUsuario'),
+    		'columns'		=>	array('idUsuario'),
     		'refTableClass'	=>	'Application_Model_DbTable_Usuario',
     		'refColumns'	=>	array('idUsuario')
     	)
@@ -39,7 +39,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
     
     public function _find($idUsuario){
     	
-    	$sql = $this->select()->where('Usuario_idUsuario = ?', $idUsuario);
+    	$sql = $this->select()->where('idUsuario = ?', $idUsuario);
     	
     	return $this->fetchRow($sql);
     	
@@ -85,7 +85,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	public function turmas($id){
 		
 		$where = 'ativo';
-		$sql = $this->select()->where('Usuario_idUsuario = ?', $id)
+		$sql = $this->select()->where('idUsuario = ?', $id)
 							  ->where('Status = ?', $where);
 		
 		$rows = $this->fetchAll($sql);
@@ -96,7 +96,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	
 	public function getTurma($id){
 
-		$sql = $this->select()->where('Usuario_idUsuario = ?', $id);
+		$sql = $this->select()->where('idUsuario = ?', $id);
 		
 		$row = $this->fetchRow($sql);
 		
@@ -125,6 +125,51 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		
 		$where = $this->getAdapter()->quoteInto('idTurma = ?', $id);
 		$this->update($linha, $where);
+	}
+	
+	
+	public function _findAno($id){
+	
+		$sql = $this->select()
+				   ->from(array('t' => 'Turma'), array())
+				   ->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Ano'))
+				   ->distinct('t.Ano')
+				   ->order('t.Ano DESC')
+				   ->where('Usuario_idUsuario = ?', $id);
+		
+		$rows = $this->fetchAll($sql);
+	
+		return $rows;
+	}
+	
+	
+	public function _findSemestre($id){
+		
+		$sql = $this->select()
+		->from(array('t' => 'Turma'), array())
+		->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Semestre'))
+		->distinct('t.Semestre')
+		->where('Usuario_idUsuario = ?', $id);
+		
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+	}
+	
+	
+	public function getPeriodo($idUser){
+		
+		$sql = $this->select()
+					->from(array('t' => 'Turma'), array())
+					->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Ano','t.Semestre'))
+					->order("t.Ano DESC")
+					->order("t.Semestre DESC")
+					->where('Usuario_idUsuario = ?', $idUser);
+		
+		$rows = $this->fetchRow($sql);
+		
+		return $rows;
+		
 	}
 	
 }

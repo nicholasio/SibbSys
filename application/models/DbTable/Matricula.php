@@ -84,7 +84,7 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	public function getTurma($id){
 
 		$sql = $this->select()->where('Usuario_idUsuario = ?', $id);
-		
+							  
 		$row = $this->fetchRow($sql);
 		
 		return $row;
@@ -101,7 +101,7 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function statusNota($idStatus){
+	public function statusAprovado($idStatus){
 		
 		$linha = array(
 			'Status'	=>	'Aprovado'
@@ -113,7 +113,7 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function statusPresenca($idStatus){
+	public function statusReprovado($idStatus){
 	
 		$linha = array(
 			'Status'	=>	'Reprovado'

@@ -35,16 +35,17 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	
     	$sql = $this->select()->where('idUsuario_has_Turma = ?', $id);
 
-    	$rows = $this->fetchAll($sql);
+    	$row = $this->fetchRow($sql);
     	
-    	return $rows->toArray();
+    	return $row;
     }
     
     
-    public function somaNota($id){
+    public function nota($id){
     
-    	$sql = $this->select()->from($this, new Zend_Db_Expr("SUM(Nota)"))
-    				->where('idUsuario_has_Turma = ?', $id);
+    	
+    	$sql = $this->select()->from($this,  array('unit1' => new Zend_Db_Expr("SUM(Unit1+Unit2+Unit3)")))					  
+    						  ->where('idUsuario_has_Turma = ?', $id);
     	
     	$query = $this->fetchRow($sql);
     	

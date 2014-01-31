@@ -36,7 +36,18 @@
 			<td><?php echo $lista->Email ?></td>
 			<td><?php echo $lista->Telefone ?></td>
 			<td><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></td>
-			<td><a class="btn btn-primary" href="<?php echo $this->url(
+			<td>
+				<a href="<?= $this->url(
+					array(
+						'controller'	=>	'usuario',
+						'action'		=>	'detalhes',
+						'idUsuario'		=>	$lista->idUsuario	
+					))?>">
+					<img src="/images/icons/small/grey/lupa.png" title="Detalhes"/>
+				</a>
+				
+			
+				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuario',
 						'action'		=>	'editar',

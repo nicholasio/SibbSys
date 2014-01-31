@@ -14,6 +14,7 @@ class Application_Model_DbTable_Curso extends Zend_Db_Table_Abstract{
     	
     }
     
+    
     public function editar($id){
     	
     	$sql = $this->select()->where('idCurso = ?', $id);

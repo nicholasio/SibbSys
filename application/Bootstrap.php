@@ -27,7 +27,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		
 		$view->headTitle('Seminario Bereiano')->setSeparator(' - ');
 		$view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8');
-		$view->headLink()->appendStylesheet($view->baseUrl() . '/css/style.css');
+
 	}
 	
 	protected function _initPlugins(){

@@ -1,12 +1,42 @@
 <?php $this->headTitle('Matricular');?>
 
+
+
 <div class="grid_16">
   	<div class="page-header">
 	    <h1>Matricular Aluno
 		    <small>Gerenciamento de matrículas<small>
 	    </h1>
-  	</div>	
+  	</div>
+  	
+  	<?php echo $this->form . $this->messages;?>
+  	
+  	
+  	<div class="box grid_12">
+		<h2 class="box_head">Calendar</h2>
+			<div class="toggle_container">
+				<div class="block">
+					<div class="section">
+						<div id="calendar">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+  	
+  	
+  	
+  	<div class="box grid_3">
+		<h2 class="box_head">Turmas</h2>
+			<div class="block" style="overflow:visible">
+				<ul id="calendar_drag_list" class="flat large">
+					<?php foreach($this->lista as $lista){?>
+					<li><a class="button full_width blue" data-colour="calendar_blue" href="#"><?= $lista->Nome; ?></a></li>
+					<?php }?>
+				</ul>
+			</div>
 
-	<?php echo $this->form . $this->messages;?>
-
+	</div>
+	
 </div>

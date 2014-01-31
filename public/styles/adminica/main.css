@@ -5,6 +5,7 @@ body {
   background: #000000 url("../../images/backgrounds/bg_squares.png") repeat fixed;
   height: 100%;
 }
+
 /*--------------------------------
 Sidebar and Topbar
 --------------------------------*/
@@ -783,7 +784,72 @@ li.has_drawer.open > a {
 .box .block h3.section {
   padding-bottom: 15px;
 }
+
+/* List styles */
+
+ul.flat li {
+  margin: 0 0 0 1px;
+  margin-left: 0;
+  border-bottom: 1px solid #eee;
+  width: auto;
+  list-style: none;
+  display: block;
+}
+ul.flat.large li {
+  padding: 15px 20px!important;
+}
+ul#calendar_drag_list li a {
+  color: #fff;
+  padding: 5px;
+  font-size: 10px;
+  line-height: 10px;
+  text-shadow: 0 1px 0 #000;
+  display: block;
+  cursor: move;
+}
+
+
 /* Button Bar / Indented Bar / Area */
+
+button.full_width,
+.button.full_width {
+  width: 100%;
+  text-align: center;
+  float: none;
+}
+
+button.full_width.left,
+.button.full_width.left {
+  text-align: left;
+}
+button.full_width.has_icon span,
+.button.full_width.has_icon span {
+  margin-left: -10px;
+}
+
+button,
+.button {
+  color: #fff;
+  border: 1px solid #000;
+  text-shadow: 0 1px 0 #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: background 5000ms ease-in;
+  border-radius: 3px;
+}
+button.light,
+.button.light {
+  z-index: 1;
+  color: #666;
+  border-color: #aaa;
+  text-shadow: 0 1px 0 #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+button.on_dark,
+.button.on_dark {
+  box-shadow: 0 2px 0 1px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+}
+
+
 .button_bar {
   padding: 10px;
   border: 1px solid #fff;
@@ -1121,6 +1187,7 @@ div.stackbar.stack_view > ul > li > a > span::before {
   color: #fff;
   text-shadow: 0 1px 0 #000;
   background-image: linear-gradient(top, #4c5766, #313841);
+  border-radius: 5px;
 }
 .grad_black_reverse {
   background-color: #313841;
@@ -1255,3 +1322,42 @@ body .dataTables_filter { float:left; }
 body .dataTable { float:left; clear: left; } 
 body .dataTables_info, body .dataTables_paginate { float:left;}
 body .dataTables_paginate { clear:left;}
+
+
+/*
+	Reset
+*/
+
+ul,
+li,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+/*
+	Fim Reset
+*/
+
+.btn{
+	margin-top: -2px;
+}
+
+
+#boletim{
+	margin: 0 0 0 650px;
+}
+
+#boletim .btn{
+	margin: 0 0 0 40px;
+}
+
+#boletim select{
+	width: 60px;
+	margin: 0 0 0 60px;
+}

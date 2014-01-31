@@ -1,0 +1,21 @@
+<?php $this->headTitle('Detalhes do Cadastro'); ?>
+
+<div class="grad_16">
+	<div class="page-header">
+		<h1>Dados cadastrais da Igreja
+			<small>Veja todos os detalhes</small>
+		</h1>
+	</div>
+	
+<br />
+	
+	<div class="container">
+		<h4>Nome da Igreja: <span style="color:#069;"><?= $this->row['Igreja']; ?></span></h4><br/>
+		<h4>Endereço: <span style="color:#069;"><?= $this->row['Endereco'] . ', ' . $this->row['Bairro']; ?></span></h4><br/>
+		<h4>CEP: <span style="color:#069;"><?= $this->row['CEP']; ?></span></h4><br/>
+		<h4>Telefone: <span style="color:#069;"><?= $this->row['Telefone']; ?></span></h4><br/>
+		<h4>Pastor: <span style="color:#069;"><?= $this->row['Pastor']; ?></span></h4><br/>
+	</div>
+<br />	
+	
+</div>

@@ -67,6 +67,16 @@ class Admin_UsuarioController extends Zend_Controller_Action{
     	}
     }
 
+    
+    public function detalhesAction(){
+    	
+    	$model = new Application_Model_DbTable_Usuario();
+    	$id = $this->_getParam('idUsuario');
+    	
+    	$this->view->rows = $model->getUser($id);
+    }
+    
+    
     public function deleteAction(){
         
         $model = new Application_Model_DbTable_Usuario();    	

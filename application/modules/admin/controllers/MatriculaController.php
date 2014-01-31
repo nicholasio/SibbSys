@@ -30,6 +30,8 @@ class Admin_MatriculaController extends Zend_Controller_Action{
     	$form = new Application_Form_Matricula();
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
+    	
+    	$this->view->lista = $turma->listar();
  
 
     	if($this->_request->isPost()){

@@ -1,0 +1,18 @@
+<?php $this->headTitle('Alterar Valor do Crédito'); ?>
+
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Deseja alterar o valor do crédito das disciplinas?
+			<small>
+				<?php if($this->row['ValorCred'] != null){
+					echo 'Valor do crédito atual é: '. 'R$ ' . $this->row['ValorCred'] . '0';
+				}?>
+			</small>
+		</h1>
+	</div>
+
+	<br />
+	
+	<?= $this->form;?>
+	
+</div>

@@ -1,93 +1,205 @@
 <?php $this->headTitle('Boletim'); ?>
 
-
-<div id="boletim">
-	<?php if($this->row != null){?>
-	<h2>Boletim</h2>
-	<div id="cabeca">
-		<div>Turma</div><div>Unid. 1</div><div>Unid. 2</div><div>Unid. 3</div><div>Faltas</div><div>Média Final</div><div>Situação</div>
+<div class="grid_16">
+	<div class="page-header">
+		<h2>Boletim</h2>
 	</div>
-<?php
- $tableNota = new Application_Model_DbTable_Nota();
- $presenca = new Application_Model_DbTable_Presenca();
- $model = new Application_Model_DbTable_Matricula();
- 	
-		echo '<div id="corpo">';
-		foreach($this->rows as $turma){
-			
-			$id = $turma->idUsuario_has_Turma;
-			$result = $tableNota->getNota($id);
-			$media = $tableNota->somaNota($id);
-			$conta = $presenca->contaPresenca($id);
-			
-			if($turma->Status != 'inativo'){
-				echo '<div id="turma">';
-					echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome;
-				echo '</div>';
-			}
-				foreach($result as $nota){
-					
-					$unit1 = $nota['Unidade'] == 1;
-					$unit2 = $nota['Unidade'] == 2;
-					$unit3 = $nota['Unidade'] == 3;
-					
-					if($unit1){
-						echo '<div id="nota1">';
-							echo $nota['Nota'];
-						echo '</div>';	
-					}
-					
-					if($unit2){
-						echo '<div id="nota2">';
-							echo $nota['Nota'];
-						echo '</div>';
-					}
-					
-					if($unit3){
-						echo '<div id="nota3">';
-							echo $nota['Nota'];
-						echo '</div>';
-					}
-					
-					if(! empty($conta["SUM(Faltas)"])){
-						echo '<div id="faltas">';
-							print $conta["SUM(Faltas)"];
-						echo '</div>';
-					}
-					
-					if(! empty($media["SUM(Nota)"])){
-						echo '<div id="media">';
-							$total = $media["SUM(Nota)"] / 3;
-							print substr($total,0,4);
-							
-							if($media["SUM(Nota)"] < 7 || $conta["SUM(Faltas)"] >= 9){
-								$idStatus = $this->row['idUsuario_has_Turma'];
-								$model->statusPresenca($idStatus);
-							}
-							else{
-								$idStatus = $this->row['idUsuario_has_Turma'];
-								$model->statusNota($idStatus);
-							}
-							
-						echo '</div>';
-					}
-				
-				}//fim foreach 2
-			if($turma->Status != 'inativo'){
-				echo '<div id="status">';
-				
-					echo $turma->Status;
-					
-				echo '</div>';
-			}
-		}//fim foreach 1
-			
-		echo '</div>';
-	 	
-	}
-	else{
-		echo 'Usuário matriculado em nenhuma turma até o momento.';
-	}
-?>
+	<?php if($this->row != null){?>
+<br />	
 
+		<form action="/professor/minhasturmas/boletim" method="post" id="boletim">
+	
+			<select name="semestre">
+				<?php foreach($this->semes as $semes){?>
+					<option value="<?= $semes->Semestre;?>"><?= $semes->Semestre; ?></option>
+				<?php }?>
+			</select>
+		
+			<select name="ano">
+				<?php foreach($this->ano as $ano){?>
+					<option value="<?= $ano->Ano; ?>"><?= $ano->Ano; ?></option>
+				<?php }?>
+			</select>
+		
+			<input type="submit" value="Exibir" class="btn"/>
+		
+		</form>
+<br />
+
+<?php if($this->data != null){?>
+	<h4><?= $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
+<?php }?>
+
+<br /><br />
+<?
+$nota = new Application_Model_DbTable_Nota();
+$presenca = new Application_Model_DbTable_Presenca();
+$model = new Application_Model_DbTable_Matricula();
+$tableTurma = new Application_Model_DbTable_Turma();
+?>
+	
+		<div class="toggle_container">
+			<div class="block">
+				<div class="section">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><h5>Disciplinas</h5></th>
+								<th style="text-align: center;"><h5>Unidade 1</h5></th>
+								<th style="text-align: center;"><h5>Unidade 2</h5></th>
+								<th style="text-align: center;"><h5>Unidade 3</h5></th>
+								<th style="text-align: center;"><h5>Faltas</h5></th>
+								<th style="text-align: center;"><h5>Média Final</h5></th>
+								<th style="text-align: center;"><h5>Situação</h5></th>
+							</tr>
+						</thead>
+						<tbody>
+						
+						
+						<?php if($this->data == null){?>
+						
+							<?foreach($this->rows as $turma){
+								$id = $turma->idUsuario_has_Turma;
+								$idUser = $turma->Usuario_idUsuario;
+								$periodo = $tableTurma->getPeriodo($idUser);
+										
+								if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
+									$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $periodo['Semestre']){
+								
+								
+										$result = $nota->getNota($id);
+										$media = $nota->nota($id);
+										$conta = $presenca->contaPresenca($id);?>
+						
+							<tr>
+								<?if($turma->Status != 'inativo'){?>
+									<td>
+										<strong>										
+											<?= $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+										</strong>
+									</td>
+								<?}?>
+							
+								<td style="text-align: center;"><strong><?= $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
+								<td style="text-align: center;"><strong><?= $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
+								<td style="text-align: center;"><strong><?= $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
+								<td style="text-align: center;">
+									<strong>
+										<?
+											if(! empty($conta["SUM(Faltas)"])){
+												print $conta["SUM(Faltas)"];
+											}else{
+												echo ' - ';
+											}
+										?>
+									</strong>
+								</td><!-- Faltas -->
+								
+								<td style="text-align: center;">
+									<strong>
+									<? 
+										if(! empty($media['unit1'])){
+											
+											$total = $media['unit1'];
+											$mediafinal = $total/3;
+									
+											echo substr($mediafinal,0,4);
+											
+											if($result['Unit3'] != null){
+												if($mediafinal < 7 || $conta["SUM(Faltas)"] >= 9){
+													$idStatus = $this->row['idUsuario_has_Turma'];
+													$model->statusReprovado($idStatus);
+												}
+												else{
+													$idStatus = $this->row['idUsuario_has_Turma'];
+													$model->statusAprovado($idStatus);
+												}
+											}
+										}
+									?>
+									</strong>
+								</td><!-- Média Final -->
+							<td style="text-align: center;"><strong><?= $turma->Status;?></strong></td><!-- Situação -->
+						</tr>
+					<? }?>
+				<? }?> <!-- Fim foreach -->
+			<? }
+		
+					else{				
+						foreach($this->rows as $turma){							
+							if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $this->data['ano'] &&
+								$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $this->data['semestre']){
+						
+								$id = $turma->idUsuario_has_Turma;
+								$result = $nota->getNota($id);
+								$media = $nota->nota($id);
+								$conta = $presenca->contaPresenca($id);?>
+				
+								<tr>
+									<?if($turma->Status != 'inativo'){?>
+										<td>
+											<strong>										
+												<?= $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+											</strong>
+										</td>
+									<?}?>
+							
+										<td style="text-align: center;"><strong><?= $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
+										<td style="text-align: center;"><strong><?= $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
+										<td style="text-align: center;"><strong><?= $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
+								
+										<td style="text-align: center;">
+											<strong>
+												<?
+													if(! empty($conta["SUM(Faltas)"])){
+														print $conta["SUM(Faltas)"];
+													}else{
+														echo ' - ';
+													}
+												?>
+											</strong>
+										</td><!-- Faltas -->
+								
+										<td style="text-align: center;">
+											<strong>
+												<? 
+													if(! empty($media['unit1'])){
+										
+														$total = $media['unit1'];
+														$mediafinal = $total/3;
+												
+														echo substr($mediafinal,0,4);
+											
+														if($result['Unit3'] != null){
+															if($mediafinal < 7 || $conta["SUM(Faltas)"] >= 9){
+																$idStatus = $this->row['idUsuario_has_Turma'];
+																$model->statusReprovado($idStatus);
+																}
+
+																else{
+																	$idStatus = $this->row['idUsuario_has_Turma'];
+																	$model->statusAprovado($idStatus);
+																}
+															}
+														}
+												?>
+											</strong>
+										</td><!-- Média Final -->
+						
+										<td style="text-align: center;"><strong><?= $turma->Status;?></strong></td><!-- Situação -->
+								</tr>
+									<? }?>
+								<? }?> <!-- Fim foreach -->
+							<? }?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+<br />
+<?php }
+		else{
+			echo '<br />' . '<h4>' . 'Usuário matriculado em nenhuma turma até o momento.' . '</h4>' . '<br />';
+		}
+	?>
 </div>

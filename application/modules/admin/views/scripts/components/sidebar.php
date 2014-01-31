@@ -36,55 +36,57 @@
 
 	<ul class="side_accordion" id="nav_side"> <!-- add class 'open_multiple' to change to from accordion to toggles -->
 		<li><a href="<?= $this->url(array('controller'=>'index'),null,1); ?>"><img src="/images/icons/small/grey/home_2.png"/><span>Home</span></a></li>
-		<li><a href="#"><img src="/images/icons/small/grey/list.png"/><span>Usuários</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/users_2.png"/><span>Usuários</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'usuario','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'usuario','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 			</ul> 
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Matrículas</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/v_card.png"/><span>Matrículas</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'novo'),null,1); ?>"><span>Matricular</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>"><span>Listar Matrículas</span></a></li>
 
 			</ul>
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/list.png" /><span>Igreja</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/companies.png" /><span>Igreja</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Curso</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/books.png"/><span>Curso</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'curso','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'curso','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/list.png"/><span>Disciplina</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/delicious.png"/><span>Disciplina</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Turma</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/users.png"/><span>Turma</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'turma','action'=>'novo'),null,1); ?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'turma','action'=>'index'),null,1); ?>"><span>Listar</span></a></li>
 
 			</ul>
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/list.png"/><span>Serviços</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/cog_4.png"/><span>Serviços</span></a>
 			<ul class="drawer">
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'servicos','action'=>'novo'),null,1);?>"><span>Cadastrar</span></a></li>
 				<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'servicos','action'=>'index'),null,1);?>"><span>Listar</span></a></li>
 			</ul>
 		</li>
-		<li><a href="#"><img src="/images/icons/small/grey/frames.png"/><span>Financeiro</span></a>
+		<li><a href="#"><img src="/images/icons/small/grey/money_2.png"/><span>Financeiro</span></a>
 			<ul class="drawer">
+			
+				<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'credito', 'action'=>'index'),null,1);?>"><span>Alterar valor do crédito</span></a>
 				<li><a href="#"><img src="/images/icons/small/white/money.png"><span>Debitos</span></a>
 					<ul class="drawer">
 						<li><a href="<?= $this->url(array('module'=>'admin','controller'=>'debitos','action'=>'novo'),null,1);?>"><span>Cadastrar</span></a></li>

@@ -4,6 +4,8 @@
 
 	Licensed under GPL and MIT.
 */
+
+
 /* =Containers
 --------------------------------------------------------------------------------*/
 .container_12,
@@ -462,12 +464,4 @@ html body * dd.clear {
 }
 .col_20 {
   width: 20%;
-}
-#form label{
-	display: block;
-	vertical-align: top;
-}
-#form input{
-	width: 60px;
-	
 }

@@ -5,6 +5,15 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 	protected $_primary = 'idDisciplina';
 	
 	protected $_dependentTables = array('Application_Model_DbTable_Turma','Application_Model_DbTable_Arquivos');
+	
+	protected $_refereTables = array(
+		
+		'Credito'	=>	array(
+			'columns'		=>	array('Credito_idCredito'),
+			'refTableClass'	=>	'Application_Model_DbTable_Credito',
+			'refColumns'	=>	array('idCredito')
+		)
+	);
 
 	
 	public function insert( Array $data){
@@ -51,5 +60,17 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
+	
+	
+	public function autoComplete($query){
+		
+		$sql = $this->select()->where('Disciplina LIKE = ?', $query.'%');
+		
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+	}
+	
+	
 	
 }
