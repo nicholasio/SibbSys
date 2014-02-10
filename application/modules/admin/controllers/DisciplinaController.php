@@ -25,12 +25,14 @@ class Admin_DisciplinaController extends Zend_Controller_Action{
     	
         $model = new Application_Model_DbTable_Disciplina();
         $form = new Application_Form_Disciplina();
+        
+        $this->view->dados = $model->autoComplete();
 
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
                 $model->insert($data);
-                $this->_redirect("/admin/disciplina");
+                $this->_redirect("/admin/disciplina/novo");
             }
         }
 

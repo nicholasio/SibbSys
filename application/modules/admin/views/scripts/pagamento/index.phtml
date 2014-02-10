@@ -6,48 +6,62 @@
 			<small>Preencha o formulário abaixo para cadastrar um pagamento</small>
 		</h1>
 	</div>
-	<?php echo $this->form; ?>	
+	
+	<br />
+	
+	<div class="container">
+		<div class="form">
+			<?= $this->form; ?>	
+		</div>
+	</div>
+		
 
 	<br />
+	
 	<div class=page-header></div>
+	
 	<br /><br />
 	
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Valor</th>
-				<th>Data Pagamento</th>
-				<th>Ações</th>
+				<th><h5>#</h5></th>
+				<th><h5>Valor</h5></th>
+				<th><h5>Data Pagamento</h5></th>
+				<th><h5>Ações</h5></th>
 			</tr>
 		</thead>
 		<tbody>
-	<?php foreach ($this->rows as $lista){ ?>
-		<tr>
-			<td><?php echo $lista->idPagamento; ?></td>
-			<td><?php echo $lista->valorPagamento; ?></td>
-			<td><?php echo $lista->dataPagamento; ?></td>
-			<td>
-				<a class="btn btn-primary" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'pagamento',
-						'action'		=>	'editar',
-						'idPagamento'	=>	$lista->idPagamento
-					)); ?>">
-						Editar
-				</a>
+		
+			<?php foreach ($this->rows as $lista){ ?>
+				<tr>
+					<td><strong><?= $lista->idPagamento; ?></strong></td>
+					<td><strong><?= $lista->valorPagamento; ?></strong></td>
+					<td><strong><?= $lista->dataPagamento; ?></strong></td>
+					<td>
+						<a class="btn btn-primary" href="<?php echo $this->url(
+							array(
+								'controller'	=>	'pagamento',
+								'action'		=>	'editar',
+								'idPagamento'	=>	$lista->idPagamento
+								)); ?>">
+							Editar
+						</a>
 			
-				<a class="btn btn-warning" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'pagamento',
-						'action'		=>	'delete',
-						'idPagamento'	=>	$lista->idPagamento
-					)); ?>">
-						Excluir
-				</a> 
-			</td>
-		</tr>
-	<?php }?>	
+						<a class="btn btn-warning" href="<?php echo $this->url(
+							array(
+								'controller'	=>	'pagamento',
+								'action'		=>	'delete',
+								'idPagamento'	=>	$lista->idPagamento
+								)); ?>">
+							Excluir
+						</a> 
+					</td>
+				</tr>
+			<?php }?>	
 		</tbody>		
 	</table>
+	
+	<br />
+	
 </div>

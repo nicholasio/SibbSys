@@ -3,28 +3,28 @@
 <div class="grid_16">
   	<div class="page-header">
 	    <h1>Turmas Cadastradas
-		    <small>Veja toda a lista das turmas cadastradas<small>
+		    <small>Veja toda a lista das turmas cadastradas</small>
 	    </h1>
   	</div>
   	<table class="table table-striped data-table" style="margin-bottom:0;">
 	    <thead>
 	      <tr>
-	        <th>#</th>
-	        <th>Turma</th>
-	        <th>Ano/Semestre</th>
-	        <th>Professor</th>
-	        <th>Ações</th>
+	        <th><h5>#</h5></th>
+	        <th><h5>Turma</h5></th>
+	        <th><h5>Ano/Semestre</h5></th>
+	        <th><h5>Professor</h5></th>
+	        <th><h5>Ações</h5></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><?php echo $lista->idTurma?></td>
-		<td><?php echo $lista->Nome; ?></td>
-		<td><?php echo $lista->Ano . '.' . $lista->Semestre; ?></</td>
-		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></td>
+		<td><strong><?= $lista->idTurma?></strong></td>
+		<td><strong><?= $lista->Nome; ?></strong></td>
+		<td><strong><?= $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
+		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
 		<td>
-			<a class="btn btn-primary" href="<?php echo $this->url(
+			<a class="btn btn-primary" href="<?= $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'editar',
@@ -34,7 +34,7 @@
 				Editar
 			</a>
 	
-			<a class="btn btn-warning" href="<?php echo $this->url(
+			<a class="btn btn-warning" href="<?= $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'delete',
@@ -48,5 +48,6 @@
 	
 <?php }?> <!-- fim foreach -->
 </table>
+
+	<br />
 </div>
-	

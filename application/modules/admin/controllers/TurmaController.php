@@ -17,28 +17,21 @@ class Admin_TurmaController extends Zend_Controller_Action{
     
     	$model = new Application_Model_DbTable_Turma();
     	
-    	if($this->_request->isPost()){
-    		if($form->isValid($this->_request->getPost())){
-    			$data = $form->getValues();
-    			$model->insert($data);
-    			$this->_redirect('/admin/turma');
-    		}
-    	}
-    	
     	$this->view->rows = $model->listar();	
+    	
     }
 
     public function novoAction() {
     	
         $model = new Application_Model_DbTable_Turma();
+        $DiscTable = new Application_Model_DbTable_Disciplina();
         $form = new Application_Form_Turma();
-        
     
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
                 $model->insert($data);
-                $this->_redirect('/admin/turma');
+                $this->_redirect('/admin/turma/novo');
             }
         }
         $this->view->form = $form;

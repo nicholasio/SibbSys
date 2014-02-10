@@ -12,23 +12,17 @@ class Application_Form_Disciplina extends Zend_Form{
 
         	 
        	$qtd = new Zend_Form_Element_Text('QntdCred');
-       	$qtd->setLabel('Crédito:* ')
+       	$qtd->setLabel('Crédito(s):* ')
        		->addValidator('digits')
        	    ->setRequired(true);
        	    
-       	    
-       	$valor = new Zend_Form_Element_Text('ValorCred');
-       	$valor->setLabel('Valor do Crédito:* ')
-       		  ->addValidator('regex', true, array('/[.]/'))
-       	      ->setRequired(true);
        	
-       	      
         $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
         
         
         $this->addElements(
         	array(
-        		$nome,$qtd,$valor
+        		$nome,$qtd
         	));
         
         $this->setElementDecorators(array(
@@ -42,6 +36,14 @@ class Application_Form_Disciplina extends Zend_Form{
         $this->addElement('hidden','Status',
         	array(
         		'value' => 'ativo'
-        	));
+        ));
+        
+        $model = new Application_Model_DbTable_Credito();
+        $list = $model->listar();
+        
+        $this->addElement('hidden','Credito_idCredito',
+        	array(
+        		'value' => $list['idCredito']	
+        ));
 	}
 }

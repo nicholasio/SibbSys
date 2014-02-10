@@ -42,7 +42,10 @@ class Admin_MinhasTurmasController extends Zend_Controller_Action{
     	$id = $data->idUsuario;
     	
     	$model = new Application_Model_DbTable_Matricula();
+    	$fileTable = new Application_Model_DbTable_Arquivos(); 
+    	
     	$this->view->rows = $model->turmas($id);
+    	$this->view->file = $fileTable->findForSelect();
     }
     
     

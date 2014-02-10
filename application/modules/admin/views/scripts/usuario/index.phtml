@@ -1,26 +1,25 @@
 <div class="grid_16">
   	<div class="page-header">
 	    <h1>Usuários Cadastrado
-		    <small>Veja toda a lista de usuários cadastrados<small>
+		    <small>Veja toda a lista de usuários cadastrados</small>
 	    </h1>
   	</div>
 
 	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th>Nome</th>
-				<th>Tipo</th>
-				<th>E-mail</th>
-				<th>Telefone</th>
-				<th>Igreja</th>
-				<th>Ações</th>
+				<th><h5>Nome</h5></th>
+				<th><h5>Tipo</h5></th>
+				<th><h5>Telefone</h5></th>
+				<th><h5>Igreja</h5></th>
+				<th><h5>Ações</h5></th>
 			</tr>
 		</thead>
 		<tbody>
 	<?php foreach ($this->rows as $lista){?>
 		<tr>
-			<td><?php echo $lista->Nome ?></td>
-			<td>
+			<td><strong><?php echo $lista->Nome ?></strong></td>
+			<td><strong>
 				<?php switch ($lista->Tipo) {
 					case 1:
 						echo "Admin";
@@ -32,18 +31,17 @@
 						echo "Aluno";
 						break;
 				} ?>
-			</td>
-			<td><?php echo $lista->Email ?></td>
-			<td><?php echo $lista->Telefone ?></td>
-			<td><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></td>
+			</strong></td>
+			<td><strong><?php echo $lista->Telefone ?></strong></td>
+			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
 			<td>
-				<a href="<?= $this->url(
+				<a class="btn btn-info" href="<?= $this->url(
 					array(
 						'controller'	=>	'usuario',
 						'action'		=>	'detalhes',
 						'idUsuario'		=>	$lista->idUsuario	
 					))?>">
-					<img src="/images/icons/small/grey/lupa.png" title="Detalhes"/>
+					<i class="icon-search icon-grey"></i>
 				</a>
 				
 			
@@ -90,5 +88,5 @@
 	</tbody>
 	</table>
 
-
+	<br />
 </div>

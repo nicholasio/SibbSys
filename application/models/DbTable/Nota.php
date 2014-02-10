@@ -35,9 +35,9 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	
     	$sql = $this->select()->where('idUsuario_has_Turma = ?', $id);
 
-    	$row = $this->fetchRow($sql);
+    	$rows = $this->fetchRow($sql);
     	
-    	return $row;
+    	return $rows;
     }
     
     

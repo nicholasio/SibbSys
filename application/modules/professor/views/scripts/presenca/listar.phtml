@@ -3,32 +3,32 @@
 <div class="grid_16">
 	<div class="page-header">
 		<h2>
-			<?php foreach ($this->linha as $disc){?>
+			<? foreach ($this->linha as $disc){?>
 				Lista de alunos com faltas na turma de <?= $disc->Nome; ?>
-			<?php }?>
+			<? }?>
 		</h2>
 	</div>
 	
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Nome</th>
-				<th>Data</th>
-				<th>Faltas</th>
-				<th>Ação</th>
+				<th><h5>#</h5></th>
+				<th><h5>Nome</h5></th>
+				<th><h5>Data</h5></th>
+				<th><h5>Faltas</h5></th>
+				<th><h5>Ação</h5></th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php $model = new Application_Model_DbTable_Matricula();?>
-			<?php foreach($this->result as $lista){?>
+			<? $model = new Application_Model_DbTable_Matricula();?>
+			<? foreach($this->result as $lista){?>
 				<tr>
-					<td><?= $lista->idPresenca; ?></td>
+					<td><strong><?= $lista->idPresenca; ?></strong></td>
 					<?php $idUser = $lista->idUsuario_has_Turma;
 							$query = $model->getId($idUser); ?>
-					<td><?= $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></td>
-					<td><?= $lista->Data; ?></td>
-					<td><?= $lista->Faltas; ?></td>
+					<td><strong><?= $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+					<td><strong><?= $lista->Data; ?></strong></td>
+					<td><strong><?= $lista->Faltas; ?></strong></td>
 					<td>
 						<a class="btn btn-warning" href="<?= $this->url(
 							array(

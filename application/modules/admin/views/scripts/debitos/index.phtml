@@ -10,22 +10,22 @@
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Mês Pagamento</th>
-				<th>Ano Pagamento</th>
-				<th>Desconto</th>
-				<th>Ações</th>
+				<th><h5>#</h5></th>
+				<th><h5>Mês Pagamento</h5></th>
+				<th><h5>Ano Pagamento</h5></th>
+				<th><h5>Desconto</h5></th>
+				<th><h5>Ações</h5></th>
 			</tr>
 		</thead>
 		<tbody>
 	<?php foreach($this->rows as $lista){?>
 		<tr>
-			<td><?php echo $lista->idDebitos;?></td>
-			<td><?php echo $lista->mesPagamento;?></td>
-			<td><?php echo $lista->anoPagamento;?></td>
-			<td><?php echo $lista->descontoMes;?></td>
+			<td><strong><?= $lista->idDebitos;?></strong></td>
+			<td><strong><?= $lista->mesPagamento;?></strong></td>
+			<td><strong><?= $lista->anoPagamento;?></strong></td>
+			<td><strong><?= $lista->descontoMes;?></strong></td>
 			<td>
-				<a class="btn btn-primary" href="<?php echo $this->url(
+				<a class="btn btn-primary" href="<?= $this->url(
 					array(
 						'controller'	=>	'debitos',
 						'action'		=>	'editar',
@@ -34,7 +34,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?php echo $this->url(
+				<a class="btn btn-warning" href="<?= $this->url(
 					array(
 						'controller'	=>	'debitos',
 						'action'		=>	'delete',
@@ -47,4 +47,6 @@
 	<?php }?>
 		</tbody>
 	</table>
+	
+	<br />
 </div>

@@ -31,11 +31,11 @@ class Admin_CreditoController extends Zend_Controller_Action{
 				if($id){
 					$where = $model->getAdapter()->quoteInto('idCredito = ?', $id);
 					$model->update($data, $where);
-					$this->_redirect("/admin/credito/index");
+					$this->_redirect("/admin/credito/");
 				}
 				else{
 					$model->insert($data);
-					$this->_redirect("/admin/credito/index");
+					$this->_redirect("/admin/credito/");
 				}
 			}
 		}

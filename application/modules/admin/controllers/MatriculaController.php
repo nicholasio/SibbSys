@@ -19,7 +19,7 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 		$model = new Application_Model_DbTable_Matricula();
 		$turma = new Application_Model_DbTable_Turma();
 		
-		$this->view->prof = $turma->listar();
+		$this->view->prof = $turma->lista();
 		
 		$this->view->rows = $model->listar();
 				
@@ -48,7 +48,7 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 				if(is_null($this->find)){
 					if(is_null($this->user)){
 						$model->insert($data);
-						$this->_redirect('/admin/matricula');
+						$this->_redirect('/admin/matricula/novo');
 					}
 					else{
 						$msg = "O Usuário é o professor da Turma";

@@ -17,14 +17,14 @@
 		$id = $users->idUsuario_has_Turma;
 		
 		$chamada = $presenca->contaPresenca($id);
-		$media = $tableNota->somaNota($id);
+		$media = $tableNota->nota($id);
 		
 		$page->drawText($users->findParentRow('Application_Model_DbTable_Usuario')->Nome, 125, 651.5);
 		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Nome, 57, $posY); 
 		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Ano . '.', 250, $posY); 
 		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Semestre, 272, $posY);
 		
-		$page->drawText(substr($media["SUM(Nota)"]/3,0,4), 400, $posY);
+		$page->drawText(substr($media['unit1']/3,0,4), 400, $posY);
 	
 		$page->drawText($users->Status, 497, $posY);
 	
@@ -32,9 +32,8 @@
 	}
 	
 	
-	header("Content-Type: application/pdf");
+	header("Content-Type: application/x-pdf");
 	header("Content-Disposition: attachment; filename=Histórico" . ".pdf");
-	header("Content-Length: ". filesize($file));
 	
 	echo $pdf->render();
 

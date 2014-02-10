@@ -9,22 +9,22 @@
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Nome</th>
-				<th>Descrição</th>
-				<th>Valor</th>
-				<th>Ações</th>
+				<th><h5>#</h5></th>
+				<th><h5>Nome</h5></th>
+				<th><h5>Descrição</h5></th>
+				<th><h5>Valor</h5></th>
+				<th><h5>Ações</h5></th>
 			</tr>
 		</thead>
 		<tbody>
 	<?php foreach ($this->rows as $lista){ ?>
 		<tr>
-			<td><?php echo $lista->idServicos; ?></td>
-			<td><?php echo $lista->nome; ?></td>
-			<td><?php echo $lista->descricao; ?></td>
-			<td><?php echo $lista->valor; ?></td>
+			<td><strong><?= $lista->idServicos; ?></strong></td>
+			<td><strong><?= $lista->nome; ?></strong></td>
+			<td><strong><?= $lista->descricao; ?></strong></td>
+			<td><strong><?= $lista->valor; ?></strong></td>
 			<td>
-				<a class="btn btn-primary" href="<?php echo $this->url(
+				<a class="btn btn-primary" href="<?= $this->url(
 					array(
 						'controller' => 'servicos',
 						'action'	 => 'editar',
@@ -33,7 +33,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?php echo $this->url(
+				<a class="btn btn-warning" href="<?= $this->url(
 					array(
 						'controller' => 'servicos',
 						'action'	 => 'delete',
@@ -43,7 +43,8 @@
 				</a>
 			</td>
 		</tr>
-<?php }?>
+	<?php }?>
 	</tbody>
-	</table>
+</table>
+	<br />
 </div>

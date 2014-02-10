@@ -23,9 +23,21 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function findForSelect(){
-		$select = $this->select();
-		return $this->fetchAll($select);
+	public function autoComplete(){
+		
+		$array = [];
+		
+		$sql = $this->select();//->where('Disciplina LIKE ?', "%$query%");
+		
+		$row = $this->fetchAll($sql);
+		
+		foreach($row as $dados){
+			$array[] = $dados['Disciplina'];
+		}
+		
+		return $array;
+	//echo  Zend_Json::encode($array, false, array('enableJsonExprFinder' => true));
+
 	}
 	
 	
@@ -60,17 +72,5 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
-	
-	
-	public function autoComplete($query){
-		
-		$sql = $this->select()->where('Disciplina LIKE = ?', $query.'%');
-		
-		$rows = $this->fetchAll($sql);
-		
-		return $rows;
-	}
-	
-	
 	
 }

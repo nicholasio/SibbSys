@@ -7,34 +7,43 @@
 		</h1>
 	</div>
 	
-	<?php echo $this->form; ?>
+	<br />
+	
+	<div class="container">
+		<div class="form">
+			<?= $this->form; ?>
+		</div>
+	</div>
+	
 
 	<br />
+	
 	<div class=page-header></div>
+	
 	<br /><br />
 		
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Mês</th>
-				<th>Ano</th>
-				<th>Desconto</th>
-				<th>Valor</th>
-				<th>Ações</th>
+				<th><h5>#</h5></th>
+				<th><h5>Mês</h5></th>
+				<th><h5>Ano</h5></th>
+				<th><h5>Desconto</h5></th>
+				<th><h5>Valor</h5></th>
+				<th><h5>Ações</h5></th>
 			</tr>
 		</thead>
 		
 		<tbody>
 	<?php foreach ($this->rows as $lista){ ?>
 		<tr>
-			<td><?php echo $lista->idFatura; ?></td>
-			<td><?php echo $lista->mes; ?></td>
-			<td><?php echo $lista->ano; ?></td>
-			<td><?php echo $lista->desconto; ?></td>
-			<td><?php echo $lista->valorFatura; ?></td>
+			<td><strong><?= $lista->idFatura; ?></strong></td>
+			<td><strong><?= $lista->mes; ?></strong></td>
+			<td><strong><?= $lista->ano; ?></strong></td>
+			<td><strong><?= $lista->desconto; ?></strong></td>
+			<td><strong><?= $lista->valorFatura; ?></strong></td>
 			<td>
-				<a class="btn btn-primary" href="<?php echo $this->url(
+				<a class="btn btn-primary" href="<?= $this->url(
 					array(
 						'controller'	=>	'faturas',
 						'action'		=>	'editar',
@@ -43,7 +52,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?php echo $this->url(
+				<a class="btn btn-warning" href="<?= $this->url(
 					array(
 						'controller'	=>	'faturas',
 						'action'		=>	'delete',
@@ -53,7 +62,10 @@
 				</a>
 			</td>
 		</tr>
-<?php }?>
+	<?php }?>
 		</tbody>
 	</table>
+	
+	<br />
+	
 </div>

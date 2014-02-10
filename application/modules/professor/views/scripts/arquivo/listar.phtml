@@ -8,22 +8,22 @@
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Nome</th>
-				<th>Ano/Semestre</th>
-				<th>Data</th>
-				<th>Compartilhado</th>
-				<th>Ações</th>
+				<th><h5>#</h5></th>
+				<th><h5>Nome</h5></th>
+				<th><h5>Ano/Semestre</h5></th>
+				<th><h5>Data</h5></th>
+				<th><h5>Compartilhado</h5></th>
+				<th><h5>Ações</h5></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach($this->rows as $lista){?>
 			<tr>
-				<td><?= $lista->idArquivos; ?></td>
-				<td><?= $lista->Nome; ?></td>
-				<td><?= $lista->Ano . '/' . $lista->Semestre; ?></td>
-				<td><?= $lista->Data; ?></td>
-				<td><?= $lista->Status; ?></td>
+				<td><strong><?= $lista->idArquivos; ?></strong></td>
+				<td><strong><?= $lista->Nome; ?></strong></td>
+				<td><strong><?= $lista->Ano . '/' . $lista->Semestre; ?></strong></td>
+				<td><strong><?= $lista->Data; ?></strong></td>
+				<td><strong><?= $lista->Status; ?></strong></td>
 				<td>
 					<a class="btn btn-primary" href="<?= $this->url(
 						array(
@@ -56,4 +56,6 @@
 			<?php }?>
 		</tbody>
 	</table>
+	
+	<br />
 </div>

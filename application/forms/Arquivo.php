@@ -15,6 +15,7 @@ class Application_Form_Arquivo extends Zend_Form{
 		$ano = new Zend_Form_Element_Text('Ano');
 		$ano->setLabel('Ano: ')
 			->addValidator('digits')
+			->setAttrib('class', 'input-small')
 			->setRequired(true);
 			
 			
@@ -27,12 +28,14 @@ class Application_Form_Arquivo extends Zend_Form{
 		$semestre->setLabel('Semestre: ')
 				 ->addMultiOptions($lista)
 				 ->setRequired(true)
+				 ->setAttrib('class', 'input-small')
 				 ->addValidator('NotEmpty', true);
 		
 				 
 		$data = new Zend_Form_Element_Text('Data');
 		$data->setLabel('Data: ')
 			 ->setRequired(true)
+			 ->setAttrib('class', 'input-small')
 			 ->setValue(date('d/m/Y'));
 			 
 			 
@@ -53,6 +56,7 @@ class Application_Form_Arquivo extends Zend_Form{
 		$status->setLabel('Compartilhar: ')
 			   ->addMultiOptions($list)
 			   ->setRequired(true)
+			   ->setAttrib('class', 'input-small')
 			   ->addValidator('NotEmpty', true);
 			   
 			   

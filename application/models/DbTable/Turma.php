@@ -82,6 +82,15 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 	
 	
+	public function lista(){
+			
+		$sql = $this->select()->from($this, new Zend_Db_Expr("DISTINCT(idUsuario)"));
+	
+		$rows = $this->fetchAll($sql);
+	
+		return $rows;
+	}
+	
 	public function turmas($id){
 		
 		$where = 'ativo';

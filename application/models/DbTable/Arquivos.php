@@ -22,8 +22,11 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 	public function findForSelect(){
 	
-		$select = $this->select();
-		return $this->fetchAll($select);
+		$sql = $this->select()->from($this, new Zend_Db_Expr("DISTINCT(Disciplina_idDisciplina)"));
+		
+		$rows =  $this->fetchAll($sql);
+		
+		return $rows;
 	}
 	
 	
@@ -31,7 +34,9 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 		$sql = $this->select()->where('Disciplina_idDisciplina =?', $id);
 		
-		return $this->fetchRow($sql);
+		$row =  $this->fetchRow($sql);
+		
+		return $row;
 	
 	}
 	

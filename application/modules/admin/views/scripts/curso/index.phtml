@@ -23,17 +23,15 @@
 		<td><strong><?= $lista->Nome; ?></strong></td>
 		<td><strong><?= $lista->Duracao; ?></strong></td>
 		<td>
-			<a href="<?= $this->url(
+			<a class="btn btn-info" href="<?= $this->url(
 				array(
 					'controller'	=>	'curso',
 					'action'		=>	'detalhes',
 					'idCurso'		=>	$lista->idCurso	
 				))?>">
-					<img src="/images/icons/small/grey/lupa.png" title="Detallhes"/>
+					<i class="icon-search icon-grey"></i>
 			</a>
-		
-		
-		
+				
 			<a class="btn btn-primary" href="<?php echo $this->url(
 				array(
 					'controller'=>'curso',
@@ -56,4 +54,5 @@
 	
 <?php }?> <!-- fim foreach -->
 </table>
+	<br />
 </div>

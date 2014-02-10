@@ -9,39 +9,50 @@
 	
 	<br />
 	
-	<table class="table table-striped data-table" style="margin-bottom:0;">
 	<?php if(!empty($this->rows['Nome'])){?>
+	
+	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Turma</th>
-				<th>Ação</th>
+				<th><h5>#</h5></th>
+				<th><h5>Turma</h5></th>
+				<th><h5>Ano / Semestre</h5></th>
+				<th><h5>Ação</h5></th>
 			</tr>
 		</thead>
 		<tbody>
-	<?foreach($this->rows as $lista){?>
-			<tr>
-				<td><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></td>
-				<td><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></td>
-				<td>
-					<a class="btn btn-default" href="<?php echo $this->url(
-						array(
-							'controller'	=>	'minhasturmas',
-							'action'		=>	'material',
-							'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
-						));?>">
-							Exibir
-					</a>
-				</td>
-			</tr>
-
-	<?php }
-	
-	}else{?>
-		
-			<strong><?= 'Não há matérial disponível até o momento.'; ?></strong>
-		
-	<?php }?>	
+			
+			<?foreach($this->rows as $lista){?>
+				<?foreach($this->file as $file){?>
+					<?if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+						<tr>
+							<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
+							<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
+							<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $lista->findParentRow('Application_Model_DbTable_Turma')->Semestre;?></strong></td>
+							<td>
+								<a class="btn btn-primary" href="<?= $this->url(
+									array(
+										'controller'	=>	'minhasturmas',
+										'action'		=>	'material',
+										'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+										));?>">
+									Exibir
+								</a>
+							</td>
+						</tr>
+					<? }
+				 }
+			}?>
 		</tbody>
 	</table>
+	
+	<?		
+	}
+	else{
+		
+		echo '<h4>' . 'Não há matérial disponível até o momento.' . '</h4>';
+		
+	 }?>	
+		
+	<br /><br />	
 </div>

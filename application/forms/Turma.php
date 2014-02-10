@@ -8,17 +8,21 @@ class Application_Form_Turma extends Zend_Form{
     	$nome = new Zend_Form_Element_Text('Nome');
     	$nome->setLabel('Nome da Turma:* ')
     		 ->addValidator('regex', false, array('/[a-z]/'))
+    		 ->setAttrib('placeholder', 'Nome da Turma')
     		 ->setRequired(true);
 
     		 
     	$desc = new Zend_Form_Element_Textarea('Descricao');
     	$desc->setLabel('Descrição da Turma:')
     		 ->setAttrib('rows','3')
+    		 ->setAttrib('placeholder', 'Observações')
     		 ->addValidator('regex', false, array('/[a-z]/'));
 		
 		$ano = new Zend_Form_Element_Text('Ano');
 		$ano->setLabel('Ano:* ')
 			->addValidator('digits')
+			->setAttrib('placeholder', 'Ano')
+			->setAttrib('class', 'input-small')
 			->setRequired(true);
 			
 			
@@ -31,21 +35,30 @@ class Application_Form_Turma extends Zend_Form{
 		$semestre->setLabel('Semestre: ')
 				 ->addMultiOptions($lista)
 				 ->setRequired(true)
+				 ->setAttrib('class', 'input-small')
+				 ->setAttrib('placeholder', 'Semestre')
 				 ->addValidator('NotEmpty', true);
 
-				 
-		$disc = new Zend_Form_Element_Text('Disciplina_idDisciplina');
+		
+		$disc = new Zend_Form_Element_Select('Disciplina_idDisciplina');
 		$disc->setLabel('Disciplina:* ')
-			 ->setDecorators(array(
-			 	'ViewHelper',
-			 	array('HtmlTag', 'class'=>'turma')
-			 ));
-			 
-			
+			 ->setAttrib('data-provider', 'typeahead')
+			 ->setAttrib('placeholder', 'Disciplina')
+			 ->addMultiOption('','')
+			 ->setAttrib('id', 'disciplina');
+		
+		$model = new Application_Model_DbTable_Disciplina();
+		$list = $model->listar();
+		foreach($list as $l){
+			$disc->addMultiOption($l->idDisciplina, $l->Disciplina);
+		}
+		
 		
 		$prof = new Zend_Form_Element_Select('idUsuario');
 		$prof->setLabel('Professor: ')
-			 ->addMultiOption('','');
+			 ->setAttrib('data-provider', 'typeahead')
+			 ->setAttrib('placeholder', 'Professor')
+			 ->setAttrib('id', 'professor');
 		
 		$user = new Application_Model_DbTable_Usuario();
 		$rows = $user->findForSelect();
@@ -59,14 +72,15 @@ class Application_Form_Turma extends Zend_Form{
 
 		$this->addElements(
 			array(
-				$nome,$desc,$ano,$semestre,$disc,$prof
+				$nome,$ano,$semestre,$disc,$prof,$desc
 		));
 		
 		$this->setElementDecorators(array(
-			'Errors',
-			'ViewHelper',
-			'Label',
+				'Errors',
+				'ViewHelper',
+				'Label',
 		));
+		
 		
 		$this->addElements(array($submit));
 		

@@ -26,7 +26,7 @@ class Application_Form_Matricula extends Zend_Form{
     	}
 
     	
-		$submit = new Zend_Form_Element_Submit('Submit', array('class'=>'btn btn-primary'));
+		$submit = new Zend_Form_Element_Submit('Matricular', array('class'=>'btn btn-primary'));
 		
 		
 		$this->addElements(array(

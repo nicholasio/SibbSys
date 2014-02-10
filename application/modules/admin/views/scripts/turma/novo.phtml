@@ -1,21 +1,22 @@
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#Disciplina_idDisciplina').typeahead({
-			name: 'Disciplina_idDisciplina',
-			local:['Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-		});
-	});
-
-</script>
+<?php $this->headTitle('Cadastro de Turmas')?>
 
 
 <div class="grid_16">
   	<div class="page-header">
 	    <h1>Cadastrar Turma
-	    	<small>Preencha o formulário abaixo para cadastrar uma turma<small>
+	    	<small>Preencha o formulário abaixo para cadastrar uma turma</small>
 	    </h1>
   	</div>	
 
-	<?php echo $this->form;?>
+<br />  	
+  
+	<div class="container">
+		<div class="form">
+			<?= $this->form; ?>
+		</div>
+	</div>
+		
+	<br /><br /><br />
 
+	
 </div>

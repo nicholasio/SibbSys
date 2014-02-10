@@ -1,22 +1,48 @@
-<div class="page-header">
-	<h4>Adicione serviços ao usuário <?php echo $this->row['Nome'];?></h4>
+<?php $this->headTitle('Inserir Serviços')?>
+
+<div class="grid_16">
+
+	<div class="page-header">
+		<h2>Adicione serviços ao usuário <?php echo $this->row['Nome'];?></h2>
+	</div>
+	
 	
 	<?php echo $this->form; ?>
 	
-	<h4>Lista de todos os serviços utilizados pelo usuário</h4>
+	<br /><br /><br />
 	
-	<?php foreach ($this->rows as $lista){?>
-	<tr>	
-		<td><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></td> 
-		<td><?php echo ' R$ ' . ' ' . $lista->findParentRow('Application_Model_DbTable_Servicos')->valor; ?></td>
-		<td><a class="btn btn-warning" href="<?php echo $this->url(
-				array(
-					'controller'	=>	'usuarioservicos',
-					'action'		=>	'delete',
-					'idServico'		=>	$lista->Servicos_idServicos
-			));?>"></a>
-	</tr>
+	<div class="page-header">
+		<h2>Lista de todos os serviços utilizados pelo usuário</h2>
+	</div>
+	
+	<table class="table table-striped data-table">
+		<thead>
+			<tr>
+				<th><h5>#</h5></th>
+				<th><h5>Nome do Serviço</h5></th>
+				<th><h5>Valor do Serviço</h5></th>
+				<th><h5>Ação</h5></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->rows as $lista){?>
+				<tr>
+					<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Servicos')->idServicos; ?></strong></td>
+					<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></strong></td> 
+					<td><strong><?= ' R$ ' . ' ' . $lista->findParentRow('Application_Model_DbTable_Servicos')->valor; ?></strong></td>
+					<td>
+						<a class="btn btn-warning" href="<?= $this->url(
+							array(
+								'controller'	=>	'usuarioservicos',
+								'action'		=>	'delete',
+								'idServico'		=>	$lista->Servicos_idServicos
+							));?>">
+								Excluir
+						</a>
+				</tr>
+			<?php }?>
+		</tbody>
+	</table>
 
-	<?php }?>
-	
+	<br />
 </div>

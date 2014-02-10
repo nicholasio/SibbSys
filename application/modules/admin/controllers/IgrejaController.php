@@ -30,7 +30,7 @@ class Admin_IgrejaController extends Zend_Controller_Action{
             if($form->isValid($this->_request->getPost())){
                     $data = $form->getValues();
                     $model->insert($data);
-                    $this->_redirect("/admin/igreja");
+                    $this->_redirect("/admin/igreja/novo");
             }
         }
         $this->view->form = $form;

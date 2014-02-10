@@ -12,19 +12,19 @@
 <table class="table table-striped data-table" style="margin-bottom:0;">
 	<thead>
 		<tr>
-			<th>#</th>
-			<th>Data da Publicação</th>
-			<th>Matérial</th>
-			<th>Ação</th>
+			<th><h5>#</h5></th>
+			<th><h5>Data da Publicação</h5></th>
+			<th><h5>Matérial</h5></th>
+			<th><h5>Ação</h5></th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php if(!empty($this->rows['Nome'])){
 		foreach($this->rows as $lista){?>
 			<tr>
-				<td><?php echo $lista->idArquivos; ?></td>
-				<td><?php echo $lista->Data; ?></td>
-				<td><?php echo $lista->Nome; ?></td>
+				<td><strong><?= $lista->idArquivos; ?></strong></td>
+				<td><strong><?= $lista->Data; ?></strong></td>
+				<td><strong><?= $lista->Nome; ?></strong></td>
 				<td>
 					<a class="btn btn-success" href="<?php echo $this->url(
 						array(
