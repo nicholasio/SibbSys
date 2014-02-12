@@ -47,18 +47,18 @@
 
 	<ul class="side_accordion" id="nav_side"> <!-- add class 'open_multiple' to change to from accordion to toggles -->
 	
-		<li><a href="<?= $this->url(array('controller'=>'index'),null,1); ?>"><img src="/images/icons/small/grey/home_2.png"/><span>Home</span></a></li>
-		<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'index','action'=>'turmas'),null,1); ?>"><img src="/images/icons/small/grey/frames.png"/><span>Turmas que Leciona</span></a></li>
+		<li><a href="<?php echo $this->url(array('controller'=>'index'),null,1); ?>"><img src="/images/icons/small/grey/home_2.png"/><span>Home</span></a></li>
+		<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'turmas'),null,1); ?>"><img src="/images/icons/small/grey/frames.png"/><span>Turmas que Leciona</span></a></li>
 		<li><a href="#"><img src="/images/icons/small/grey/list.png"/><span>Listas</span></a>
 			<ul class="drawer">
 				<?php $model = new Application_Model_DbTable_Turma(); 
 					$rows = $model->turmas($id);
-					foreach($rows as $turma){?>
-						<li><a href><span><?= $turma->Nome; ?></span></a>
+					foreach($rows as $turma){ ?>
+						<li><a href="#"><span><?php echo $turma->Nome; ?></span></a>
 							<ul class="drawer">
-								<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'nota','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com notas</span></a>
-								<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'presenca','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com faltas</span></a>
-								<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'arquivo','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de arquivos</span></a>
+								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'nota','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com notas</span></a>
+								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'presenca','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com faltas</span></a>
+								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'arquivo','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de arquivos</span></a>
 							</ul>
 						</li>
 				<?php }?>
@@ -66,12 +66,12 @@
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/frames.png"><span>Minhas Turmas</span></a>
 			<ul class="drawer">
-				<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'historico'),null,1);?>"><img src="/images/icons/small/white/pdf_document.png"><span>Histórico</span></a></li>
-				<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'turma'),null,1);?>"><img src="/images/icons/small/white/folder.png"><span>Matérial de Aulas</span></a></li>
-				<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'boletim'),null,1);?>"><img src="/images/icons/small/white/post_card.png"><span>Boletim</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'historico'),null,1);?>"><img src="/images/icons/small/white/pdf_document.png"><span>Histórico</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'turma'),null,1);?>"><img src="/images/icons/small/white/folder.png"><span>Matérial de Aulas</span></a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'boletim'),null,1);?>"><img src="/images/icons/small/white/post_card.png"><span>Boletim</span></a></li>
 			</ul>
 		</li>
-		<li><a href="<?= $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1);?>"><img src="/images/icons/small/grey/key_2.png"><span>Alterar Senha</span></a></li>
+		<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1);?>"><img src="/images/icons/small/grey/key_2.png"><span>Alterar Senha</span></a></li>
 	</ul>
 
 	<!-- <div id="search_side" class="dark_box"><form><input class="" type="text" placeholder="Search Adminica..."></form></div>

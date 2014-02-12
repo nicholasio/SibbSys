@@ -19,8 +19,8 @@
 	    <tbody>
 	<?php foreach($this->rows as $lista){?>
 		<tr>
-			<td><strong><?= $lista->idIgreja; ?></strong></td>
-			<td><strong><?= $lista->Igreja; ?></strong></td>
+			<td><strong><?php echo $lista->idIgreja; ?></strong></td>
+			<td><strong><?php echo $lista->Igreja; ?></strong></td>
 			<td>
 				<strong>
 					<?php if($lista->Telefone == null){
@@ -31,9 +31,9 @@
 					?>
 				</strong>
 			</td>
-			<td><strong><?= $lista->Pastor?></strong></td>
+			<td><strong><?php echo $lista->Pastor?></strong></td>
 			<td>
-				<a class="btn btn-info" href="<?= $this->url(
+				<a class="btn btn-info" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'detalhes',
@@ -42,7 +42,7 @@
 					<i class="icon-search icon-grey"></i>
 				</a>
 			
-				<a class="btn btn-primary" href="<?= $this->url(
+				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'editar',
@@ -51,7 +51,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?= $this->url(
+				<a class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'delete',
@@ -65,5 +65,5 @@
 	</tbody>
 </table>
 
-	<br />
+	<br /><br />
 </div>

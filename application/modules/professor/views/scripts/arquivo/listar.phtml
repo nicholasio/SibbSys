@@ -2,7 +2,7 @@
 
 <div class="grid_16">
 	<div class="page-header">
-		<h2>Lista de arquivos da disciplina de <?= $this->turma; ?></h2>
+		<h2>Lista de arquivos da disciplina de <?php echo $this->turma; ?></h2>
 	</div>
 	
 	<table class="table table-striped data-table" style="margin-bottom:0;">
@@ -19,13 +19,13 @@
 		<tbody>
 			<?php foreach($this->rows as $lista){?>
 			<tr>
-				<td><strong><?= $lista->idArquivos; ?></strong></td>
-				<td><strong><?= $lista->Nome; ?></strong></td>
-				<td><strong><?= $lista->Ano . '/' . $lista->Semestre; ?></strong></td>
-				<td><strong><?= $lista->Data; ?></strong></td>
-				<td><strong><?= $lista->Status; ?></strong></td>
+				<td><strong><?php echo $lista->idArquivos; ?></strong></td>
+				<td><strong><?php echo $lista->Nome; ?></strong></td>
+				<td><strong><?php echo $lista->Ano . '/' . $lista->Semestre; ?></strong></td>
+				<td><strong><?php echo $lista->Data; ?></strong></td>
+				<td><strong><?php echo $lista->Status; ?></strong></td>
 				<td>
-					<a class="btn btn-primary" href="<?= $this->url(
+					<a class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'editar',
@@ -34,7 +34,7 @@
 							Editar
 					</a>
 					
-					<a class="btn btn-success" href="<?= $this->url(
+					<a class="btn btn-success" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'download',
@@ -43,7 +43,7 @@
 							Download
 					</a>
 					
-					<a class="btn btn-warning" href="<?= $this->url(
+					<a class="btn btn-warning" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'delete',

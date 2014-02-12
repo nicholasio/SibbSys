@@ -10,20 +10,20 @@
 		<div class="container">
 		
 		<?php foreach($this->rows as $lista){?>
-			<img src="/files/<?= $lista->Foto;?>" width="100" height="120"></img><br />
+			<img src="/files/<?php echo $lista->Foto;?>" width="100" height="120"></img><br />
 			<br />
-			<h4>Nome do Usuario: <span style="color:#069"><?= $lista->Nome;?></span></h4><br /> 
-			<h4>Endereço: <span style="color:#069"><?= $lista->Endereco . ', ' . $lista->Bairro;?></span></h4><br />
-			<h4>CEP: <span style="color:#069"><?= $lista->CEP;?></span></h4><br />
-			<h4>Telefone(s): <span style="color:#069"><?= $lista->Telefone . ' / ' . $lista->Celular;?></span></h4><br />
-			<h4>Data de Nascimento: <span style="color:#069"><?= $lista->DataNascimento;?></span></h4><br />
-			<h4>CPF / RG: <span style="color:#069"><?= $lista->CPF . ' / ' . $lista->RG;?></span></h4><br />
-			<h4>Nome da Mãe: <span style="color:#069"><?= $lista->NomeMae;?></span></h4><br />
-			<h4>Nome do Pai: <span style="color:#069"><?= $lista->NomePai;?></span></h4><br />
-			<h4>E-mail: <span style="color:#069"><?= $lista->Email;?></span></h4><br />
-			<h4>Igreja do Usuario: <span style="color:#069"><?= $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja;?></span></h4><br />
-			<h4>Curso do Usuario: <span style="color:#069"><?= $lista->findParentRow('Application_Model_DbTable_Curso')->Nome;?></span></h4><br />
-			<h4>Tipo do Usuario: <span style="color:#069"><? switch ($lista->Tipo) {
+			<h4>Nome do Usuario: <span style="color:#069"><?php echo $lista->Nome;?></span></h4><br /> 
+			<h4>Endereço: <span style="color:#069"><?php echo $lista->Endereco . ', ' . $lista->Bairro;?></span></h4><br />
+			<h4>CEP: <span style="color:#069"><?php echo $lista->CEP;?></span></h4><br />
+			<h4>Telefone(s): <span style="color:#069"><?php echo $lista->Telefone . ' / ' . $lista->Celular;?></span></h4><br />
+			<h4>Data de Nascimento: <span style="color:#069"><?php echo $lista->DataNascimento;?></span></h4><br />
+			<h4>CPF: <span style="color:#069"><?php echo $lista->CPF; ?></span></h4><br />
+			<h4>Nome da Mãe: <span style="color:#069"><?php echo $lista->NomeMae;?></span></h4><br />
+			<h4>Nome do Pai: <span style="color:#069"><?php echo $lista->NomePai;?></span></h4><br />
+			<h4>E-mail: <span style="color:#069"><?php echo $lista->Email;?></span></h4><br />
+			<h4>Igreja do Usuario: <span style="color:#069"><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja;?></span></h4><br />
+			<h4>Curso do Usuario: <span style="color:#069"><?php echo $lista->findParentRow('Application_Model_DbTable_Curso')->Nome;?></span></h4><br />
+			<h4>Tipo do Usuario: <span style="color:#069"><?php switch ($lista->Tipo) {
 					case 1:
 						echo "Administrador";
 						break;
@@ -40,6 +40,6 @@
 		</div>
 	
 	
-	<br />
+	<br /><br />
 	
 </div>

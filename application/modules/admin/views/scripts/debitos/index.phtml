@@ -20,12 +20,12 @@
 		<tbody>
 	<?php foreach($this->rows as $lista){?>
 		<tr>
-			<td><strong><?= $lista->idDebitos;?></strong></td>
-			<td><strong><?= $lista->mesPagamento;?></strong></td>
-			<td><strong><?= $lista->anoPagamento;?></strong></td>
-			<td><strong><?= $lista->descontoMes;?></strong></td>
+			<td><strong><?php echo $lista->idDebitos;?></strong></td>
+			<td><strong><?php echo $lista->mesPagamento;?></strong></td>
+			<td><strong><?php echo $lista->anoPagamento;?></strong></td>
+			<td><strong><?php echo $lista->descontoMes;?></strong></td>
 			<td>
-				<a class="btn btn-primary" href="<?= $this->url(
+				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'debitos',
 						'action'		=>	'editar',
@@ -34,7 +34,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?= $this->url(
+				<a class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'debitos',
 						'action'		=>	'delete',
@@ -48,5 +48,5 @@
 		</tbody>
 	</table>
 	
-	<br />
+	<br /><br />
 </div>

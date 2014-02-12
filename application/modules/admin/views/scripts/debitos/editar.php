@@ -9,7 +9,7 @@
 	
 	<div class="container">
 		<div class="form">
-			<?= $this->form; ?>	
+			<?php echo $this->form; ?>	
 		</div>
 	</div>
 

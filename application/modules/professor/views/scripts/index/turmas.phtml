@@ -19,11 +19,11 @@
 			<?php if($this->row != null){
 				foreach($this->rows as $lista){?>
 					<tr>
-						<td><strong><?= $lista->idTurma;?></strong></td>
-						<td><strong><?= $lista->Nome; ?></strong></td>
-						<td><strong><?= $lista->Ano . '-' . $lista->Semestre; ?></strong></td>
+						<td><strong><?php echo $lista->idTurma;?></strong></td>
+						<td><strong><?php echo $lista->Nome; ?></strong></td>
+						<td><strong><?php echo $lista->Ano . '-' . $lista->Semestre; ?></strong></td>
 						<td>
-							<a class="btn btn-primary" href="<?= $this->url(
+							<a class="btn btn-primary" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'Nota',
 									'action'		=>	'index',
@@ -32,7 +32,7 @@
 									Inserir Nota
 							</a>
 							
-							<a class="btn btn-success" href="<?= $this->url(
+							<a class="btn btn-success" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'presenca',
 									'action'		=>	'index',
@@ -41,7 +41,7 @@
 									Chamada
 							</a>
 							
-							<a class="btn" href="<?= $this->url(
+							<a class="btn" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'arquivo',
 									'action'		=>	'index',
@@ -50,7 +50,7 @@
 									Inserir Arquivo
 							</a>
 							
-							<a class="btn btn-warning" href="<?= $this->url(
+							<a class="btn btn-warning" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'index',
 									'action'		=>	'encerrar-turma',

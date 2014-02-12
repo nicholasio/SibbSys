@@ -11,7 +11,7 @@
 	
 	<div class="container">
 		<div class="form">
-			<?= $this->form; ?>
+			<?php echo $this->form; ?>
 		</div>
 	</div>
 	
@@ -37,13 +37,13 @@
 		<tbody>
 	<?php foreach ($this->rows as $lista){ ?>
 		<tr>
-			<td><strong><?= $lista->idFatura; ?></strong></td>
-			<td><strong><?= $lista->mes; ?></strong></td>
-			<td><strong><?= $lista->ano; ?></strong></td>
-			<td><strong><?= $lista->desconto; ?></strong></td>
-			<td><strong><?= $lista->valorFatura; ?></strong></td>
+			<td><strong><?php echo $lista->idFatura; ?></strong></td>
+			<td><strong><?php echo $lista->mes; ?></strong></td>
+			<td><strong><?php echo $lista->ano; ?></strong></td>
+			<td><strong><?php echo $lista->desconto; ?></strong></td>
+			<td><strong><?php echo $lista->valorFatura; ?></strong></td>
 			<td>
-				<a class="btn btn-primary" href="<?= $this->url(
+				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'faturas',
 						'action'		=>	'editar',
@@ -52,7 +52,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?= $this->url(
+				<a class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'faturas',
 						'action'		=>	'delete',
@@ -66,6 +66,6 @@
 		</tbody>
 	</table>
 	
-	<br />
+	<br /><br />
 	
 </div>

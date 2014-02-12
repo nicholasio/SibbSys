@@ -19,11 +19,11 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><strong><?= $lista->idCurso; ?></strong></td>
-		<td><strong><?= $lista->Nome; ?></strong></td>
-		<td><strong><?= $lista->Duracao; ?></strong></td>
+		<td><strong><?php echo $lista->idCurso; ?></strong></td>
+		<td><strong><?php echo $lista->Nome; ?></strong></td>
+		<td><strong><?php echo $lista->Duracao; ?></strong></td>
 		<td>
-			<a class="btn btn-info" href="<?= $this->url(
+			<a class="btn btn-info" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'curso',
 					'action'		=>	'detalhes',
@@ -54,5 +54,6 @@
 	
 <?php }?> <!-- fim foreach -->
 </table>
-	<br />
+	<br /><br />
+	
 </div>

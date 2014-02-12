@@ -22,15 +22,15 @@
 		</thead>
 		<tbody>
 			
-			<?foreach($this->rows as $lista){?>
-				<?foreach($this->file as $file){?>
-					<?if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+			<?php foreach($this->rows as $lista){?>
+				<?php foreach($this->file as $file){?>
+					<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
 						<tr>
-							<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
-							<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
-							<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $lista->findParentRow('Application_Model_DbTable_Turma')->Semestre;?></strong></td>
+							<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
+							<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
+							<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $lista->findParentRow('Application_Model_DbTable_Turma')->Semestre;?></strong></td>
 							<td>
-								<a class="btn btn-primary" href="<?= $this->url(
+								<a class="btn btn-primary" href="<?php echo $this->url(
 									array(
 										'controller'	=>	'minhasturmas',
 										'action'		=>	'material',
@@ -40,13 +40,13 @@
 								</a>
 							</td>
 						</tr>
-					<? }
-				 }
-			}?>
-		</tbody>
-	</table>
+					<?php }
+				 	}
+				}?>
+			</tbody>
+		</table>
 	
-	<?		
+	<?php
 	}
 	else{
 		

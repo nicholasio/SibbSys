@@ -3,9 +3,9 @@
 <div class="grid_16">
 	<div class="page-header">
 		<h2> 
-			<? foreach ($this->linha as $disc){?>
-				Lista de alunos com notas na turma de <?= $disc->Nome; ?>
-			<? }?>
+			<?php foreach ($this->linha as $disc){?>
+				Lista de alunos com notas na turma de <?php echo $disc->Nome; ?>
+			<?php }?>
 		</h2>
 	</div>
 	
@@ -23,18 +23,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<? $model = new Application_Model_DbTable_Matricula();?>
-			<?foreach($this->result as $lista){?>
+			<?php $model = new Application_Model_DbTable_Matricula();?>
+			<?php foreach($this->result as $lista){?>
 				<tr>
-					<td><strong><?= $lista->idNota; ?></strong></td>
+					<td><strong><?php echo $lista->idNota; ?></strong></td>
 					<?php $idUser = $lista->idUsuario_has_Turma;
 						  $query = $model->getId($idUser); ?>
-					<td><strong><?= $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-					<td><strong><? if($lista->Unit1 == 0){echo '-';}else{echo $lista->Unit1;} ?></strong></td>
-					<td><strong><? if($lista->Unit2 == 0){echo '-';}else{echo $lista->Unit2;} ?></strong></td>
-					<td><strong><? if($lista->Unit3 == 0){echo '-';}else{echo $lista->Unit3;} ?></strong></td>
+					<td><strong><?php echo $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+					<td><strong><?php if($lista->Unit1 == 0){echo '-';}else{echo $lista->Unit1;} ?></strong></td>
+					<td><strong><?php if($lista->Unit2 == 0){echo '-';}else{echo $lista->Unit2;} ?></strong></td>
+					<td><strong><?php if($lista->Unit3 == 0){echo '-';}else{echo $lista->Unit3;} ?></strong></td>
 					<td>
-						<a class="btn btn-warning" href="<?= $this->url(
+						<a class="btn btn-warning" href="<?php echo $this->url(
 							array(
 								'controller'	=>	'nota',
 								'action'		=>	'delete',
@@ -44,7 +44,7 @@
 						</a>
 					</td>
 				</tr>
-		<? }?>
+		<?php }?>
 		</tbody>
 	</table>
 	

@@ -12,6 +12,6 @@
 				
 				echo $this->data->Nome . '!'; */?>
 		
-	<h4><a href="<?= $this->url(array('module'=>'professor','controller'=>'index','action'=>'turmas'),null,1); ?>">Turmas que Leciona</a></h4>
-	<h4><a href="<?= $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
-	<h4><a href="<?= $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1); ?>">Alterar Senha</a></h4>	
+	<h4><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'turmas'),null,1); ?>">Turmas que Leciona</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
+	<h4><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1); ?>">Alterar Senha</a></h4>	

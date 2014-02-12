@@ -19,12 +19,12 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><strong><?= $lista->idTurma; ?></strong></td>
-		<td><strong><?= $lista->Nome; ?></strong></td>
-		<td><strong><?= $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
-		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+		<td><strong><?php echo $lista->idTurma; ?></strong></td>
+		<td><strong><?php echo $lista->Nome; ?></strong></td>
+		<td><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
+		<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
 		<td>
-			<a class="btn btn-primary" href="<?= $this->url(
+			<a class="btn btn-primary" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'editar',
@@ -34,7 +34,7 @@
 				Editar
 			</a>
 	
-			<a class="btn btn-warning" href="<?= $this->url(
+			<a class="btn btn-warning" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'delete',
@@ -49,5 +49,5 @@
 <?php }?> <!-- fim foreach -->
 </table>
 
-	<br />
+	<br /><br />
 </div>

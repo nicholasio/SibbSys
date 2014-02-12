@@ -5,7 +5,7 @@
 		<h2>Editar Cadastro de Faturas</h2>
 	</div>
 
-	<?= $this->form; ?>
+	<?php echo $this->form; ?>
 
 	<br /><br />
 

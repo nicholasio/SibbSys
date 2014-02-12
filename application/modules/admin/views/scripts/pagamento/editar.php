@@ -5,7 +5,7 @@
 		<h2>Editar Cadastro de Pagamento</h2>
 	</div>
 
-	<?= $this->form; ?>
+	<?php echo $this->form; ?>
 
 	<br /><br />
 

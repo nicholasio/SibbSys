@@ -19,12 +19,12 @@
 		<tbody>
 	<?php foreach ($this->rows as $lista){ ?>
 		<tr>
-			<td><strong><?= $lista->idServicos; ?></strong></td>
-			<td><strong><?= $lista->nome; ?></strong></td>
-			<td><strong><?= $lista->descricao; ?></strong></td>
-			<td><strong><?= $lista->valor; ?></strong></td>
+			<td><strong><?php echo $lista->idServicos; ?></strong></td>
+			<td><strong><?php echo $lista->nome; ?></strong></td>
+			<td><strong><?php echo $lista->descricao; ?></strong></td>
+			<td><strong><?php echo $lista->valor; ?></strong></td>
 			<td>
-				<a class="btn btn-primary" href="<?= $this->url(
+				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller' => 'servicos',
 						'action'	 => 'editar',
@@ -33,7 +33,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?= $this->url(
+				<a class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller' => 'servicos',
 						'action'	 => 'delete',
@@ -46,5 +46,5 @@
 	<?php }?>
 	</tbody>
 </table>
-	<br />
+	<br /><br />
 </div>

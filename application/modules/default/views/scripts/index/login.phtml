@@ -3,13 +3,13 @@
 <div class="grid_16">
 	<div class="controls-group">
 	 	<div class="controls">
-	 		<?= $this->form; ?>
+	 		<?php echo $this->form; ?>
 	 		
-	 		<span class="errors"><?= $this->messages; ?></span>
+	 		<span class="errors"><?php echo $this->messages; ?></span>
 		</div>
 	</div>
 
-<a href="<?= $this->url(
+<a href="<?php echo $this->url(
 		
 	array(
 		'module'	=>	'default',

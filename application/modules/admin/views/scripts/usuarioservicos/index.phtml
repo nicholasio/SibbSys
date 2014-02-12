@@ -27,11 +27,11 @@
 		<tbody>
 			<?php foreach ($this->rows as $lista){?>
 				<tr>
-					<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Servicos')->idServicos; ?></strong></td>
-					<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></strong></td> 
-					<td><strong><?= ' R$ ' . ' ' . $lista->findParentRow('Application_Model_DbTable_Servicos')->valor; ?></strong></td>
+					<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->idServicos; ?></strong></td>
+					<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></strong></td> 
+					<td><strong><?php echo ' R$ ' . ' ' . $lista->findParentRow('Application_Model_DbTable_Servicos')->valor; ?></strong></td>
 					<td>
-						<a class="btn btn-warning" href="<?= $this->url(
+						<a class="btn btn-warning" href="<?php echo $this->url(
 							array(
 								'controller'	=>	'usuarioservicos',
 								'action'		=>	'delete',
@@ -44,5 +44,5 @@
 		</tbody>
 	</table>
 
-	<br />
+	<br /><br />
 </div>

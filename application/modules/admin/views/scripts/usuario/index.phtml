@@ -35,7 +35,7 @@
 			<td><strong><?php echo $lista->Telefone; ?></strong></td>
 			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
 			<td>
-				<a class="btn btn-info" href="<?= $this->url(
+				<a class="btn btn-info" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuario',
 						'action'		=>	'detalhes',
@@ -88,5 +88,5 @@
 	</tbody>
 	</table>
 
-	<br />
+	<br /><br />
 </div>

@@ -19,23 +19,23 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><strong><?= $lista->idUsuario_has_Turma; ?></strong></td>
-		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
+		<td><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
+		<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+		<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
 		<td><strong>					
 		<?php foreach ($this->prof as $prof){?>
 				<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
 						 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
-						Professor(a): <?= $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
+						Professor(a): <?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
 										 
 				<?php }?> <!-- fim if -->
 			
 		<?php }?> <!-- fim foreach -->
 		</strong></td>
 		<td>
-			<a class="btn btn-warning" href="<?= $this->url(
+			<a class="btn btn-warning" href="<?php echo $this->url(
 				array(
 					'controller'			=>	'matricula',
 					'action'				=>	'delete',
@@ -48,5 +48,5 @@
 <?php }?> <!-- fim foreach -->
 </table>
 
-	<br />
+	<br /><br />
 </div>

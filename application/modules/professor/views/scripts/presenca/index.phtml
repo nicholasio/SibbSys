@@ -5,10 +5,9 @@
 	<div class="page-header">	
 		<?php if($this->row != null){
 			foreach ($this->linha as $disc){?>
-				<h2>Lista de chamada da Turma de <?= $disc->Nome;?></h2>
+				<h2>Lista de chamada da Turma de <?php echo $disc->Nome;?></h2>
 		<?php }?>	 
 	</div>
-		
 		
 	<br />
 		
@@ -17,12 +16,12 @@
 		<?php foreach($this->rows as $nome){
 			if($nome->Status != 'inativo'){ ?>
 			
-				<h5><?= $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></h5>
+				<h5><?php echo $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></h5>
 			
 				<form action="/professor/presenca/post-presenca" method="post" id="form-prof">
 					<fieldset>
 						<strong>Data</strong> 
-							<input type="text" class="input-small" name="data" value="<?php print date('d/m/Y');?>"/>
+							<input type="text" class="input-small" name="data" value="<?php echo date('d/m/Y');?>"/>
 						
 					&nbsp;&nbsp;&nbsp;<strong>Faltas</strong>
 							<input type="text" class="input-small" name="faltas"/>
@@ -39,10 +38,11 @@
 	
 	<br />
 	
-	<? } else{?>
+	<?php } else{
 	
-		<strong><?= "Ainda não há alunos matriculados nessa disciplina"; ?></strong>
+		echo '<h4>' . "Ainda não há alunos matriculados nessa disciplina" . '</h4>';
 		
-<?php }?>
+	 }?>
 
+	 <br /><br />
 </div>

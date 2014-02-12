@@ -9,22 +9,23 @@
 
 <br />
 
-<table class="table table-striped data-table" style="margin-bottom:0;">
-	<thead>
-		<tr>
-			<th><h5>#</h5></th>
-			<th><h5>Data da Publicação</h5></th>
-			<th><h5>Matérial</h5></th>
-			<th><h5>Ação</h5></th>
-		</tr>
-	</thead>
-	<tbody>
-	<?php if(!empty($this->rows['Nome'])){
-		foreach($this->rows as $lista){?>
+<?php if(!empty($this->rows['Nome'])){?>
+
+	<table class="table table-striped data-table" style="margin-bottom:0;">
+		<thead>
 			<tr>
-				<td><strong><?= $lista->idArquivos; ?></strong></td>
-				<td><strong><?= $lista->Data; ?></strong></td>
-				<td><strong><?= $lista->Nome; ?></strong></td>
+				<th><h5>#</h5></th>
+				<th><h5>Data da Publicação</h5></th>
+				<th><h5>Matérial</h5></th>
+				<th><h5>Ação</h5></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach($this->rows as $lista){?>
+			<tr>
+				<td><strong><?php echo $lista->idArquivos; ?></strong></td>
+				<td><strong><?php echo $lista->Data; ?></strong></td>
+				<td><strong><?php echo $lista->Nome; ?></strong></td>
 				<td>
 					<a class="btn btn-success" href="<?php echo $this->url(
 						array(
@@ -37,10 +38,13 @@
 				</td>
 			</tr>		
 	<?php }
-	}else{
-		echo 'Nenhum matérial disponível no momento!';
+}else{
+		echo '<h4>' . 'Nenhum matérial disponível no momento!' . '</h4>';
 	}
 	?>
 	</tbody>
-</table>	
+</table>
+
+	<br /><br />
+	
 </div>

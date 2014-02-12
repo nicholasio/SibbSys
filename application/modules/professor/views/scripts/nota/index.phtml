@@ -6,7 +6,7 @@
 	
 		<?php if($this->row != null){
 			foreach ($this->linha as $disc){?>
-				<h2>Insira notas aos alunos da Turma de <?= $disc->Nome;?></h2>
+				<h2>Insira notas aos alunos da Turma de <?php echo $disc->Nome;?></h2>
 	</div>
 	
 		<?php }?>
@@ -22,17 +22,17 @@
 					<form action="/professor/nota/post-nota" method="post" id="form-prof">
 						<fieldset>
 							<strong>Unidade 1</strong>
-	       						<input type="text" class="input-small" name="unit1" class="nota" value="<? foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit1;}}?>"/>
+	       						<input type="text" class="input-small" name="unit1" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit1;}}?>"/>
 					
 	       		 &nbsp;&nbsp;<strong>Unidade 2</strong>
-	       						<input type="text" class="input-small" name="unit2" class="nota" value="<? foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit2;}}?>"/>
+	       						<input type="text" class="input-small" name="unit2" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit2;}}?>"/>
 					
 		       	 &nbsp;&nbsp;<strong>Unidade 3</strong> 
-	       						<input type="text" class="input-small" name="unit3" class="nota" value="<? foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit3;}}?>"/>
+	       						<input type="text" class="input-small" name="unit3" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit3;}}?>"/>
 				
 								<input type="hidden" name="idMatricula" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
 								<input type="hidden" name="idTurma" value="<?php echo $users->Turma_idTurma; ?>"/>
-								<input type="hidden" name="idNota" value="<? foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->idNota;}}?>"/>
+								<input type="hidden" name="idNota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->idNota;}}?>"/>
 					&nbsp;&nbsp;<input class="btn btn-primary" type="submit" name="submit" value="Inserir"/>
 						
 						</fieldset>
@@ -44,9 +44,11 @@
 	<br />
 	
 	<?php } 
-		else{?>
+		else{
 	
-	<strong><?= 'Ainda não há alunos matriculados nessa disciplina';?></strong>
+			echo '<h4>' . 'Ainda não há alunos matriculados nessa disciplina' . '</h4>'; 
 	
-	<?php }?>
+		 }?>
+		 
+		 <br /><br />
 </div>

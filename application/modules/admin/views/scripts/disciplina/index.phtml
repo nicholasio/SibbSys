@@ -18,11 +18,11 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><strong><?= $lista->idDisciplina; ?></strong></td>
-		<td><strong><?= $lista->Disciplina; ?></strong></td>
-		<td><strong><?= $lista->QntdCred; ?></strong></td>
+		<td><strong><?php echo $lista->idDisciplina; ?></strong></td>
+		<td><strong><?php echo $lista->Disciplina; ?></strong></td>
+		<td><strong><?php echo $lista->QntdCred; ?></strong></td>
 		<td>
-			<a class="btn btn-primary" href="<?= $this->url(
+			<a class="btn btn-primary" href="<?php echo $this->url(
 				array(
 					'controller'=>'disciplina',
 					'action'	=>'editar',
@@ -31,7 +31,7 @@
 					Editar
 			</a>
 			
-			<a class="btn btn-warning" href="<?= $this->url(
+			<a class="btn btn-warning" href="<?php echo $this->url(
 				array(
 					'controller'=>'disciplina',
 					'action'	=>'delete',
@@ -45,5 +45,5 @@
 <?php }?> <!-- fim foreach -->
 </table>
 
-	<br />
+	<br /><br />
 </div>

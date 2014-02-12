@@ -11,13 +11,13 @@
 	
 			<select name="semestre">
 				<?php foreach($this->semes as $semes){?>
-					<option value="<?= $semes->Semestre;?>"><?= $semes->Semestre; ?></option>
+					<option value="<?php echo $semes->Semestre;?>"><?php echo $semes->Semestre; ?></option>
 				<?php }?>
 			</select>
 		
 			<select name="ano">
 				<?php foreach($this->ano as $ano){?>
-					<option value="<?= $ano->Ano; ?>"><?= $ano->Ano; ?></option>
+					<option value="<?php echo $ano->Ano; ?>"><?php echo $ano->Ano; ?></option>
 				<?php }?>
 			</select>
 		
@@ -27,12 +27,13 @@
 <br />
 
 <?php if($this->data != null){?>
-	<h4><?= $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
+	<h4><?php echo $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
 <?php }?>
 
 <br /><br />
 
-<?	$nota = new Application_Model_DbTable_Nota();
+<?php
+	$nota = new Application_Model_DbTable_Nota();
 	$presenca = new Application_Model_DbTable_Presenca();
 	$model = new Application_Model_DbTable_Matricula();
 	$tableTurma = new Application_Model_DbTable_Turma();
@@ -58,7 +59,7 @@
 						
 						<?php if($this->data == null){?>
 						
-							<?foreach($this->rows as $turma){
+							<?php foreach($this->rows as $turma){
 								if($turma->Status != 'inativo'){
 									$id = $turma->idUsuario_has_Turma;
 									$idUser = $turma->Usuario_idUsuario;
@@ -72,14 +73,14 @@
 							<tr>
 								<td>
 									<strong>										
-										<?= $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+										<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
 									</strong>
 								</td>
-								<td style="text-align: center;"><strong><?= $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
-								<td style="text-align: center;"><strong><?= $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
-								<td style="text-align: center;"><strong><?= $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
+								<td style="text-align: center;"><strong><?php echo $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
+								<td style="text-align: center;"><strong><?php echo $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
+								<td style="text-align: center;"><strong><?php echo $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
 								<td style="text-align: center;"><strong>
-								<?
+								<?php
 									if(! empty($conta["SUM(Faltas)"])){
 										print $conta["SUM(Faltas)"];
 									}else{
@@ -89,7 +90,7 @@
 								</strong></td><!-- Faltas -->
 								
 								<td style="text-align: center;"><strong>
-									<? 
+									<?php 
 											
 									if(! empty($media['unit1'])){
 									
@@ -112,12 +113,12 @@
 									?>									
 								</strong></td><!-- Média Final -->
 								
-								<td style="text-align: center;"><strong><?= $turma->Status;?></strong></td><!-- Situação -->
+								<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
 							</tr>
-						<? }?>
-					<? }?>
-				<? }?> <!-- Fim foreach -->
-			<? }
+						<?php }?>
+					<?php }?>
+				<?php }?> <!-- Fim foreach -->
+			<?php }
 		
 					else{				
 						foreach($this->rows as $turma){
@@ -133,17 +134,17 @@
 								<tr>
 									<td>
 										<strong>										
-											<?= $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+											<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
 										</strong>
 									</td>
 							
-									<td style="text-align: center;"><strong><?= $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
-									<td style="text-align: center;"><strong><?= $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
-									<td style="text-align: center;"><strong><?= $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
+									<td style="text-align: center;"><strong><?php echo $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
+									<td style="text-align: center;"><strong><?php echo $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
+									<td style="text-align: center;"><strong><?php echo $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
 								
 									<td style="text-align: center;">
 										<strong>
-											<?
+											<?php
 												if(! empty($conta["SUM(Faltas)"])){
 													print $conta["SUM(Faltas)"];
 												}else{
@@ -155,7 +156,7 @@
 								
 									<td style="text-align: center;">
 										<strong>
-											<? 
+											<?php
 												if(! empty($media['unit1'])){
 									
 													$total = $media['unit1'];
@@ -176,12 +177,12 @@
 											?>
 										</strong>
 									</td><!-- Média Final -->
-									<td style="text-align: center;"><strong><?= $turma->Status;?></strong></td><!-- Situação -->
-							<? }?>
+									<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
+							<?php }?>
 								</tr>
-						<? }?>
-					<? }?> <!-- Fim foreach -->
-				<? }?>
+						<?php }?>
+					<?php }?> <!-- Fim foreach -->
+				<?php }?>
 				</tbody>
 			</table>
 			</div>
@@ -194,4 +195,5 @@
 		}
 	?>
 	
+	<br /><br />
 </div>
