@@ -24,7 +24,7 @@ class Application_Model_DbTable_Login{
 		$result = $auth->authenticate($adapter);
 		
 		if($result->isValid()){
-			$data = $adapter->getResultRowObject(null, 'Senha','ConfirmaSenha');
+			$data = $adapter->getResultRowObject(null, 'Senha');
 			$auth->getStorage()->write($data);
 			
 			return true;

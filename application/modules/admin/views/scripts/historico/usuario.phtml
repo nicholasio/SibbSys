@@ -1,46 +1,53 @@
-<?php 
+<?php $this->headTitle('Histórico');?>
 
- $tableNota = new Application_Model_DbTable_Nota();
- $presenca = new Application_Model_DbTable_Presenca();
+<div class="grid_16">
+	<div class="page-header">
+		<h2>Histórico Escolar</h2>
+	</div>
 
-$file = APPLICATION_PATH . '/models/Historico/Historico.pdf';
- 
- $pdf = Zend_Pdf::load($file);
- $page = $pdf->pages[0];
- $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES_ROMAN);
- $page->setFont($font, 10);
- 
- $posY = 600;
- 
-foreach ($this->rows as $users){
-
-	$id = $users->idUsuario_has_Turma;
-	$chamada = $presenca->contaPresenca($id);
-	$media = $tableNota->nota($id);
 	
-		
-		
-		$page->drawText($users->findParentRow('Application_Model_DbTable_Usuario')->Nome, 125, 651.5);
-		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Nome, 57, $posY); 
-		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Ano . '.', 208, $posY); 
-		$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Semestre, 230, $posY);
-		
-		if($chamada["SUM(Faltas)"] != null){
-			
-			$page->drawText($chamada["SUM(Faltas)"], 320, $posY);
-			
-		} else{
-		 
-			$page->drawText(0, 324, $posY);
+<?php
 
-		}
+if(! empty($this->rows['Turma_idTurma'])){
+
+	$tableNota = new Application_Model_DbTable_Nota();
+	$presenca = new Application_Model_DbTable_Presenca();
+
+	$file = APPLICATION_PATH . '/models/Historico/Historico.pdf';
+ 
+	$pdf = Zend_Pdf::load($file);
+	$page = $pdf->pages[0];
+	$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES_ROMAN);
+	$page->setFont($font, 10);
+ 
+	$posY = 600;
+ 
+	foreach ($this->rows as $users){
+
+		$id = $users->idUsuario_has_Turma;
+		$chamada = $presenca->contaPresenca($id);
+		$media = $tableNota->nota($id);
+			
+			$page->drawText($users->findParentRow('Application_Model_DbTable_Usuario')->Nome, 125, 651.5);
+			$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Nome, 57, $posY); 
+			$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Ano . '.', 208, $posY); 
+			$page->drawText($users->findParentRow('Application_Model_DbTable_Turma')->Semestre, 230, $posY);
 		
-		$page->drawText(substr($media['unit1']/3,0,4), 405, $posY);
+				if($chamada["SUM(Faltas)"] != null){
+					$page->drawText($chamada["SUM(Faltas)"], 320, $posY);			
+				}
+				else{
+		 
+					$page->drawText(0, 324, $posY);
+
+				}
 		
-		$page->drawText($users->Status, 497, $posY);
+			$page->drawText(substr($media['unit1']/3,0,4), 405, $posY);
 		
-	$posY -=22.7;
-}
+			$page->drawText($users->Status, 497, $posY);
+		
+			$posY -=22.7;
+	}
 
 
 	header("Content-Type: application/x-pdf");
@@ -48,5 +55,14 @@ foreach ($this->rows as $users){
 	
 	echo $pdf->render();
 
+}
 
+else{
+	echo '<h4>' . 'Usuário Matricula em nenhuma Turma até o momento' . '</h4>';
+}
+	
 ?>
+
+	<br /><br />
+
+</div>

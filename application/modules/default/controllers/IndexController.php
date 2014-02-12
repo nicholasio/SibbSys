@@ -12,8 +12,6 @@ class Default_IndexController extends Zend_Controller_Action
 	public function loginAction(){
 		
 		$form = new Application_Form_Login();
-		$user = new Application_Model_DbTable_Usuario();
-		$lista = $user->findForSelect();
 
 		$request = $this->_request;
 		 

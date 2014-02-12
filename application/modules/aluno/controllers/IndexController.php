@@ -81,7 +81,7 @@ class Aluno_IndexController extends Zend_Controller_Action{
     	$id = $dados->idUsuario;
     	
     	$model = new Application_Model_DbTable_Matricula();
-    	$this->view->rows = $model->turmas($id);	
+    	$this->view->rows = $model->turmas($id);
     }
 
     public function turmaAction(){

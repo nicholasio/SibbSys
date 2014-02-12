@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 10-Fev-2014 às 11:02
+-- Data de Criação: 11-Fev-2014 às 22:21
 -- Versão do servidor: 5.5.34-0ubuntu0.13.04.1
 -- versão do PHP: 5.4.9-4ubuntu2.4
 
@@ -334,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   `NomePai` varchar(100) DEFAULT NULL,
   `Email` varchar(100) NOT NULL,
   `Senha` varchar(45) NOT NULL,
-  `ConfirmaSenha` varchar(45) NOT NULL,
+  `ConfirmaSenha` varchar(45) DEFAULT NULL,
   `Foto` text NOT NULL,
   `Tipo` char(1) NOT NULL,
   `Status` varchar(45) NOT NULL,
@@ -343,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   PRIMARY KEY (`idUsuario`,`Igreja_idIgreja`,`Curso_idCurso`),
   KEY `fk_Usuario_Igreja_idx` (`Igreja_idIgreja`),
   KEY `fk_Usuario_Curso1_idx` (`Curso_idCurso`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `Usuario`
@@ -354,7 +354,8 @@ INSERT INTO `Usuario` (`idUsuario`, `Nome`, `Endereco`, `Bairro`, `CEP`, `Telefo
 (2, 'Ricardo Mateus', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Adelaide', '', 'ricardo.mateus@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', '188445_455863147782584_2039102562_n.jpg', '2', 'ativo', 2, 1),
 (3, 'Timoteo Franklin', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Linda Franklin', 'Roberto Franklin', 'tim@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'prTimoteo.jpg', '2', 'ativo', 3, 1),
 (4, 'Eliakim Aquino', 'Januario Pereira Pimenta', 'Aeroporto', '59.600-000', '84 3316-9958', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'eliakim.aquino@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'PQAAAM4brXNt_7Gc2XgQyRMCPxqISAi_jTroof4VaWI5LK5NNNp6eBxQ0gyzXAki3NRrh_ReeHBtTugdGvBgXE4YEbgAm1T1UKCJlAIraWtuYH94_Y2SBLe6SoEG.jpg', '3', 'ativo', 1, 1),
-(5, 'Kobe Bryant', 'Av. Mota Neto, 349', 'Nova Betânia', '59.600-000', '84 0000-0000', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'kobe@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'kobe-jersey.jpg', '3', 'ativo', 2, 1);
+(5, 'Kobe Bryant', 'Av. Mota Neto, 349', 'Nova Betânia', '59.600-000', '84 0000-0000', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'kobe@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'kobe-jersey.jpg', '3', 'ativo', 2, 1),
+(6, 'Magno Cabral', 'Igapó', 'Igapó', '59.600-000', '84 0000-0000', '', '000.000.000-00', '01/01/2014', 'Francisca', '', 'magno@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', 'magno.jpg', '3', 'ativo', 5, 1);
 
 -- --------------------------------------------------------
 
