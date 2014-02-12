@@ -39,7 +39,7 @@ class Application_Form_Disciplina extends Zend_Form{
         ));
         
         $model = new Application_Model_DbTable_Credito();
-        $list = $model->listar();
+        $list = $model->lista();
         
         $this->addElement('hidden','Credito_idCredito',
         	array(

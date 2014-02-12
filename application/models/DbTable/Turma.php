@@ -31,6 +31,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
     public function findForSelect($id){
     	
     	$sql = $this->select()->where('idTurma = ?', $id);
+    	
     	$linha = $this->fetchAll($sql);
     	
     	return $linha;
@@ -74,7 +75,9 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	public function listar(){
 	
 		$where = 'ativo';
-		$sql = $this->select()->where('Status = ?', $where)->order('Nome ASC');
+		$sql = $this->select()
+					->where('Status = ?', $where)
+					->order(array(new Zend_Db_Expr('idTurma ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

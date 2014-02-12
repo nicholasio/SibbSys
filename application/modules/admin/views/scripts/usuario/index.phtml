@@ -18,7 +18,7 @@
 		<tbody>
 	<?php foreach ($this->rows as $lista){?>
 		<tr>
-			<td><strong><?php echo $lista->Nome ?></strong></td>
+			<td><strong><?php echo $lista->Nome; ?></strong></td>
 			<td><strong>
 				<?php switch ($lista->Tipo) {
 					case 1:
@@ -32,7 +32,7 @@
 						break;
 				} ?>
 			</strong></td>
-			<td><strong><?php echo $lista->Telefone ?></strong></td>
+			<td><strong><?php echo $lista->Telefone; ?></strong></td>
 			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
 			<td>
 				<a class="btn btn-info" href="<?= $this->url(

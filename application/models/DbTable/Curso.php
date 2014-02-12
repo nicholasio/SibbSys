@@ -42,7 +42,9 @@ class Application_Model_DbTable_Curso extends Zend_Db_Table_Abstract{
     public function listar(){
     
     	$where = 'ativo';
-    	$sql = $this->select()->where('Status = ?', $where)->order('Nome ASC');
+    	$sql = $this->select()
+    				->where('Status = ?', $where)
+    				->order(array(new Zend_Db_Expr("Nome ASC")));
     	
     	$rows = $this->fetchAll($sql);
     	

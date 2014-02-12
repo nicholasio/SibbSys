@@ -19,8 +19,8 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><strong><?= $lista->idUsuario_has_Turma ?></strong></td>
-		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong></td>
+		<td><strong><?= $lista->idUsuario_has_Turma; ?></strong></td>
+		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
 		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>

@@ -18,7 +18,7 @@ class Application_Model_DbTable_Igreja extends Zend_Db_Table_Abstract{
 	public function findForSelect(){
 		
 		$select = $this->select();
-		$select->order('order');
+		
 		return $this->fetchAll($select);
 	}
 	
@@ -50,8 +50,9 @@ class Application_Model_DbTable_Igreja extends Zend_Db_Table_Abstract{
 	public function listar(){
 		
 		$where = 'ativo';
-		$sql = $this->select();
-		$sql->where('Status = ?', $where)->order('Igreja ASC');
+		$sql = $this->select()
+					->where('Status = ?', $where)
+					->order(array(new Zend_Db_Expr('Igreja ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

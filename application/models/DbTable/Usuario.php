@@ -44,7 +44,9 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	
 	public function findForSelect(){
 		
-		$sql = $this->select()->where('Tipo = ?', 2);
+		$sql = $this->select()
+					->where('Tipo = ?', 2)
+					->order(array(new Zend_Db_Expr('Nome ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		
@@ -53,7 +55,9 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	
 	
 	public function editar($id){
+		
 		$sql = $this->select()->where('idUsuario = ?', $id);
+		
 		$row = $this->fetchRow($sql);
 			
 		if(null !== $row)
@@ -79,7 +83,9 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	public function listar(){
 
 		$where = 'ativo';
-		$sql = $this->select()->where('Status = ?', $where)->order('idUsuario ASC');
+		$sql = $this->select()
+					->where('Status = ?', $where)
+					->order(array(new Zend_Db_Expr('idUsuario ASC')));
     	
 		$rows = $this->fetchAll($sql);
 		

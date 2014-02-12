@@ -19,7 +19,7 @@
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
 	<tr>
-		<td><strong><?= $lista->idTurma?></strong></td>
+		<td><strong><?= $lista->idTurma; ?></strong></td>
 		<td><strong><?= $lista->Nome; ?></strong></td>
 		<td><strong><?= $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
 		<td><strong><?= $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>

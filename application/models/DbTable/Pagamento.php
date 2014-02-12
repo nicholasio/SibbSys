@@ -44,7 +44,8 @@ class Application_Model_DbTable_Pagamento extends Zend_Db_Table_Abstract{
 	
 	public function listar(){
 
-		$sql = $this->select()->order('idPagamento ASC');
+		$sql = $this->select()
+					->order(array(new Zend_Db_Expr('idPagamento ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

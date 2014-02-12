@@ -44,7 +44,9 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 	
 	public function listar(){
 		
-		$sql = $this->select()->order('idFatura ASC');
+		$sql = $this->select()
+					->order(array(new Zend_Db_Expr('idFatura ASC')));
+		
 		$rows = $this->fetchAll($sql);
 		
 		return $rows;

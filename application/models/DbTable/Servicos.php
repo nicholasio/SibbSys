@@ -36,7 +36,7 @@ class Application_Model_DbTable_Servicos extends Zend_Db_Table_Abstract{
 	
 	public function listar(){
 		
-		$sql = $this->select()->order('nome ASC');
+		$sql = $this->select()->order(array(new Zend_Db_Expr('nome ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

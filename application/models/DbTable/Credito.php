@@ -13,7 +13,7 @@ class Application_Model_DbTable_Credito extends Zend_Db_Table_Abstract{
 		parent::insert($data);
 	}
 	
-	public function listar(){
+	public function lista(){
 		
 		$sql = $this->select();
 		

@@ -38,7 +38,7 @@
 			} ?>
 		</h3>
 		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
-		<br /><br />
+		<br />
 		<ul>
 			<li><a href="#">settings</a><span class="divider">|</span></li>
 			<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>" class="dialog_button" data-dialog="dialog_logout">Logout</a></li>

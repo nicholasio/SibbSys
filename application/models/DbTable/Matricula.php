@@ -61,7 +61,9 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	public function listar(){
 
 		$where = 'Cursando';
-		$sql = $this->select()->where('Status = ?', $where)->order('idUsuario_has_Turma ASC');
+		$sql = $this->select()
+					->where('Status = ?', $where)
+					->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

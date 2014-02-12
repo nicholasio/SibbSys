@@ -18,6 +18,7 @@ class Admin_DisciplinaController extends Zend_Controller_Action{
         $model = new Application_Model_DbTable_Disciplina();
 
     	$this->view->rows = $model->listar();
+    	
     }
 
     
@@ -25,8 +26,6 @@ class Admin_DisciplinaController extends Zend_Controller_Action{
     	
         $model = new Application_Model_DbTable_Disciplina();
         $form = new Application_Form_Disciplina();
-        
-        $this->view->dados = $model->autoComplete();
 
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost())){
