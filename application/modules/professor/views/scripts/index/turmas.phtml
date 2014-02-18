@@ -6,6 +6,9 @@
 			<small>Veja todas as Turmas que leciona no semestre corrente</small>
 		</h1>
 	</div>
+	
+	<?php if($this->row != null){?>
+	
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
@@ -16,8 +19,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php if($this->row != null){
-				foreach($this->rows as $lista){?>
+			
+				<?php foreach($this->rows as $lista){?>
 					<tr>
 						<td><strong><?php echo $lista->idTurma;?></strong></td>
 						<td><strong><?php echo $lista->Nome; ?></strong></td>
@@ -60,10 +63,14 @@
 							</a>
 						</td>
 					</tr>		
-			<?php }
-			}else{
-				echo 'Usuário não leciona nenhuma turma até o momento.';		
-			}?>			
+			<?php }?>
 		</tbody>
 	</table>
+	
+	<?php 
+		}else{
+				
+				echo '<h4>' . 'Usuário não leciona nenhuma turma até o momento.' . '</h4>';
+						
+		}?>
 </div>
