@@ -17,6 +17,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
     	Zend_Registry::set('config', $config);
 	
   	}
+  	
+  	
+  	protected function _initDate(){
+  		
+  		ini_set('date.timezone', 'America/Fortaleza');
+  	}
 		
 	protected function _initViews(){
 		$this->bootstrap("view");
