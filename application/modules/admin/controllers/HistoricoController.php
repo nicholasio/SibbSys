@@ -29,5 +29,6 @@ class Admin_HistoricoController extends Zend_Controller_Action{
     	$model = new Application_Model_DbTable_Matricula();
     	
     	$this->view->rows = $model->turmas($id);
+    	$this->view->row = $model->getTurma($id);
     }
 }
