@@ -21,6 +21,7 @@
 				<th><h5>#</h5></th>
 				<th><h5>Nome do Serviço</h5></th>
 				<th><h5>Valor do Serviço</h5></th>
+				<th><h5>Mês</h5></th>
 				<th><h5>Ação</h5></th>
 			</tr>
 		</thead>
@@ -29,13 +30,14 @@
 				<tr>
 					<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->idServicos; ?></strong></td>
 					<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></strong></td> 
-					<td><strong><?php echo ' R$ ' . ' ' . $lista->findParentRow('Application_Model_DbTable_Servicos')->valor; ?></strong></td>
+					<td><strong><?php echo ' R$ ' . ' ' . $lista->valor; ?></strong></td>
+					<td><?php echo $lista->mes; ?></td>
 					<td>
 						<a class="btn btn-warning" href="<?php echo $this->url(
 							array(
-								'controller'	=>	'usuarioservicos',
-								'action'		=>	'delete',
-								'idServico'		=>	$lista->Servicos_idServicos
+								'controller'				=>	'usuarioservicos',
+								'action'					=>	'delete',
+								'idUsuario_has_Servicos'		=>	$lista->idUsuario_has_Servicos
 							));?>">
 								Excluir
 						</a>

@@ -38,7 +38,19 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		return $this->fetchAll($sql);
 	}
 	
-	
+	public function getMatriculasNaoProcessadas( $ano, $semestre, $mesAtual ) {
+
+		$sql = $this->select()->from(array('ut' => 'Usuario_has_Turma'), array('idUsuario_has_Turma', 'Usuario_idUsuario'))
+		->joinInner(array('t' => 'Turma'), 't.idTurma = ut.Turma_idTurma', array())
+		->where('t.Semestre = ?', $semestre)
+		->where('t.Ano = ?', $ano)
+		->where('ut.idUsuario_has_Turma NOT IN (SELECT idUsuario_has_Turma from Debitos WHERE mesPagamento = ? )', $mesAtual)
+		->where('ut.Status = ?', 'Cursando');
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+
+	}
 	public function verificar($idUsuario, $idTurma){
 		
 		$sql = $this->select()->where('Usuario_idUsuario = ?', $idUsuario)

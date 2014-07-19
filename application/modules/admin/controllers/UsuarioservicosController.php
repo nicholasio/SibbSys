@@ -26,7 +26,7 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 				$data = $form->getValues();
 				$data['Usuario_idUsuario'] = $id;
 				$model->insert($data);
-				$this->_redirect("/admin/usuarioservicos");
+				//$this->_redirect("/admin/usuarioservicos");
 			}
 		}
 		$this->view->row = $user->editar($id);
@@ -40,11 +40,11 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 	public function deleteAction(){
 		
 		$model = new Application_Model_DbTable_Usuarioservicos(); 
-		$id = $this->_getParam('Servicos_idServicos');
-		
+		$id = $this->_getParam('idUsuario_has_Servicos');
+		$userId = $this->_getParam('idUsuario');
 		$model->deletar($id);
 		
-		$this->_redirect("/admin/usuarioservicos");
+		$this->_redirect("/admin/usuarioservicos/index/idUsuario/" . $userId);
 		
 	}
 }
