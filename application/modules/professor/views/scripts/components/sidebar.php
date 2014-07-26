@@ -24,6 +24,8 @@
 		
 		
 		<img src="/files/<?php echo $data->Foto; ?>" width="70" height="90"></img>
+		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
+		
 		<h3>
 			<?php switch($data->Tipo){
 				case 1:
@@ -37,11 +39,11 @@
 					break;
 			} ?>
 		</h3>
-		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
+		
 		<br />
 		<ul>
-			<li><a href="#">settings</a><span class="divider">|</span></li>
-			<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>" class="dialog_button" data-dialog="dialog_logout">Logout</a></li>
+			<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1);?>">Alterar Senha</a><span class="divider">|</span></li>
+			<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>">Sair</a></li>
 		</ul>
 	</div><!-- #user_box -->
 
@@ -71,7 +73,7 @@
 				<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'boletim'),null,1);?>"><img src="/images/icons/small/white/post_card.png"><span>Boletim</span></a></li>
 			</ul>
 		</li>
-		<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1);?>"><img src="/images/icons/small/grey/key_2.png"><span>Alterar Senha</span></a></li>
+		
 	</ul>
 
 	<!-- <div id="search_side" class="dark_box"><form><input class="" type="text" placeholder="Search Adminica..."></form></div>

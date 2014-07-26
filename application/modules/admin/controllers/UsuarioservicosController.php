@@ -18,7 +18,7 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 		$model = new Application_Model_DbTable_Usuarioservicos();
 		$form = new Application_Form_UsuarioServico();
 		$user = new Application_Model_DbTable_Usuario();
-		
+	
 		$id = $this->_getParam('idUsuario');
 		
 		if($this->_request->isPost()){
@@ -29,11 +29,12 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 				//$this->_redirect("/admin/usuarioservicos");
 			}
 		}
-		$this->view->row = $user->editar($id);
+		$this->view->row = $user->editar($id);	
 		
 		$this->view->form = $form;
 		
 		$this->view->rows = $model->listar($id);
+		
 	}
 	
 	
@@ -42,9 +43,18 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 		$model = new Application_Model_DbTable_Usuarioservicos(); 
 		$id = $this->_getParam('idUsuario_has_Servicos');
 		$userId = $this->_getParam('idUsuario');
-		$model->deletar($id);
 		
-		$this->_redirect("/admin/usuarioservicos/index/idUsuario/" . $userId);
+		$resultado = $model->deletar($id);	
 		
+		if($resultado == 'igual'){
+			
+		}
+		
+		else{
+			
+			$model->deletar($id);
+			$this->_redirect("/admin/usuarioservicos/index/idUsuario/" . $userId);
+			
+		}
 	}
 }

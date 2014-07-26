@@ -33,4 +33,12 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 		return $rows;
 	}
 	
+	public function findForSelect($id){
+		
+		$sql = $this->select()->where('idUsuario_has_Servicos = ?', $id);
+		$row = $this->fetchRow($sql);
+		
+		return $row;
+	}
+	
 }

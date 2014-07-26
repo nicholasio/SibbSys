@@ -49,9 +49,18 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 	
 	public function deletar($id){
 		
+		$debito = new Application_Model_DbTable_Debitos();
+		$result = $debito->findForSelect($id);
+		
 		$sql = $this->select()->where('idUsuario_has_Servicos = ?', $id);
 		$row = $this->fetchRow($sql);
 		
-		$row->delete();
+		if($result->idUsuario_has_Servicos == $row->idUsuario_has_Servicos){
+			$msg = 'igual';
+			return $msg;
+		}
+		else{
+			$row->delete();
+		}
 	}
 }
