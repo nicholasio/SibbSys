@@ -41,6 +41,13 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 				
 				$idTurma = $data['Turma_idTurma'];
 				$idUsuario = $data['Usuario_idUsuario'];
+
+				/*$count = count($_POST['matriculas']);
+				for($i = 0; $i < $count; $i++ ) {
+					$user = $_POST['matriculas'][$i]['user_id'];
+					$turma_id = $_POST['matriculas'][$i]['turma_id'];
+
+				}*/
 				
 				$this->find = $model->verificar($idUsuario, $idTurma);
 				$this->user = $turma->_find($idUsuario);

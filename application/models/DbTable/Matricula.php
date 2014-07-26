@@ -45,7 +45,7 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		->where('t.Semestre = ?', $semestre)
 		->where('t.Ano = ?', $ano)
 		->where('ut.idUsuario_has_Turma NOT IN (SELECT idUsuario_has_Turma from Debitos WHERE mesPagamento = ? )', $mesAtual)
-		->where('ut.Status = ?', 'Cursando');
+		->where('t.Status = ?', 'ativo');
 		$rows = $this->fetchAll($sql);
 		
 		return $rows;

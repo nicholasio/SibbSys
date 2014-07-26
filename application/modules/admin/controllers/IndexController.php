@@ -27,7 +27,7 @@ class Admin_IndexController extends Zend_Controller_Action{
         $anoAtual       = (int) date('Y');
 
 
-        if ( $diaAtual >= 18 ) {
+        if ( $diaAtual >= 18 && $diaAtual < 28) {
             $this->processarDebitos( $diaAtual, $mesAtual, $anoAtual );
         } else if ( $diaAtual >= 28 ) {
             $this->gerarFaturas( $diaAtual, $mesAtual, $anoAtual );

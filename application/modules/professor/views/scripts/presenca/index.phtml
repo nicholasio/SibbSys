@@ -12,28 +12,31 @@
 	<br />
 		
 	<div class="container">	
-		
+		<form action="/professor/presenca/post-presenca" method="post" id="form-prof">
 		<?php foreach($this->rows as $nome){
 			if($nome->Status != 'inativo'){ ?>
 			
 				<h5><?php echo $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></h5>
 			
-				<form action="/professor/presenca/post-presenca" method="post" id="form-prof">
+				
 					<fieldset>
 						<strong>Data</strong> 
-							<input type="text" class="input-small" name="data" value="<?php print date('d/m/Y'); ?>"/>
+							<input type="text" class="input-small" name="data[]" value="<?php print date('d/m/Y'); ?>"/>
 						
 					&nbsp;&nbsp;&nbsp;<strong>Faltas</strong>
-							<input type="text" class="input-small" name="faltas"/>
+							<input type="text" class="input-small" name="faltas[]"/>
 						
-							<input type="hidden" name="idMatricula" value="<?php echo $nome->idUsuario_has_Turma; ?>"/>
-							<input type="hidden" name="idTurma" value="<?php echo $nome->Turma_idTurma; ?>"/>
-							<input class="btn btn-primary "type="submit" name="submit" value="Inserir"/>
+							<input type="hidden" name="idMatricula[]" value="<?php echo $nome->idUsuario_has_Turma; ?>"/>
+							<input type="hidden" name="idTurma[]" value="<?php echo $nome->Turma_idTurma; ?>"/>
+							
 						
 					</fieldset>
-				</form>
+
 			<?php }?>
 		<?php } ?>
+		<input class="btn btn-primary "type="submit" name="submit" value="Inserir"/>
+
+		</form>
 	</div>
 	
 	<br />

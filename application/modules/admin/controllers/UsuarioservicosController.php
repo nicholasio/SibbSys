@@ -43,6 +43,7 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 		$model = new Application_Model_DbTable_Usuarioservicos(); 
 		$id = $this->_getParam('idUsuario_has_Servicos');
 		$userId = $this->_getParam('idUsuario');
+		$this->view->userId = $userId;
 		
 		$resultado = $model->deletar($id);	
 		

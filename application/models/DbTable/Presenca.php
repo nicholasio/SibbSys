@@ -23,7 +23,7 @@ class Application_Model_DbTable_Presenca extends Zend_Db_Table_Abstract{
 	public function findForSelect($id){
 		
 		$sql = $this->select()
-					->where('idUsuario_has_Turma = ?', $id)
+					->where('Turma_idTurma = ?', $id)
 					->order(array(new Zend_Db_Expr('idPresenca DESC')));
 		
 		$result = $this->fetchAll($sql);

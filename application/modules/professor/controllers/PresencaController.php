@@ -38,20 +38,28 @@ class Professor_PresencaController extends Zend_Controller_Action{
 	
 	
 	public function postPresencaAction(){
-		
-		$data['Data'] = $_POST['data'];
-		$data['Faltas'] = $_POST['faltas'];
-		$data['idUsuario_has_Turma'] = $_POST['idMatricula'];
-		$data['Turma_idTurma'] = $_POST['idTurma'];
-		$idTurma = $_POST['idTurma'];
-		 
 		$model = new Application_Model_DbTable_Presenca();
+
+		if ( $this->_request->isPost() ) {
+			$count = count($_POST['faltas']);
+			var_dump($_POST);
+			for($i = 0; $i < $count; $i++) {
+				$data['Data'] = $_POST['data'][$i];
+				$data['Faltas'] = $_POST['faltas'][$i];
+				$data['idUsuario_has_Turma'] = $_POST['idMatricula'][$i];
+				$data['Turma_idTurma'] = $_POST['idTurma'][$i];
+				$idTurma = $_POST['idTurma'][$i];
+				
+				$model->insert($data);
+			}	
+		}
+		$this->_redirect("/professor/presenca/index/idTurma/$idTurma");
 		 
-		if($this->_request->isPost()){
+		/*if($this->_request->isPost()){
 			if(! empty($data['Faltas']))
 				$model->insert($data);
 			$this->_redirect("/professor/presenca/index/idTurma/$idTurma");
-		}
+		}*/
 	}
 	
 	

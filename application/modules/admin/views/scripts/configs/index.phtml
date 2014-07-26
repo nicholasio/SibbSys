@@ -4,4 +4,13 @@
 	<div class="page-header">
 		<h2>Configurações</h2>
 	</div>
+
+	<form action="<?php echo $this->url( array('module' => 'admin', 'controller' => 'configs', 'action' => 'insert' ), null, 1); ?>" method="POST" >
+		Valor Crédito: <input type="text" name="configs[valor_credito]" value="<?php echo $this->valor_credito; ?>"/>
+		Dia Débito: <input type="text" name="configs[dia_debito]" value="<?php echo $this->dia_debito ?>"/>
+		Dia Fatura: <input type="text" name="configs[dia_fatura]" value="<?php echo $this->dia_fatura ?>" />
+		Qualquer: <input type="text" name="configs[qualquer]" value="<?php echo $this->qualquer ?>" />
+
+		<input type="submit" value="Salvar" name="configs_btn"/>
+	</form>
 </div>
