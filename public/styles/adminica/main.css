@@ -1365,25 +1365,34 @@ td {
 	float: left;
 	margin: 10px 0 10px 40px;
 }
-
+.left{
+	float: right;
+	margin: 5px 675px 0 0;
+}
+.btn-submit{
+	float: right;
+	margin: -35px 450px 0 0;
+}
+#Cadastrar{
+	width: 100px;
+	font-size: 12px;
+	margin: 0 0 0 -10px;
+}
 .foto{
 	float: left;
 	margin: 30px 0 0 40px;
 }
 
-#form .btn{
-	float: left;
-	margin: 30px 0 0 55px;
+#btn-prof{
+	margin: 25px 0 0 0;
+	width: 90px;
+	font-size: 12px;
 }
-#form label{
-	font-weight: bold;
+#btn-turma{
+	width: 80px;
+	font-size: 11px;
 }
-#form-prof .btn{
-	margin: -8px 0 0 15px;
-}
-#form-prof{
-	margin: 15px;
-}
-.form label{
-	font-weight: bold;
+#btn-admin{
+	width: 45px;
+	font-size: 12px;
 }

@@ -25,8 +25,6 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 	
 	public function autoComplete(){
 		
-		//$array = [];
-		
 		$sql = $this->select();//->where('Disciplina LIKE ?', "%$query%");
 		
 		$row = $this->fetchAll($sql);

@@ -6,25 +6,26 @@
 		    <small>Veja toda a lista das turmas cadastradas</small>
 	    </h1>
   	</div>
-  	<table class="table table-striped data-table" style="margin-bottom:0;">
+  	
+  	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><h5>#</h5></th>
-	        <th><h5>Turma</h5></th>
-	        <th><h5>Ano/Semestre</h5></th>
-	        <th><h5>Professor</h5></th>
-	        <th><h5>Ações</h5></th>
+	        <th><font size="3" color="black"><strong>#</strong></font></th>
+	        <th><font size="3" color="black"><strong>Turma</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Ano/Semestre</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Professor</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
-	<tr>
-		<td><strong><?php echo $lista->idTurma; ?></strong></td>
-		<td><strong><?php echo $lista->Nome; ?></strong></td>
-		<td><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
-		<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-		<td>
-			<a class="btn btn-primary" href="<?php echo $this->url(
+	<tr style="background: #EEE; ">
+		<td style="width: 50px;"><strong><?php echo $lista->idTurma; ?></strong></td>
+		<td style="width: 350px;"><strong><?php echo $lista->Nome; ?></strong></td>
+		<td style="width: 50px; text-align: center;"><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
+		<td style="width: 250px; text-align: center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+		<td style="text-align: center;">
+			<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'editar',
@@ -34,7 +35,7 @@
 				Editar
 			</a>
 	
-			<a class="btn btn-warning" href="<?php echo $this->url(
+			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'delete',

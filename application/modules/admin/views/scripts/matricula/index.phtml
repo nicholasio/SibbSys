@@ -6,36 +6,36 @@
 		    <small>Veja toda a lista de alunos Matriculados</small>
 	    </h1>
   	</div>
-  	<table class="table table-striped data-table" style="margin-bottom:0;">
+  	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><h5>#</h5></th>
-	        <th><h5>Nome</h5></th>
-	        <th><h5>Turma</h5></th>
-	        <th><h5>Professor</h5></th>
-	        <th><h5>Ações</h5></th>
+	        <th><font size="3" color="black"><strong>#</strong></font></th>
+	        <th><font size="3" color="black"><strong>Nome</strong></font></th>
+	        <th style="padding-left: 50px"><font size="3" color="black"><strong>Turma</strong></font></th>
+	        <th><font size="3" color="black"><strong>Professor</strong></font></th>
+	        <th style="padding-left: 20px"><font size="3" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
-	<tr>
-		<td><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
-		<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-		<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
+	<tr style="background: #EEE;">
+		<td style="width: 50px;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
+		<td style="width: 250px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+		<td style="width: 300px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
-		<td><strong>					
+		<td style="width: 250px;"><strong>					
 		<?php foreach ($this->prof as $prof){?>
 				<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
 						 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
-						Professor(a): <?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
+						<?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
 										 
 				<?php }?> <!-- fim if -->
 			
 		<?php }?> <!-- fim foreach -->
 		</strong></td>
 		<td>
-			<a class="btn btn-warning" href="<?php echo $this->url(
+			<a style="width: 50px; font-size: 12px;" class="btn btn-danger" href="<?php echo $this->url(
 				array(
 					'controller'			=>	'matricula',
 					'action'				=>	'delete',

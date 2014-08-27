@@ -35,30 +35,29 @@ class Professor_NotaController extends Zend_Controller_Action{
 	
 	public function postNotaAction(){
 		
-		$data['Unit1'] = $_POST['unit1'];
-		$data['Unit2'] = $_POST['unit2'];
-		$data['Unit3'] = $_POST['unit3'];
-		$data['idUsuario_has_Turma'] = $_POST['idMatricula'];
-		$data['Turma_idTurma'] = $_POST['idTurma'];
-		$id = $_POST['idNota'];
-		$idTurma = $_POST['idTurma'];
-		
 		$model = new Application_Model_DbTable_Nota();
 		
 		if($this->_request->isPost()){
-			if(! empty($data['Unit1'])){
-				if($id){
-					$where = $model->getAdapter()->quoteInto('idNota = ?', $id);
-					$model->update($data, $where);
-					$this->_redirect("/professor/nota/index/idTurma/$idTurma");
-				}
-				else{
-					$model->insert($data);
-					$this->_redirect("/professor/nota/index/idTurma/$idTurma");
-				}
-			}
-			else{
-				$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+			$count = count($_POST['unit1']);
+			
+			for($i = 0; $i < $count; $i++){
+				$data['Unit1'] = $_POST['unit1'][$i];
+				$data['Unit2'] = $_POST['unit2'][$i];
+				$data['Unit3'] = $_POST['unit3'][$i];
+				$data['idUsuario_has_Turma'] = $_POST['idMatricula'][$i];
+				$data['Turma_idTurma'] = $_POST['idTurma'][$i];
+				$id = $_POST['idNota'][$i];
+				$idTurma = $_POST['idTurma'][$i];
+
+					if($id){
+						$where = $model->getAdapter()->quoteInto('idNota = ?', $id);
+						$model->update($data, $where);
+						$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+					}
+					else{
+						$model->insert($data);
+						$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+					}
 			}
 		}
 	}

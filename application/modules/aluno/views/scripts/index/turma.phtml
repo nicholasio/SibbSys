@@ -11,12 +11,12 @@
 	
 	<?php if(!empty($this->rows['Nome'])){?>
 	
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><h5>#</h5></th>
-				<th><h5>Turma</h5></th>
-				<th><h5>Ação</h5></th>
+				<th><font size="3" color="black"><strong>#</strong></font></th>
+				<th style="text-align: left"><font size="3" color="black"><strong>Turma</strong></font></th>
+				<th style="text-align: center"><font size="3" color="black"><strong>Ação</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,11 +24,11 @@
 		<?php foreach($this->rows as $lista){?>
 			<?php foreach($this->file as $file){?>
 				<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
-					<tr>
-						<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
-						<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
-						<td>
-							<a class="btn btn-primary" href="<?php echo $this->url(
+					<tr style="background: #EEE;">
+						<td style="width: 100px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
+						<td style="width: 300px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
+						<td style="text-align: center;">
+							<a style="width: 60px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'index',
 									'action'		=>	'material',

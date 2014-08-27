@@ -9,24 +9,24 @@
 	
 	<?php if($this->row != null){?>
 	
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><h5>#</h5></th>
-				<th><h5>Turmas</h5></th>
-				<th><h5>Ano/Semestre</h5></th>
-				<th><h5>Ações</h5></th>
+				<th><font size="3" color="black"><strong>#</strong></font></th>
+				<th style=" text-align: center;"><font size="3" color="black"><strong>Turmas</strong></font></th>
+				<th style=" text-align: center;"><font size="3" color="black"><strong>Ano/Semestre</strong></font></th>
+				<th style=" text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
 			
 				<?php foreach($this->rows as $lista){?>
-					<tr>
-						<td><strong><?php echo $lista->idTurma;?></strong></td>
-						<td><strong><?php echo $lista->Nome; ?></strong></td>
-						<td><strong><?php echo $lista->Ano . '-' . $lista->Semestre; ?></strong></td>
-						<td>
-							<a class="btn btn-primary" href="<?php echo $this->url(
+					<tr style="background: #EEE; ">
+						<td style="width: 50px; "><strong><?php echo $lista->idTurma;?></strong></td>
+						<td style="width: 300px; "><strong><?php echo $lista->Nome; ?></strong></td>
+						<td style="text-align:center; width: 200px; "><strong><?php echo $lista->Ano . '-' . $lista->Semestre; ?></strong></td>
+						<td style="text-align: center;">
+							<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'Nota',
 									'action'		=>	'index',
@@ -35,7 +35,7 @@
 									Inserir Nota
 							</a>
 							
-							<a class="btn btn-success" href="<?php echo $this->url(
+							<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'presenca',
 									'action'		=>	'index',
@@ -44,7 +44,7 @@
 									Chamada
 							</a>
 							
-							<a class="btn" href="<?php echo $this->url(
+							<a id="btn-turma" class="btn" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'arquivo',
 									'action'		=>	'index',
@@ -53,7 +53,7 @@
 									Inserir Arquivo
 							</a>
 							
-							<a class="btn btn-warning" href="<?php echo $this->url(
+							<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'index',
 									'action'		=>	'encerrar-turma',

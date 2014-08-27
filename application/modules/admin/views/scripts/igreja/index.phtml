@@ -6,22 +6,23 @@
 	    	<small>Veja toda a lista das igrejas cadastradas</small>
 	    </h1>
   	</div>
-  	<table class="table table-striped data-table" style="margin-bottom:0;">
+  	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><h5>#</h5></th>
-	        <th><h5>Igreja</h5></th>
-	        <th><h5>Pastor</h5></th>
-	        <th><h5>Telefone</h5></th>
-	        <th><h5>Ações</h5></th>
+	        <th><font size="3" color="black"><strong>#</strong></font></th>
+	        <th><font size="3" color="black"><strong>Igreja</strong></font></th>
+	        <th><font size="3" color="black"><strong>Pastor</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Telefone</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	<?php foreach($this->rows as $lista){?>
-		<tr>
-			<td><strong><?php echo $lista->idIgreja; ?></strong></td>
-			<td><strong><?php echo $lista->Igreja; ?></strong></td>
-			<td>
+		<tr style="background: #EEE;">
+			<td style="width: 30px;"><strong><?php echo $lista->idIgreja; ?></strong></td>
+			<td style="width: 350px;"><strong><?php echo $lista->Igreja; ?></strong></td>
+			<td style="width: 200px;"><strong><?php echo $lista->Pastor?></strong></td>
+			<td style="width: 150px; text-align: center;">
 				<strong>
 					<?php if($lista->Telefone == null){
 						echo ' - ';
@@ -31,8 +32,7 @@
 					?>
 				</strong>
 			</td>
-			<td><strong><?php echo $lista->Pastor?></strong></td>
-			<td>
+			<td style="text-align: center;">
 				<a class="btn btn-info" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
@@ -42,7 +42,7 @@
 					<i class="icon-search icon-grey"></i>
 				</a>
 			
-				<a class="btn btn-primary" href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'editar',
@@ -51,7 +51,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'delete',

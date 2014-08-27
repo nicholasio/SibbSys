@@ -7,22 +7,22 @@
 	    </h1>
   	</div>
   	
-  	<table class="table table-striped data-table" style="margin-bottom:0;">
+  	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><h5>#</h5></th>
-	        <th><h5>Curso</h5></th>
-	        <th><h5>Duração</h5></th>
-	        <th><h5>Ações</h5></th>
+	        <th><font size="3" color="black"><strong>#</strong></font></th>
+	        <th><font size="3" color="black"><strong>Curso</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Duração</strong></font></th>
+	        <th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 <?php foreach ($this->rows as $lista) { ?>
-	<tr>
-		<td><strong><?php echo $lista->idCurso; ?></strong></td>
-		<td><strong><?php echo $lista->Nome; ?></strong></td>
-		<td><strong><?php echo $lista->Duracao; ?></strong></td>
-		<td>
+	<tr style="background: #EEE;">
+		<td style="width: 50px;"><strong><?php echo $lista->idCurso; ?></strong></td>
+		<td style="width: 300px;"><strong><?php echo $lista->Nome; ?></strong></td>
+		<td style="width: 300px; text-align: center;"><strong><?php echo $lista->Duracao; ?></strong></td>
+		<td style="text-align: center;">
 			<a class="btn btn-info" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'curso',
@@ -32,7 +32,7 @@
 					<i class="icon-search icon-grey"></i>
 			</a>
 				
-			<a class="btn btn-primary" href="<?php echo $this->url(
+			<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 				array(
 					'controller'=>'curso',
 					'action'	=>'editar',
@@ -41,7 +41,7 @@
 					Editar
 			</a>
 			
-			<a class="btn btn-warning" href="<?php echo $this->url(
+			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 				array(
 					'controller'=>'curso',
 					'action'	=>'delete',

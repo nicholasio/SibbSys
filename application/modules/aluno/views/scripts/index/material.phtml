@@ -11,23 +11,23 @@
 
 <?php if(!empty($this->rows['Nome'])){?>
 
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><h5>#</h5></th>
-				<th><h5>Data da Publicação</h5></th>
-				<th><h5>Matérial</h5></th>
-				<th><h5>Ação</h5></th>
+				<th><font size="3" color="black"><strong>#</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Data da Publicação</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Matérial</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Ação</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach($this->rows as $lista){?>
-			<tr>
-				<td><strong><?php echo $lista->idArquivos; ?></strong></td>
-				<td><strong><?php echo $lista->Data; ?></strong></td>
-				<td><strong><?php echo $lista->Nome; ?></strong></td>
-				<td>
-					<a class="btn btn-success" href="<?php echo $this->url(
+			<tr style="background: #EEE;">
+				<td style="width: 50px;"><strong><?php echo $lista->idArquivos; ?></strong></td>
+				<td style="width: 300px; text-align: center;"><strong><?php echo $lista->Data; ?></strong></td>
+				<td style="width: 250px; text-align: center;"><strong><?php echo $lista->Nome; ?></strong></td>
+				<td style="text-align: center;">
+					<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'minhasturmas',
 							'action'		=>	'download',

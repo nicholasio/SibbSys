@@ -25,9 +25,9 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	
     	$sql = $this->select()->where('Turma_idTurma = ?', $id);
 
-    	$result = $this->fetchAll($sql);
+    	$rows = $this->fetchAll($sql);
     	
-		return $result;
+		return $rows;
     }
     
     

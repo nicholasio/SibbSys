@@ -2,15 +2,30 @@
 
 <div class="grid_16">
 	<div class="page-header">
-		<h2>Configurações</h2>
+		<h1>Configurações
+			<small>Insira alguns dados para configurações globais</small></h1>
 	</div>
+	
+	<br /> 
+	
+	<div class="container">
+		<form action="/admin/configs/insert" method="post" >
+			<fieldset>
+				<label>Valor do Crédito: </label> 
+					<input type="text" name="configs[valor_credito]" value="<?php echo $this->valor_credito; ?>"/>
+				<label>Dia do Débito: </label>
+					<input type="text" name="configs[dia_debito]" value="<?php echo $this->dia_debito; ?>"/>
+				<label>Dia da Fatura: </label>
+					<input type="text" name="configs[dia_fatura]" value="<?php echo $this->dia_fatura; ?>" />
+				<label>Ano Atual: </label>
+					<input type="text" name="configs[ano_atual]" value="<?php echo $this->ano_atual; ?>" />
+				<label>Semestre Atual: </label>
+					<input type="text" name="configs[semestre_atual]" value="<?php echo $this->semestre_atual; ?>" />
 
-	<form action="<?php echo $this->url( array('module' => 'admin', 'controller' => 'configs', 'action' => 'insert' ), null, 1); ?>" method="POST" >
-		Valor Crédito: <input type="text" name="configs[valor_credito]" value="<?php echo $this->valor_credito; ?>"/>
-		Dia Débito: <input type="text" name="configs[dia_debito]" value="<?php echo $this->dia_debito ?>"/>
-		Dia Fatura: <input type="text" name="configs[dia_fatura]" value="<?php echo $this->dia_fatura ?>" />
-		Qualquer: <input type="text" name="configs[qualquer]" value="<?php echo $this->qualquer ?>" />
-
-		<input type="submit" value="Salvar" name="configs_btn"/>
-	</form>
+					<br /><br />
+					
+				<p><input class="btn btn-primary" type="submit" value="Salvar" name="configs_btn"/></p>
+			</fieldset>
+		</form>
+	</div>
 </div>

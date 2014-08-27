@@ -10,12 +10,33 @@
   	</div>
   	
 <br />  	
+  
+  	
   	
   	<div class="container">
-  		<div class="form">
-  			<?php echo $this->form ?>
-  				<span class="errors"><?php echo $this->messages; ?></span>
-  		</div>
+  		<form action="#" method="post" id="sing-up area">
+  			<div id="entry1" class="cloneInput">
+  				<h2 id="reference" name="reference" class="heading-reference">Entry #1</h2>
+  				<fieldset>
+  					<label class="label_fn" for="aluno">Aluno</label>
+  						<input class="input_fn" type="text" name="aluno" id="aluno"/>
+  					<label class="label_ln" for="turma">Turma</label>
+  						<input class="input_ln" type="text" name="turma" id="turma"/>
+  				</fieldset>
+  					<div id="addDelButtons">
+  						<input type="button" id="btnAdd" value="add section"/> <input type="button" id="btnDel" value="remove section above"/>
+  					</div>
+  						
+  				<fieldset class="form-actions">
+  					<input  class="btn btn-primary" type="submit" value="Submit">
+  				</fieldset>
+  			</div>
+  		</form>
+  		
+  		<!-- <div class="form">
+  			<?php //echo $this->form['Usuario_idUsuario']; ?>
+  				<span class="errors"><?php //echo $this->messages; ?></span>
+  		</div> -->
   	</div>  	  	
   	
   	<br /><br /><br /><br />

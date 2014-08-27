@@ -41,4 +41,23 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 		return $row;
 	}
 	
+	public function editar($id){
+		
+		$sql = $this->select()->where('idDebitos = ?', $id);
+		
+		$row = $this->fetchRow($sql);
+		
+		return $row->toArray();
+	}
+	
+	public function deletar($id){
+		
+		$sql = $this->select()->where('idDebitos = ?', $id);
+		
+		$row = $this->fetchRow($sql);
+		
+		$row->delete();
+		
+	}
+	
 }

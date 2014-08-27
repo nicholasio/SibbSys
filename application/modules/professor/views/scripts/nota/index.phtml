@@ -7,40 +7,69 @@
 		<?php if($this->row != null){
 			foreach ($this->linha as $disc){?>
 				<h2>Insira notas aos alunos da Turma de <?php echo $disc->Nome;?></h2>
-	</div>
-	
 		<?php }?>
+	</div>
  
- 	<br />
+ 	<br /><br />
  
  	<div class="container">
-		<?php foreach($this->rows as $users){
-			if($users->Status != 'inativo'){?>
-	
-				<h5><?php echo $users->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></h5>
-		
-					<form action="/professor/nota/post-nota" method="post" id="form-prof">
-						<fieldset>
-							<strong>Unidade 1</strong>
-	       						<input type="text" class="input-small" name="unit1" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit1;}}?>"/>
+ 	
+ 		<table class="table-striped" cellpadding="5px" cellspacing="2" style="border-collapse: collapse;">
+ 		
+ 			<thead>
+ 			
+ 				<tr style="height: 25px; background: #1C94C4;">
+ 				
+					<th style="width: 300px; padding-top: 5px;"><font size="3" color="white">ALUNOS</font></th>
+					<th style="width: 300px;"><font size="3" color="white">UNIDADE 1</font></th>
+					<th style="width: 300px;"><font size="3" color="white">UNIDADE 2</font></th>
+					<th style="width: 300px;"><font size="3" color="white">UNIDADE 3</font></th>
 					
-	       		 &nbsp;&nbsp;<strong>Unidade 2</strong>
-	       						<input type="text" class="input-small" name="unit2" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit2;}}?>"/>
-					
-		       	 &nbsp;&nbsp;<strong>Unidade 3</strong> 
-	       						<input type="text" class="input-small" name="unit3" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit3;}}?>"/>
+				</tr>
 				
-								<input type="hidden" name="idMatricula" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
-								<input type="hidden" name="idTurma" value="<?php echo $users->Turma_idTurma; ?>"/>
-								<input type="hidden" name="idNota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->idNota;}}?>"/>
-					&nbsp;&nbsp;<input class="btn btn-primary" type="submit" name="submit" value="Inserir"/>
-						
-						</fieldset>
-					</form>
-			<?php }?>	
-		<?php }?>
-	</div>
-	
+ 			</thead> 
+ 			
+ 			<tbody>
+ 			
+ 				<form action="/professor/nota/post-nota" method="post" id="form-prof">
+ 				
+ 					<fieldset>
+ 					
+ 						<?php foreach($this->rows as $users){
+ 							
+							if($users->Status != 'inativo'){?>
+							
+								<input type="hidden" name="idMatricula[]" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
+							
+								<input type="hidden" name="idTurma[]" value="<?php echo $users->Turma_idTurma; ?>"/>
+								
+								<input type="hidden" name="idNota[]" value="<?php foreach($this->nota as $nota){if($nota->idUsuario_has_Turma == $users->idUsuario_has_Turma){echo $nota->idNota;}}?>"/>
+								
+								<input type="hidden"/>
+								
+							<tr style="background: #EEE ">
+							
+								<td style="text-align: left; padding-left: 10px; "><strong><font size="3" color="black"><?php echo $users->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></font></strong></td>
+								
+								<td style="text-align: center; padding-top: 7px; "><input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit1;}}?>"/></td>
+								
+								<td style="text-align: center;" ><input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit2;}}?>"/></td>
+								
+								<td style="text-align: center;" ><input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit3;}}?>"/></td>
+								
+	    					</tr>
+	    					
+	    					<?php }?>	
+						<?php } ?>
+							<tr valing="baseline">
+								<td><input id="btn-prof" class="btn btn-primary" type="submit" name="submit" value="Salvar"/></td>
+							</tr>
+ 					</fieldset>
+ 				</form>
+ 			</tbody>			 	
+ 		</table>
+ 	</div>
+ 	
 	<br />
 	
 	<?php } 

@@ -6,25 +6,25 @@
 			<small>Veja toda a lista dos serviços cadastrados</small>
 		</h1>
 	</div>
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><h5>#</h5></th>
-				<th><h5>Nome</h5></th>
-				<th><h5>Descrição</h5></th>
-				<th><h5>Valor</h5></th>
-				<th><h5>Ações</h5></th>
+				<th><font size="3" color="black"><strong>#</strong></font></th>
+				<th><font size="3" color="black"><strong>Nome</strong></font></th>
+				<th><font size="3" color="black"><strong>Descrição</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Valor</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
 	<?php foreach ($this->rows as $lista){ ?>
-		<tr>
-			<td><strong><?php echo $lista->idServicos; ?></strong></td>
-			<td><strong><?php echo $lista->nome; ?></strong></td>
-			<td><strong><?php echo $lista->descricao; ?></strong></td>
-			<td><strong><?php echo $lista->valor; ?></strong></td>
-			<td>
-				<a class="btn btn-primary" href="<?php echo $this->url(
+		<tr style="background: #EEE; ">
+			<td style="width: 50px;"><strong><?php echo $lista->idServicos; ?></strong></td>
+			<td style="width: 250px;"><strong><?php echo $lista->nome; ?></strong></td>
+			<td style="width: 350px;"><strong><?php echo $lista->descricao; ?></strong></td>
+			<td style="width: 100px; text-align: center;"><strong><?php echo $lista->valor; ?></strong></td>
+			<td style="text-align: center;">
+				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller' => 'servicos',
 						'action'	 => 'editar',
@@ -33,7 +33,7 @@
 						Editar
 				</a>
 				
-				<a class="btn btn-warning" href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller' => 'servicos',
 						'action'	 => 'delete',
@@ -45,6 +45,9 @@
 		</tr>
 	<?php }?>
 	</tbody>
+	
 </table>
+
 	<br /><br />
+	
 </div>

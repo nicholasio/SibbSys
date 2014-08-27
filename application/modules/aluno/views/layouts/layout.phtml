@@ -1,18 +1,19 @@
-<?= $this->partial("_header.phtml","admin"); ?>
-<link rel="shortcut icon" href="../public/images/sibblogo.ico">
+<?php echo $this->partial("_header.phtml","admin"); ?>
+
+<link rel="shortcut icon favicon" href="../../images/logosibb.ico">
 	<div id="pjax">
 		<div id="wrapper" data-adminica-nav-top="1" data-adminica-side-top="1" class="has_fixed_bar">
-			<?= $this->partial('components/topbar.php');?>
-			<?= $this->partial('components/sidebar.php'); ?>
-			<?= $this->partial('components/stackbar.php');?>			
+			<?php echo $this->partial('components/topbar.php');?>
+			<?php echo $this->partial('components/sidebar.php'); ?>
+			<?php echo $this->partial('components/stackbar.php');?>			
 		</div>
-			<?= $this->partial('components/navbar-fixed.php');?>
+			<?php echo $this->partial('components/navbar-fixed.php');?>
 			<div id="main_container" class="main_container container_16 clearfix">
 			
 				<?= $this->layout()->content; ?>
 				
 			</div>
 	</div>
-	<?= $this->partial('dialogs/dialog_welcome.php', 'admin');?>
-	<?= $this->partial('dialogs/dialog_logout.php', 'admin');?>
-<?= $this->partial('_footer.phtml', 'admin');?>
+	<?php echo $this->partial('dialogs/dialog_welcome.php', 'admin');?>
+	<?php echo $this->partial('dialogs/dialog_logout.php', 'admin');?>
+<?php echo $this->partial('_footer.phtml', 'admin');?>

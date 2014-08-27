@@ -11,30 +11,30 @@
 	
 	<br />
 	
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><h5>#</h5></th>
-				<th><h5>Nome</h5></th>
-				<th><h5>Unidade 1</h5></th>
-				<th><h5>Unidade 2</h5></th>
-				<th><h5>Unidade 3</h5></th>
-				<th><h5>Ação</h5></th>
+				<th style="text-align: left;"><font size="3" color="black"><strong>#</strong></font></th>
+				<th style="text-align: left;"><font size="3" color="black"><strong>Nome</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Unidade 1</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Unidade 2</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Unidade 3</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Ação</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php $model = new Application_Model_DbTable_Matricula();?>
 			<?php foreach($this->result as $lista){?>
-				<tr>
-					<td><strong><?php echo $lista->idNota; ?></strong></td>
+				<tr style="background: #EEE;">
+					<td style="width: 50px;"><strong><?php echo $lista->idNota; ?></strong></td>
 					<?php $idUser = $lista->idUsuario_has_Turma;
 						  $query = $model->getId($idUser); ?>
-					<td><strong><?php echo $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-					<td><strong><?php if($lista->Unit1 == 0){echo '-';}else{echo $lista->Unit1;} ?></strong></td>
-					<td><strong><?php if($lista->Unit2 == 0){echo '-';}else{echo $lista->Unit2;} ?></strong></td>
-					<td><strong><?php if($lista->Unit3 == 0){echo '-';}else{echo $lista->Unit3;} ?></strong></td>
-					<td>
-						<a class="btn btn-warning" href="<?php echo $this->url(
+					<td style="width: 250px;"><strong><?php echo $query->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+					<td style="width: 150px; text-align: center;"><strong><?php if($lista->Unit1 == 0){echo '-';}else{echo $lista->Unit1;} ?></strong></td>
+					<td style="width: 150px; text-align: center;"><strong><?php if($lista->Unit2 == 0){echo '-';}else{echo $lista->Unit2;} ?></strong></td>
+					<td style="width: 150px; text-align: center;"><strong><?php if($lista->Unit3 == 0){echo '-';}else{echo $lista->Unit3;} ?></strong></td>
+					<td style="text-align: center;">
+						<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
 							array(
 								'controller'	=>	'nota',
 								'action'		=>	'delete',

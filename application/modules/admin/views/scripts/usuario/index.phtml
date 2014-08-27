@@ -8,18 +8,18 @@
 	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><h5>Nome</h5></th>
-				<th><h5>Tipo</h5></th>
-				<th><h5>Telefone</h5></th>
-				<th><h5>Igreja</h5></th>
-				<th><h5>Ações</h5></th>
+				<th><font size="3" color="black"><strong>Usuário</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Tipo</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Telefone</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Igreja</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
 	<?php foreach ($this->rows as $lista){?>
-		<tr>
-			<td><strong><?php echo $lista->Nome; ?></strong></td>
-			<td><strong>
+		<tr style="background: #EEE;">
+			<td style="width: 210px;"><strong><?php echo $lista->Nome; ?></strong></td>
+			<td style="width: 70px; text-align: center;"><strong>
 				<?php switch ($lista->Tipo) {
 					case 1:
 						echo "Admin";
@@ -32,8 +32,8 @@
 						break;
 				} ?>
 			</strong></td>
-			<td><strong><?php echo $lista->Telefone; ?></strong></td>
-			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
+			<td style="width: 100px; text-align:center;"><strong><?php echo $lista->Telefone; ?></strong></td>
+			<td style="width: 260px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
 			<td>
 				<a class="btn btn-info" href="<?php echo $this->url(
 					array(
@@ -45,7 +45,7 @@
 				</a>
 				
 			
-				<a class="btn btn-primary" href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuario',
 						'action'		=>	'editar',
@@ -54,7 +54,7 @@
 					Editar
 				</a>
 			
-				<a class="btn"href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'historico',
 						'action'		=>	'usuario',
@@ -64,7 +64,7 @@
 						Histórico
 				</a>
 				
-				<a class="btn" href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-warning" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuarioservicos',
 						'action'		=>	'index',
@@ -74,7 +74,7 @@
 
 				</a>
 	
-				<a class="btn btn-warning" href="<?php echo $this->url(
+				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuario',
 						'action'		=>	'delete',

@@ -215,7 +215,7 @@ class Application_Form_Usuario extends Zend_Form
 			 		'Errors',
 			 		'Label',
 			 		'ViewHelper',
-			 		array('HtmlTag', array('class'=>'right'))
+			 		array('HtmlTag', array('class'=>'left'))
 			 ))
 			 ->addValidator('NotEmpty', true);
 			 
@@ -249,11 +249,16 @@ class Application_Form_Usuario extends Zend_Form
     		
 
         $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
+        $submit->setDecorators(array(
+        			'Errors',
+        			'ViewHelper',
+        			array('HtmlTag', array('class'=>'btn-submit'))
+        		));
         
         $this->addElements(array(
         	$nome,$end,$bairro,$cep,$nasc,$tel,$cel,
-        	$cpf,$mae,$pai,$igreja,$curso,$tipo,
-        	$email,$senha,$foto,$submit
+        	$cpf,$mae,$pai,$igreja,$curso,$email,
+        	$senha,$foto,$tipo,$submit
         ));
         
         
