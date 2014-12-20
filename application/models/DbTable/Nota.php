@@ -41,16 +41,35 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     }
     
     
-    public function nota($id){
+    public function media($id){
     
     	
-    	$sql = $this->select()->from($this,  array('unit1' => new Zend_Db_Expr("SUM(Unit1+Unit2+Unit3)")))					  
+    	$sql = $this->select()->from($this,  array('soma' => new Zend_Db_Expr("SUM(Unit1+Unit2+Unit3)")))					  
     						  ->where('idUsuario_has_Turma = ?', $id);
     	
     	$query = $this->fetchRow($sql);
     	
-    	return $query;
+    	if ( $query )
+    		return $query['soma'] / 3;
+    	return 0;
     }
+    
+    
+    public function temNota($id){
+    	
+    	
+    	$sql = $this->select()->WHERE('Turma_idTurma = ?', $id);
+
+    	$query = $this->fetchRow($sql);
+    	return $query;
+    	
+    	
+    	//$sql = $this->select()->where('Turma_idTurma = ?', $id AND 'Unit1 = ?', "" OR 'Unit2 = ?', "" OR 'Unit3 = ?', "");
+    						  
+    	//$query = $this->fetchRow($sql);
+    	
+    	//return $query;
+    } 
     
     
     public function findUnit($idUser){

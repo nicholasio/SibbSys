@@ -61,7 +61,7 @@
 	<?php 
 	$id = $users->idUsuario_has_Turma;
 	$chamada = $presenca->contaPresenca($id);
-	$media = $tableNota->nota($id);
+	$media = $tableNota->media($id);
 	?>
 	
 		<tr <?php if($i % 2 == 0) : ?> style="background: #EEE "<?php endif;?>>
@@ -77,7 +77,7 @@
 
 			<?php }?>
 			
-			<td style="text-align: center; "><?php echo substr($media['unit1']/3,0,4); ?></td>
+			<td style="text-align: center; "><?php echo substr($media,0,4); ?></td>
 			<td style="text-align: center; "><?php echo $users->Status; ?></td>
 			
 	<?php }?>

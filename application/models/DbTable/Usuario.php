@@ -45,7 +45,7 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	public function findForSelect(){
 		
 		$sql = $this->select()
-					->where('Tipo = ?', 2)
+					->where('Tipo != ?', 3)
 					->order(array(new Zend_Db_Expr('Nome ASC')));
 		
 		$rows = $this->fetchAll($sql);

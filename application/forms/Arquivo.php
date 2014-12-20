@@ -69,9 +69,11 @@ class Application_Form_Arquivo extends Zend_Form{
 		$this->setElementDecorators(array(
 			'Errors',
 			'ViewHelper',
-			'Label',
+			'Label'
 		));
 		
-		$this->addElements(array($file, $submit));
+		$this->addElements(array($file));
+		
+		$this->addElements(array($submit));
 	}
 }

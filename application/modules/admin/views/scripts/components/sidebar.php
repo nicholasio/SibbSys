@@ -9,6 +9,7 @@
 		<?php 
 			$auth = Zend_Auth::getInstance();
 	    	$data = $auth->getStorage()->read();
+	    	$id = $data->idUsuario;
 
 		?>
 	
@@ -93,6 +94,29 @@
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'pagamento','action'=>'index'),null,1); ?>"><img src="/images/icons/small/white/cash_register.png"><span>Pagamento</span></a></li>
 			</ul>
 		</li>
+		
+		<li><a href="#"><img src="/images/icons/small/grey/admin_user_2.png"/><span>Professor</span></a>
+			<ul class="drawer">
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'professor','action'=>'index'), null,1);?>"><img/><span>Turmas</span></a></li>
+				<li><a href="#"><img src="/images/icons/small/white/list.png"/><span>Listagem</span></a>
+					<ul class="drawer">
+						<?php 
+							$model = new Application_Model_DbTable_Turma();
+							$rows = $model->turmas($id);
+							foreach($rows as $turma){	?>
+								<li><a href="#"><span><?php echo $turma->Nome; ?></span></a>
+									<ul class="drawer">
+										<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'professor','action'=>'lista-nota','idTurma'=>$turma->idTurma),null,1); ?>"><span>Notas</span></a></li>
+										<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'professor','action'=>'lista-presenca','idTurma'=>$turma->idTurma),null,1); ?>"><span>Presença</span></a></li>
+										<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'arquivo','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Arquivos</span></a></li>
+									</ul>
+								</li>
+						<?php }?>
+					</ul>
+				</li>
+			</ul>
+		</li>		
+		
 		<li><a href="#"><img src="/images/icons/small/grey/list.png"/><span>Minhas Turmas</span></a>
 			<ul class="drawer">
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'historico'),null,1);?>"><img src="/images/icons/small/white/pdf_document.png"><span>Histórico</span></a></li>

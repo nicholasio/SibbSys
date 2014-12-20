@@ -21,20 +21,21 @@ class Professor_ArquivoController extends Zend_Controller_Action{
     	
     	$id = $this->_getParam('idTurma');
     	
+    	$model = new Application_Model_DbTable_Arquivos();
     	$turma = new Application_Model_DbTable_Turma();    	
     	$result = $turma->editar($id);
     	$this->view->turma = $result['Nome'];
     	 
     	$idDisc = $result['Disciplina_idDisciplina'];
-    	 
+    
     	$form = new Application_Form_Arquivo();
     	 
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
-    			$data['Disciplina_idDisciplina'] = $result->Disciplina_idDisciplina;
+    			$data['Disciplina_idDisciplina'] = $idDisc;
     			$model->insert($data);
-    			$this->_redirect("/professor/index/upload/idTurma/$id");
+    			$this->_redirect("/professor/arquivo/listar/idTurma/$id");
     		}
     	}
     	 

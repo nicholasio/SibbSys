@@ -128,7 +128,10 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	
 	public function encerrarTurma($id){
 	
-		$sql = $this->select()->where('idTurma = ?', $id);
+		$sql = $this->select()->where('idTurma = ?', $id)
+							  ->where('Unit1 != ', "")
+							  ->where('Unit2 != ', "")
+							  ->where('Unit3 != ', "");
 		$row = $this->fetchRow($sql);
 		
 		$linha = array(

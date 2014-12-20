@@ -1,0 +1,73 @@
+<?php $this->headTitle('Chamada'); ?>
+
+<div class="grid_16">
+
+	<div class="page-header">	
+		<?php if($this->row != null){
+			foreach ($this->linha as $disc){?>
+				<h2>Lista de chamada da Turma de <?php echo $disc->Nome;?></h2>
+		<?php }?>	 
+	</div>
+		
+	<br /><br />
+		
+	<div class="container">
+	
+		<table class="table-striped" cellpadding="5px" cellspacing="2" style="border-collapse: collapse;">
+		
+			<thead>
+			
+				<tr style="height: 25px; background: #1C94C4;">
+				
+					<th style="width: 350px; padding-top: 4px;"><font size="3" color="white">ALUNOS</font></th>
+					<th style="width: 350px;"><font size="3" color="white">DATA</font></th>
+					<th style="width: 350px;"><font size="3" color="white">FALTAS</font></th>
+					
+				</tr>
+				
+			</thead>
+			
+			<tbody>
+				<form action="/admin/professor/post-presenca" method="post" id="form-prof">
+				
+					<fieldset>
+					
+						<?php foreach($this->rows as $nome){
+							
+								if($nome->Status != 'inativo'){ ?>
+								
+									<input type="hidden" name="idMatricula[]" value="<?php echo $nome->idUsuario_has_Turma; ?>"/>
+									<input type="hidden" name="idTurma[]" value="<?php echo $nome->Turma_idTurma; ?>"/>
+								
+								<tr style="background: #EEE ">
+								
+									<td style="text-align: left; padding-left: 10px;"><strong><font size="3" color="black"><?php echo $nome->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></font></strong></td>
+									
+									<td style="text-align: center; padding-top: 7px;"><input style="text-align: center;" type="text" class="input-small" name="data[]" value="<?php print date('d/m/Y'); ?>"/></td>
+									
+									<td style="text-align: center;"><input style="text-align: center;" type="text" class="input-small" name="faltas[]"/></td>
+									
+								</tr>
+							
+							<?php }?>
+							
+						<?php } ?>
+							<tr valing="baseline">
+								<td><input id="btn-prof" class="btn btn-primary" type="submit" name="submit" value="Inserir"/></td>
+							</tr>
+					</fieldset>
+				</form>
+			</tbody>
+		</table>	
+	</div>
+	
+	<br />
+	
+	<?php } else{
+	
+		echo '<h4>' . "Ainda não há alunos matriculados nessa disciplina" . '</h4>';
+		
+	 }?>
+
+	 <br /><br />
+</div>

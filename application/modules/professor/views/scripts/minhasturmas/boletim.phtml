@@ -65,7 +65,7 @@
 									$idUser = $turma->Usuario_idUsuario;
 									$periodo = $tableTurma->getPeriodo($idUser);
 									$result = $nota->getNota($id);
-									$media = $nota->nota($id);
+									$media = $nota->media($id);
 									$conta = $presenca->contaPresenca($id);
 								
 								if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
@@ -82,7 +82,7 @@
 								<td style="text-align: center;"><strong>
 								<?php
 									if(! empty($conta["SUM(Faltas)"])){
-										print $conta["SUM(Faltas)"];
+										echo $conta["SUM(Faltas)"];
 									}else{
 										echo ' - ';
 									}
@@ -91,29 +91,22 @@
 								
 								<td style="text-align: center;"><strong>
 									<?php 
-											
-									if(! empty($media['unit1'])){
-									
-										$total = $media['unit1'];
-										$mediafinal = $total/3;
-									
-										echo substr($mediafinal,0,4);
+										echo substr($media,0,4);
 										
 										
-										if(! empty($result['Unit3'])){
-											if($mediafinal < 7 || $conta["SUM(Faltas)"] >= 9){
+										/*if(! empty($result['Unit3'])){
+											if($media < 7 || $conta["SUM(Faltas)"] >= 9){
 												$model->statusReprovado($id);
 											}
-										
 											else{
 												$model->statusAprovado($id);
 											}
-										}
-									}
+										}*/
+									
 									?>									
 								</strong></td><!-- Média Final -->
 								
-								<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
+								<td style="text-align: center;"><strong><?php echo $turma->Status; ?></strong></td><!-- Situação -->
 							</tr>
 						<?php }?>
 					<?php }?>
@@ -128,7 +121,7 @@
 						
 								$id = $turma->idUsuario_has_Turma;
 								$result = $nota->getNota($id);
-								$media = $nota->nota($id);
+								$media = $nota->media($id);
 								$conta = $presenca->contaPresenca($id);?>
 				
 								<tr>
@@ -157,14 +150,10 @@
 									<td style="text-align: center;">
 										<strong>
 											<?php 
-												if(! empty($media['unit1'])){
-									
-													$total = $media['unit1'];
-													$mediafinal = $total/3;
 											
-													echo substr($mediafinal,0,4);
+													echo substr($media,0,4);
 											
-													if($result['Unit3'] != null){
+													/*if($result['Unit3'] != null){
 														if($mediafinal < 7 || $conta["SUM(Faltas)"] >= 9){
 															$model->statusReprovado($id);
 														}
@@ -172,8 +161,8 @@
 														else{
 															$model->statusAprovado($id);
 														}
-													}
-												}
+													}*/
+													
 											?>
 										</strong>
 									</td><!-- Média Final -->

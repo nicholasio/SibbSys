@@ -62,12 +62,69 @@ class Professor_IndexController extends Zend_Controller_Action{
     public function encerrarTurmaAction(){
 		
     	$model = new Application_Model_DbTable_Turma();
+    	$nota = new Application_Model_DbTable_Nota();
     	
     	$id = $this->_getParam('idTurma');
     	
-    	$model->encerrarTurma($id);
+    	$result = $nota->temNota($id);
+    		if($result['Unit1'] == ""){
+    			echo 'Turma não pode ser fechada, pois ainda falta algumas notas de aluno';
+    		}
+    		if($result['Unit2'] == ""){
+    			echo 'Turma não pode ser fechada, pois ainda falta algumas notas de aluno';
+    		}
+    		if($result['Unit3'] == ""){
+    			echo 'Turma não pode ser fechada, pois ainda falta algumas notas de aluno';
+    		}
+    		else{
+    			echo 'nada';
+    		}
     	
-    	$this->_redirect("/professor/index/turmas");
+    		
+    		
+    		die;
+    	/*
+    	foreach ($result as $rows){
+    		if($rows->Unit1 == ""){
+    			alert('Turma não pode ser fechada, pois ainda falta algumas notas de aluno');
+    		}
+    		if($rows->Unit2 == ""){
+    			alert('Turma não pode ser fechada, pois ainda falta algumas notas de aluno');
+    		}
+    		if($rows->Unit3 == ""){
+    			alert('Turma não pode ser fechada, pois ainda falta algumas notas de aluno');
+    		}
+    		else{
+    			echo 'nada';
+    		}
+    		*/
+    		
+    		
+    		
+    		//echo 'Unit1 ' . $rows->Unit1 . '/';
+    		//echo 'Unit2 ' . $rows->Unit2 . '/';
+    		//echo 'Unit3 ' . $rows->Unit3 . '/';
+    	/*
+    	foreach($result as $r){
+    		echo ' Unit1 ' . $r->Unit1;
+    		echo ' Unit2 ' . $r->Unit2;
+    		echo ' Unit3 ' . $r->Unit3 . '/';
+    	}
+    	*/
+    	
+    	//print_r($result);
+    	
+    	if($result == null){
+    		alert('Turma não pode ser fechada, pois ainda falta algumas notas de aluno');
+    	}
+    	else{
+    		die;
+    		$model->encerrarTurma($id);
+    	
+    		$this->_redirect("/professor/index/turmas");
+    	}
+    	
+    
     	
     }
 }
