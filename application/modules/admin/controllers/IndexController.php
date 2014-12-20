@@ -16,7 +16,11 @@ class Admin_IndexController extends Zend_Controller_Action{
 	
 	
     public function indexAction(){
-    	
+
+        if ($this->_helper->FlashMessenger->hasMessages()) {
+            $this->view->messages = $this->_helper->FlashMessenger->getMessages();
+        }
+
     	$this->tarefasAgendadas();
   
     }
@@ -109,6 +113,7 @@ class Admin_IndexController extends Zend_Controller_Action{
     			$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
+                    $this->_helper->flashMessenger->addMessage("Senha alterada com sucesso.");
     				$model->update($data, $where);
     				$this->_redirect("/admin");	
     			}

@@ -25,7 +25,7 @@ class Professor_NotaController extends Zend_Controller_Action{
 		$model = new Application_Model_DbTable_Nota();
 		$matric = new Application_Model_DbTable_Matricula();
 		
-		$this->view->nota = $model->findForSelect($id);
+		$this->view->nota = ! is_null($model->findForSelect($id)) ? $model->findForSelect($id)->toArray() : null;
 		$this->view->rows = $matric->findForSelect($id);
 		$this->view->linha = $turma->findForSelect($id);
 		$this->view->row = $turma->hasTurma($id);
@@ -41,25 +41,39 @@ class Professor_NotaController extends Zend_Controller_Action{
 			$count = count($_POST['unit1']);
 			
 			for($i = 0; $i < $count; $i++){
-				$data['Unit1'] = $_POST['unit1'][$i];
-				$data['Unit2'] = $_POST['unit2'][$i];
-				$data['Unit3'] = $_POST['unit3'][$i];
+
+				if ( strlen($_POST['unit1'][$i]) > 0 )
+					$data['Unit1'] = abs(str_replace(',','.',$_POST['unit1'][$i]));
+
+				if ( strlen($_POST['unit2'][$i]) > 0 )
+					$data['Unit2'] = abs(str_replace(',','.',$_POST['unit2'][$i]));
+
+				if ( strlen($_POST['unit3'][$i]) > 0)
+					$data['Unit3'] = abs(str_replace(',','.',$_POST['unit3'][$i]));
+
 				$data['idUsuario_has_Turma'] = $_POST['idMatricula'][$i];
 				$data['Turma_idTurma'] = $_POST['idTurma'][$i];
+
 				$id = $_POST['idNota'][$i];
 				$idTurma = $_POST['idTurma'][$i];
+				
+				$unit1 = isset($data['Unit1']) ? $data['unit1'] : 0;
+				$unit2 = isset($data['Unit2']) ? $data['unit2'] : 0;
+				$unit3 = isset($data['Unit3']) ? $data['unit3'] : 0;
 
+				if ( $unit1 <= 10 && $unit2 <= 10 && $unit3 <= 10 ) {
 					if($id){
 						$where = $model->getAdapter()->quoteInto('idNota = ?', $id);
 						$model->update($data, $where);
-						$this->_redirect("/professor/nota/index/idTurma/$idTurma");
 					}
 					else{
 						$model->insert($data);
-						$this->_redirect("/professor/nota/index/idTurma/$idTurma");
 					}
+				}
 			}
 		}
+
+		$this->_redirect("/professor/nota/index/idTurma/$idTurma");
 	}
 	
 	

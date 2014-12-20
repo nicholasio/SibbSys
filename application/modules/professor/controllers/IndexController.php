@@ -55,19 +55,52 @@ class Professor_IndexController extends Zend_Controller_Action{
     	$model = new Application_Model_DbTable_Turma();
     	$this->view->rows = $model->turmas($id);
     	$this->view->row = $model->getTurma($id);
+
+        if ($this->_helper->FlashMessenger->hasMessages()) {
+            $this->view->messages = $this->_helper->FlashMessenger->getMessages();
+        }
+
     	
     }
     
 
     public function encerrarTurmaAction(){
 		
-    	$model = new Application_Model_DbTable_Turma();
-    	
+    	$turma = new Application_Model_DbTable_Turma();
+        $matricula = new Application_Model_DbTable_Matricula();
+    	$notas = new Application_Model_DbTable_Nota();
+
     	$id = $this->_getParam('idTurma');
+
+        $alunos = $matricula->findForSelect($id)->toArray();
+        $notas  = $notas->findForSelect($id)->toArray();
+
+        $podeEncerrar = true;
+
+        if ( count($alunos) != count($notas) ) {
+            $podeEncerrar = false;
+        }
+
+        if ( $podeEncerrar ) {
+            foreach($notas as $nota) {
+
+                if ( is_null($nota['Unit1']) || is_null($nota['Unit2']) || is_null($nota['Unit3']) ) {
+                    $podeEncerrar = false;
+                    break;
+                }
+
+            }
+        }
+
+    	if ( $podeEncerrar ) {
+            $turma->encerrarTurma($id);
+            $this->_helper->FlashMessenger->addMessage("Turma encerrada");
+        } else {
+            $this->_helper->FlashMessenger->addMessage("Turma não pode ser encerrada, falta adicionar notas.");
+        }
     	
-    	$model->encerrarTurma($id);
+        $this->_redirect("/professor/index/turmas");
     	
-    	$this->_redirect("/professor/index/turmas");
     	
     }
 }

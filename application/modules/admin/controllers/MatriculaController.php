@@ -22,55 +22,87 @@ class Admin_MatriculaController extends Zend_Controller_Action{
 		$this->view->prof = $turma->lista();
 		
 		$this->view->rows = $model->listar();
+
+
 				
     }
 
     public function novoAction() {
     	
-    	$form = new Application_Form_Matricula();
+    	//$form = new Application_Form_Matricula();
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
     	
     	$this->view->lista = $turma->listar();
- 
+    
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+            $this->view->messages = $this->_helper->FlashMessenger->getMessages();
+        }
 
-    	if($this->_request->isPost()){
-			if($form->isValid($this->_request->getPost())){
 
-				$data = $form->getValues();
-				
-				$idTurma = $data['Turma_idTurma'];
-				$idUsuario = $data['Usuario_idUsuario'];
+    	if ( $this->_request->isPost() ) {
+    		$aluno    = $_POST['aluno'];
+    		
 
-				/*$count = count($_POST['matriculas']);
-				for($i = 0; $i < $count; $i++ ) {
-					$user = $_POST['matriculas'][$i]['user_id'];
-					$turma_id = $_POST['matriculas'][$i]['turma_id'];
+    		$nTurmas  = count($_POST['matricula']);
 
-				}*/
-				
-				$this->find = $model->verificar($idUsuario, $idTurma);
-				$this->user = $turma->_find($idUsuario);
-				
-				if(is_null($this->find)){
-					if(is_null($this->user)){
-						$model->insert($data);
-						$this->_redirect('/admin/matricula/novo');
-					}
-					else{
-						$msg = "O Usuário é o professor da Turma";
-						$this->view->messages = $msg;
-					}
+    		$data['Usuario_idUsuario'] = $aluno;
+    		$data['Status'] = 'Cursando';
+
+    		for( $i = 0; $i < $nTurmas; $i++ ) {
+    			$turma_id  = $_POST['matricula'][$i]['turma'];
+    			$turma_data = $turma->findForSelect($turma_id)->toArray()[0];
+    			$professor  = $turma->_find($aluno, $turma_id);
+
+    			$find = $model->verificar($aluno, $turma_id);
+    			if ( is_null($find) ) {
+    				if ( is_null($professor) ) {
+	    				$data['Turma_idTurma'] = $turma_id;
+	    				$model->insert($data);    				
+    				} else {
+    					$this->_helper->flashMessenger->addMessage("Aluno é professor da turma: <strong>" . $turma_data['Nome'] . "</strong>");
+    				}
+    			} else {
+    				$msg = "O Usuário já está matricula na turma <strong>" . $turma_data['Nome'] . "</strong>";;
+    				$this->_helper->flashMessenger->addMessage($msg);
+    			}
+    		}
+
+    		$this->_redirect('/admin/matricula/novo');
+    	}
+
+    	
+    	/*if($this->_request->isPost()){
+			
+			$idTurma = $data['Turma_idTurma'];
+			$idUsuario = $data['Usuario_idUsuario'];
+
+			$count = count($_POST['matriculas']);
+			for($i = 0; $i < $count; $i++ ) {
+				$user = $_POST['matriculas'][$i]['user_id'];
+				$turma_id = $_POST['matriculas'][$i]['turma_id'];
+
+			}
+			
+			$this->find = $model->verificar($idUsuario, $idTurma);
+			$this->user = $turma->_find($idUsuario);
+			
+			if(is_null($this->find)){
+				if(is_null($this->user)){
+					$model->insert($data);
+					$this->_redirect('/admin/matricula/novo');
 				}
 				else{
-					$msg = "O Usuário já está matriculado na Turma";
+					$msg = "O Usuário é o professor da Turma";
 					$this->view->messages = $msg;
 				}
-				
 			}
-		}
+			else{
+				$msg = "O Usuário já está matriculado na Turma";
+				$this->view->messages = $msg
+			}
+		}*/
 		
-		$this->view->form = $form;
     }
 
 	public function editarAction(){
