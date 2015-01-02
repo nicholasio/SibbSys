@@ -1,0 +1,81 @@
+<?php $this->headTitle('Turmas'); ?>
+
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Lista de Turmas
+			<small>Veja todas as turmas que leciona no semestre corrente</small>
+		</h1>
+	</div>
+	
+	<?php if($this->row != null){?>
+	
+	<table class="table table-striped data-table">
+		<thead>
+			<tr>
+				<th><font size="3" color="black"><strong>#</strong></font></th>
+				<th style=" text-align: center;"><font size="3" color="black"><strong>Turmas</strong></font></th>
+				<th style=" text-align: center;"><font size="3" color="black"><strong>Ano/Semestre</strong></font></th>
+				<th style=" text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+			</tr>
+		</thead>
+		<tbody>
+			
+				<?php foreach($this->rows as $lista){?>
+					<tr style="background: #EEE; ">
+						<td style="width: 50px; "><strong><?php echo $lista->idTurma;?></strong></td>
+						<td style="width: 300px; "><strong><?php echo $lista->Nome; ?></strong></td>
+						<td style="text-align:center; width: 200px; "><strong><?php echo $lista->Ano . '-' . $lista->Semestre; ?></strong></td>
+						<td style="text-align: center;">
+							<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
+								array(
+									'controller'	=>	'professor',
+									'action'		=>	'nota',
+									'idTurma'		=>	$lista->idTurma	
+								));?>">
+									Inserir Nota
+							</a>
+							
+							<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
+								array(
+									'controller'	=>	'professor',
+									'action'		=>	'presenca',
+									'idTurma'		=>	$lista->idTurma
+								));?>">
+									Chamada
+							</a>
+							
+							<a id="btn-turma" class="btn" href="<?php echo $this->url(
+								array(
+									'controller'	=>	'arquivo',
+									'action'		=>	'index',
+									'idTurma'		=>	$lista->idTurma
+								));?>">
+									Inserir Arquivo
+							</a>
+							
+							<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
+								array(
+									'controller'	=>	'professor',
+									'action'		=>	'encerrar-turma',
+									'idTurma'		=>	$lista->idTurma
+								));?>">
+									Encerrar Turma
+							</a>
+						</td>
+					</tr>		
+			<?php }?>
+		</tbody>
+	</table>
+	
+	<?php 
+		}else{
+				
+				echo '<h4>' . 'Usuário não leciona nenhuma turma até o momento.' . '</h4>';
+						
+		}?>
+		
+		<br /><br /><br />
+</div>
+	
+	
+</div>

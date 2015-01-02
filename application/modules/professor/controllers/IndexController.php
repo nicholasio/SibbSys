@@ -66,8 +66,8 @@ class Professor_IndexController extends Zend_Controller_Action{
 
     public function encerrarTurmaAction(){
 		
-    	$turma = new Application_Model_DbTable_Turma();
         $matricula = new Application_Model_DbTable_Matricula();
+    	$turma = new Application_Model_DbTable_Turma();
     	$notas = new Application_Model_DbTable_Nota();
 
     	$id = $this->_getParam('idTurma');
@@ -99,8 +99,9 @@ class Professor_IndexController extends Zend_Controller_Action{
             $this->_helper->FlashMessenger->addMessage("Turma não pode ser encerrada, falta adicionar notas.");
         }
     	
-        $this->_redirect("/professor/index/turmas");
     	
+    	
+    	$this->_redirect("/professor/index/turmas");
     	
     }
 }

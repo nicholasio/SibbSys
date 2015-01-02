@@ -58,9 +58,9 @@
 					foreach($rows as $turma){ ?>
 						<li><a href="#"><span><?php echo $turma->Nome; ?></span></a>
 							<ul class="drawer">
-								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'nota','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com notas</span></a>
-								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'presenca','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com faltas</span></a>
-								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'arquivo','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de arquivos</span></a>
+								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'nota','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com notas</span></a></li>
+								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'presenca','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de alunos com faltas</span></a></li>
+								<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'arquivo','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Lista de arquivos</span></a></li>
 							</ul>
 						</li>
 				<?php }?>
