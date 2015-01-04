@@ -31,42 +31,56 @@
  			
  			<tbody>
  			
- 				<form action="/admin/professor/post-nota" method="post" id="form-prof">
+ 				<form action="/professor/nota/post-nota" method="post" id="form-prof">
  				
  					<fieldset>
  					
- 						<?php foreach($this->rows as $users){
- 							
-							if($users->Status != 'inativo'){?>
-							
-								<input type="hidden" name="idMatricula[]" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
-							
-								<input type="hidden" name="idTurma[]" value="<?php echo $users->Turma_idTurma; ?>"/>
-								
-								<input type="hidden" name="idNota[]" value="<?php foreach($this->nota as $nota){if($nota->idUsuario_has_Turma == $users->idUsuario_has_Turma){echo $nota->idNota;}}?>"/>
-								
-								<input type="hidden"/>
-								
+ 						<?php 
+ 							$i = 0;
+ 							foreach($this->rows as $users) : 
+ 								$idNota = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['idNota'] : '';
+ 								$unit1  = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['Unit1']  : '';
+ 								$unit2  = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['Unit2']  : '';
+ 								$unit3  = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['Unit3']  : '';
+
+ 							//var_dump($this->nota->toArray());
+							if($users->Status != 'inativo') : ?>
 							<tr style="background: #EEE ">
-							
-								<td style="text-align: left; padding-left: 10px; "><strong><font size="3" color="black"><?php echo $users->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></font></strong></td>
+								<input type="hidden" name="idMatricula[]" value="<?php echo $users->idUsuario_has_Turma; ?>"/>
+								<input type="hidden" name="idTurma[]" value="<?php echo $users->Turma_idTurma; ?>"/>
+								<input type="hidden" name="idNota[]" value="<?php echo $idNota ?>"/>
+
+								<td style="text-align: left; padding-left: 10px; ">
+									<strong>
+										<font size="3" color="black">
+											<?php echo $users->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?>
+										</font>
+									</strong>
+								</td>
 								
-								<td style="text-align: center; padding-top: 7px; "><input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit1;}}?>"/></td>
+								<td style="text-align: center; padding-top: 7px; ">
+									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php echo $unit1; ?>"/>
+								</td>
 								
-								<td style="text-align: center;" ><input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit2;}}?>"/></td>
+								<td style="text-align: center;" >
+									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php echo $unit2; ?>"/>
+								</td>
 								
-								<td style="text-align: center;" ><input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php foreach($this->nota as $nota){if($users->idUsuario_has_Turma == $nota->idUsuario_has_Turma){echo $nota->Unit3;}}?>"/></td>
+								<td style="text-align: center;" >
+									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php echo $unit3; ?>"/>
+								</td>
 								
 	    					</tr>
 	    					
-	    					<?php }?>	
-						<?php } ?>
+	    					<?php endif; ?>	
+						<?php $i++; endforeach; ?>
 							<tr valing="baseline">
 								<td><input id="btn-prof" class="btn btn-primary" type="submit" name="submit" value="Salvar"/></td>
 							</tr>
  					</fieldset>
  				</form>
- 			</tbody>			 	
+ 			</tbody>	
+
  		</table>
  	</div>
  	

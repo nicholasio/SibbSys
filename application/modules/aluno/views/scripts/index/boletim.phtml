@@ -7,7 +7,7 @@
 	<?php if($this->row != null){?>
 <br />	
 
-		<form action="/professor/minhasturmas/boletim" method="post" id="boletim">
+		<form action="/aluno/index/boletim" method="post" id="boletim">
 	
 			<select name="semestre">
 				<?php foreach($this->semes as $semes){?>
@@ -91,6 +91,7 @@
 								
 								<td style="text-align: center;"><strong>
 									<?php 
+									
 										echo substr($media,0,4);
 										
 										

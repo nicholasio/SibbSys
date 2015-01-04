@@ -15,6 +15,9 @@ class Professor_IndexController extends Zend_Controller_Action{
     
     public function indexAction(){
     	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
     	
     }
     
@@ -29,17 +32,20 @@ class Professor_IndexController extends Zend_Controller_Action{
     	$form = new Application_Form_AlteraSenha();
     	$model = new Application_Model_DbTable_Usuario();
     	
+    	
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
+    			$data['Senha'] = sha1($data['Senha']);
+    			$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
+                    $this->_helper->flashMessenger->addMessage("Senha alterada com sucesso.");
     				$model->update($data, $where);
-    				$this->_redirect("/professor");
+    				$this->_redirect("/professor");	
     			}
     		}
     	}
-    	
     	$this->view->form = $form;
     }
 

@@ -1,4 +1,6 @@
 <?php echo $this->partial("_header.phtml", 'admin'); ?>
+
+<link rel="shortcut icon favicon" href="../../images/logosibb.ico">
 	<div id="pjax">
 		<div id="wrapper" data-adminica-nav-top="1" data-adminica-side-top="1" class="has_fixed_bar">
 			<?php echo $this->partial('components/topbar.php'); ?>
@@ -15,6 +17,7 @@
 				  <?= implode('<br />', $this->messages); ?>
 				</div>
 			<?php endif; ?>
+			
 			<?php echo $this->layout()->content; ?>
 				
 			</div>

@@ -63,12 +63,6 @@ class Application_Model_DbTable_Nota extends Zend_Db_Table_Abstract
     	$query = $this->fetchRow($sql);
     	return $query;
     	
-    	
-    	//$sql = $this->select()->where('Turma_idTurma = ?', $id AND 'Unit1 = ?', "" OR 'Unit2 = ?', "" OR 'Unit3 = ?', "");
-    						  
-    	//$query = $this->fetchRow($sql);
-    	
-    	//return $query;
     } 
     
     

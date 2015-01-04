@@ -26,6 +26,7 @@ class Professor_NotaController extends Zend_Controller_Action{
 		$matric = new Application_Model_DbTable_Matricula();
 		
 		$this->view->nota = ! is_null($model->findForSelect($id)) ? $model->findForSelect($id)->toArray() : null;
+		
 		$this->view->rows = $matric->findForSelect($id);
 		$this->view->linha = $turma->findForSelect($id);
 		$this->view->row = $turma->hasTurma($id);

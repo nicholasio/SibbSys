@@ -24,6 +24,8 @@
               <option value="<?= $user->idUsuario; ?>"><?= $user->Nome; ?></option>
             <?php endforeach; ?>
       </select>
+      <br />
+      
       <h5>Turmas:</h5>
       <div id="sheepItForm" >
           <!-- Form template-->
@@ -52,7 +54,9 @@
           <!-- Controls -->
           <div id="sheepItForm_controls">
             <div id="sheepItForm_add"><a class="btn"><span>Adicionar Turma</span></a></div>
+            <br />
             <div id="sheepItForm_remove_last"><a class="btn btn-warning"><span>Remover Último</span></a></div>
+            <br />
             <div id="sheepItForm_remove_all"><a><span>Remover Todos</span></a></div>
           </div>
           <!-- /Controls -->
@@ -63,10 +67,7 @@
     </form>
 
 <!-- /sheepIt Form -->
-  		<!-- <div class="form">
-  			<?php //echo $this->form['Usuario_idUsuario']; ?>
-  				<span class="errors"><?php //echo $this->messages; ?></span>
-  		</div> -->
+  		
   	</div>  	  	
   	
   	<br /><br /><br /><br />

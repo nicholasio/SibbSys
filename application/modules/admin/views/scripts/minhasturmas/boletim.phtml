@@ -65,7 +65,7 @@
 									$idUser = $turma->Usuario_idUsuario;
 									$periodo = $tableTurma->getPeriodo($idUser);
 									$result = $nota->getNota($id);
-									$media = $nota->nota($id);
+									$media = $nota->media($id);
 									$conta = $presenca->contaPresenca($id);
 								
 								if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
@@ -90,9 +90,11 @@
 								</strong></td><!-- Faltas -->
 								
 								<td style="text-align: center;"><strong>
-									<?php 
+									<?php
+									
+										echo substr($media,0,4);
 											
-									if(! empty($media['unit1'])){
+									/*if(! empty($media['unit1'])){
 									
 										$total = $media['unit1'];
 										$mediafinal = $total/3;
@@ -109,7 +111,7 @@
 												$model->statusAprovado($id);
 											}
 										}
-									}
+									}*/
 									?>									
 								</strong></td><!-- Média Final -->
 								
@@ -128,7 +130,7 @@
 						
 								$id = $turma->idUsuario_has_Turma;
 								$result = $nota->getNota($id);
-								$media = $nota->nota($id);
+								$media = $nota->media($id);
 								$conta = $presenca->contaPresenca($id);?>
 				
 								<tr>
@@ -157,7 +159,10 @@
 									<td style="text-align: center;">
 										<strong>
 											<?php
-												if(! empty($media['unit1'])){
+											
+												echo substr($media,0,4);
+												
+												/*if(! empty($media['unit1'])){
 									
 													$total = $media['unit1'];
 													$mediafinal = $total/3;
@@ -173,7 +178,7 @@
 															$model->statusAprovado($id);
 														}
 													}
-												}
+												}*/
 											?>
 										</strong>
 									</td><!-- Média Final -->

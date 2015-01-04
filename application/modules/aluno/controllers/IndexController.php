@@ -16,6 +16,9 @@ class Aluno_IndexController extends Zend_Controller_Action{
 
     public function indexAction(){
     	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
     }
 
     public function boletimAction(){
@@ -56,23 +59,25 @@ class Aluno_IndexController extends Zend_Controller_Action{
     	$form = new Application_Form_AlteraSenha();
     	$model = new Application_Model_DbTable_Usuario();
     	
+    	
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
     			$data['Senha'] = sha1($data['Senha']);
-    			$data['ConfirmaSenha'] = sha1($data['ConfiirmaSenha']);
+    			$data['ConfirmaSenha'] = sha1($data['ConfirmaSenha']);
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
+                    $this->_helper->flashMessenger->addMessage("Senha alterada com sucesso.");
     				$model->update($data, $where);
-    				$this->_redirect("/aluno");
+    				$this->_redirect("/aluno");	
     			}
     		}
     	}
-    	
     	$this->view->form = $form;
     	
     }
 
+    
     public function historicoAction(){
 
     	$auth = Zend_Auth::getInstance();
@@ -85,6 +90,7 @@ class Aluno_IndexController extends Zend_Controller_Action{
     	$this->view->row = $model->getTurma($id);
     }
 
+    
     public function turmaAction(){
     	
     	$auth = Zend_Auth::getInstance();
@@ -100,6 +106,7 @@ class Aluno_IndexController extends Zend_Controller_Action{
 		
     }
 
+    
     public function materialAction(){
         
     	$id = $this->_getParam('idDisciplina');
@@ -110,6 +117,7 @@ class Aluno_IndexController extends Zend_Controller_Action{
     	$this->view->row = $model->seleciona($id);
     }
 
+    
     public function downloadAction(){
        
     	$id = $this->_getParam('idArquivo');
