@@ -70,12 +70,20 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar(){
+	public function listar($ano = false, $semestre = false){
 
 		$where = 'Cursando';
-		$sql = $this->select()
-					->where('Status = ?', $where)
-					->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
+		$sql = $this->select();
+
+
+		if ( $ano !== false && $semestre !== false ) {
+			$sql->from(array('t' => 'Turma'), array())
+				->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma')
+				->where('u.Status = ?', $where)
+				->where('t.Ano = ?', $ano)->where('t.Semestre = ?', $semestre);
+		}
+
+		$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

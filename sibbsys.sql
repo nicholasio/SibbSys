@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 21/07/2014 às 16:14
--- Versão do servidor: 5.5.38-0ubuntu0.14.04.1
--- Versão do PHP: 5.5.9-1ubuntu4.3
+-- Tempo de Geração: 08/01/2015 às 10h30min
+-- Versão do Servidor: 5.5.37
+-- Versão do PHP: 5.5.11-3+deb.sury.org~precise+1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Banco de dados: `sibbsys`
+-- Banco de Dados: `sibbsys`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Arquivos`
+-- Estrutura da tabela `Arquivos`
 --
 
 CREATE TABLE IF NOT EXISTS `Arquivos` (
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `Arquivos` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Fazendo dump de dados para tabela `Arquivos`
+-- Extraindo dados da tabela `Arquivos`
 --
 
 INSERT INTO `Arquivos` (`idArquivos`, `Arquivo`, `Nome`, `Ano`, `Semestre`, `Data`, `Status`, `Disciplina_idDisciplina`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `Arquivos` (`idArquivos`, `Arquivo`, `Nome`, `Ano`, `Semestre`, `Dat
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Configs`
+-- Estrutura da tabela `Configs`
 --
 
 CREATE TABLE IF NOT EXISTS `Configs` (
@@ -60,10 +60,21 @@ CREATE TABLE IF NOT EXISTS `Configs` (
   `Meta_Value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `Configs`
+--
+
+INSERT INTO `Configs` (`idConfigs`, `Meta_Key`, `Meta_Value`) VALUES
+(0, 'valor_credito', '16.50'),
+(0, 'dia_debito', '25'),
+(0, 'dia_fatura', '28'),
+(0, 'ano_atual', '2015'),
+(0, 'semestre_atual', '1');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Credito`
+-- Estrutura da tabela `Credito`
 --
 
 CREATE TABLE IF NOT EXISTS `Credito` (
@@ -73,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `Credito` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `Credito`
+-- Extraindo dados da tabela `Credito`
 --
 
 INSERT INTO `Credito` (`idCredito`, `ValorCred`) VALUES
@@ -82,7 +93,7 @@ INSERT INTO `Credito` (`idCredito`, `ValorCred`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Curso`
+-- Estrutura da tabela `Curso`
 --
 
 CREATE TABLE IF NOT EXISTS `Curso` (
@@ -95,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `Curso` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Fazendo dump de dados para tabela `Curso`
+-- Extraindo dados da tabela `Curso`
 --
 
 INSERT INTO `Curso` (`idCurso`, `Nome`, `Duracao`, `Descricao`, `Status`) VALUES
@@ -105,7 +116,7 @@ INSERT INTO `Curso` (`idCurso`, `Nome`, `Duracao`, `Descricao`, `Status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Debitos`
+-- Estrutura da tabela `Debitos`
 --
 
 CREATE TABLE IF NOT EXISTS `Debitos` (
@@ -116,22 +127,23 @@ CREATE TABLE IF NOT EXISTS `Debitos` (
   `idUsuario_has_Servicos` int(11) DEFAULT NULL,
   `idUsuario_has_Turma` int(11) DEFAULT NULL,
   PRIMARY KEY (`idDebitos`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Fazendo dump de dados para tabela `Debitos`
+-- Extraindo dados da tabela `Debitos`
 --
 
 INSERT INTO `Debitos` (`idDebitos`, `mesPagamento`, `descontoMes`, `anoPagamento`, `idUsuario_has_Servicos`, `idUsuario_has_Turma`) VALUES
 (6, 7, 0, 2014, NULL, 11),
 (7, 7, 0, 2014, 15, NULL),
 (8, 7, 0, 2014, 16, NULL),
-(9, 7, 0, 2014, 18, NULL);
+(10, 12, 0, 2014, NULL, 11),
+(11, 1, 0, 2015, 19, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Disciplina`
+-- Estrutura da tabela `Disciplina`
 --
 
 CREATE TABLE IF NOT EXISTS `Disciplina` (
@@ -145,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `Disciplina` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
--- Fazendo dump de dados para tabela `Disciplina`
+-- Extraindo dados da tabela `Disciplina`
 --
 
 INSERT INTO `Disciplina` (`idDisciplina`, `Disciplina`, `QntdCred`, `Status`, `Credito_idCredito`) VALUES
@@ -167,7 +179,7 @@ INSERT INTO `Disciplina` (`idDisciplina`, `Disciplina`, `QntdCred`, `Status`, `C
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Faturas`
+-- Estrutura da tabela `Faturas`
 --
 
 CREATE TABLE IF NOT EXISTS `Faturas` (
@@ -184,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `Faturas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Igreja`
+-- Estrutura da tabela `Igreja`
 --
 
 CREATE TABLE IF NOT EXISTS `Igreja` (
@@ -200,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `Igreja` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Fazendo dump de dados para tabela `Igreja`
+-- Extraindo dados da tabela `Igreja`
 --
 
 INSERT INTO `Igreja` (`idIgreja`, `Igreja`, `Endereco`, `Bairro`, `CEP`, `Telefone`, `Pastor`, `Status`) VALUES
@@ -213,7 +225,7 @@ INSERT INTO `Igreja` (`idIgreja`, `Igreja`, `Endereco`, `Bairro`, `CEP`, `Telefo
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Nota`
+-- Estrutura da tabela `Nota`
 --
 
 CREATE TABLE IF NOT EXISTS `Nota` (
@@ -226,22 +238,27 @@ CREATE TABLE IF NOT EXISTS `Nota` (
   PRIMARY KEY (`idNota`,`idUsuario_has_Turma`,`Turma_idTurma`),
   KEY `fk_Nota_Usuario_has_Turma1_idx` (`idUsuario_has_Turma`),
   KEY `fk_Nota_Turma1_idx` (`Turma_idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Fazendo dump de dados para tabela `Nota`
+-- Extraindo dados da tabela `Nota`
 --
 
 INSERT INTO `Nota` (`idNota`, `Unit1`, `Unit2`, `Unit3`, `idUsuario_has_Turma`, `Turma_idTurma`) VALUES
-(1, '7.5', '8.4', '7.3', 2, 2),
-(2, '9.5', '6,3', '7.6', 3, 2),
-(3, '7.8', '7.3', '', 9, 2),
-(4, '6.7', '', '', 8, 1);
+(1, '4', '8.4', '7.3', 2, 2),
+(2, '4', '9.5', '8.5', 3, 2),
+(3, '7.8', '5.6', '4', 9, 2),
+(4, '6.7', '', '', 8, 1),
+(5, '10', '10', '10', 33, 3),
+(6, '5', '3.5', '4', 35, 3),
+(7, '1', '0', '0', 34, 5),
+(8, '5', '6', NULL, 38, 7),
+(9, '5', NULL, NULL, 38, 7);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Pagamento`
+-- Estrutura da tabela `Pagamento`
 --
 
 CREATE TABLE IF NOT EXISTS `Pagamento` (
@@ -256,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `Pagamento` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Presenca`
+-- Estrutura da tabela `Presenca`
 --
 
 CREATE TABLE IF NOT EXISTS `Presenca` (
@@ -268,21 +285,29 @@ CREATE TABLE IF NOT EXISTS `Presenca` (
   PRIMARY KEY (`idPresenca`,`idUsuario_has_Turma`,`Turma_idTurma`),
   KEY `fk_Presenca_Usuario_has_Turma1_idx` (`idUsuario_has_Turma`),
   KEY `fk_Presenca_Turma1_idx` (`Turma_idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
--- Fazendo dump de dados para tabela `Presenca`
+-- Extraindo dados da tabela `Presenca`
 --
 
 INSERT INTO `Presenca` (`idPresenca`, `Data`, `Faltas`, `idUsuario_has_Turma`, `Turma_idTurma`) VALUES
 (2, '19/07/2013', '2', 1, 1),
 (3, '19/07/2013', '4', 2, 2),
-(5, '08/02/2014', '3', 2, 2);
+(5, '08/02/2014', '3', 2, 2),
+(6, '26/07/2014', '10', 2, 2),
+(7, '26/07/2014', '15', 3, 2),
+(8, '26/07/2014', '1', 9, 2),
+(13, '26/07/2014', '2', 3, 2),
+(14, '26/07/2014', '5', 9, 2),
+(15, '20/12/2014', '2', 33, 3),
+(16, '20/12/2014', '2', 35, 3),
+(17, '21/12/2014', '2', 33, 3);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Servicos`
+-- Estrutura da tabela `Servicos`
 --
 
 CREATE TABLE IF NOT EXISTS `Servicos` (
@@ -294,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `Servicos` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Fazendo dump de dados para tabela `Servicos`
+-- Extraindo dados da tabela `Servicos`
 --
 
 INSERT INTO `Servicos` (`idServicos`, `nome`, `descricao`, `valor`) VALUES
@@ -304,7 +329,7 @@ INSERT INTO `Servicos` (`idServicos`, `nome`, `descricao`, `valor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Turma`
+-- Estrutura da tabela `Turma`
 --
 
 CREATE TABLE IF NOT EXISTS `Turma` (
@@ -319,31 +344,33 @@ CREATE TABLE IF NOT EXISTS `Turma` (
   PRIMARY KEY (`idTurma`,`Disciplina_idDisciplina`,`idUsuario`),
   KEY `fk_Turma_Disciplina1_idx` (`Disciplina_idDisciplina`),
   KEY `fk_Turma_Usuario1_idx` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
--- Fazendo dump de dados para tabela `Turma`
+-- Extraindo dados da tabela `Turma`
 --
 
 INSERT INTO `Turma` (`idTurma`, `Nome`, `Descricao`, `Ano`, `Semestre`, `Status`, `Disciplina_idDisciplina`, `idUsuario`) VALUES
 (1, 'Analíse de Romanos', 'alguma coisa aqui', '2013', '2', 'ativo', 2, 2),
-(2, 'Analíse de Atos', 'Alguma coisa', '2013', '2', 'ativo', 3, 3),
+(2, 'Analíse de Atos', 'Alguma coisa', '2013', '2', 'Encerrada', 3, 3),
 (3, 'I Coríntios', 'qlqr coisa', '2014', '1', 'ativo', 1, 3),
 (4, 'Levítico e Hebreus', 'qlqr coisa', '2014', '2', 'ativo', 4, 2),
-(5, 'Vida de Cristo', 'qlqr coisa', '2013', '1', 'ativo', 5, 3),
-(6, 'Analise de Gênesis 1-11', '', '2014', '1', 'ativo', 6, 3),
+(5, 'Vida de Cristo', 'qlqr coisa', '2013', '1', 'Encerrada', 5, 3),
+(6, 'Analise de Gênesis 1-11', '', '2014', '1', 'Encerrada', 6, 3),
 (7, 'Introdução a Missões', '', '2014', '1', 'ativo', 10, 3),
 (8, 'Introdução a Música', '', '2014', '1', 'ativo', 9, 3),
-(9, 'Panorama do Antigo Testameno', '', '2014', '1', 'ativo', 8, 3),
+(9, 'Panorama do Antigo Testameno', '', '2014', '1', 'Encerrada', 8, 3),
 (10, 'Panorama do Novo Testamento', '', '2014', '1', 'ativo', 7, 3),
 (11, 'Teologia Elementar', '', '2014', '1', 'ativo', 11, 2),
 (12, 'Grego I', '', '2014', '1', 'ativo', 13, 8),
-(13, 'Hebraico I', '', '2014', '1', 'ativo', 14, 8);
+(13, 'Hebraico I', '', '2014', '1', 'ativo', 14, 8),
+(14, 'Turma 01', '', '2015', '1', 'ativo', 10, 2),
+(15, 'Turma 02', '', '2015', '1', 'ativo', 6, 8);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Usuario`
+-- Estrutura da tabela `Usuario`
 --
 
 CREATE TABLE IF NOT EXISTS `Usuario` (
@@ -372,13 +399,13 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Fazendo dump de dados para tabela `Usuario`
+-- Extraindo dados da tabela `Usuario`
 --
 
 INSERT INTO `Usuario` (`idUsuario`, `Nome`, `Endereco`, `Bairro`, `CEP`, `Telefone`, `Celular`, `CPF`, `DataNascimento`, `NomeMae`, `NomePai`, `Email`, `Senha`, `ConfirmaSenha`, `Foto`, `Tipo`, `Status`, `Igreja_idIgreja`, `Curso_idCurso`) VALUES
 (1, 'Admin', 'Wilson Rosado', 'Aeroporto', '59600-000', '84 3316-9958', NULL, '056.492.024-00', '02/04/1985', 'Eliene Maria Silva de Aquino', NULL, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'eliakim.jpg', '1', 'ativo', 1, 1),
 (2, 'Ricardo Mateus', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Adelaide', '', 'ricardo.mateus@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', '188445_455863147782584_2039102562_n.jpg', '2', 'ativo', 2, 1),
-(3, 'Timoteo Franklin', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Linda Franklin', 'Roberto Franklin', 'tim@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'prTimoteo.jpg', '2', 'ativo', 3, 1),
+(3, 'Timoteo Franklin', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Linda Franklin', 'Roberto Franklin', 'tim@gmail.com', '123456', '123456', 'prTimoteo.jpg', '2', 'ativo', 3, 1),
 (4, 'Eliakim Aquino', 'Januario Pereira Pimenta', 'Aeroporto', '59.600-000', '84 3316-9958', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'eliakim.aquino@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'PQAAAM4brXNt_7Gc2XgQyRMCPxqISAi_jTroof4VaWI5LK5NNNp6eBxQ0gyzXAki3NRrh_ReeHBtTugdGvBgXE4YEbgAm1T1UKCJlAIraWtuYH94_Y2SBLe6SoEG.jpg', '3', 'ativo', 1, 1),
 (5, 'Kobe Bryant', 'Av. Mota Neto, 349', 'Nova Betânia', '59.600-000', '84 0000-0000', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'kobe@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'kobe-jersey.jpg', '3', 'ativo', 2, 1),
 (6, 'Magno Cabral', 'Igapó', 'Igapó', '59.600-000', '84 0000-0000', '', '000.000.000-00', '01/01/2014', 'Francisca', '', 'magno@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', 'magno.jpg', '3', 'ativo', 5, 1),
@@ -387,7 +414,7 @@ INSERT INTO `Usuario` (`idUsuario`, `Nome`, `Endereco`, `Bairro`, `CEP`, `Telefo
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Usuario_has_Servicos`
+-- Estrutura da tabela `Usuario_has_Servicos`
 --
 
 CREATE TABLE IF NOT EXISTS `Usuario_has_Servicos` (
@@ -395,24 +422,26 @@ CREATE TABLE IF NOT EXISTS `Usuario_has_Servicos` (
   `Usuario_idUsuario` int(11) NOT NULL,
   `Servicos_idServicos` int(11) NOT NULL,
   `valor` float DEFAULT NULL,
+  `ano` int(11) NOT NULL,
   `mes` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario_has_Servicos`,`Usuario_idUsuario`,`Servicos_idServicos`),
   KEY `fk_Usuario_has_Servicos_Servicos1_idx` (`Servicos_idServicos`),
   KEY `fk_Usuario_has_Servicos_Usuario1_idx` (`Usuario_idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
--- Fazendo dump de dados para tabela `Usuario_has_Servicos`
+-- Extraindo dados da tabela `Usuario_has_Servicos`
 --
 
-INSERT INTO `Usuario_has_Servicos` (`idUsuario_has_Servicos`, `Usuario_idUsuario`, `Servicos_idServicos`, `valor`, `mes`) VALUES
-(15, 4, 1, 40, 7),
-(16, 4, 2, 15, 7);
+INSERT INTO `Usuario_has_Servicos` (`idUsuario_has_Servicos`, `Usuario_idUsuario`, `Servicos_idServicos`, `valor`, `ano`, `mes`) VALUES
+(15, 4, 1, 40, 2014, 7),
+(16, 4, 2, 15, 2014, 7),
+(19, 1, 1, NULL, 2015, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Usuario_has_Turma`
+-- Estrutura da tabela `Usuario_has_Turma`
 --
 
 CREATE TABLE IF NOT EXISTS `Usuario_has_Turma` (
@@ -423,100 +452,96 @@ CREATE TABLE IF NOT EXISTS `Usuario_has_Turma` (
   PRIMARY KEY (`idUsuario_has_Turma`,`Usuario_idUsuario`,`Turma_idTurma`),
   KEY `fk_Usuario_has_Turma_Turma1_idx` (`Turma_idTurma`),
   KEY `fk_Usuario_has_Turma_Usuario1_idx` (`Usuario_idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
--- Fazendo dump de dados para tabela `Usuario_has_Turma`
+-- Extraindo dados da tabela `Usuario_has_Turma`
 --
 
 INSERT INTO `Usuario_has_Turma` (`idUsuario_has_Turma`, `Usuario_idUsuario`, `Turma_idTurma`, `Status`) VALUES
 (1, 4, 1, 'Cursando'),
-(2, 4, 2, 'Aprovado'),
+(2, 4, 2, 'Reprovado'),
 (3, 5, 2, 'Aprovado'),
 (4, 5, 1, 'Cursando'),
-(7, 3, 1, 'Cursando'),
 (8, 1, 1, 'Cursando'),
 (9, 1, 2, 'Cursando'),
-(10, 1, 3, 'Cursando'),
-(11, 1, 4, 'Cursando'),
-(12, 1, 5, 'Cursando'),
-(13, 1, 6, 'Cursando'),
-(14, 1, 8, 'Cursando'),
-(15, 1, 9, 'Cursando'),
-(16, 1, 10, 'Cursando'),
-(17, 1, 7, 'Cursando'),
-(18, 1, 11, 'Cursando'),
-(19, 6, 12, 'Cursando'),
-(20, 6, 13, 'Cursando'),
 (21, 5, 12, 'Cursando'),
 (22, 5, 13, 'Cursando'),
-(23, 4, 12, 'Cursando');
+(23, 4, 12, 'Cursando'),
+(33, 6, 3, 'Cursando'),
+(34, 6, 5, 'Cursando'),
+(35, 4, 3, 'Reprovado'),
+(36, 4, 13, 'Cursando'),
+(37, 4, 8, 'Cursando'),
+(38, 4, 7, 'Cursando'),
+(39, 4, 14, 'Cursando'),
+(40, 4, 15, 'Cursando');
 
 --
--- Restrições para dumps de tabelas
+-- Restrições para as tabelas dumpadas
 --
 
 --
--- Restrições para tabelas `Arquivos`
+-- Restrições para a tabela `Arquivos`
 --
 ALTER TABLE `Arquivos`
   ADD CONSTRAINT `fk_Arquivos_Disciplina1` FOREIGN KEY (`Disciplina_idDisciplina`) REFERENCES `Disciplina` (`idDisciplina`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Disciplina`
+-- Restrições para a tabela `Disciplina`
 --
 ALTER TABLE `Disciplina`
   ADD CONSTRAINT `fk_Disciplina_Credito1` FOREIGN KEY (`Credito_idCredito`) REFERENCES `Credito` (`idCredito`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Faturas`
+-- Restrições para a tabela `Faturas`
 --
 ALTER TABLE `Faturas`
   ADD CONSTRAINT `fk_Faturas_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `Usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Nota`
+-- Restrições para a tabela `Nota`
 --
 ALTER TABLE `Nota`
   ADD CONSTRAINT `fk_Nota_Turma1` FOREIGN KEY (`Turma_idTurma`) REFERENCES `Turma` (`idTurma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Nota_Usuario_has_Turma1` FOREIGN KEY (`idUsuario_has_Turma`) REFERENCES `Usuario_has_Turma` (`idUsuario_has_Turma`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Pagamento`
+-- Restrições para a tabela `Pagamento`
 --
 ALTER TABLE `Pagamento`
   ADD CONSTRAINT `fk_Pagamento_Faturas1` FOREIGN KEY (`Faturas_idFatura`) REFERENCES `Faturas` (`idFatura`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Presenca`
+-- Restrições para a tabela `Presenca`
 --
 ALTER TABLE `Presenca`
   ADD CONSTRAINT `fk_Presenca_Turma1` FOREIGN KEY (`Turma_idTurma`) REFERENCES `Turma` (`idTurma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Presenca_Usuario_has_Turma1` FOREIGN KEY (`idUsuario_has_Turma`) REFERENCES `Usuario_has_Turma` (`idUsuario_has_Turma`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Turma`
+-- Restrições para a tabela `Turma`
 --
 ALTER TABLE `Turma`
   ADD CONSTRAINT `fk_Turma_Disciplina1` FOREIGN KEY (`Disciplina_idDisciplina`) REFERENCES `Disciplina` (`idDisciplina`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Turma_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Usuario`
+-- Restrições para a tabela `Usuario`
 --
 ALTER TABLE `Usuario`
   ADD CONSTRAINT `fk_Usuario_Curso1` FOREIGN KEY (`Curso_idCurso`) REFERENCES `Curso` (`idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Usuario_Igreja` FOREIGN KEY (`Igreja_idIgreja`) REFERENCES `Igreja` (`idIgreja`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Usuario_has_Servicos`
+-- Restrições para a tabela `Usuario_has_Servicos`
 --
 ALTER TABLE `Usuario_has_Servicos`
   ADD CONSTRAINT `fk_Usuario_has_Servicos_Servicos1` FOREIGN KEY (`Servicos_idServicos`) REFERENCES `Servicos` (`idServicos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Usuario_has_Servicos_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `Usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Restrições para tabelas `Usuario_has_Turma`
+-- Restrições para a tabela `Usuario_has_Turma`
 --
 ALTER TABLE `Usuario_has_Turma`
   ADD CONSTRAINT `fk_Usuario_has_Turma_Turma1` FOREIGN KEY (`Turma_idTurma`) REFERENCES `Turma` (`idTurma`) ON DELETE NO ACTION ON UPDATE NO ACTION,

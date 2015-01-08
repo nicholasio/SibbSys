@@ -30,7 +30,10 @@ public function preDispatch(){
 
 		if ( isset($_POST['configs_btn']) && is_array($_POST['configs'])) {
 			foreach($_POST['configs'] as $key => $value) {
-				$model->insert(array('meta_key' => $key, 'meta_value' => $value));
+				if ( $model->findKey($key) )
+					$model->update(array('Meta_Value' => $value), $model->getAdapter()->quoteInto('Meta_Key = ?', $key) );
+				else
+					$model->insert(array('Meta_Key' => $key, 'Meta_Value' => $value));
 			}
 		}
 

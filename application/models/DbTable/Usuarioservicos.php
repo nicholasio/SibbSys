@@ -27,6 +27,8 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 	
 	public function insert( Array $data){
 		$data['mes'] = date('n');
+		$data['ano'] = date('Y');
+
 		parent::insert($data);
 	}
 	
@@ -46,6 +48,7 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
+
 	
 	public function deletar($id){
 		

@@ -22,6 +22,7 @@
 				<th><h5>Nome do Serviço</h5></th>
 				<th><h5>Valor do Serviço</h5></th>
 				<th><h5>Mês</h5></th>
+				<th><h5>Ano</h5></th>
 				<th><h5>Ação</h5></th>
 			</tr>
 		</thead>
@@ -30,8 +31,14 @@
 				<tr>
 					<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->idServicos; ?></strong></td>
 					<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></strong></td> 
-					<td><strong><?php echo ' R$ ' . ' ' . $lista->valor; ?></strong></td>
+					<td><strong>
+							<?php
+								$valor = ( !is_null($lista->valor) ) ? $lista->valor : $lista->findParentRow('Application_Model_DbTable_Servicos')->valor;
+								echo ' R$ ' . ' ' . $valor;
+							?>
+						</strong></td>
 					<td><?php echo $lista->mes; ?></td>
+					<td><?php echo $lista->ano; ?></td>
 					<td>
 						<a class="btn btn-warning" href="<?php echo $this->url(
 							array(

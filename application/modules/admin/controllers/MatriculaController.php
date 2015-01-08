@@ -18,11 +18,24 @@ class Admin_MatriculaController extends Zend_Controller_Action{
     	
 		$model = new Application_Model_DbTable_Matricula();
 		$turma = new Application_Model_DbTable_Turma();
-		
+
+
+		$ano = $semestre = false;
+
+		if($this->_request->isPost()){
+			$ano =  $_POST['ano'];
+			$semestre =  $_POST['semestre'];
+		}
+
+		$this->view->curr_ano = $ano;
+		$this->view->curr_semestre = $semestre;
+
 		$this->view->prof = $turma->lista();
 		
-		$this->view->rows = $model->listar();
+		$this->view->rows = $model->listar($ano, $semestre);
 
+		$this->view->ano = $turma->_findAno(false);
+		$this->view->semes = $turma->_findSemestre(false);
 
 				
     }
@@ -32,9 +45,16 @@ class Admin_MatriculaController extends Zend_Controller_Action{
     	//$form = new Application_Form_Matricula();
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
+		$config = new Application_Model_DbTable_Configs();
+
+		// A Matrícula deve ser feita em turmas do período letivo atual
+		$ano_atual 		= $config->findKey('ano_atual');
+		$semestre_atual = $config->findKey('semestre_atual');
+
+
     	
-    	$this->view->lista = $turma->listar();
-    
+    	$this->view->turmas = $turma->listar($ano_atual, $semestre_atual);
+
     	if ($this->_helper->FlashMessenger->hasMessages()) {
             $this->view->messages = $this->_helper->FlashMessenger->getMessages();
         }

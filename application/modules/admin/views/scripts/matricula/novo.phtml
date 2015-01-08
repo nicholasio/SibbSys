@@ -29,10 +29,8 @@
           <!-- Form template-->
           <div id="sheepItForm_template">
               <select = id="sheepItForm_#index#_turma" name="matricula[#index#][turma]">
-                <?php 
-                  $turmas = new Application_Model_DbTable_Turma();
-                  $turmas = $turmas->fetchAll();
-                  foreach ($turmas as $turma) : 
+                <?php
+                  foreach ($this->turmas as $turma) :
                 ?>
                   <option value="<?= $turma->idTurma; ?>"><?= $turma->Nome; ?></option>
                 <?php endforeach; ?>
