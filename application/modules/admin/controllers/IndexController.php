@@ -31,6 +31,7 @@ class Admin_IndexController extends Zend_Controller_Action{
         $anoAtual       = (int) date('Y');
 
 
+
         //Os Débitos são processados a partir do dia 18 até o dia 28
         if ( $diaAtual < 28) {
             $this->processarDebitos( $mesAtual, $anoAtual );

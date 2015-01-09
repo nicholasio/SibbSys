@@ -189,7 +189,7 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 		$config = new Application_Model_DbTable_Configs();
 
 		$anoLetivo      = $config->findKey('ano_atual');
-		$semestreAtual  = $config->findKey('semestre_atual');;
+		$semestreAtual  = $config->findKey('semestre_atual');
 
 		$usuarios_servicos   = new Application_Model_DbTable_Usuarioservicos();
 		$matriculas          = new Application_Model_DbTable_Matricula();
