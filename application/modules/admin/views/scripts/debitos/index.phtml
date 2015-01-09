@@ -20,7 +20,7 @@
 						$users = $users->fetchAll();
 						foreach ($users as $user) :
 							?>
-							<option value="<?= $user->idUsuario; ?>"><?= $user->Nome; ?></option>
+							<option <?php if ( $user->idUsuario == $this->user_id) echo 'selected' ?> value="<?= $user->idUsuario; ?>"><?= $user->Nome; ?></option>
 						<?php endforeach; ?>
 					</select>
 
@@ -37,21 +37,25 @@
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
+				<th><font size="3" color="black"><strong>Marcar</strong></font></th>
 				<th><font size="3" color="black"><strong>#</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Aluno</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Descrição</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Mes/Ano</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Valor</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+				<th ><font size="3" color="black"><strong>Aluno</strong></font></th>
+				<th ><font size="3" color="black"><strong>Descrição</strong></font></th>
+				<th ><font size="3" color="black"><strong>Mes/Ano</strong></font></th>
+				<th ><font size="3" color="black"><strong>Valor</strong></font></th>
+				<th ><font size="3" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
-	<?php foreach($this->rows as $debito){?>
+	<?php
+		$valor_total = 0;
+		foreach($this->rows as $debito){?>
 
 		<tr style="background: #EEE;">
-			<td style="width: 50px;"><strong><?php echo $debito['idDebitos']; ?></strong></td>
-			<td><?php echo $debito['user']['Nome']; ?></td>
-			<td style="width: 300px; text-align: center">
+			<td width="100px"> <input type="checkbox" name="debitos[]" class="single-debito" /></td>
+			<td width="50px" ><strong><?php echo $debito['idDebitos']; ?></strong></td>
+			<td width="200px""><?php echo $debito['user']['Nome']; ?></td>
+			<td >
 				<?php
 					$desc_debito = '';
 					$valor_cobrado = 0;
@@ -69,16 +73,17 @@
 			</td>
 
 
-			<td style="width: 50px; text-align: center;"><strong><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></strong></td>
-			<td style="width: 100px; text-align: center;">
+			<td width="50px"><strong><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></strong></td>
+			<td width="100px">
 				<strong>
 					R$
 					<?php
 						$valor = $valor_cobrado - ( (int) $valor_cobrado * ($debito['descontoMes']/100));
 						echo number_format($valor,2) . " (" . $debito['descontoMes'] . "%)";
+						$valor_total += $valor;
 					?>
 				</strong></td>
-			<td style="text-align: center;">
+			<td width="50px">
 				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'debitos',
@@ -99,6 +104,15 @@
 			</td>
 		</tr>
 	<?php }?>
+		<tr style="background: #EEE;">
+			<td><input type="checkbox" class=".select-all" data-select=".single-debito" /> Selecionar Tudo</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Total</td>
+			<td>R$ <?php echo number_format($valor_total, 2); ?></td>
+			<td></td>
+		</tr>
 		</tbody>
 	</table>
 	

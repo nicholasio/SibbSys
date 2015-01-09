@@ -21,7 +21,9 @@ class Admin_DebitosController extends Zend_Controller_Action{
 		$user_id = null;
 		if ( isset($_GET['aluno']) ) {
 			$user_id = $_GET['aluno'];
+			$this->view->user_id = $user_id;
 		}
+
 		$this->view->rows = $model->listar(null,null,$user_id);
 		$this->view->users = $usuarios->listar();
 	}
