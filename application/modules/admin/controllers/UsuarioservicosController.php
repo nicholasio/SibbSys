@@ -24,6 +24,9 @@ class Admin_UsuarioServicosController extends Zend_Controller_Action{
 		if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 				$data = $form->getValues();
+
+				if ( empty($data['valor']) ) unset($data['valor']);
+
 				$data['Usuario_idUsuario'] = $id;
 				$model->insert($data);
 				//$this->_redirect("/admin/usuarioservicos");

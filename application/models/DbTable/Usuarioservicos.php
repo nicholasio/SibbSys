@@ -27,12 +27,14 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 	
 	public function insert( Array $data){
 		$data['mes'] = date('n');
+		$data['ano'] = date('Y');
+
 		parent::insert($data);
 	}
 	
 	
-	public function getServicosNaoProcessados($mesAtual) {
-		$sql = $this->select()->where("mes = ?", $mesAtual)
+	public function getServicosNaoProcessados($mesAtual , $anoAtual ) {
+		$sql = $this->select()->where("mes = ?", $mesAtual)->where('ano = ?', $anoAtual)
 		->where('idUsuario_has_Servicos NOT IN (SELECT idUsuario_has_Servicos from Debitos WHERE idUsuario_has_Servicos IS NOT NULL)');
 		$rows = $this->fetchAll($sql);
 		
@@ -46,6 +48,7 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
+
 	
 	public function deletar($id){
 		

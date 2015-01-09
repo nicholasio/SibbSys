@@ -36,7 +36,6 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
     	
     	return $linha;
     }
-	
     
     public function _find($idUsuario, $idTurma){
     	
@@ -72,16 +71,21 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar(){
+	public function listar($ano = false, $semestre = false){
 	
 		$where = 'ativo';
 		$sql = $this->select()
-					->where('Status = ?', $where)
-					->order(array(new Zend_Db_Expr('idTurma ASC')));
+					->where('Status = ?', $where);
+
+		if ( $ano !== false && $semestre !== false){
+			$sql->where('Ano = ?' , $ano)->where('Semestre = ?', $semestre);
+		}
+
+		$sql->order(array(new Zend_Db_Expr('idTurma ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		
-		return $rows;		
+		return $rows;
 	}
 	
 	
@@ -147,8 +151,9 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 				   ->from(array('t' => 'Turma'), array())
 				   ->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Ano'))
 				   ->distinct('t.Ano')
-				   ->order('t.Ano DESC')
-				   ->where('Usuario_idUsuario = ?', $id);
+				   ->order('t.Ano DESC');
+		if ( $id !== false )
+			$sql->where('Usuario_idUsuario = ?', $id);
 		
 		$rows = $this->fetchAll($sql);
 	
@@ -161,8 +166,10 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		$sql = $this->select()
 		->from(array('t' => 'Turma'), array())
 		->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Semestre'))
-		->distinct('t.Semestre')
-		->where('Usuario_idUsuario = ?', $id);
+		->distinct('t.Semestre');
+
+		if ( $id !== false )
+			$sql->where('Usuario_idUsuario = ?', $id);
 		
 		$rows = $this->fetchAll($sql);
 		

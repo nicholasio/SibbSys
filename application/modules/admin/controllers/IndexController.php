@@ -31,8 +31,9 @@ class Admin_IndexController extends Zend_Controller_Action{
         $anoAtual       = (int) date('Y');
 
 
-        if ( $diaAtual >= 18 && $diaAtual < 28) {
-            $this->processarDebitos( $diaAtual, $mesAtual, $anoAtual );
+        //Os Débitos são processados a partir do dia 18 até o dia 28
+        if ( $diaAtual < 28) {
+            $this->processarDebitos( $mesAtual, $anoAtual );
         } else if ( $diaAtual >= 28 ) {
             $this->gerarFaturas( $diaAtual, $mesAtual, $anoAtual );
         }
@@ -42,42 +43,16 @@ class Admin_IndexController extends Zend_Controller_Action{
     public function gerarFaturas( $diaAtual, $mesAtual, $anoAtual ) {
 
     }
-    
-    public function processarDebitos( $diaAtual, $mesAtual, $anoAtual ) {
-        $anoLetivo      = "2014";
-        $semestreAtual  = "2";
 
-        $usuarios_servicos   = new Application_Model_DbTable_Usuarioservicos();
-        $matriculas          = new Application_Model_DbTable_Matricula();
-        $debitos             = new Application_Model_DbTable_Debitos();
+    /**
+     * Invoca o método processarDebitos do DbTable Debitos.
+     * @param $mesAtual
+     * @param $anoAtual
+     */
+    public function processarDebitos( $mesAtual, $anoAtual ) {
+        $debitos = new Application_Model_DbTable_Debitos();
 
-        $matriculasCorrentes = $matriculas->getMatriculasNaoProcessadas( $anoLetivo, $semestreAtual, $mesAtual );
-
-        if ( count($matriculasCorrentes) > 0 ) {
-            foreach ($matriculasCorrentes as $mat) {
-                $debitos->insert(
-                    array(
-                        'mesPagamento' => $mesAtual,
-                        'anoPagamento' => $anoAtual,
-                        'idUsuario_has_Turma' => $mat->idUsuario_has_Turma,
-                    )
-                );
-            }
-        }
-
-        $servicos_correntes = $usuarios_servicos->getServicosNaoProcessados( $mesAtual );
-
-        if ( count($servicos_correntes) > 0 ) {
-            foreach($servicos_correntes as $sc ) {
-                $debitos->insert(
-                    array(
-                        'mesPagamento' => $mesAtual,
-                        'anoPagamento' => $anoAtual,
-                        'idUsuario_has_Servicos' => $sc->idUsuario_has_Servicos
-                    )
-                );
-            }
-        }
+        $debitos->processarDebitos($mesAtual, $anoAtual);
     }
     
     
