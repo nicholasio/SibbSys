@@ -6,42 +6,97 @@
 			<small>Veja toda lista dos débitos cadastrados</small>
 		</h1>
 	</div>
-	
+
+	<div class="row">
+		<div class="span12">
+
+			<form action="/admin/debitos" method="GET" class="row">
+				<fieldset class="span12">
+
+					<legend>Escolha o Aluno</legend>
+					<select class="sibb-select2 " id="aluno" style="width:200px" name="aluno">
+						<?php
+						$users = new Application_Model_DbTable_Usuario();
+						$users = $users->fetchAll();
+						foreach ($users as $user) :
+							?>
+							<option value="<?= $user->idUsuario; ?>"><?= $user->Nome; ?></option>
+						<?php endforeach; ?>
+					</select>
+
+
+					<input type="submit" value="Filtrar" class="btn btn-danger span2" />
+
+				</fieldset>
+
+
+			</form>
+		</div>
+	</div>
+
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
 				<th><font size="3" color="black"><strong>#</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Mês Pagamento</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Ano Pagamento</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Desconto</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Aluno</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Descrição</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Mes/Ano</strong></font></th>
+				<th style="text-align: center;"><font size="3" color="black"><strong>Valor</strong></font></th>
 				<th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
-	<?php foreach($this->rows as $lista){?>
+	<?php foreach($this->rows as $debito){?>
+
 		<tr style="background: #EEE;">
-			<td style="width: 50px;"><strong><?php echo $lista->idDebitos;?></strong></td>
-			<td style="width: 200px; text-align: center;"><strong><?php echo $lista->mesPagamento;?></strong></td>
-			<td style="width: 300px; text-align: center;"><strong><?php echo $lista->anoPagamento;?></strong></td>
-			<td style="width: 100px; text-align: center;"><strong><?php echo $lista->descontoMes;?></strong></td>
+			<td style="width: 50px;"><strong><?php echo $debito['idDebitos']; ?></strong></td>
+			<td><?php echo $debito['user']['Nome']; ?></td>
+			<td style="width: 300px; text-align: center">
+				<?php
+					$desc_debito = '';
+					$valor_cobrado = 0;
+					if ( $debito['type'] == 'servico' ) {
+						$desc_debito = "Serviço: ";
+						$valor_cobrado = $debito['servico']['valor_cobrado_servico'];
+					} else if ( $debito['type'] == 'matricula' ) {
+
+						$desc_debito = 'Matrícula: ' . $debito['matricula']['nome_turma'] .
+							" ({$debito['matricula']['disciplina']}) {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
+
+						$valor_cobrado = $debito['matricula']['valor_cobrado'];
+					}
+					echo $desc_debito;
+				?>
+			</td>
+
+
+			<td style="width: 50px; text-align: center;"><strong><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></strong></td>
+			<td style="width: 100px; text-align: center;">
+				<strong>
+					R$
+					<?php
+						$valor = $valor_cobrado - ( (int) $valor_cobrado * ($debito['descontoMes']/100));
+						echo number_format($valor,2) . " (" . $debito['descontoMes']/100 . "%)";
+					?>
+				</strong></td>
 			<td style="text-align: center;">
 				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'debitos',
 						'action'		=>	'editar',
-						'idDebitos'		=>	$lista->idDebitos
+						'idDebitos'		=>	$debito['idDebitos']
 					))?>">
 						Editar
 				</a>
 				
-				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
+				<!--<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'debitos',
 						'action'		=>	'delete',
-						'idDebitos'		=>	$lista->idDebitos
+						'idDebitos'		=>	$debito['idDebitos']
 					))?>">
 						Excluir
-				</a>
+				</a>-->
 			</td>
 		</tr>
 	<?php }?>

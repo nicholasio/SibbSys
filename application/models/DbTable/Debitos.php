@@ -57,12 +57,18 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 
 		if ( empty($rows) ) return array();
 
+		$usuario 		   = new Application_Model_DbTable_Usuario();
 		$usuarios_servicos = new Application_Model_DbTable_Usuarioservicos();
 		$servico_model     = new Application_Model_DbTable_Servicos();
 		$turma_model	   = new Application_Model_DbTable_Turma();
+		$matricula_model   = new Application_Model_DbTable_Matricula();
+		$disciplina_model  = new Application_Model_DbTable_Disciplina();
+		$config			   = new Application_Model_DbTable_Configs();
+
+		$valor_cred = $config->findKey('valor_credito');
 
 		$data = array();
-		echo '<pre>';
+		//echo '<pre>';
 		foreach($rows as $row) {
 			$rowData = array(
 							'idDebitos' 		=> $row->idDebitos,
@@ -70,7 +76,7 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 							'descontoMes' 		=> $row->descontoMes,
 							'anoPagamento' 		=> $row->anoPagamento
 				       );
-
+			$canAdd = false;
 			if ( ! is_null($row->idUsuario_has_Servicos) ) { //O Débito é referente a um serviço
 				//$servico_user = $usuarios_servicos->find($row->idUsuario_has_Servicos)->toArray();
 
@@ -78,43 +84,73 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 				if ( ! is_null( $user_id) ) $sql->where('Usuario_idUsuario = ?', $user_id);
 				$servico_user = $usuarios_servicos->fetchAll($sql)->toArray();
 
-				if ( ! empty( $servico_user) ) {
-					$servico_user = $servico_user[0];
 
-					$rowData['type'] = 'servico';
-					$rowData['valor_cobrado_servico'] = $servico_user['valor'];
+				if ( ! empty( $servico_user) ) {
+					$canAdd = true;
+					$servico_user = $servico_user[0];
+					if ( is_null($user_id) )
+						$user_id = $servico_user['Usuario_idUsuario'];
 
 					$servico_data = $servico_model->find($servico_user['Servicos_idServicos'])->toArray()[0];
-					$rowData['nome_servico'] = $servico_data['nome'];
-					$rowData['descricao_servico'] = $servico_data['descricao'];
-					$rowData['valor_unitario_servico'] = $servico_data['valor'];
 
-					$data[] = $rowData;
+					$rowData['type'] = 'servico';
+					$rowData['servico'] = array(
+						'valor_cobrado_servico' => $servico_user['valor'], //Valor efetivamente cobrado vem de $servico_user
+						'nome_servico'			=> $servico_data['nome'],
+						'descricao_servico'		=> $servico_data['descricao'],
+						'valor_unitario_servico' => $servico_data['valor']
+					);
+
+
 				}
 
 
 			} else if ( ! is_null( $row->idUsuario_has_Turma) ) { //O débito é referente a matrícula em uma turma
 
-				$sql = $turma_model->select()->where('idTurma = ?', $row->idUsuario_has_Turma);
+				$sql = $matricula_model->select()->where('idUsuario_has_Turma = ?', $row->idUsuario_has_Turma);
 
-				if ( ! is_null( $user_id ) ) $sql->where('idUsuario = ?', $user_id);
+				if ( ! is_null( $user_id ) ) $sql->where('Usuario_idUsuario = ?', $user_id);
 
-				$turma = $turma_model->fetchAll($sql)->toArray();
+				$matricula = $matricula_model->fetchAll($sql)->toArray();
 
-				$rowData['type'] = 'turma';
-				$rowData['nome_turma'] = $turma['Nome'];
-				$rowData['descricao_turma'] = $turma['Descricao'];
-				$rowData['ano_turma'] = $turma['Ano'];
-				$rowData['semestre_turma'] = $turma['Semestre'];
+				if ( ! empty($matricula) ) {
+					$matricula = $matricula[0];
+					$canAdd = true;
+					$rowData['type'] = 'matricula';
+					$turma 		= $turma_model->find($matricula['Turma_idTurma'])->toArray()[0];
+					$disciplina = $disciplina_model->find($turma['Disciplina_idDisciplina'])->toArray()[0];
+
+					if ( is_null($user_id) )
+						$user_id = $matricula['Usuario_idUsuario'];
+
+					$rowData['matricula'] = array(
+						'nome_turma'      => $turma['Nome'],
+						'descricao_turma' => $turma['Descricao'],
+						'ano_turma'		  => $turma['Ano'],
+						'semestre_turma'  => $turma['Semestre'],
+						'disciplina'	  => $disciplina['Disciplina'],
+						'qtd_creditos'    => $disciplina['QntdCred'],
+						'valor_cobrado'   => (int) $disciplina['QntdCred'] * $valor_cred
+					);
 
 
 
+				}
 			}
-		}
-		var_dump($data);
-		echo '</pre>';
+			if ( $canAdd ) {
+				$user_data = $usuario->find($user_id)->toArray()[0];
+				$rowData['user'] = $user_data;
+				$data[] = $rowData;
+			}
 
-		return $rowData;
+
+
+
+		}
+
+		//echo '</pre>';
+
+		return $data;
 	}
 	
 	public function findForSelect($id){
@@ -150,8 +186,10 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 	 * @param $anoAtual
 	 */
 	public function processarDebitos($mesAtual, $anoAtual) {
-		$anoLetivo      = "2014";
-		$semestreAtual  = "2";
+		$config = new Application_Model_DbTable_Configs();
+
+		$anoLetivo      = $config->findKey('ano_atual');
+		$semestreAtual  = $config->findKey('semestre_atual');;
 
 		$usuarios_servicos   = new Application_Model_DbTable_Usuarioservicos();
 		$matriculas          = new Application_Model_DbTable_Matricula();
@@ -170,7 +208,7 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 			}
 		}
 
-		$servicos_correntes = $usuarios_servicos->getServicosNaoProcessados( $mesAtual );
+		$servicos_correntes = $usuarios_servicos->getServicosNaoProcessados( $mesAtual , $anoAtual );
 
 		if ( count($servicos_correntes) > 0 ) {
 			foreach($servicos_correntes as $sc ) {

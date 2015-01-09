@@ -16,8 +16,14 @@ class Admin_DebitosController extends Zend_Controller_Action{
 	public function indexAction(){
 
 		$model = new Application_Model_DbTable_Debitos();
-				
-		$this->view->rows = $model->listar();
+		$usuarios = new Application_Model_DbTable_Usuario();
+
+		$user_id = null;
+		if ( isset($_GET['aluno']) ) {
+			$user_id = $_GET['aluno'];
+		}
+		$this->view->rows = $model->listar(null,null,$user_id);
+		$this->view->users = $usuarios->listar();
 	}
 	
 	
