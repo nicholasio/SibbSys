@@ -12,7 +12,7 @@ class Admin_PagamentoController extends Zend_Controller_Action{
 		}
 	}
 	
-	public function indexAction(){
+	/*public function indexAction(){
 		
 		$model = new Application_Model_DbTable_Pagamento();
 		$form = new Application_Form_Pagamento();
@@ -53,17 +53,40 @@ class Admin_PagamentoController extends Zend_Controller_Action{
 			}
 		}
 		$this->view->form = $form;
-	}
+	}*/
 	
 	public function deleteAction(){
 		
 		$model = new Application_Model_DbTable_Pagamento();
 		
 		$id = $this->_getParam('idPagamento');
+		$user_id = $this->_getParam('idUsuario');
 		
 		$model->deletar($id);
-		
-		$this->_redirect("/admin/pagamento");
+
+		$this->_helper->flashMessenger->addMessage("Pagamento removido da Fatura #{$id}");
+
+		$this->_redirect('/admin/faturas?aluno=' . $user_id);
+	}
+
+	public function addpagamentoAction() {
+
+		$pagamento_model = new Application_Model_DbTable_Pagamento();
+
+		if ( $this->_request->isPost() ) {
+			$idFatura = $_POST['idFatura'];
+			$data     = $_POST['data'];
+			$valor    = $_POST['valor'];
+			$user_id  = $_POST['user_id'];
+			$descricao = $_POST['descricao'];
+
+			$data = array( 'Faturas_idFatura' => $idFatura, 'dataPagamento' => $data, 'valorPagamento' => $valor, 'Descricao' => $descricao );
+			$pagamento_model->insert($data);
+
+			$this->_helper->flashMessenger->addMessage("Pagamento adicionado na Fatura #{$idFatura}");
+
+			$this->_redirect('/admin/faturas?aluno=' . $user_id);
+		}
 	}
 	
 }
