@@ -11,46 +11,57 @@ class Admin_FaturasController extends Zend_Controller_Action{
 			$this->_redirect('/default');
 		}
 	}
-	
-	
+
+	/**
+	 * Cria um registro de fatura e associa os débitos selecionados
+     */
+	public function novoAction() {
+
+		$fatura_model = new Application_Model_DbTable_Faturas();
+
+		if ( $this->_request->isPost() ) {
+			$user_id = $_POST['user_id'];
+			$debitos_id = $_POST['debitos'];
+
+			$fatura_model->gerarFatura($debitos_id, $user_id);
+		}
+
+		$this->_redirect("/admin/faturas");
+	}
+
+
 	public function indexAction(){
 		
-		$model = new Application_Model_DbTable_Faturas();
-		$form = new Application_Form_Faturas();
-		
-		if($this->_request->isPost()){
-			if($form->isValid($this->_request->getPost())){
-				$data = $form->getValues();
-				$model->insert($data);
-				$this->_redirect("/admin/faturas");
-			}
+		$faturas_model = new Application_Model_DbTable_Faturas();
+		$user_id = null;
+		if ( isset($_GET['aluno']) ) {
+			$user_id = $_GET['aluno'];
+			$this->view->user_id = $user_id;
 		}
 		
-		$this->view->form = $form;
-		
-		$this->view->rows = $model->listar();
+		$this->view->rows = $faturas_model->listar($user_id);
 	}
 	
 	
-	public function editarAction($id){
+	public function editarAction(){
 		
 		$model = new Application_Model_DbTable_Faturas();
 		$form = new Application_Form_Faturas();
 		
-		$id = $this->_getParam('idFatura');
+		$id = $this->_getParam('idFaturas');
 		
 		$data = $model->editar($id);
 		if(is_array($data)){
 			$form->populate($data);
 		}
 		
-		if($this->_request->_isPost()){
+		if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 				$data = $form->getValues();
 				if($id){
 					$where = $model->getAdapter()->quoteInto('idFatura = ?', $id);
 					$model->update($data, $where);
-					$this->_redirect("/admin/fatura");
+					$this->_redirect("/admin/faturas");
 				}
 			}
 		}
@@ -58,14 +69,14 @@ class Admin_FaturasController extends Zend_Controller_Action{
 	}
 	
 	
-	public function deleteAction($id){
+	public function deleteAction(){
 		
-		$model = new Application_Model_DbTable_Fatura();
+		$model = new Application_Model_DbTable_Faturas();
 		
-		$id = $this->_getParam('idFatura');
-		
+		$id = $this->_getParam('idFaturas');
+
 		$model->deletar($id);
 		
-		$this->_redirect("/admin/fatura");
+		$this->_redirect("/admin/faturas");
 	}
 }

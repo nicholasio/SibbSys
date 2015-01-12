@@ -34,87 +34,101 @@
 		</div>
 	</div>
 
-	<table class="table table-striped data-table" style="margin-bottom:0;">
-		<thead>
-			<tr>
-				<th><font size="3" color="black"><strong>Marcar</strong></font></th>
-				<th><font size="3" color="black"><strong>#</strong></font></th>
-				<th ><font size="3" color="black"><strong>Aluno</strong></font></th>
-				<th ><font size="3" color="black"><strong>Descrição</strong></font></th>
-				<th ><font size="3" color="black"><strong>Mes/Ano</strong></font></th>
-				<th ><font size="3" color="black"><strong>Valor</strong></font></th>
-				<th ><font size="3" color="black"><strong>Ações</strong></font></th>
-			</tr>
-		</thead>
-		<tbody>
-	<?php
-		$valor_total = 0;
-		foreach($this->rows as $debito){?>
-
-		<tr style="background: #EEE;">
-			<td width="100px"> <input type="checkbox" name="debitos[]" class="single-debito" /></td>
-			<td width="50px" ><strong><?php echo $debito['idDebitos']; ?></strong></td>
-			<td width="200px""><?php echo $debito['user']['Nome']; ?></td>
-			<td >
-				<?php
-					$desc_debito = '';
-					$valor_cobrado = 0;
-					if ( $debito['type'] == 'servico' ) {
-						$desc_debito = "Serviço: " . $debito['servico']['nome_servico'] . ' - ' . $debito['servico']['descricao_servico'];
-						$valor_cobrado = $debito['servico']['valor_cobrado_servico'];
-					} else if ( $debito['type'] == 'matricula' ) {
-						$desc_debito = 'Matrícula: ' . $debito['matricula']['nome_turma'] .
-							" ({$debito['matricula']['disciplina']}) {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
-
-						$valor_cobrado = $debito['matricula']['valor_cobrado'];
-					}
-					echo $desc_debito;
-				?>
-			</td>
-
-
-			<td width="50px"><strong><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></strong></td>
-			<td width="100px">
-				<strong>
-					R$
+	<form action="/admin/faturas/novo" method="POST">
+		<table class="table table-striped data-table" style="margin-bottom:0;">
+			<thead>
+				<tr>
+					<th><font size="3" color="black"><strong>Marcar</strong></font></th>
+					<th><font size="3" color="black"><strong>#</strong></font></th>
+					<th ><font size="3" color="black"><strong>Aluno</strong></font></th>
+					<th ><font size="3" color="black"><strong>Descrição</strong></font></th>
+					<th ><font size="3" color="black"><strong>Mes/Ano</strong></font></th>
+					<th ><font size="3" color="black"><strong>Valor</strong></font></th>
+					<th ><font size="3" color="black"><strong>Ações</strong></font></th>
+				</tr>
+			</thead>
+			<tbody>
+		<?php
+			$valor_total = 0;
+			foreach($this->rows as $debito){?>
+				<?php $user_id = $debito['user']['idUsuario']; ?>
+			<tr style="background: #EEE;">
+				<td width="100px"> <input type="checkbox" name="debitos[]" value="<?php echo $debito['idDebitos']; ?>" class="single-debito" /></td>
+				<td width="50px" ><strong><?php echo $debito['idDebitos']; ?></strong></td>
+				<td width="200px""><?php echo $debito['user']['Nome']; ?></td>
+				<td >
 					<?php
-						$valor = $valor_cobrado - ( (int) $valor_cobrado * ($debito['descontoMes']/100));
-						echo number_format($valor,2) . " (" . $debito['descontoMes'] . "%)";
-						$valor_total += $valor;
+						$desc_debito = '';
+						if ( $debito['type'] == 'servico' ) {
+							$desc_debito = "Serviço: " . $debito['servico']['nome_servico'] . ' - ' . $debito['servico']['descricao_servico'];
+						} else if ( $debito['type'] == 'matricula' ) {
+							$desc_debito = 'Matrícula: ' . $debito['matricula']['nome_turma'] .
+								" ({$debito['matricula']['disciplina']}) {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
+						}
+						echo $desc_debito;
 					?>
-				</strong></td>
-			<td width="50px">
-				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'debitos',
-						'action'		=>	'editar',
-						'idDebitos'		=>	$debito['idDebitos']
-					))?>">
-						Editar
-				</a>
-				
-				<!--<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'debitos',
-						'action'		=>	'delete',
-						'idDebitos'		=>	$debito['idDebitos']
-					))?>">
-						Excluir
-				</a>-->
-			</td>
-		</tr>
-	<?php }?>
-		<tr style="background: #EEE;">
-			<td><input type="checkbox" class=".select-all" data-select=".single-debito" /> Selecionar Tudo</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td>Total</td>
-			<td>R$ <?php echo number_format($valor_total, 2); ?></td>
-			<td></td>
-		</tr>
-		</tbody>
-	</table>
+				</td>
+
+
+				<td width="50px"><strong><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></strong></td>
+				<td width="100px">
+					<strong>
+						R$
+						<?php
+							$valor = $debito[$debito['type']]['valor_final'];
+							echo number_format($valor,2) . " (" . $debito['descontoMes'] . "%)";
+							$valor_total += $valor;
+						?>
+					</strong></td>
+				<td width="50px">
+					<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'debitos',
+							'action'		=>	'editar',
+							'idDebitos'		=>	$debito['idDebitos']
+						))?>">
+							Editar
+					</a>
+
+					<!--<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'debitos',
+							'action'		=>	'delete',
+							'idDebitos'		=>	$debito['idDebitos']
+						))?>">
+							Excluir
+					</a>-->
+				</td>
+			</tr>
+		<?php }?>
+			</tbody>
+			<tfoot>
+				<tr style="background: #EEE;">
+					<td><input type="checkbox" class="select-all" data-select=".single-debito"  /> Selecionar Tudo</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><font size="4" color="black"><strong>Total</strong></font></td>
+					<td><font size="4" color="black"><strong>R$ <?php echo number_format($valor_total, 2); ?></strong></font></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><input type="submit" disabled value="Gerar Fatura" data-enabled=".single-debito" class="btn btn-success dependent-btn"/></td>
+				</tr>
+
+			</tfoot>
+
+		</table>
+		<input type="hidden" name="user_id" value="<?php echo $user_id; ?>"/>
+	</form>
+
+
 	
 	<br /><br />
 </div>

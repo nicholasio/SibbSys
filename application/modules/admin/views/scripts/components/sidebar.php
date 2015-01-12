@@ -84,11 +84,11 @@
 		</li>
 		<li><a href="#"><img src="/images/icons/small/grey/money_2.png"/><span>Financeiro</span></a>
 			<ul class="drawer">
-				<li><a href="#"><img src="/images/icons/small/white/money.png"><span>Debitos</span></a>
-					<ul class="drawer">
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'debitos','action'=>'index'),null,1);?>"><img src="/images/icons/small/white/money.png"><span>Debitos</span></a>
+					<!--<ul class="drawer">
 						<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'debitos','action'=>'novo'),null,1);?>"><span>Cadastrar</span></a></li>
 						<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'debitos','action'=>'index'),null,1);?>"><span>Listar</span></a></li>
-					</ul>
+					</ul>-->
 				</li>
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'faturas','action'=>'index'),null,1);?>"><img src="/images/icons/small/white/post_card.png"><span>Fatura</span></a></li>
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'pagamento','action'=>'index'),null,1); ?>"><img src="/images/icons/small/white/cash_register.png"><span>Pagamento</span></a></li>

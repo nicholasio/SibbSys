@@ -23,7 +23,16 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 	
 	
 	public function getAllDebitos() {
-		$sql = $this->select()
+		$sql = $this->select()->where('idDebitos NOT IN (SELECT Debitos_idDebitos FROM Faturas_has_Debitos)')
+			->order(array(new Zend_Db_Expr('idDebitos ASC')));
+
+		$rows = $this->fetchAll($sql);
+
+		return $rows;
+	}
+
+	public function getDebitosById(Array $debitos) {
+		$sql = $this->select()->where('idDebitos IN (?)', $debitos)
 			->order(array(new Zend_Db_Expr('idDebitos ASC')));
 
 		$rows = $this->fetchAll($sql);
@@ -48,10 +57,12 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 		return $rows;
 	}
 
-	public function listar( $mes = null, $ano = null, $user_id = null ){
+	public function listar( $mes = null, $ano = null, $user_id = null, $debitos = null ){
 
-		if ( is_null( $mes ) && is_null($ano) )
+		if ( is_null( $mes ) && is_null($ano) && is_null($debitos))
 			$rows = $this->getAllDebitos();
+		else if ( ! is_null($debitos) )
+			$rows = $this->getDebitosById($debitos);
 		else
 			$rows = $this->getDebitos($mes, $ano);
 
@@ -95,11 +106,13 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 
 					$rowData['type'] = 'servico';
 					$rowData['servico'] = array(
-						'valor_cobrado_servico' => $servico_user['valor'], //Valor efetivamente cobrado vem de $servico_user
+						'valor_cobrado_servico' => ($servico_user['valor'] == NULL) ? $servico_data['valor'] : $servico_user['valor'], //Valor efetivamente cobrado vem de $servico_user
 						'nome_servico'			=> $servico_data['nome'],
 						'descricao_servico'		=> $servico_data['descricao'],
 						'valor_unitario_servico' => $servico_data['valor']
 					);
+
+					$rowData['servico']['valor_final'] = $rowData['servico']['valor_cobrado_servico'] - ($rowData['servico']['valor_cobrado_servico'] * $rowData['descontoMes']/100 );
 
 
 				}
@@ -130,8 +143,10 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 						'semestre_turma'  => $turma['Semestre'],
 						'disciplina'	  => $disciplina['Disciplina'],
 						'qtd_creditos'    => $disciplina['QntdCred'],
-						'valor_cobrado'   => (int) $disciplina['QntdCred'] * $valor_cred
+						'valor_cobrado'   => (int) $disciplina['QntdCred'] * $valor_cred,
 					);
+
+					$rowData['matricula']['valor_final'] = $rowData['matricula']['valor_cobrado'] - ($rowData['matricula']['valor_cobrado'] * $rowData['descontoMes']/100);
 
 
 

@@ -2,52 +2,78 @@
 
 <div class="grid_16">
 	<div class="page-header">
-		<h1>Cadastrar Faturar
-			<small>Preencha o formulário abaixo para cadastrar uma fatura</small>
+		<h1>Faturas
+			<small>Visualize todas as Faturas</small>
 		</h1>
 	</div>
-	
-	<br />
-	
-	<div class="container">
-		<div class="form">
-			<?php echo $this->form; ?>
+
+
+
+	<div class="row">
+		<div class="span12">
+
+			<form action="/admin/faturas" method="GET" class="row">
+				<fieldset class="span12">
+
+					<legend>Escolha o Aluno</legend>
+					<select class="sibb-select2 " id="aluno" style="width:200px" name="aluno">
+						<?php
+						$users = new Application_Model_DbTable_Usuario();
+						$users = $users->fetchAll();
+						foreach ($users as $user) :
+							?>
+							<option <?php if ( $user->idUsuario == $this->user_id) echo 'selected' ?> value="<?= $user->idUsuario; ?>"><?= $user->Nome; ?></option>
+						<?php endforeach; ?>
+					</select>
+
+
+					<input type="submit" value="Filtrar" class="btn btn-danger span2" />
+
+				</fieldset>
+
+
+			</form>
 		</div>
 	</div>
-	
 
-	<br />
-	
-	<div class=page-header></div>
-	
-	<br /><br />
 		
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
 			<tr>
 				<th><h5>#</h5></th>
-				<th><h5>Mês</h5></th>
-				<th><h5>Ano</h5></th>
-				<th><h5>Desconto</h5></th>
+				<th><h5>Aluno</h5></th>
+				<th><h5>Mês/Ano</h5></th>
+				<th><h5>Qtd Débitos</h5></th>
 				<th><h5>Valor</h5></th>
+				<th><h5>Desconto na Fatura</h5></th>
 				<th><h5>Ações</h5></th>
+
 			</tr>
 		</thead>
 		
 		<tbody>
-	<?php foreach ($this->rows as $lista){ ?>
+	<?php foreach ($this->rows as $fatura){ ?>
 		<tr>
-			<td><strong><?php echo $lista->idFatura; ?></strong></td>
-			<td><strong><?php echo $lista->mes; ?></strong></td>
-			<td><strong><?php echo $lista->ano; ?></strong></td>
-			<td><strong><?php echo $lista->desconto; ?></strong></td>
-			<td><strong><?php echo $lista->valorFatura; ?></strong></td>
+			<td><strong><?php echo $fatura['idFatura']; ?></strong></td>
+			<td><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
+			<td><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+			<td><strong><?php echo count($fatura['debitos']); ?></strong></td>
+
+			<td><strong>R$ <?php
+					$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
+					echo number_format($valor,2);
+					?></strong></td>
+			<td><strong><?php echo $fatura['desconto']; ?> % </strong></td>
 			<td>
+				<a class="btn btn-group" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
+					Ver Detalhamento
+				</a>
+				<a href="#" class="btn btn-inverse">Adicionar Pagamento</a>
 				<a class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'faturas',
 						'action'		=>	'editar',
-						'idFaturas'		=>	$lista->idFatura
+						'idFaturas'		=>	$fatura['idFatura']
 					));?>">
 						Editar
 				</a>
@@ -56,12 +82,63 @@
 					array(
 						'controller'	=>	'faturas',
 						'action'		=>	'delete',
-						'idFaturas'		=>	$lista->idFatura
+						'idFaturas'		=>	$fatura['idFatura']
 					));?>">
 						Excluir
 				</a>
+				<div class="modal hide fade" id="fatura-desc-<?php echo $fatura['idFatura']; ?>">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3>Detalhes da Fatura</h3>
+					</div>
+					<div class="modal-body">
+						<table class="table table-striped">
+							<tr>
+								<th>#</th>
+								<th>Descrição</th>
+								<th>Mês/Ano</th>
+								<th>Valor</th>
+							</tr>
+							<tbody>
+							<?php
+							$valor_total = 0;
+							foreach($fatura['debitos'] as $debito) : ?>
+								<tr>
+									<td><?php echo $debito['idDebitos']; ?></td>
+									<td>
+										<?php
+										$desc_debito = '';
+										$valor_cobrado = 0;
+										if ( $debito['type'] == 'servico' ) {
+											$desc_debito = "Serviço: " . $debito['servico']['nome_servico'] . ' - ' . $debito['servico']['descricao_servico'];
+										} else if ( $debito['type'] == 'matricula' ) {
+											$desc_debito = 'Matrícula: ' . $debito['matricula']['nome_turma'] .
+												" ({$debito['matricula']['disciplina']}) {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
+
+										}
+										echo $desc_debito;
+										?>
+									</td>
+									<td><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></td>
+									<td>
+										R$
+										<?php
+										$valor = $debito[$debito['type']]['valor_final'];
+										echo number_format($valor,2) . " (" . $debito['descontoMes'] . "%)";
+										$valor_total += $valor;
+										?></td>
+								</tr>
+							<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal">Fechar</a>
+					</div>
+				</div>
 			</td>
 		</tr>
+
 	<?php }?>
 		</tbody>
 	</table>
