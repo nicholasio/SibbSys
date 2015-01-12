@@ -143,15 +143,16 @@
 					<a class="btn btn-inverse" data-toggle="modal" href="#fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>">Adicionar Pagamento</a>
 				<?php endif; ?>
 				<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Ver Pagamentos</a>
-				<a class="btn btn-primary" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'faturas',
-						'action'		=>	'editar',
-						'idFaturas'		=>	$fatura['idFatura']
-					));?>">
-						Editar
-				</a>
-				<?php if ( ! $pago ) :?>
+				<?php if ( $valor_total_pagamentos == 0 ) :?>
+					<a class="btn btn-primary" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'faturas',
+							'action'		=>	'editar',
+							'idFaturas'		=>	$fatura['idFatura']
+						));?>">
+							Editar
+					</a>
+
 					<a class="btn btn-warning" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',

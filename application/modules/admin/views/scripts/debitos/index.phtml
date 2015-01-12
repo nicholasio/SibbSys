@@ -15,6 +15,7 @@
 
 					<legend>Escolha o Aluno</legend>
 					<select class="sibb-select2 " id="aluno" style="width:200px" name="aluno">
+						<option value="-1">Todos</option>
 						<?php
 						$users = new Application_Model_DbTable_Usuario();
 						$users = $users->fetchAll();

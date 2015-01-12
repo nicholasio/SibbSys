@@ -78,6 +78,9 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 
 		$valor_cred = $config->findKey('valor_credito');
 
+		$filter_by_user = false;
+		if ( ! is_null($user_id) ) $filter_by_user = true;
+
 		$data = array();
 		//echo '<pre>';
 		foreach($rows as $row) {
@@ -92,14 +95,14 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 				//$servico_user = $usuarios_servicos->find($row->idUsuario_has_Servicos)->toArray();
 
 				$sql = $usuarios_servicos->select()->where('idUsuario_has_Servicos = ?', $row->idUsuario_has_Servicos);
-				if ( ! is_null( $user_id) ) $sql->where('Usuario_idUsuario = ?', $user_id);
+				if ( $filter_by_user ) $sql->where('Usuario_idUsuario = ?', $user_id);
 				$servico_user = $usuarios_servicos->fetchAll($sql)->toArray();
 
 
 				if ( ! empty( $servico_user) ) {
 					$canAdd = true;
 					$servico_user = $servico_user[0];
-					if ( is_null($user_id) )
+					if ( ! $filter_by_user )
 						$user_id = $servico_user['Usuario_idUsuario'];
 
 					$servico_data = $servico_model->find($servico_user['Servicos_idServicos'])->toArray()[0];
@@ -122,7 +125,7 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 
 				$sql = $matricula_model->select()->where('idUsuario_has_Turma = ?', $row->idUsuario_has_Turma);
 
-				if ( ! is_null( $user_id ) ) $sql->where('Usuario_idUsuario = ?', $user_id);
+				if ( $filter_by_user ) $sql->where('Usuario_idUsuario = ?', $user_id);
 
 				$matricula = $matricula_model->fetchAll($sql)->toArray();
 
@@ -133,7 +136,7 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 					$turma 		= $turma_model->find($matricula['Turma_idTurma'])->toArray()[0];
 					$disciplina = $disciplina_model->find($turma['Disciplina_idDisciplina'])->toArray()[0];
 
-					if ( is_null($user_id) )
+					if ( ! $filter_by_user  )
 						$user_id = $matricula['Usuario_idUsuario'];
 
 					$rowData['matricula'] = array(

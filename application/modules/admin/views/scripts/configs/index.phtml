@@ -9,23 +9,42 @@
 	<br /> 
 	
 	<div class="container">
-		<form action="/admin/configs/insert" method="post" >
-			<fieldset>
-				<label>Valor do Crédito: </label> 
-					<input type="text" name="configs[valor_credito]" value="<?php echo $this->valor_credito; ?>"/>
-				<label>Dia do Débito: </label>
-					<input type="text" name="configs[dia_debito]" value="<?php echo $this->dia_debito; ?>"/>
-				<label>Dia da Fatura: </label>
-					<input type="text" name="configs[dia_fatura]" value="<?php echo $this->dia_fatura; ?>" />
-				<label>Ano Atual: </label>
-					<input type="text" name="configs[ano_atual]" value="<?php echo $this->ano_atual; ?>" />
-				<label>Semestre Atual: </label>
-					<input type="text" name="configs[semestre_atual]" value="<?php echo $this->semestre_atual; ?>" />
+		<form action="/admin/configs/insert" method="post"  class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label">Valor do Crédito:</label>
+					<div class="controls">
+						<input type="text" name="configs[valor_credito]" value="<?php echo $this->valor_credito; ?>"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" >Fechamento da Fatura:</label>
+					<div class="controls">
+						<input type="text" name="configs[dia_fatura]" value="<?php echo $this->dia_fatura; ?>" />
+						<span class="help-block">Defina quantos dias antes do mês a fatura deve ser fechada.</span>
+					</div>
+				</div>
 
-					<br /><br />
-					
-				<p><input class="btn btn-primary" type="submit" value="Salvar" name="configs_btn"/></p>
-			</fieldset>
+				<div class="control-group">
+					<label class="control-label" >Ano Atual:</label>
+					<div class="controls">
+						<input type="text" name="configs[ano_atual]" value="<?php echo $this->ano_atual; ?>" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" >Semestre Atual:</label>
+					<div class="controls">
+						<input type="text" name="configs[semestre_atual]" value="<?php echo $this->semestre_atual; ?>" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<input class="btn btn-primary" type="submit" value="Salvar" name="configs_btn"/>
+					</div>
+				</div>
+
 		</form>
 	</div>
 </div>
+
