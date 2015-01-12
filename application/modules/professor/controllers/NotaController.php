@@ -42,7 +42,7 @@ class Professor_NotaController extends Zend_Controller_Action{
 			$count = count($_POST['unit1']);
 			
 			for($i = 0; $i < $count; $i++){
-
+				$data = array();
 				if ( strlen($_POST['unit1'][$i]) > 0 )
 					$data['Unit1'] = abs(str_replace(',','.',$_POST['unit1'][$i]));
 
