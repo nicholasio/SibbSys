@@ -68,46 +68,17 @@ class Professor_IndexController extends Zend_Controller_Action{
 
     	
     }
-    
 
-    public function encerrarTurmaAction(){
-		
-        $matricula = new Application_Model_DbTable_Matricula();
-    	$turma = new Application_Model_DbTable_Turma();
-    	$notas = new Application_Model_DbTable_Nota();
+	public function encerrarTurmaAction() {
+		$turma = new Application_Model_DbTable_Turma();
+		$id = $this->_getParam('idTurma');
 
-    	$id = $this->_getParam('idTurma');
+		if ( $turma->encerrarTurma($id) ) {
+			$this->_helper->FlashMessenger->addMessage("Turma encerrada");
+		} else {
+			$this->_helper->FlashMessenger->addMessage("Turma não pode ser encerrada, existem pendências associadas a essa turma.");
+		}
 
-        $alunos = $matricula->findForSelect($id)->toArray();
-        $notas  = $notas->findForSelect($id)->toArray();
-
-        $podeEncerrar = true;
-
-        if ( count($alunos) != count($notas) ) {
-            $podeEncerrar = false;
-        }
-
-        if ( $podeEncerrar ) {
-            foreach($notas as $nota) {
-
-                if ( is_null($nota['Unit1']) || is_null($nota['Unit2']) || is_null($nota['Unit3']) ) {
-                    $podeEncerrar = false;
-                    break;
-                }
-
-            }
-        }
-
-    	if ( $podeEncerrar ) {
-            $turma->encerrarTurma($id);
-            $this->_helper->FlashMessenger->addMessage("Turma encerrada");
-        } else {
-            $this->_helper->FlashMessenger->addMessage("Turma não pode ser encerrada, falta adicionar notas.");
-        }
-    	
-    	
-    	
-    	$this->_redirect("/professor/index/turmas");
-    	
-    }
+		$this->_redirect("/professor/index/turmas");
+	}
 }

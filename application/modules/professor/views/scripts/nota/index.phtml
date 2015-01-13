@@ -24,6 +24,8 @@
 					<th style="width: 300px;"><font size="3" color="white">UNIDADE 1</font></th>
 					<th style="width: 300px;"><font size="3" color="white">UNIDADE 2</font></th>
 					<th style="width: 300px;"><font size="3" color="white">UNIDADE 3</font></th>
+					<th style="width: 300px;"><font size="3" color="white">Status</font></th>
+
 					
 				</tr>
 				
@@ -37,11 +39,12 @@
  					
  						<?php 
  							$i = 0;
- 							foreach($this->rows as $users) : 
+ 							foreach($this->rows as $users) :
+
  								$idNota = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['idNota'] : '';
- 								$unit1  = ( $this->nota && isset($this->nota[$i]) && !empty($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : 0;
- 								$unit2  = ( $this->nota && isset($this->nota[$i]) && !empty($this->nota[$i]['Unit2']) ) ? $this->nota[$i]['Unit2']  : 0;
- 								$unit3  = ( $this->nota && isset($this->nota[$i]) && !empty($this->nota[$i]['Unit3']) ) ? $this->nota[$i]['Unit3']  : 0;
+ 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : false;
+ 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) )  ? $this->nota[$i]['Unit2']  : false;
+ 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) )? $this->nota[$i]['Unit3']  : false;
 
  							//var_dump($this->nota->toArray());
 							if($users->Status != 'inativo') : ?>
@@ -59,15 +62,18 @@
 								</td>
 								
 								<td style="text-align: center; padding-top: 7px; ">
-									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php echo number_format($unit1,2); ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php if ( $unit1 !== false ) echo number_format($unit1,2); ?>"/>
 								</td>
 								
 								<td style="text-align: center;" >
-									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php echo number_format($unit2,2); ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php if ( $unit2 !== false) echo number_format($unit2,2); ?>"/>
 								</td>
 								
 								<td style="text-align: center;" >
-									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php echo number_format($unit3,2); ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 !== false)echo number_format($unit3,2); ?>"/>
+								</td>
+								<td>
+									<?php echo $users->Status; ?>
 								</td>
 								
 	    					</tr>

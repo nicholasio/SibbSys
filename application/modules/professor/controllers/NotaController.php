@@ -58,9 +58,9 @@ class Professor_NotaController extends Zend_Controller_Action{
 				$id = $_POST['idNota'][$i];
 				$idTurma = $_POST['idTurma'][$i];
 				
-				$unit1 = isset($data['Unit1']) ? $data['unit1'] : 0;
-				$unit2 = isset($data['Unit2']) ? $data['unit2'] : 0;
-				$unit3 = isset($data['Unit3']) ? $data['unit3'] : 0;
+				$unit1 = isset($data['Unit1']) ? (int) $data['Unit1'] : 0;
+				$unit2 = isset($data['Unit2']) ? (int) $data['Unit2'] : 0;
+				$unit3 = isset($data['Unit3']) ? (int) $data['Unit3'] : 0;
 
 				if ( $unit1 <= 10 && $unit2 <= 10 && $unit3 <= 10 ) {
 					if($id){
