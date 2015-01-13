@@ -1,6 +1,6 @@
 <?php
 
-class Admin_CursoController extends Zend_Controller_Action{
+class Admin_CursoController extends AppBaseController{
 
 	
 	public function preDispatch(){

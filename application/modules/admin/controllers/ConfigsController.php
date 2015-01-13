@@ -1,6 +1,6 @@
 <?php 
 
-class Admin_ConfigsController extends Zend_Controller_Action{
+class Admin_ConfigsController extends AppBaseController{
 	
 public function preDispatch(){
 	

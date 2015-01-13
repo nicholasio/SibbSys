@@ -1,6 +1,6 @@
 <?php
 
-class Admin_FinanceiroController extends Zend_Controller_Action
+class Admin_FinanceiroController extends AppBaseController
 {
 
     public function init()

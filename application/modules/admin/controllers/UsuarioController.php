@@ -1,6 +1,6 @@
 <?php
 
-class Admin_UsuarioController extends Zend_Controller_Action{
+class Admin_UsuarioController extends AppBaseController{
 
 	
 	public function preDispatch(){

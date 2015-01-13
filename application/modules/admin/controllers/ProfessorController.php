@@ -1,5 +1,5 @@
 <?php
-class Admin_ProfessorController extends Zend_Controller_Action{
+class Admin_ProfessorController extends AppBaseController{
 	
 	public function preDispatch(){
 		
@@ -74,9 +74,9 @@ class Admin_ProfessorController extends Zend_Controller_Action{
 				$id = $_POST['idNota'][$i];
 				$idTurma = $_POST['idTurma'][$i];
 				
-				$unit1 = isset($data['Unit1']) ? $data['unit1'] : 0;
-				$unit2 = isset($data['Unit2']) ? $data['unit2'] : 0;
-				$unit3 = isset($data['Unit3']) ? $data['unit3'] : 0;
+				$unit1 = isset($data['Unit1']) ? $data['Unit1'] : 0;
+				$unit2 = isset($data['Unit2']) ? $data['Unit2'] : 0;
+				$unit3 = isset($data['Unit3']) ? $data['Unit3'] : 0;
 
 				if ( $unit1 <= 10 && $unit2 <= 10 && $unit3 <= 10 ) {
 					if($id){

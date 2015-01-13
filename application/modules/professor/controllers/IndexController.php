@@ -1,6 +1,6 @@
 <?php
 
-class Professor_IndexController extends Zend_Controller_Action{
+class Professor_IndexController extends AppBaseController{
 
 	
     public function preDispatch(){

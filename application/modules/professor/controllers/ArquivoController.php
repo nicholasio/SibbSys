@@ -1,6 +1,6 @@
 <?php
 
-class Professor_ArquivoController extends Zend_Controller_Action{
+class Professor_ArquivoController extends AppBaseController{
 	
 	
 	public function init(){

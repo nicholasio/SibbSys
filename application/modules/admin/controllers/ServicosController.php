@@ -1,6 +1,6 @@
 <?php 
 
-class Admin_ServicosController extends Zend_Controller_Action{
+class Admin_ServicosController extends AppBaseController{
 
 	
 	public function preDispatch(){

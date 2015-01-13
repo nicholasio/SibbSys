@@ -1,6 +1,6 @@
 <?php 
 
-class Admin_FaturasController extends Zend_Controller_Action{
+class Admin_FaturasController extends AppBaseController{
 	
 	
 	public function preDispatch(){

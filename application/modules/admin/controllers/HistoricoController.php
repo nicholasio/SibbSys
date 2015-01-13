@@ -1,6 +1,6 @@
 <?php
 
-class Admin_HistoricoController extends Zend_Controller_Action{
+class Admin_HistoricoController extends AppBaseController{
 
 	
 	public function preDispatch(){

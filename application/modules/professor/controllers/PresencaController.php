@@ -1,6 +1,6 @@
 <?php 
 
-class Professor_PresencaController extends Zend_Controller_Action{
+class Professor_PresencaController extends AppBaseController{
 	
 	
 	public function init(){

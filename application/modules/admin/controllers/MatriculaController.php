@@ -1,6 +1,6 @@
 <?php
 
-class Admin_MatriculaController extends Zend_Controller_Action{
+class Admin_MatriculaController extends AppBaseController{
 
     
 	public function preDispatch(){

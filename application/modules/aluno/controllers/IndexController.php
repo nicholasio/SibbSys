@@ -1,6 +1,6 @@
 <?php	
 
-class Aluno_IndexController extends Zend_Controller_Action{
+class Aluno_IndexController extends AppBaseController{
 
 	
     public function preDispatch(){

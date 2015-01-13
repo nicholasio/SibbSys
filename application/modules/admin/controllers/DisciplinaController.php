@@ -1,6 +1,6 @@
 <?php
 
-class Admin_DisciplinaController extends Zend_Controller_Action{
+class Admin_DisciplinaController extends AppBaseController{
 
 	
 	public function preDispatch(){

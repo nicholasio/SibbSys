@@ -1,6 +1,6 @@
 <?php
 
-class Professor_NotaController extends Zend_Controller_Action{
+class Professor_NotaController extends AppBaseController{
 	
 	
 	public function init(){

@@ -1,6 +1,6 @@
 <?php
 
-class Admin_CreditoController extends Zend_Controller_Action{
+class Admin_CreditoController extends AppBaseController{
 	
 	
 	public function preDispatch(){

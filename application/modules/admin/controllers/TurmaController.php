@@ -1,6 +1,6 @@
 <?php
 
-class Admin_TurmaController extends Zend_Controller_Action{
+class Admin_TurmaController extends AppBaseController{
 
 	
 	public function preDispatch(){

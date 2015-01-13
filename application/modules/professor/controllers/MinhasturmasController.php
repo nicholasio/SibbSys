@@ -1,6 +1,6 @@
 <?php
 
-class Professor_MinhasTurmasController extends Zend_Controller_Action{
+class Professor_MinhasTurmasController extends AppBaseController{
 
     public function init(){
         /* Initialize action controller here */

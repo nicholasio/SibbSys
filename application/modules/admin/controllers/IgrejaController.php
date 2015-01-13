@@ -1,6 +1,6 @@
 <?php
 
-class Admin_IgrejaController extends Zend_Controller_Action{
+class Admin_IgrejaController extends AppBaseController{
 
 	
 	public function preDispatch(){
