@@ -2,3 +2,4 @@
 .project
 .settings
 application/configs/application.ini
+.idea
