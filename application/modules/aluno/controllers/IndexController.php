@@ -42,10 +42,10 @@ class Aluno_IndexController extends Zend_Controller_Action{
     		$this->view->data = $data;
     	}
 
-    		$this->view->rows = $model->turmas($id);
-    		$this->view->row = $model->getTurma($id);
-    		$this->view->ano = $turma->_findAno($id);
-    		$this->view->semes = $turma->_findSemestre($id);
+		$this->view->rows = $model->turmas($id);
+		$this->view->row = $model->getTurma($id);
+		$this->view->ano = $turma->_findAno($id);
+		$this->view->semes = $turma->_findSemestre($id);
     	
     }
 

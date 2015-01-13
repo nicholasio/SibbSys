@@ -131,17 +131,55 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	
 	
 	public function encerrarTurma($id){
-	
-		$sql = $this->select()->where('idTurma = ?', $id);
-		
-		$row = $this->fetchRow($sql);
-		
-		$linha = array(
-			'Status'=>'Encerrada'
-		);
-		
-		$where = $this->getAdapter()->quoteInto('idTurma = ?', $id);
-		$this->update($linha, $where);
+		$matricula = new Application_Model_DbTable_Matricula();
+		$turma = new Application_Model_DbTable_Turma();
+		$notas = new Application_Model_DbTable_Nota();
+
+		$alunos = $matricula->findForSelect($id)->toArray();
+		$notas  = $notas->findForSelect($id)->toArray();
+
+		$podeEncerrar = true;
+
+		if ( count($alunos) != count($notas) ) {
+			$podeEncerrar = false;
+		}
+
+		if ( $podeEncerrar ) {
+			foreach($notas as $nota) {
+				if ( is_null($nota['Unit1']) || is_null($nota['Unit2']) || is_null($nota['Unit3']) ) {
+					$podeEncerrar = false;
+					break;
+				}
+
+			}
+		}
+
+		if ( $podeEncerrar ) {
+
+			for($i = 0; $i< count($notas) ; $i++) {
+				$nota = $notas[$i];
+				$aluno = $alunos[$i];
+				$media = $nota['Unit1'] + $nota['Unit2'] + $nota['Unit3'];
+				$media = $media/3;
+
+				if ( $media >= 7.0 ) {
+					$matricula->statusAprovado($aluno['idUsuario_has_Turma']);
+				} else {
+					$matricula->statusReprovado($aluno['idUsuario_has_Turma']);
+				}
+			}
+
+			$linha = array(
+				'Status'=>'Encerrada'
+			);
+
+			$where = $this->getAdapter()->quoteInto('idTurma = ?', $id);
+			$this->update($linha, $where);
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
