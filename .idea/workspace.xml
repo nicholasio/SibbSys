@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="22bb26f2-45ea-407b-90ec-a105d138ebc8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/professor/controllers/NotaController.php" afterPath="$PROJECT_DIR$/application/modules/professor/controllers/NotaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/professor/views/scripts/nota/index.phtml" afterPath="$PROJECT_DIR$/application/modules/professor/views/scripts/nota/index.phtml" />
-    </list>
+    <list default="true" id="22bb26f2-45ea-407b-90ec-a105d138ebc8" name="Default" comment="" />
     <ignored path="sibbsys.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -41,8 +38,8 @@
       <file leaf-file-name="index.phtml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/modules/professor/views/scripts/nota/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33045357" vertical-offset="468" max-vertical-offset="1836">
-              <caret line="43" column="152" selection-start-line="43" selection-start-column="152" selection-end-line="43" selection-end-column="152" />
+            <state vertical-scroll-proportion="0.3887689" vertical-offset="684" max-vertical-offset="1836">
+              <caret line="58" column="37" selection-start-line="52" selection-start-column="33" selection-end-line="58" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -934,8 +931,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/professor/views/scripts/nota/index.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33045357" vertical-offset="468" max-vertical-offset="1836">
-          <caret line="43" column="152" selection-start-line="43" selection-start-column="152" selection-end-line="43" selection-end-column="152" />
+        <state vertical-scroll-proportion="0.3887689" vertical-offset="684" max-vertical-offset="1836">
+          <caret line="58" column="37" selection-start-line="52" selection-start-column="33" selection-end-line="58" selection-end-column="37" />
           <folding />
         </state>
       </provider>
