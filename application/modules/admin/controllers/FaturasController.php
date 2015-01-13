@@ -31,14 +31,21 @@ class Admin_FaturasController extends Zend_Controller_Action{
 
 
 	public function indexAction(){
-		
+
+		if ($this->_helper->FlashMessenger->hasMessages()) {
+			$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+		}
+
 		$faturas_model = new Application_Model_DbTable_Faturas();
 		$user_id = null;
+
 		if ( isset($_GET['aluno']) ) {
 			$user_id = $_GET['aluno'];
 			$this->view->user_id = $user_id;
 		}
-		
+
+		if ( $user_id == -1 ) $user_id = null;
+
 		$this->view->rows = $faturas_model->listar($user_id);
 	}
 	
@@ -76,7 +83,9 @@ class Admin_FaturasController extends Zend_Controller_Action{
 		$id = $this->_getParam('idFaturas');
 
 		$model->deletar($id);
-		
+
+		$this->_helper->flashMessenger->addMessage("Fatura #{$id} removida");
+
 		$this->_redirect("/admin/faturas");
 	}
 }

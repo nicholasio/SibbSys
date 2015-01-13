@@ -42,10 +42,13 @@ class Application_Model_DbTable_Pagamento extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar(){
+	public function listar($fatura_id = null){
 
-		$sql = $this->select()
-					->order(array(new Zend_Db_Expr('idPagamento ASC')));
+		$sql = $this->select();
+		if ( ! is_null($fatura_id) )
+			$sql->where('Faturas_idFatura = ?', $fatura_id);
+
+		$sql->order(array(new Zend_Db_Expr('idPagamento ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		

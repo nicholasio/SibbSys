@@ -17,6 +17,7 @@
 
 					<legend>Escolha o Aluno</legend>
 					<select class="sibb-select2 " id="aluno" style="width:200px" name="aluno">
+						<option value="-1">Todos</option>
 						<?php
 						$users = new Application_Model_DbTable_Usuario();
 						$users = $users->fetchAll();
@@ -46,6 +47,8 @@
 				<th><h5>Qtd Débitos</h5></th>
 				<th><h5>Valor</h5></th>
 				<th><h5>Desconto na Fatura</h5></th>
+				<th><h5>A pagar</h5></th>
+				<th><h5>Status</h5></th>
 				<th><h5>Ações</h5></th>
 
 			</tr>
@@ -54,7 +57,62 @@
 		<tbody>
 	<?php foreach ($this->rows as $fatura){ ?>
 		<tr>
-			<td><strong><?php echo $fatura['idFatura']; ?></strong></td>
+			<td>
+				<strong><?php echo $fatura['idFatura']; ?></strong>
+				<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3>Listagem de pagamentos da Fatura #<?php echo $fatura['idFatura']; ?></h3>
+					</div>
+					<div class="modal-body">
+						<table class="table table-striped">
+							<tr>
+								<th>#</th>
+								<th>Valor</th>
+								<th>Data</th>
+								<th>Observações</th>
+								<th>Ações</th>
+							</tr>
+							<tbody>
+							<?php
+							$valor_total_pagamentos = 0;
+							$pagamentos_model = new Application_Model_DbTable_Pagamento();
+							$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+							foreach($pagamentos as $pagamento) : ?>
+								<tr>
+									<td><?php echo $pagamento->idPagamento; ; ?></td>
+									<td>
+										R$ <?php echo number_format($pagamento->valorPagamento,2); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
+									</td>
+									<td><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
+									<td><?php echo $pagamento->Descricao; ?></td>
+									<td>
+										<a class="btn btn-warning" href="<?php echo $this->url(
+											array(
+												'controller'	=>	'pagamento',
+												'action'		=>	'delete',
+												'idPagamento'	=>	$pagamento->idPagamento,
+												'idUsuario'     =>  $fatura['debitos'][0]['user']['idUsuario']
+											));?>">
+											Excluir
+										</a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+							<tr>
+								<td><strong>Total:</strong></td>
+								<td><strong>R$ <?php echo number_format($valor_total_pagamentos, 2); ?></strong></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal">Fechar</a>
+					</div>
+				</div>
+			</td>
 			<td><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
 			<td><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
 			<td><strong><?php echo count($fatura['debitos']); ?></strong></td>
@@ -64,28 +122,46 @@
 					echo number_format($valor,2);
 					?></strong></td>
 			<td><strong><?php echo $fatura['desconto']; ?> % </strong></td>
+			<td><strong>R$ <?php echo number_format($valor - $valor_total_pagamentos,2); ?></strong></td>
+			<td>
+				<strong>
+					<?php
+						$pago = ($valor - $valor_total_pagamentos <= 0) ? true : false;
+					?>
+					<?php if ( $pago ) : ?>
+					<span class="label label-success">Pago</span>
+					<?php else: ?>
+					<span class="label label-important">Pendente</span>
+					<?php endif; ?>
+				</strong>
+			</td>
 			<td>
 				<a class="btn btn-group" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
 					Ver Detalhamento
 				</a>
-				<a href="#" class="btn btn-inverse">Adicionar Pagamento</a>
-				<a class="btn btn-primary" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'faturas',
-						'action'		=>	'editar',
-						'idFaturas'		=>	$fatura['idFatura']
-					));?>">
-						Editar
-				</a>
-				
-				<a class="btn btn-warning" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'faturas',
-						'action'		=>	'delete',
-						'idFaturas'		=>	$fatura['idFatura']
-					));?>">
-						Excluir
-				</a>
+				<?php if ( ! $pago ) : ?>
+					<a class="btn btn-inverse" data-toggle="modal" href="#fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>">Adicionar Pagamento</a>
+				<?php endif; ?>
+				<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Ver Pagamentos</a>
+				<?php if ( $valor_total_pagamentos == 0 ) :?>
+					<a class="btn btn-primary" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'faturas',
+							'action'		=>	'editar',
+							'idFaturas'		=>	$fatura['idFatura']
+						));?>">
+							Editar
+					</a>
+
+					<a class="btn btn-warning" href="<?php echo $this->url(
+						array(
+							'controller'	=>	'faturas',
+							'action'		=>	'delete',
+							'idFaturas'		=>	$fatura['idFatura']
+						));?>">
+							Excluir
+					</a>
+				<?php endif; ?>
 				<div class="modal hide fade" id="fatura-desc-<?php echo $fatura['idFatura']; ?>">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -135,6 +211,47 @@
 					<div class="modal-footer">
 						<a href="#" class="btn" data-dismiss="modal">Fechar</a>
 					</div>
+				</div>
+				<div class="modal hide fade" id="fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3>Adicionar Pagamento a Fatura #<?php echo $fatura['idFatura']; ?></h3>
+					</div>
+					<form action="/admin/pagamento/addpagamento" class="form-horizontal" method="POST">
+						<div class="modal-body">
+							<div class="control-group">
+								<label class="control-label" for="data">Data: </label>
+								<div class="controls">
+									<input type="date" placeholder="Data" name="data" class="input-medium" required/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="valor">Valor</label>
+								<div class="controls">
+									<div class="input-prepend">
+										<span class="add-on">R$</span>
+										<input type="text" class="input-small" name="valor" placeholder="Valor" required/>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="descricao">Observações</label>
+								<div class="controls">
+									<label class="controles">
+										<textarea name="descricao"  cols="30" rows="10"></textarea>
+									</label>
+								</div>
+							</div>
+
+
+							<input type="hidden" name="idFatura" value="<?php echo $fatura['idFatura'] ?>" />
+							<input type="hidden" name="user_id" value="<?php echo $fatura['debitos'][0]['user']['idUsuario']; ?>" />
+						</div>
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary" value="Adicionar" />
+							<a href="#" class="btn" data-dismiss="modal">Fechar</a>
+						</div>
+					</form>
 				</div>
 			</td>
 		</tr>

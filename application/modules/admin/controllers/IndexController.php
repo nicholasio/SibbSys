@@ -30,17 +30,41 @@ class Admin_IndexController extends Zend_Controller_Action{
         $diaAtual       = (int) date('j');
         $anoAtual       = (int) date('Y');
 
-        //Os Débitos são processados a partir do dia 18 até o dia 28
-        if ( $diaAtual < 28) {
-            $this->processarDebitos( $mesAtual, $anoAtual );
-        } else if ( $diaAtual >= 28 ) {
-            $this->gerarFaturas( $diaAtual, $mesAtual, $anoAtual );
+	    $date = new DateTime($anoAtual . '-' . $mesAtual . '-' . $diaAtual);
+	    $ultimo_dia_mes = $date->format('t');
+
+	    $configs = new Application_Model_DbTable_Configs();
+
+	    $dia_fatura  = (int) $configs->findKey('dia_fatura');
+
+	    $this->processarDebitos( $mesAtual, $anoAtual );
+
+        if ( $diaAtual >= ($ultimo_dia_mes - $dia_fatura) ) {
+	        $this->gerarFaturas();
         }
 
     }
 
-    public function gerarFaturas( $diaAtual, $mesAtual, $anoAtual ) {
+    public function gerarFaturas() {
+		$debitos_model = new Application_Model_DbTable_Debitos();
+	    $faturas_model = new Application_Model_DbTable_Faturas();
 
+	    $debitos_nao_faturados = $debitos_model->listar();
+
+	    /**
+	     * Agrupando Débitos por Usuário
+	     */
+	    $debitos_id_by_user = array();
+	    foreach($debitos_nao_faturados as $debito) {
+			$debitos_id_by_user[$debito['user']['idUsuario']][] = $debito['idDebitos'];
+	    }
+
+	    /**
+	     * Gerando Faturas pelos débitos pendentes de cada usuário
+	     */
+	    foreach($debitos_id_by_user as $user_id => $debitos_id) {
+			$faturas_model->gerarFatura($debitos_id, $user_id);
+	    }
     }
 
     /**
