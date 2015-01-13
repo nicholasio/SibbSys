@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 08/01/2015 às 10h30min
--- Versão do Servidor: 5.5.37
--- Versão do PHP: 5.5.11-3+deb.sury.org~precise+1
+-- Tempo de Geração: 13/01/2015 às 12h54min
+-- Versão do Servidor: 5.5.38
+-- Versão do PHP: 5.5.17-2+deb.sury.org~precise+1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `Configs` (
 INSERT INTO `Configs` (`idConfigs`, `Meta_Key`, `Meta_Value`) VALUES
 (0, 'valor_credito', '16.50'),
 (0, 'dia_debito', '25'),
-(0, 'dia_fatura', '28'),
+(0, 'dia_fatura', '2'),
 (0, 'ano_atual', '2015'),
 (0, 'semestre_atual', '1');
 
@@ -127,18 +127,25 @@ CREATE TABLE IF NOT EXISTS `Debitos` (
   `idUsuario_has_Servicos` int(11) DEFAULT NULL,
   `idUsuario_has_Turma` int(11) DEFAULT NULL,
   PRIMARY KEY (`idDebitos`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Extraindo dados da tabela `Debitos`
 --
 
 INSERT INTO `Debitos` (`idDebitos`, `mesPagamento`, `descontoMes`, `anoPagamento`, `idUsuario_has_Servicos`, `idUsuario_has_Turma`) VALUES
-(6, 7, 0, 2014, NULL, 11),
-(7, 7, 0, 2014, 15, NULL),
-(8, 7, 0, 2014, 16, NULL),
-(10, 12, 0, 2014, NULL, 11),
-(11, 1, 0, 2015, 19, NULL);
+(28, 1, 0, 2015, NULL, 39),
+(29, 1, 0, 2015, NULL, 42),
+(30, 1, 0, 2015, NULL, 40),
+(31, 1, 0, 2015, NULL, 41),
+(32, 1, 0, 2015, NULL, 43),
+(33, 1, 0, 2015, 21, NULL),
+(34, 1, 0, 2015, 22, NULL),
+(35, 1, 0, 2015, 23, NULL),
+(37, 1, 0, 2015, NULL, 44),
+(38, 1, 0, 2015, NULL, 45),
+(39, 1, 0, 2015, NULL, 46),
+(40, 1, 0, 2015, 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -185,13 +192,56 @@ INSERT INTO `Disciplina` (`idDisciplina`, `Disciplina`, `QntdCred`, `Status`, `C
 CREATE TABLE IF NOT EXISTS `Faturas` (
   `idFatura` int(11) NOT NULL AUTO_INCREMENT,
   `valorFatura` float DEFAULT NULL,
-  `desconto` int(11) DEFAULT NULL,
+  `desconto` int(11) DEFAULT '0',
   `mes` int(11) DEFAULT NULL,
   `ano` int(11) DEFAULT NULL,
   `Usuario_idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idFatura`,`Usuario_idUsuario`),
   KEY `fk_Faturas_Usuario1_idx` (`Usuario_idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Extraindo dados da tabela `Faturas`
+--
+
+INSERT INTO `Faturas` (`idFatura`, `valorFatura`, `desconto`, `mes`, `ano`, `Usuario_idUsuario`) VALUES
+(7, 128, 0, 1, 2015, 4),
+(8, 132.5, 0, 1, 2015, 8),
+(9, 66, 0, 1, 2015, 5),
+(10, 33, 0, 1, 2015, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `Faturas_has_Debitos`
+--
+
+CREATE TABLE IF NOT EXISTS `Faturas_has_Debitos` (
+  `idFatura_has_Debitos` int(11) NOT NULL AUTO_INCREMENT,
+  `Faturas_idFatura` int(11) NOT NULL,
+  `Debitos_idDebitos` int(11) NOT NULL,
+  PRIMARY KEY (`idFatura_has_Debitos`,`Faturas_idFatura`,`Debitos_idDebitos`),
+  KEY `fk_Faturas_has_Debitos_Debitos1_idx` (`Debitos_idDebitos`),
+  KEY `fk_Faturas_has_Debitos_Faturas1_idx` (`Faturas_idFatura`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+--
+-- Extraindo dados da tabela `Faturas_has_Debitos`
+--
+
+INSERT INTO `Faturas_has_Debitos` (`idFatura_has_Debitos`, `Faturas_idFatura`, `Debitos_idDebitos`) VALUES
+(12, 7, 28),
+(17, 8, 29),
+(13, 7, 30),
+(14, 7, 31),
+(18, 8, 32),
+(15, 7, 33),
+(16, 7, 34),
+(19, 8, 35),
+(21, 9, 37),
+(22, 9, 38),
+(23, 10, 39),
+(20, 8, 40);
 
 -- --------------------------------------------------------
 
@@ -230,7 +280,7 @@ INSERT INTO `Igreja` (`idIgreja`, `Igreja`, `Endereco`, `Bairro`, `CEP`, `Telefo
 
 CREATE TABLE IF NOT EXISTS `Nota` (
   `idNota` int(11) NOT NULL AUTO_INCREMENT,
-  `Unit1` varchar(10) NOT NULL,
+  `Unit1` varchar(10) DEFAULT NULL,
   `Unit2` varchar(10) DEFAULT NULL,
   `Unit3` varchar(10) DEFAULT NULL,
   `idUsuario_has_Turma` int(11) NOT NULL,
@@ -238,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `Nota` (
   PRIMARY KEY (`idNota`,`idUsuario_has_Turma`,`Turma_idTurma`),
   KEY `fk_Nota_Usuario_has_Turma1_idx` (`idUsuario_has_Turma`),
   KEY `fk_Nota_Turma1_idx` (`Turma_idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Extraindo dados da tabela `Nota`
@@ -248,12 +298,15 @@ INSERT INTO `Nota` (`idNota`, `Unit1`, `Unit2`, `Unit3`, `idUsuario_has_Turma`, 
 (1, '4', '8.4', '7.3', 2, 2),
 (2, '4', '9.5', '8.5', 3, 2),
 (3, '7.8', '5.6', '4', 9, 2),
-(4, '6.7', '', '', 8, 1),
+(4, '6.7', NULL, NULL, 8, 1),
 (5, '10', '10', '10', 33, 3),
 (6, '5', '3.5', '4', 35, 3),
 (7, '1', '0', '0', 34, 5),
 (8, '5', '6', NULL, 38, 7),
-(9, '5', NULL, NULL, 38, 7);
+(9, '5', NULL, NULL, 38, 7),
+(10, '6.7', NULL, NULL, 8, 1),
+(11, '10', '0', '5', 41, 16),
+(12, '6', '7', '8', 43, 16);
 
 -- --------------------------------------------------------
 
@@ -266,9 +319,21 @@ CREATE TABLE IF NOT EXISTS `Pagamento` (
   `valorPagamento` float NOT NULL,
   `dataPagamento` datetime DEFAULT NULL,
   `Faturas_idFatura` int(11) NOT NULL,
+  `Descricao` text NOT NULL,
   PRIMARY KEY (`idPagamento`,`Faturas_idFatura`),
   KEY `fk_Pagamento_Faturas1_idx` (`Faturas_idFatura`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Extraindo dados da tabela `Pagamento`
+--
+
+INSERT INTO `Pagamento` (`idPagamento`, `valorPagamento`, `dataPagamento`, `Faturas_idFatura`, `Descricao`) VALUES
+(4, 100, '2015-01-12 00:00:00', 7, 'Aluno não tinha todo o dinheiro'),
+(7, 28, '2015-01-13 00:00:00', 7, ''),
+(11, 132.5, '2015-01-12 00:00:00', 8, ''),
+(12, 33, '2015-01-12 00:00:00', 10, ''),
+(13, 33, '2015-01-12 00:00:00', 9, 'Seminarista não tinha todo o dinheiro, ficou de pagar até o final do mês.');
 
 -- --------------------------------------------------------
 
@@ -344,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `Turma` (
   PRIMARY KEY (`idTurma`,`Disciplina_idDisciplina`,`idUsuario`),
   KEY `fk_Turma_Disciplina1_idx` (`Disciplina_idDisciplina`),
   KEY `fk_Turma_Usuario1_idx` (`idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `Turma`
@@ -365,7 +430,8 @@ INSERT INTO `Turma` (`idTurma`, `Nome`, `Descricao`, `Ano`, `Semestre`, `Status`
 (12, 'Grego I', '', '2014', '1', 'ativo', 13, 8),
 (13, 'Hebraico I', '', '2014', '1', 'ativo', 14, 8),
 (14, 'Turma 01', '', '2015', '1', 'ativo', 10, 2),
-(15, 'Turma 02', '', '2015', '1', 'ativo', 6, 8);
+(15, 'Turma 02', '', '2015', '1', 'ativo', 6, 8),
+(16, 'Turma 03', '', '2015', '1', 'ativo', 13, 3);
 
 -- --------------------------------------------------------
 
@@ -405,7 +471,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
 INSERT INTO `Usuario` (`idUsuario`, `Nome`, `Endereco`, `Bairro`, `CEP`, `Telefone`, `Celular`, `CPF`, `DataNascimento`, `NomeMae`, `NomePai`, `Email`, `Senha`, `ConfirmaSenha`, `Foto`, `Tipo`, `Status`, `Igreja_idIgreja`, `Curso_idCurso`) VALUES
 (1, 'Admin', 'Wilson Rosado', 'Aeroporto', '59600-000', '84 3316-9958', NULL, '056.492.024-00', '02/04/1985', 'Eliene Maria Silva de Aquino', NULL, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'eliakim.jpg', '1', 'ativo', 1, 1),
 (2, 'Ricardo Mateus', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Adelaide', '', 'ricardo.mateus@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', '188445_455863147782584_2039102562_n.jpg', '2', 'ativo', 2, 1),
-(3, 'Timoteo Franklin', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Linda Franklin', 'Roberto Franklin', 'tim@gmail.com', '123456', '123456', 'prTimoteo.jpg', '2', 'ativo', 3, 1),
+(3, 'Timoteo Franklin', 'Mar do Leste', 'Pajuçara', '59.600-000', '84 0000-0000', '', '000.000.000-00', '10/10/1940', 'Linda Franklin', 'Roberto Franklin', 'tim@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'prTimoteo.jpg', '2', 'ativo', 3, 1),
 (4, 'Eliakim Aquino', 'Januario Pereira Pimenta', 'Aeroporto', '59.600-000', '84 3316-9958', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'eliakim.aquino@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'PQAAAM4brXNt_7Gc2XgQyRMCPxqISAi_jTroof4VaWI5LK5NNNp6eBxQ0gyzXAki3NRrh_ReeHBtTugdGvBgXE4YEbgAm1T1UKCJlAIraWtuYH94_Y2SBLe6SoEG.jpg', '3', 'ativo', 1, 1),
 (5, 'Kobe Bryant', 'Av. Mota Neto, 349', 'Nova Betânia', '59.600-000', '84 0000-0000', '', '000.000.000-00', '02/04/1985', 'Eliene Aquino', 'Francisco Aquino', 'kobe@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'kobe-jersey.jpg', '3', 'ativo', 2, 1),
 (6, 'Magno Cabral', 'Igapó', 'Igapó', '59.600-000', '84 0000-0000', '', '000.000.000-00', '01/01/2014', 'Francisca', '', 'magno@gmail.com', 'f7a9e24777ec23212c54d7a350bc5bea5477fdbb', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', 'magno.jpg', '3', 'ativo', 5, 1),
@@ -427,7 +493,7 @@ CREATE TABLE IF NOT EXISTS `Usuario_has_Servicos` (
   PRIMARY KEY (`idUsuario_has_Servicos`,`Usuario_idUsuario`,`Servicos_idServicos`),
   KEY `fk_Usuario_has_Servicos_Servicos1_idx` (`Servicos_idServicos`),
   KEY `fk_Usuario_has_Servicos_Usuario1_idx` (`Usuario_idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Extraindo dados da tabela `Usuario_has_Servicos`
@@ -436,7 +502,10 @@ CREATE TABLE IF NOT EXISTS `Usuario_has_Servicos` (
 INSERT INTO `Usuario_has_Servicos` (`idUsuario_has_Servicos`, `Usuario_idUsuario`, `Servicos_idServicos`, `valor`, `ano`, `mes`) VALUES
 (15, 4, 1, 40, 2014, 7),
 (16, 4, 2, 15, 2014, 7),
-(19, 1, 1, NULL, 2015, 1);
+(21, 4, 2, 2.5, 2015, 1),
+(22, 4, 2, 10, 2015, 1),
+(23, 8, 2, 10, 2015, 1),
+(26, 8, 1, 40, 2015, 1);
 
 -- --------------------------------------------------------
 
@@ -452,7 +521,7 @@ CREATE TABLE IF NOT EXISTS `Usuario_has_Turma` (
   PRIMARY KEY (`idUsuario_has_Turma`,`Usuario_idUsuario`,`Turma_idTurma`),
   KEY `fk_Usuario_has_Turma_Turma1_idx` (`Turma_idTurma`),
   KEY `fk_Usuario_has_Turma_Usuario1_idx` (`Usuario_idUsuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Extraindo dados da tabela `Usuario_has_Turma`
@@ -475,7 +544,13 @@ INSERT INTO `Usuario_has_Turma` (`idUsuario_has_Turma`, `Usuario_idUsuario`, `Tu
 (37, 4, 8, 'Cursando'),
 (38, 4, 7, 'Cursando'),
 (39, 4, 14, 'Cursando'),
-(40, 4, 15, 'Cursando');
+(40, 4, 15, 'Cursando'),
+(41, 4, 16, 'Cursando'),
+(42, 8, 14, 'Cursando'),
+(43, 8, 16, 'Cursando'),
+(44, 5, 14, 'Cursando'),
+(45, 5, 15, 'Cursando'),
+(46, 6, 14, 'Cursando');
 
 --
 -- Restrições para as tabelas dumpadas
@@ -498,6 +573,13 @@ ALTER TABLE `Disciplina`
 --
 ALTER TABLE `Faturas`
   ADD CONSTRAINT `fk_Faturas_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `Usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para a tabela `Faturas_has_Debitos`
+--
+ALTER TABLE `Faturas_has_Debitos`
+  ADD CONSTRAINT `fk_Faturas_has_Debitos_Debitos1` FOREIGN KEY (`Debitos_idDebitos`) REFERENCES `Debitos` (`idDebitos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Faturas_has_Debitos_Faturas1` FOREIGN KEY (`Faturas_idFatura`) REFERENCES `Faturas` (`idFatura`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrições para a tabela `Nota`
