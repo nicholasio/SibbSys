@@ -24,7 +24,7 @@
 					<th style="width: 300px;"><font size="3" color="white">UNIDADE 1</font></th>
 					<th style="width: 300px;"><font size="3" color="white">UNIDADE 2</font></th>
 					<th style="width: 300px;"><font size="3" color="white">UNIDADE 3</font></th>
-					<th style="width: 300px;"><font size="3" color="white">Status</font></th>
+					<th style="width: 300px;"><font size="3" color="white">STATUS</font></th>
 
 					
 				</tr>
@@ -72,8 +72,8 @@
 								<td style="text-align: center;" >
 									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 !== false)echo number_format($unit3,2); ?>"/>
 								</td>
-								<td>
-									<?php echo $users->Status; ?>
+								<td style="text-align: center;" >
+									<strong><?php echo $users->Status; ?></strong>
 								</td>
 								
 	    					</tr>

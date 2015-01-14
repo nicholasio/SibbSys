@@ -434,7 +434,7 @@ INSERT INTO `Turma` (`idTurma`, `Nome`, `Descricao`, `Ano`, `Semestre`, `Status`
 (16, 'Turma 03', '', '2015', '1', 'ativo', 13, 3);
 
 -- --------------------------------------------------------
-/*
+
 --
 -- Estrutura da tabela `Usuario`
 --
@@ -508,7 +508,7 @@ INSERT INTO `Usuario_has_Servicos` (`idUsuario_has_Servicos`, `Usuario_idUsuario
 (26, 8, 1, 40, 2015, 1);
 
 -- --------------------------------------------------------
-*/
+
 --
 -- Estrutura da tabela `Usuario_has_Turma`
 --

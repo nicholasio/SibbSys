@@ -93,9 +93,38 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 			$faturas_debitos_model->insert(array('Faturas_idFatura' => $fatura_id, 'Debitos_idDebitos' => $debito_id) );
 		}
 
-
-
-
 	}
+	
+	
+	public function listagem($idFatura){
+		
+		$faturas_debitos_model = new Application_Model_DbTable_FaturasDebitos();
+		$debitos_model 		   = new Application_Model_DbTable_Debitos();
+		$usuario_model		   = new Application_Model_DbTable_Usuario();
+		
+		$sql = $this->select()->where('idFatura = ?', $idFatura);
+		
+		$rows = $this->fetchAll($sql);
+		
+		if ( $rows )
+			$rows = $rows->toArray();
+		else
+			return array();
+		
+		$data = array();
+		
+		foreach($rows as $row) {
+			$id	= $row['Usuario_idUsuario'];
+			$debitos_id		 = $faturas_debitos_model->getDebitos($row['idFatura']);
+			$debitos_faturas = $debitos_model->listar(null,null,null,$debitos_id);
+			$getUsuario		 = $usuario_model->getUser($id);
+		
+			$data[] = array_merge($row, array('debitos' => $debitos_faturas, 'usuario'	=>	$getUsuario) );
+		}
+		
+		return $data;
+		
+	}
+	
 	
 }

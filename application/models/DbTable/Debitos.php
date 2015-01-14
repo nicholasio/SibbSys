@@ -112,6 +112,7 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 						'valor_cobrado_servico' => ($servico_user['valor'] == NULL) ? $servico_data['valor'] : $servico_user['valor'], //Valor efetivamente cobrado vem de $servico_user
 						'nome_servico'			=> $servico_data['nome'],
 						'descricao_servico'		=> $servico_data['descricao'],
+						'qtd_servico'			=> '1',
 						'valor_unitario_servico' => $servico_data['valor']
 					);
 
