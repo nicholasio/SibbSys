@@ -1,17 +1,95 @@
 <?php $this->headTitle('Início'); ?>
 
-			<?php
-			/*	$model = new Application_Model_DbTable_Usuario();
-				$query = $model->selecionar();
-				if(substr($query->DataNascimento,0,5) == date('d/m')){
-					echo 'Feliz Aniversário, ';
-				}
-				else{
-					echo 'Olá, ';
-				}
-				
-				echo $this->data->Nome . '!'; */?>
-		
-	<h4><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'turmas'),null,1); ?>">Turmas que Leciona</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1); ?>">Alterar Senha</a></h4>	
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Dashboard
+			<small>Seja bem vindo</small>
+		</h1>
+	</div>
+
+	<div class="">
+		<div class="">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Turmas que leciona</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered data-table">
+						<thead>
+						<tr>
+							<td>#</td>
+							<td>Turma</td>
+							<td>Ano/Semestre</td>
+							<td>Ações</td>
+						</tr>
+						</thead>
+						<tbody>
+						<?php
+						$auth = Zend_Auth::getInstance();
+						$data = $auth->getStorage()->read();
+						$user_id = $data->idUsuario;
+
+						$model = new Application_Model_DbTable_Turma();
+						$turmas = $model->turmas($user_id);
+
+						foreach($turmas as $turma) :
+						?>
+							<tr>
+								<td><?php echo $turma->idTurma;?></td>
+								<td><?php echo $turma->Nome; ?></td>
+								<td><?php echo $turma->Ano . '.' . $turma->Semestre; ?></td>
+								<td>
+									<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'Nota',
+											'action'		=>	'index',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Inserir Nota
+									</a>
+
+									<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'presenca',
+											'action'		=>	'index',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Chamada
+									</a>
+
+									<a id="btn-turma" class="btn" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'arquivo',
+											'action'		=>	'index',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Inserir Arquivo
+									</a>
+
+									<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'index',
+											'action'		=>	'encerrar-turma',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Encerrar Turma
+									</a>
+								</td>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+						</tbody>
+						<tfoot>
+
+						</tfoot>
+
+					</table>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
