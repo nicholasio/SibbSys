@@ -88,4 +88,15 @@ class Admin_FaturasController extends AppBaseController{
 
 		$this->_redirect("/admin/faturas");
 	}
+	
+	
+	public function downloadAction(){
+		
+		$idFatura = $this->_getParam('idFatura');
+		
+		$faturas_model = new Application_Model_DbTable_Faturas();
+		
+		$this->view->rows = $faturas_model->listagem($idFatura);
+
+	}
 }

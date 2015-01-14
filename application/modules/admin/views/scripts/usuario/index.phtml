@@ -18,8 +18,8 @@
 		<tbody>
 	<?php foreach ($this->rows as $lista){?>
 		<tr style="background: #EEE;">
-			<td style="width: 210px;"><strong><?php echo $lista->Nome; ?></strong></td>
-			<td style="width: 70px; text-align: center;"><strong>
+			<td style="width: 175px;"><strong><?php echo $lista->Nome; ?></strong></td>
+			<td style="width: 50px; text-align: center;"><strong>
 				<?php switch ($lista->Tipo) {
 					case 1:
 						echo "Admin";
@@ -32,8 +32,8 @@
 						break;
 				} ?>
 			</strong></td>
-			<td style="width: 100px; text-align:center;"><strong><?php echo $lista->Telefone; ?></strong></td>
-			<td style="width: 260px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
+			<td style="width: 70px; text-align:center;"><strong><?php echo $lista->Telefone; ?></strong></td>
+			<td style="width: 202px; text-align:center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
 			<td>
 				<a class="btn btn-info" href="<?php echo $this->url(
 					array(
