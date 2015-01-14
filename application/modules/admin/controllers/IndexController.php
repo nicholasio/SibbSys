@@ -20,6 +20,12 @@ class Admin_IndexController extends AppBaseController{
         if ($this->_helper->FlashMessenger->hasMessages()) {
             $this->view->messages = $this->_helper->FlashMessenger->getMessages();
         }
+	    $mesAtual   = (int) date('m');
+
+		$usuario_model = new Application_Model_DbTable_Usuario();
+	    $this->view->aniversariantes = $usuario_model->getAniversariantes( $mesAtual );
+
+	    $this->view->db = $usuario_model->getAdapter();
 
     }
 

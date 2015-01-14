@@ -1,16 +1,66 @@
 <?php $this->headTitle('Início'); ?>
-					
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>">Matrícula</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'usuario','action'=>'index'),null,1); ?>">Cadastrar Usuário</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'curso','action'=>'index'),null,1); ?>">Cadastrar Curso</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'index'),null,1); ?>">Cadastrar Disciplina</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'turma','action'=>'index'),null,1); ?>">Cadastrar Turma</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>">Cadastrar Igreja</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'servicos','action'=>'index'),null,1); ?>">Cadastrar Serviços</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'debitos','action'=>'index'),null,1); ?>">Débitos</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'faturas','action'=>'index'),null,1); ?>">Fatura</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'pagamento','action'=>'index'),null,1); ?>">Pagamento</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'financeiro','action'=>'index'),null,1); ?>">Financeiro</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1); ?>">Alterar Senha</a></h4>
-	
+
+<div class="grid_16">
+	<div class="page-header">
+		<h1>Dashboard
+			<small>Seja bem vindo</small>
+		</h1>
+	</div>
+
+	<div class="row">
+		<div class="span6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Aniversariantes do Mês</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>Aluno</td>
+								<td>Data de Nascimento</td>
+							</tr>
+
+						</thead>
+						<tbody>
+							<?php foreach($this->aniversariantes as $aniversariante) : ?>
+								<tr>
+									<td><?php echo $aniversariante->idUsuario; ?></td>
+									<td><a class="btn btn-mini" href="admin/usuario/detalhes/idUsuario/<?php echo $aniversariante->idUsuario; ?>"><?php echo $aniversariante->Nome; ?></a></td>
+									<td><?php echo $aniversariante->DataNascimento; ?></td>
+								</tr>
+							<?php endforeach; ?>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Estatísticas</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<td>Total de Alunos: </td>
+							<td><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></td>
+						</tr>
+						<tr>
+							<td>Total de Alunos Ativos: </td>
+							<td><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+
+		</div>
+	</div>
+
+</div>
