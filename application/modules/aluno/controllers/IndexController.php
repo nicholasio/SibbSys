@@ -38,17 +38,21 @@ class Aluno_IndexController extends AppBaseController{
     	
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
-    	
-    	if($this->_request->isPost()){
+	    $configs = new Application_Model_DbTable_Configs();
+
+	    $data = array();
+
+    	if($this->_request->isPost()) {
     		
     		$data['semestre'] = $_POST['semestre'];
     		$data['ano'] = $_POST['ano'];
-    		 
-    		$ano = $data['ano'];
-    		$semestre = $data['semestre'];
-    		
-    		$this->view->data = $data;
-    	}
+
+    	} else {
+		    $data['semestre'] = $configs->findKey('semestre_atual');
+		    $data['ano'] = $configs->findKey('ano_atual');
+	    }
+
+	    $this->view->data = $data;
 
 		$this->view->rows = $model->turmas($id);
 		$this->view->row = $model->getTurma($id);
