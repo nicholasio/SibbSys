@@ -122,18 +122,18 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<td>#</td>
-								<td>Aluno</td>
-								<td>Data de Nascimento</td>
+								<th style="width: 30px; text-align: center;">#</th>
+								<th style="text-align: center;">Aluno</th>
+								<th style="width: 120px; text-align: center;">Data de Nascimento</th>
 							</tr>
 
 						</thead>
 						<tbody>
 							<?php foreach($this->aniversariantes as $aniversariante) : ?>
 								<tr>
-									<td><?php echo $aniversariante->idUsuario; ?></td>
-									<td><a class="btn btn-mini" data-toggle="modal" href="#myModal-<?php echo $aniversariante->idUsuario; ?>"><?php echo $aniversariante->Nome; ?></a></td>					
-									<td><?php echo $aniversariante->DataNascimento; ?></td>
+									<td  style="width: 30px; text-align: center;"><strong><?php echo $aniversariante->idUsuario; ?></strong></td>
+									<td><a class="btn btn-inverse" data-toggle="modal" href="#myModal-<?php echo $aniversariante->idUsuario; ?>"><?php echo $aniversariante->Nome; ?></a></td>					
+									<td style="width: 120px; text-align: center;"><strong><?php echo $aniversariante->DataNascimento; ?></strong></td>
 								</tr>
 								
 								<div id="myModal-<?php echo $aniversariante->idUsuario; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -183,7 +183,8 @@
 		</div>
 	</div>
 	
-	<div class="13">
+	<div class="">
+		<div class="">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title" style="text-align: center; ">Meu módulo Professor - <small>Turmas que Leciono</small></h3>
@@ -201,19 +202,19 @@
 					<table class="table table-bordered">
 						<thead>
 						<tr>
-							<td>#</td>
-							<td>Turma</td>
-							<td>Ano/Semestre</td>
-							<td>Ações</td>
+							<th  style="width: 30px; text-align: center;">#</th>
+							<th style="text-align: center;">Turma</th>
+							<th style="width: 100px; text-align: center;">Ano/Semestre</th>
+							<th style="width: 430px; text-align: center;">Ações</th>
 						</tr>
 						</thead>
 						<tbody>
 						<?php foreach($turmas as $turma) :?>
 						<tr>
-							<td><?php echo $turma->idTurma;?></td>
-							<td><?php echo $turma->Nome; ?></td>
-							<td><?php echo $turma->Ano . '.' . $turma->Semestre; ?></td>
-							<td>
+							<td style="width: 30px; text-align: center;"><strong><?php echo $turma->idTurma;?></strong></td>
+							<td><strong><?php echo $turma->Nome; ?></strong></td>
+							<td style="width: 100px; text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
+							<td style="width: 430px; text-align: center;">
 								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 									array(
 										'controller'	=>	'professor',
@@ -268,8 +269,8 @@
 	
 	
 	
-	<div class="row">
-		<div class="span4">
+	<div class="">
+		<div class="span8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Estatísticas</h3>
@@ -277,12 +278,12 @@
 				<div class="panel-body">
 					<table class="table table-bordered">
 						<tr>
-							<td>Total de Alunos: </td>
-							<td><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></td>
+							<td><strong>Total de Alunos </strong></td>
+							<td style="width: 100px; text-align: center;"><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></strong></td>
 						</tr>
 						<tr>
-							<td>Total de Alunos Ativos: </td>
-							<td><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></td>
+							<td><strong>Total de Alunos Ativos</strong></td>
+							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></strong></td>
 						</tr>
 					</table>
 				</div>
@@ -299,5 +300,5 @@
 	<div class="row">
 		
 	</div>
-
+	<br />
 </div>

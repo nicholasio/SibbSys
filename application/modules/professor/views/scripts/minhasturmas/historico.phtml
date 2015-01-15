@@ -77,7 +77,7 @@
 
 			<?php }?>
 			
-			<td style="text-align: center; "><?php echo substr($media,0,4); ?></td>
+			<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
 			<td style="text-align: center; "><?php echo $users->Status; ?></td>
 			
 	<?php }?>
@@ -93,7 +93,7 @@
 	
 	include(MPDF_PATH .'mpdf.php');
 	
-	$mpdf = new mPDF('pt','A4',12);
+	$mpdf = new mPDF('pt','A4',10,5);
 	
 	$mpdf->allow_charset_conversion = true;
 	$mpdf->charset_in = 'utf-8';
