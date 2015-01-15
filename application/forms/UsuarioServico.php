@@ -17,7 +17,8 @@ class Application_Form_UsuarioServico extends Zend_Form{
 		
 		$valor = new Zend_Form_Element_Text('valor');
 		$valor->setLabel('Valor: ')
-			  ->addValidator('regex', true, array('/[.]/'));
+			  ->setAttrib('placeholder', 'Valor do Serviço')
+			  ->addValidator('regex', true, array('/^(-)?[0-9]+$/'));
 		
 		
 		$submit = new Zend_Form_Element_Submit('Inserir', array('class' => 'btn btn-success'));

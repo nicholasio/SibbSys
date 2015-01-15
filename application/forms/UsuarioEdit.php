@@ -184,7 +184,11 @@ class Application_Form_UsuarioEdit extends Zend_Form
     	
     	
         $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
-        
+        $submit->setDecorators(array(
+        			'Errors',
+        			'ViewHelper',
+        			array('HtmlTag', array('class'=>'btn-submit_edit'))
+        		));
         
         $this->addElements(array(
         	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,

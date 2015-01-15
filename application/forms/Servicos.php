@@ -19,7 +19,7 @@ class Application_Form_Servicos extends Zend_Form{
 		$valor = new Zend_Form_Element_Text('valor');
 		$valor->setLabel('Valor: ')
 			  ->setAttrib('placeholder', 'Valor do Serviço')
-			  ->addValidator('regex', true, array('/[.]/'));
+			  ->addValidator('regex', true, array('/^(-)?[0-9]+$/'));
 		
 		
 		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));

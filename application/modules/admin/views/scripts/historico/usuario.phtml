@@ -77,7 +77,7 @@
 
 			<?php }?>
 			
-			<td style="text-align: center; "><?php echo substr($media['unit1']/3,0,4); ?></td>
+			<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
 			<td style="text-align: center; "><?php echo $users->Status; ?></td>
 			
 	<?php }?>
@@ -99,7 +99,6 @@
 	$mpdf->charset_in = 'utf-8';
 	
 	$mpdf->SetDisplayMode('fullpage');
-	//$mpdf->SetHeader('Seminário e Instituto Batista Bereiano - Histórico Escolar');
 	$mpdf->SetFooter('Histórico gerado no dia {DATE j/m/Y} | {PAGENO}');
 	$mpdf->WriteHTML($html);
 	
