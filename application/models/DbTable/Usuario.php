@@ -112,6 +112,12 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 	}
-	
+
+	public function getAniversariantes($mes) {
+
+		$sql = $this->select()->where('SUBSTRING(DataNascimento,4,2)  = ?', $mes);
+
+		return $this->fetchAll($sql);
+	}
 	
 }

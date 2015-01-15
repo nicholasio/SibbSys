@@ -66,16 +66,6 @@ class Admin_UsuarioController extends AppBaseController{
     		$this->_redirect("/admin/usuario");
     	}
     }
-
-    
-    public function detalhesAction(){
-    	
-    	$model = new Application_Model_DbTable_Usuario();
-    	$id = $this->_getParam('idUsuario');
-    	
-    	$this->view->rows = $model->getUser($id);
-    }
-    
     
     public function deleteAction(){
         

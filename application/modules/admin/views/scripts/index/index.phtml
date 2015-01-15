@@ -1,16 +1,303 @@
 <?php $this->headTitle('Início'); ?>
-					
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'matricula','action'=>'index'),null,1); ?>">Matrícula</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'usuario','action'=>'index'),null,1); ?>">Cadastrar Usuário</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'curso','action'=>'index'),null,1); ?>">Cadastrar Curso</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'disciplina','action'=>'index'),null,1); ?>">Cadastrar Disciplina</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'turma','action'=>'index'),null,1); ?>">Cadastrar Turma</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'igreja','action'=>'index'),null,1); ?>">Cadastrar Igreja</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'servicos','action'=>'index'),null,1); ?>">Cadastrar Serviços</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'debitos','action'=>'index'),null,1); ?>">Débitos</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'faturas','action'=>'index'),null,1); ?>">Fatura</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'pagamento','action'=>'index'),null,1); ?>">Pagamento</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'minhasturmas','action'=>'index'),null,1); ?>">Minhas Turmas</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'financeiro','action'=>'index'),null,1); ?>">Financeiro</a></h4>
-	<h4><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1); ?>">Alterar Senha</a></h4>
+
+<div class="grid_16">
+	<div class="page-header">
+		<h2>Dashboard
+			<small>Seja bem vindo</small>
+		</h2>
+	</div>
 	
+	<div class="row">
+		<div class="span5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<?php 
+					
+					if(date('G') >= '0' && date('G') < '12'){
+						$saudacao = 'Bom dia';
+					}
+					if(date('G') >= '12' && date('G') < '18' ){
+						$saudacao = 'Boa Tarde';
+					}
+					
+					if(date('G') >= '18' && date('G') <= '23'){
+						$saudacao =  'Boa Noite';
+					}
+					?>
+	
+					<?php foreach($this->usuario as $usuario) : ?>
+						<h4 style="text-align: center;"><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
+					<?php endforeach; ?>
+				</div>
+				<div class="panel-body">
+					<?php foreach($this->usuario as $usuario) : ?>
+						<?php if(substr($usuario->DataNascimento,0,5) == date('d/m')){
+								$idade = date('Y') - substr($usuario->DataNascimento,6,8);
+									$msg = "FELIZ ANIVERSÁRIO!!!!! &nbsp;
+									A família SIBB fica feliz em poder celebrar junto com você 
+									os seus $idade anos! A nossa oração é que você 
+									continue crescendo e se fortalecendo no Senhor! Deus abençoe
+									sua vida e ministério! (Colossenses 1:9-12)";
+							} 
+							elseif(date('j') >= '1' && date('j') <= '3'){
+									$msg = '"Não cesses de falar deste Livro da Lei; antes medita nele dia e
+									noite, para que tenhas cuidade de fazer segundo tudo quanto nele 
+									está escrito, então, farás prosperar o
+									teu caminho e serás bem sucedido" &nbsp;&nbsp; (Josué 1:8).';
+							}
+							elseif(date('j') >= '4' && date('j') <= '6'){
+									$msg = '"Toda a Escritura é inspirada por Deus e útil para o ensino, para
+									a repreensão, para a correção, para a educação na justiça, a fim 
+									de que o homem de Deus seja perfeito e perfeitamente habilitado
+									para toda boa obra" (2 Timóteo 3:16-17).';
+							}
+							elseif(date('j') >= '7' && date('j') <= '9'){
+									$msg = '"De tudo o que se tem ouvido, a suma é: Teme a Deus e guarda os
+									seus mandamentos; porque isto é o dever de todo homem. Porque Deus
+									há de trazer a juízo todas as obras, até as que estão escondidas, 
+									quer sejam boas, quer sejam más" 
+									(Eclesiastes 12:13-14).';
+							}
+							elseif(date('j') >= '10' && date('j') <= '12'){
+									$msg = '"Confia no Senhor de todo o teu coração e não te estribes no teu
+									próprio entendimento. Reconhece-o em todos os teus caminhos e ele
+									endireitará as tuas veredas. Não sejas sábio aos teus próprios olhos;
+									teme ao Senhor e aparta-te do mal" (Provérbios 3:5-7).';
+							}
+							elseif(date('j') >= '13' && date('j') <= '15'){
+									$msg = '"Confia no Senhor e faze bem; habita na terra e alimenta-te 
+									da verdade. Agradate do Senhor, e ele satisfará os desejos do teu 
+									coração. Entrega o teu caminho ao Senhor, confia nele, e o mais 
+									ele fará" (Salmo 37:3-5).';
+							}
+							elseif(date('j') >= '16' && date('j') <= '18'){
+									$msg = '"Deus é o nosso refúgio e fortaleza, socorro bem presente
+									nas tribulações. Portanto não temeremos ainda que a terra se
+									transtorne e os montes se abalem no seio dos mares" (Salmo 46:1-2).';
+							}
+							elseif(date('j') >= '19' && date('j') <= '21'){
+									$msg = '"Eu sou a videira, vós, os ramos. Quem permanece em mim,
+									e eu, nele, esse dá muito fruto; porque sem mim nada 
+									podeis fazer. Se vós fôsseis do mundo, o mundo amaria
+									o que era seu; como todavia, não sois do mundo, pelo
+									contrário, dele vos escolhi, por isso, o mundo vos 
+									odeia" (João 15:4;19).';
+							}
+							elseif(date('j') >= '22' && date('j') <= '24'){
+									$msg = '"Porém em nada considero a vida preciosa para mim mesmo,
+									contanto que complete a minha carreira e o ministério que
+									do Senhor Jesus para testemunhar o evangelho da graça de
+									Deus" (Atos 20:24).';
+							}
+							elseif(date('j') >= '25' && date('j') <= '27'){
+									$msg = '"Tudo quanto fizerdes, fazei-o de todo o coração, como 
+									para o Senhor e não para homens, cientes de que recebereis
+									do Senhor a recompensa da herança. A Cristo, o Senhor, é
+									que estais servindo" (Col. 3:23-24).';
+							}
+							elseif(date('j') >= '28' && date('j') <= '31'){
+									$msg = '"Ó profundida da riqueza, tanto da sabedoria como do
+									conhecimento de Deus! Quão insondáveis são os seus juízos,
+									e quão inescrutáveis, os seus caminhos! Quem, pois, conheceu
+									a mente do Senhor? Ou quem foi seu conselheiro? Ou quem
+									primeiro deu a ele para que lhe ver a ser restituido?
+									Porque dele, e por meio dele, e para ele são todas as
+									coisas. A ele, pois, a glória eternamente. Amém!" (Romanos 11: 33-36).';
+							}
+							
+						?>		
+											
+					<?php endforeach; ?>
+					<font size="2"><strong><?php echo $msg; ?></strong></font>
+				</div>
+			</div>
+		</div>
+		
+		<div class="span8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="text-align: center;">Aniversariantes do Mês</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>Aluno</td>
+								<td>Data de Nascimento</td>
+							</tr>
+
+						</thead>
+						<tbody>
+							<?php foreach($this->aniversariantes as $aniversariante) : ?>
+								<tr>
+									<td><?php echo $aniversariante->idUsuario; ?></td>
+									<td><a class="btn btn-mini" data-toggle="modal" href="#myModal-<?php echo $aniversariante->idUsuario; ?>"><?php echo $aniversariante->Nome; ?></a></td>					
+									<td><?php echo $aniversariante->DataNascimento; ?></td>
+								</tr>
+								
+								<div id="myModal-<?php echo $aniversariante->idUsuario; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-header">
+    									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    									<h3 id="myModalLabel">Dados Cadastrais do Usuário</h3>
+  									</div>
+  								<div class="modal-body">
+    								<div><img src="/files/<?php echo $aniversariante->Foto; ?>" width="100" height="120"></img></div>
+    								<div style="margin: -115px 0 0px 130px;">
+    					
+    								<p><strong><font size="2">Nome do Usuário: <span style="color:#069;"><?php echo $aniversariante->Nome; ?></span></font></strong></p>
+    								<p><strong><font size="2">Endereço: <span style="color:#069;"><?php echo $aniversariante->Endereco; ?></span></font></strong></p>
+    								<p><strong><font size="2">CEP: <span style="color:#069;"><?php echo $aniversariante->CEP; ?></span></font></strong></p>
+    								<p><strong><font size="2">Telefone(s): <span style="color:#069;"><?php echo $aniversariante->Telefone . ' / ' . $aniversariante->Celular; ?></span></font></strong></p>
+    								<p><strong><font size="2">Data de Nascimento: <span style="color:#069;"><?php echo $aniversariante->DataNascimento; ?></span></font></strong></p>
+    								<p><strong><font size="2">CPF: <span style="color:#069;"><?php echo $aniversariante->CPF; ?></span></font></strong></p>
+    								<p><strong><font size="2">Nome da Mãe: <span style="color:#069;"><?php echo $aniversariante->NomeMae; ?></span></font></strong></p>
+    								<p><strong><font size="2">Nome do Pai: <span style="color:#069;"><?php echo $aniversariante->NomePai; ?></span></font></strong></p>
+    								<p><strong><font size="2">E-mail: <span style="color:#069;"><?php echo $aniversariante->Email; ?></span></font></strong></p>
+    								<p><strong><font size="2">Igreja: <span style="color:#069;"><?php echo $aniversariante->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></span></font></strong></p>
+    								<p><strong><font size="2">Curso: <span style="color:#069;"><?php echo $aniversariante->findParentRow('Application_Model_DbTable_Curso')->Nome; ?></span></font></strong></p>
+    								<p><strong><font size="2">Tipo: <span style="color:#069;"><?php switch ($aniversariante->Tipo) {
+										case 1:
+											echo "Administrador";
+											break;
+										case 2:
+											echo "Professor";
+											break;
+										case 3:
+											echo "Aluno";
+											break;
+										} ?></span></font></strong></p>
+    					
+    								</div>
+  								</div>
+  								<div class="modal-footer">
+    								<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+								</div>
+								</div>
+								
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="13">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="text-align: center; ">Meu módulo Professor - <small>Turmas que Leciono</small></h3>
+				</div>
+				<div class="panel-body">
+				<?php 
+					$auth = Zend_Auth::getInstance();
+					$data = $auth->getStorage()->read();
+					$user_id = $data->idUsuario;
+	
+					$model = new Application_Model_DbTable_Turma();
+					$turmas = $model->turmas($user_id);
+				
+				?> 
+					<table class="table table-bordered">
+						<thead>
+						<tr>
+							<td>#</td>
+							<td>Turma</td>
+							<td>Ano/Semestre</td>
+							<td>Ações</td>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach($turmas as $turma) :?>
+						<tr>
+							<td><?php echo $turma->idTurma;?></td>
+							<td><?php echo $turma->Nome; ?></td>
+							<td><?php echo $turma->Ano . '.' . $turma->Semestre; ?></td>
+							<td>
+								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'professor',
+										'action'		=>	'nota',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Inserir Nota
+								</a>
+
+								<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'professor',
+										'action'		=>	'presenca',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Chamada
+								</a>
+
+								<a id="btn-turma" class="btn" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'arquivo',
+										'action'		=>	'index',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Inserir Arquivo
+								</a>
+
+								<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'professor',
+										'action'		=>	'encerrar-turma',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Encerrar Turma
+								</a>
+							</td>
+							
+						</tr>
+					<?php endforeach; ?>
+						
+						</tbody>
+						<tfoot>
+
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	<div class="row">
+		<div class="span4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Estatísticas</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<td>Total de Alunos: </td>
+							<td><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></td>
+						</tr>
+						<tr>
+							<td>Total de Alunos Ativos: </td>
+							<td><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+			
+	<div class="row">
+		
+		<div class="span6">
+			
+		</div>
+	</div>
+	<div class="row">
+		
+	</div>
+
+</div>

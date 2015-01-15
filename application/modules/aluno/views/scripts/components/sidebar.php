@@ -13,7 +13,7 @@
 		
 		
 		
-		<img src="/files/<?php echo $data->Foto; ?>" width="70" height="90"></img>
+		<img src="/files/<?php echo $data->Foto; ?>" width="77" height="105"></img>
 		
 		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
 		<h3>

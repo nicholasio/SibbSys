@@ -19,6 +19,14 @@ class Aluno_IndexController extends AppBaseController{
     	if ($this->_helper->FlashMessenger->hasMessages()) {
     		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
     	}
+    	
+    	$auth = Zend_Auth::getInstance();
+    	$data = $auth->getStorage()->read();
+    	$id = $data->idUsuario;
+    	 
+    	$usuario_model = new Application_Model_DbTable_Usuario();
+    	 
+    	$this->view->usuario = $usuario_model->getUser($id);
     }
 
     public function boletimAction(){
@@ -179,4 +187,14 @@ class Aluno_IndexController extends AppBaseController{
     		echo 'Arquivo não encontrado';
     	}
     }
+
+	public function faturaAction(){
+
+		$idFatura = $this->_getParam('idFatura');
+
+		$faturas_model = new Application_Model_DbTable_Faturas();
+
+		$this->view->rows = $faturas_model->listagem($idFatura);
+
+	}
 }

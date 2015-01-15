@@ -34,16 +34,48 @@
 			</strong></td>
 			<td style="width: 70px; text-align:center;"><strong><?php echo $lista->Telefone; ?></strong></td>
 			<td style="width: 202px; text-align:center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
-			<td>
-				<a class="btn btn-info" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'usuario',
-						'action'		=>	'detalhes',
-						'idUsuario'		=>	$lista->idUsuario	
-					))?>">
-					<i class="icon-search icon-grey"></i>
-				</a>
-
+			<td><a class="btn btn-default" data-toggle="modal" href="#myModal-<?php echo $lista->idUsuario; ?>"><i class="icon-search icon-grey"></i></a>
+			
+			<div id="myModal-<?php echo $lista->idUsuario; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    					<h3 id="myModalLabel">Dados Cadastrais do Usuário</h3>
+  				</div>
+  				<div class="modal-body">
+    				<div><img src="/files/<?php echo $lista->Foto; ?>" width="100" height="120"></img></div>
+    				<div style="margin: -115px 0 0px 130px;">
+    					
+    						<p><strong><font size="2">Nome do Usuário: <span style="color:#069;"><?php echo $lista->Nome; ?></span></font></strong></p>
+    						<p><strong><font size="2">Endereço: <span style="color:#069;"><?php echo $lista->Endereco; ?></span></font></strong></p>
+    						<p><strong><font size="2">CEP: <span style="color:#069;"><?php echo $lista->CEP; ?></span></font></strong></p>
+    						<p><strong><font size="2">Telefone(s): <span style="color:#069;"><?php echo $lista->Telefone . ' / ' . $lista->Celular; ?></span></font></strong></p>
+    						<p><strong><font size="2">Data de Nascimento: <span style="color:#069;"><?php echo $lista->DataNascimento; ?></span></font></strong></p>
+    						<p><strong><font size="2">CPF: <span style="color:#069;"><?php echo $lista->CPF; ?></span></font></strong></p>
+    						<p><strong><font size="2">Nome da Mãe: <span style="color:#069;"><?php echo $lista->NomeMae; ?></span></font></strong></p>
+    						<p><strong><font size="2">Nome do Pai: <span style="color:#069;"><?php echo $lista->NomePai; ?></span></font></strong></p>
+    						<p><strong><font size="2">E-mail: <span style="color:#069;"><?php echo $lista->Email; ?></span></font></strong></p>
+    						<p><strong><font size="2">Igreja: <span style="color:#069;"><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></span></font></strong></p>
+    						<p><strong><font size="2">Curso: <span style="color:#069;"><?php echo $lista->findParentRow('Application_Model_DbTable_Curso')->Nome; ?></span></font></strong></p>
+    						<p><strong><font size="2">Tipo: <span style="color:#069;"><?php switch ($lista->Tipo) {
+									case 1:
+										echo "Administrador";
+										break;
+									case 2:
+										echo "Professor";
+										break;
+									case 3:
+										echo "Aluno";
+										break;
+									} ?></span></font></strong></p>
+    					
+    				</div>
+  				</div>
+  				<div class="modal-footer">
+    				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+				</div>
+			</div>
+			
+			
 				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'historico',
@@ -68,7 +100,7 @@
 					Débitos
 				</a>
 
-				<a id="btn-admin" class="btn" href="/admin/faturas?aluno=<?php echo $lista->idUsuario; ?>">
+				<a style="color:black;" id="btn-admin" class="btn btn-info" href="/admin/faturas?aluno=<?php echo $lista->idUsuario; ?>">
 					Faturas
 				</a>
 
@@ -91,6 +123,7 @@
 		</tr>
 	
 <?php }  ?>
+		
 	</tbody>
 	</table>
 
