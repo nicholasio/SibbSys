@@ -19,6 +19,13 @@ class Professor_IndexController extends AppBaseController{
     		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
     	}
     	
+    	$auth = Zend_Auth::getInstance();
+    	$data = $auth->getStorage()->read();
+    	$id = $data->idUsuario;
+    	
+    	$usuario_model = new Application_Model_DbTable_Usuario();
+    	
+    	$this->view->usuario = $usuario_model->getUser($id);
     }
     
 

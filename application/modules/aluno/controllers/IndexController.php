@@ -19,6 +19,14 @@ class Aluno_IndexController extends AppBaseController{
     	if ($this->_helper->FlashMessenger->hasMessages()) {
     		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
     	}
+    	
+    	$auth = Zend_Auth::getInstance();
+    	$data = $auth->getStorage()->read();
+    	$id = $data->idUsuario;
+    	 
+    	$usuario_model = new Application_Model_DbTable_Usuario();
+    	 
+    	$this->view->usuario = $usuario_model->getUser($id);
     }
 
     public function boletimAction(){

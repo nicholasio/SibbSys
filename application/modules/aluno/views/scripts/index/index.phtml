@@ -8,35 +8,251 @@
 	</div>
 
 	<div class="row">
-		<div class="span12">
+		<div class="span5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<?php 
+					
+					if(date('G') >= '0' && date('G') < '12'){
+						$saudacao = 'Bom dia';
+					}
+					if(date('G') >= '12' && date('G') < '18' ){
+						$saudacao = 'Boa Tarde';
+					}
+					
+					if(date('G') >= '18' && date('G') <= '23'){
+						$saudacao =  'Boa Noite';
+					}
+					?>
+	
+					<?php foreach($this->usuario as $usuario) : ?>
+						<h4 style="text-align: center;"><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
+					<?php endforeach; ?>
+				</div>
+				<div class="panel-body">
+					<?php foreach($this->usuario as $usuario) : ?>
+						<?php if(substr($usuario->DataNascimento,0,5) == date('d/m')){
+								$idade = date('Y') - substr($usuario->DataNascimento,6,8);
+									$msg = "FELIZ ANIVERSÁRIO!!!!! &nbsp;
+									A família SIBB fica feliz em poder celebrar junto com você 
+									os seus $idade anos! A nossa oração é que você 
+									continue crescendo e se fortalecendo no Senhor! Deus abençoe
+									sua vida e ministério! (Colossenses 1:9-12)";
+							} 
+							elseif(date('j') >= '1' && date('j') <= '3'){
+									$msg = '"Não cesses de falar deste Livro da Lei; antes medita nele dia e
+									noite, para que tenhas cuidade de fazer segundo tudo quanto nele 
+									está escrito, então, farás prosperar o
+									teu caminho e serás bem sucedido" &nbsp;&nbsp; (Josué 1:8).';
+							}
+							elseif(date('j') >= '4' && date('j') <= '6'){
+									$msg = '"Toda a Escritura é inspirada por Deus e útil para o ensino, para
+									a repreensão, para a correção, para a educação na justiça, a fim 
+									de que o homem de Deus seja perfeito e perfeitamente habilitado
+									para toda boa obra" (2 Timóteo 3:16-17).';
+							}
+							elseif(date('j') >= '7' && date('j') <= '9'){
+									$msg = '"De tudo o que se tem ouvido, a suma é: Teme a Deus e guarda os
+									seus mandamentos; porque isto é o dever de todo homem. Porque Deus
+									há de trazer a juízo todas as obras, até as que estão escondidas, 
+									quer sejam boas, quer sejam más" 
+									(Eclesiastes 12:13-14).';
+							}
+							elseif(date('j') >= '10' && date('j') <= '12'){
+									$msg = '"Confia no Senhor de todo o teu coração e não te estribes no teu
+									próprio entendimento. Reconhece-o em todos os teus caminhos e ele
+									endireitará as tuas veredas. Não sejas sábio aos teus próprios olhos;
+									teme ao Senhor e aparta-te do mal" (Provérbios 3:5-7).';
+							}
+							elseif(date('j') >= '13' && date('j') <= '15'){
+									$msg = '"Confia no Senhor e faze bem; habita na terra e alimenta-te 
+									da verdade. Agradate do Senhor, e ele satisfará os desejos do teu 
+									coração. Entrega o teu caminho ao Senhor, confia nele, e o mais 
+									ele fará" (Salmo 37:3-5).';
+							}
+							elseif(date('j') >= '16' && date('j') <= '18'){
+									$msg = '"Deus é o nosso refúgio e fortaleza, socorro bem presente
+									nas tribulações. Portanto não temeremos ainda que a terra se
+									transtorne e os montes se abalem no seio dos mares" (Salmo 46:1-2).';
+							}
+							elseif(date('j') >= '19' && date('j') <= '21'){
+									$msg = '"Eu sou a videira, vós, os ramos. Quem permanece em mim,
+									e eu, nele, esse dá muito fruto; porque sem mim nada 
+									podeis fazer. Se vós fôsseis do mundo, o mundo amaria
+									o que era seu; como todavia, não sois do mundo, pelo
+									contrário, dele vos escolhi, por isso, o mundo vos 
+									odeia" (João 15:4;19).';
+							}
+							elseif(date('j') >= '22' && date('j') <= '24'){
+									$msg = '"Porém em nada considero a vida preciosa para mim mesmo,
+									contanto que complete a minha carreira e o ministério que
+									do Senhor Jesus para testemunhar o evangelho da graça de
+									Deus" (Atos 20:24).';
+							}
+							elseif(date('j') >= '25' && date('j') <= '27'){
+									$msg = '"Tudo quanto fizerdes, fazei-o de todo o coração, como 
+									para o Senhor e não para homens, cientes de que recebereis
+									do Senhor a recompensa da herança. A Cristo, o Senhor, é
+									que estais servindo" (Col. 3:23-24).';
+							}
+							elseif(date('j') >= '28' && date('j') <= '31'){
+									$msg = '"Ó profundida da riqueza, tanto da sabedoria como do
+									conhecimento de Deus! Quão insondáveis são os seus juízos,
+									e quão inescrutáveis, os seus caminhos! Quem, pois, conheceu
+									a mente do Senhor? Ou quem foi seu conselheiro? Ou quem
+									primeiro deu a ele para que lhe ver a ser restituido?
+									Porque dele, e por meio dele, e para ele são todas as
+									coisas. A ele, pois, a glória eternamente. Amém!" (Romanos 11: 33-36).';
+							}
+							
+						?>		
+											
+					<?php endforeach; ?>
+					<font size="2"><strong><?php echo $msg; ?></strong></font>
+				</div>
+			</div>
+		</div>
+		
+		<div class="span8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Faturas</h3>
+				</div>
+				<div class="panel-body">
+					<p style="text-align: center;"><strong>Aqui são listadas todas as faturas disponíveis</strong></p>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="width: 30px; text-align: center;">#</th>
+								<th style="width: 80px; text-align: center;">Mês/Ano</th>
+								<th style="width: 100px; text-align: center;">Valor Pendente</th>
+								<th style="width: 70px; text-align: center;">Status</th>
+								<th>Ações</th>
+							</tr>
+						</thead>
+
+						<?php
+							$auth = Zend_Auth::getInstance();
+							$data = $auth->getStorage()->read();
+							$user_id = $data->idUsuario;
+						
+							$faturas_model = new Application_Model_DbTable_Faturas();
+							$faturas = $faturas_model->listar($user_id);
+
+							foreach($faturas as $fatura) :
+						?>
+							<tr>
+								<td style="width: 30px; text-align: center;">
+									<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h3>Listagem de pagamentos da Fatura #<?php echo $fatura['idFatura']; ?></h3>
+										</div>
+										<div class="modal-body">
+											<table class="table table-striped">
+												<thead>
+												<tr>
+													<th style="width: 30px; text-align: center;">#</th>
+													<th>Valor</th>
+													<th>Data</th>
+												</tr>
+												</thead>
+												<tbody>
+												<?php
+												$valor_total_pagamentos = 0;
+												$pagamentos_model = new Application_Model_DbTable_Pagamento();
+												$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+												foreach($pagamentos as $pagamento) : ?>
+													<tr>
+														<td style="width: 30px; text-align: center;"><?php echo $pagamento->idPagamento;?></td>
+														<td>
+															R$ <?php echo number_format($pagamento->valorPagamento,2); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
+														</td>
+														<td><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
+													</tr>
+												<?php endforeach; ?>
+												<tr>
+													<td><strong>Total:</strong></td>
+													<td><strong>R$ <?php echo number_format($valor_total_pagamentos, 2); ?></strong></td>
+													<td></td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="modal-footer">
+											<a href="#" class="btn" data-dismiss="modal">Fechar</a>
+										</div>
+									</div>
+									<?php echo $fatura['idFatura']; ?>
+								</td>
+								<td style="width: 80px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+								<td style="width: 60px; text-align: center; ">
+								
+									<?php
+										$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
+										$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
+										$pago = ( $valor_pendente <= 0) ? true : false;
+									?>
+										<?php if (! $pago ) : ?>
+											<strong><?php echo 'R$ ' . $valor_pendente; ?></strong>
+										<?php endif; ?>
+								</td>
+								<td style="width: 80px; text-align: center;">
+									<?php
+										$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
+										$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
+										$pago = ( $valor_pendente <= 0) ? true : false;
+									?>
+									<?php if ( $pago ) : ?>
+										<span class="label label-success">Pago</span>
+									<?php else: ?>
+										<?php //echo $valor_pendente; ?>
+										<span class="label label-important">Pendente</span>
+									<?php endif; ?>
+								</td>
+								
+								<td>
+									<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Pagamentos</a>
+									<a class="btn btn-success" href="/aluno/index/fatura/idFatura/<?php echo $fatura['idFatura']; ?>">
+										<img src="/images/icons/small/white/download.png" width="20px;">
+									</a>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+
+					</table>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="">	
+		<div class="14">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Débitos não faturados</h3>
 				</div>
 				<div class="panel-body">
-					<p>Os Débitos não faturados incidirão automaticamente na próxima fatura ou em fatura a ser definida pela Administração.</p>
+					<p style="text-align:center;"><strong>Os Débitos não faturados incidirão automaticamente na próxima fatura ou em fatura a ser definida pela Administração.</strong></p>
 					<table class="table table-bordered data-table">
 						<thead>
 						<tr>
-							<td>#</td>
-							<td>Descrição</td>
-							<td>Mês/Ano</td>
-							<td>Valor</td>
+							<th style="width: 20px; text-align: center;">#</th>
+							<th style="width: 350px;">Descrição</th>
+							<th style="width: 70px; text-align: center;">Mês/Ano</th>
+							<th style="width: 70px; text-align: center;">Valor</th>
 						</tr>
 						</thead>
 						<tbody>
 							<?php
-								$auth = Zend_Auth::getInstance();
-								$data = $auth->getStorage()->read();
-								$user_id = $data->idUsuario;
-
 								$debitos_model = new Application_Model_DbTable_Debitos();
 								$debitos = $debitos_model->listar(null,null,$user_id);
 								$valor_total = 0;
 								foreach($debitos as $debito) :
 							?>
 							<tr>
-								<td><?php echo $debito['idDebitos']; ?> </td>
+								<td style="width: 20px; text-align: center;"><?php echo $debito['idDebitos']; ?> </td>
 								<td><?php
 									$desc_debito = '';
 									if ( $debito['type'] == 'servico' ) {
@@ -47,8 +263,8 @@
 									}
 									echo $desc_debito;
 									?></td>
-								<td><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></td>
-								<td>
+								<td style="width: 70px; text-align: center;"><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></td>
+								<td style="width: 70px; text-align: center;">
 									<?php
 										$valor = $debito[$debito['type']]['valor_final'];
 										$valor_total += $valor;
@@ -72,104 +288,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="span12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Faturas</h3>
-				</div>
-				<div class="panel-body">
-					<p>Aqui são listadas todas as faturas disponíveis</p>
-					<table class="table table-bordered  data-table">
-						<thead>
-							<tr>
-								<td>#</td>
-								<td>Mês/Ano</td>
-								<td>Valor Pendente</td>
-								<td>Ações</td>
-							</tr>
-						</thead>
-
-						<?php
-							$faturas_model = new Application_Model_DbTable_Faturas();
-							$faturas = $faturas_model->listar($user_id);
-
-							foreach($faturas as $fatura) :
-						?>
-							<tr>
-								<td>
-									<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h3>Listagem de pagamentos da Fatura #<?php echo $fatura['idFatura']; ?></h3>
-										</div>
-										<div class="modal-body">
-											<table class="table table-striped">
-												<tr>
-													<th>#</th>
-													<th>Valor</th>
-													<th>Data</th>
-												</tr>
-												<tbody>
-												<?php
-												$valor_total_pagamentos = 0;
-												$pagamentos_model = new Application_Model_DbTable_Pagamento();
-												$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
-												foreach($pagamentos as $pagamento) : ?>
-													<tr>
-														<td><?php echo $pagamento->idPagamento; ; ?></td>
-														<td>
-															R$ <?php echo number_format($pagamento->valorPagamento,2); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
-														</td>
-														<td><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
-													</tr>
-												<?php endforeach; ?>
-												<tr>
-													<td><strong>Total:</strong></td>
-													<td><strong>R$ <?php echo number_format($valor_total_pagamentos, 2); ?></strong></td>
-													<td></td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="modal-footer">
-											<a href="#" class="btn" data-dismiss="modal">Fechar</a>
-										</div>
-									</div>
-									<?php echo $fatura['idFatura']; ?>
-								</td>
-								<td style="width: 30px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-								<td>
-									<?php
-										$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
-										$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
-										$pago = ( $valor_pendente <= 0) ? true : false;
-									?>
-									<?php if ( $pago ) : ?>
-										<span class="label label-success">Pago</span>
-									<?php else: ?>
-										<?php echo $valor_pendente; ?>
-										<span class="label label-important">Pendente</span>
-									<?php endif; ?>
-								</td>
-								<td>
-									<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Pagamentos</a>
-									<a class="btn btn-success" href="/aluno/index/fatura/idFatura/<?php echo $fatura['idFatura']; ?>">
-										<img src="/images/icons/small/white/download.png" width="20px;">
-									</a>
-								</td>
-							</tr>
-						<?php endforeach; ?>
-
-					</table>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
+		<div class="row">
 		<div class="span12">
 
 		</div>
+		</div>
 	</div>
-
 </div>

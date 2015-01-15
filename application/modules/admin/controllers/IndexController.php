@@ -16,6 +16,11 @@ class Admin_IndexController extends AppBaseController{
 	
 	
     public function indexAction(){
+    	
+    	$auth = Zend_Auth::getInstance();
+    	$data = $auth->getStorage()->read();
+    	
+    	$id = $data->idUsuario;
 
         if ($this->_helper->FlashMessenger->hasMessages()) {
             $this->view->messages = $this->_helper->FlashMessenger->getMessages();
@@ -24,6 +29,7 @@ class Admin_IndexController extends AppBaseController{
 
 		$usuario_model = new Application_Model_DbTable_Usuario();
 	    $this->view->aniversariantes = $usuario_model->getAniversariantes( $mesAtual );
+	    $this->view->usuario = $usuario_model->getUser($id);
 
 	    $this->view->db = $usuario_model->getAdapter();
 

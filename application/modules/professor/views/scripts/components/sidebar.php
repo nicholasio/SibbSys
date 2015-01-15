@@ -11,19 +11,8 @@
 	    	$id = $data->idUsuario;
 
 		?>
-		
-		
-		<?php /*if(substr($data->DataNascimento,0,5) == date('d/m')){
-				echo 'Feliz Aniversário, ';
-			} 
-			else{
-				echo 'Olá, ';
-			}
-			*/
-		?>
-		
-		
-		<img src="/files/<?php echo $data->Foto; ?>" width="70" height="90"></img>
+				
+		<img src="/files/<?php echo $data->Foto; ?>" width="80" height="100"></img>
 		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
 		
 		<h3>
@@ -75,12 +64,4 @@
 		</li>
 		
 	</ul>
-
-	<!-- <div id="search_side" class="dark_box"><form><input class="" type="text" placeholder="Search Adminica..."></form></div>
-
-	<ul id="side_links" class="side_links" style="margin-bottom:0;">
-		<li><a target="_blank" href="http://twitter.github.com/bootstrap/">Bootstrap</a>
-		<li><a target="_blank" href="https://github.com/twitter/bootstrap/">Source</a></li>
-		<li><a target="_blank" href="http://tricycle.ticksy.com/">Support</a></li>
-	</ul> -->
 </div><!-- #sidebar -->
