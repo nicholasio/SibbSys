@@ -41,7 +41,16 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 		$where = $faturas_debitos_model->getAdapter()->quoteInto('idFatura = ?', $id);
 		return $this->delete($where);
 	}
-	
+
+	public function TemFatura($mes, $ano, $user_id) {
+		$sql = $this->select()->where('mes = ?',$mes)->where('ano = ?', $ano)->where('Usuario_idUsuario = ?',$user_id);
+
+		$result = $this->fetchAll($sql)->toArray();
+
+		if ( !empty($result) ) return true;
+
+		return false;
+	}
 	
 	public function listar($user_id = NULL){
 

@@ -14,6 +14,7 @@ class Application_Model_DbTable_FaturasDebitos extends Zend_Db_Table_Abstract {
 
         return $this->getAdapter()->fetchCol($sql);
     }
+
     public function editar($id){
 
         $sql = $this->select()->where('idFatura_has_Debitos = ?', $id);
@@ -41,6 +42,14 @@ class Application_Model_DbTable_FaturasDebitos extends Zend_Db_Table_Abstract {
         $rows = $this->fetchAll($sql);
 
         return $rows;
+    }
+
+    public function findDebito($idDebito) {
+        $sql = $this->select()->where('Debitos_idDebitos = ?', $idDebito);
+
+        $row = $this->fetchRow($sql);
+
+        return $row;
     }
 
 }

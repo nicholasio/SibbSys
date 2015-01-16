@@ -196,6 +196,10 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 		$row = $this->fetchRow($sql);
 		
 		$row->delete();
+
+		/*$where = $this->getAdapter()->quoteInto('idDebitos = ?', $id);
+
+		$this->delete($where);*/
 		
 	}
 

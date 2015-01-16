@@ -50,13 +50,7 @@ class Admin_UsuarioServicosController extends AppBaseController{
 		
 		$resultado = $model->deletar($id);	
 		
-		if($resultado == 'igual'){
-			
-		}
-		
-		else{
-			
-			$model->deletar($id);
+		if($resultado != 'igual'){
 			$this->_redirect("/admin/usuarioservicos/index/idUsuario/" . $userId);
 			
 		}

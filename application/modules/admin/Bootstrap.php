@@ -27,14 +27,15 @@ class AppBaseController extends Zend_Controller_Action {
 		$this->processarDebitos( $mesAtual, $anoAtual );
 
 		if ( $diaAtual >= ($ultimo_dia_mes - $dia_fatura) ) {
-			$this->gerarFaturas();
+			$this->gerarFaturas($mesAtual, $diaAtual, $anoAtual);
 		}
 
 	}
 
-	public function gerarFaturas() {
+	public function gerarFaturas($mesAtual, $diaAtual, $anoAtual) {
 		$debitos_model = new Application_Model_DbTable_Debitos();
 		$faturas_model = new Application_Model_DbTable_Faturas();
+
 
 		$debitos_nao_faturados = $debitos_model->listar();
 
@@ -43,6 +44,7 @@ class AppBaseController extends Zend_Controller_Action {
 		 */
 		$debitos_id_by_user = array();
 		foreach($debitos_nao_faturados as $debito) {
+
 			$debitos_id_by_user[$debito['user']['idUsuario']][] = $debito['idDebitos'];
 		}
 
@@ -50,6 +52,11 @@ class AppBaseController extends Zend_Controller_Action {
 		 * Gerando Faturas pelos débitos pendentes de cada usuário
 		 */
 		foreach($debitos_id_by_user as $user_id => $debitos_id) {
+
+			//Não gere fatura automática se o usuário já tiver uma fatura naquele mês
+			if ( $faturas_model->TemFatura($mesAtual, $anoAtual, $user_id) )
+				continue;
+
 			$faturas_model->gerarFatura($debitos_id, $user_id);
 		}
 	}
