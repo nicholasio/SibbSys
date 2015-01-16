@@ -7,8 +7,7 @@
 		</h1>
 	</div>
 
-	<div class="row">
-		<div class="span5">
+		<div class="container">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<?php 
@@ -112,127 +111,127 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="span8">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<font size="3" class="panel-title" style="color: #069;"><strong>Minhas Faturas</strong></font>
-				</div>
-				<div class="panel-body">
-					<p style="text-align: center;"><strong>Aqui são listadas todas as faturas disponíveis</strong></p>
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th style="width: 30px; text-align: center;">#</th>
-								<th style="width: 80px; text-align: center;">Mês/Ano</th>
-								<th style="width: 100px; text-align: center;">Valor Pendente</th>
-								<th style="width: 70px; text-align: center;">Status</th>
-								<th>Ações</th>
-							</tr>
-						</thead>
 
-						<?php
-							$auth = Zend_Auth::getInstance();
-							$data = $auth->getStorage()->read();
-							$user_id = $data->idUsuario;
-						
-							$faturas_model = new Application_Model_DbTable_Faturas();
-							$faturas = $faturas_model->listar($user_id);
+	</div>
+	<div>
+		<div class="panel">
+			<div class="panel-heading">
+				<font size="3" class="panel-title"><strong>Minhas Faturas</strong></font>
+			</div>
+			<div class="panel-body">
+				<p style="text-align: center;"><strong>Aqui são listadas todas as faturas disponíveis</strong></p>
+				<table class="table table-bordered data-table">
+					<thead>
+					<tr>
+						<th style="width: 30px; text-align: center;">#</th>
+						<th style="width: 80px; text-align: center;">Mês/Ano</th>
+						<th style="width: 100px; text-align: center;">Valor Pendente</th>
+						<th style="width: 70px; text-align: center;">Status</th>
+						<th>Ações</th>
+					</tr>
+					</thead>
 
-							foreach($faturas as $fatura) :
+					<?php
+					$auth = Zend_Auth::getInstance();
+					$data = $auth->getStorage()->read();
+					$user_id = $data->idUsuario;
+
+					$faturas_model = new Application_Model_DbTable_Faturas();
+					$faturas = $faturas_model->listar($user_id);
+
+					foreach($faturas as $fatura) :
 						?>
-							<tr>
-								<td style="width: 30px; text-align: center;">
-									<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h3>Listagem de pagamentos da Fatura #<?php echo $fatura['idFatura']; ?></h3>
-										</div>
-										<div class="modal-body">
-											<table class="table table-striped">
-												<thead>
-												<tr>
-													<th style="width: 30px; text-align: center;">#</th>
-													<th>Valor</th>
-													<th>Data</th>
-												</tr>
-												</thead>
-												<tbody>
-												<?php
-												$valor_total_pagamentos = 0;
-												$pagamentos_model = new Application_Model_DbTable_Pagamento();
-												$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
-												foreach($pagamentos as $pagamento) : ?>
-													<tr>
-														<td style="width: 30px; text-align: center;"><?php echo $pagamento->idPagamento;?></td>
-														<td>
-															R$ <?php echo number_format($pagamento->valorPagamento,2); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
-														</td>
-														<td><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
-													</tr>
-												<?php endforeach; ?>
-												<tr>
-													<td><strong>Total:</strong></td>
-													<td><strong>R$ <?php echo number_format($valor_total_pagamentos, 2); ?></strong></td>
-													<td></td>
-												</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="modal-footer">
-											<a href="#" class="btn" data-dismiss="modal">Fechar</a>
-										</div>
+						<tr>
+							<td style="width: 30px; text-align: center;">
+								<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3>Listagem de pagamentos da Fatura #<?php echo $fatura['idFatura']; ?></h3>
 									</div>
-									<?php echo $fatura['idFatura']; ?>
-								</td>
-								<td style="width: 80px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-								<td style="width: 60px; text-align: center; ">
-								
-									<?php
-										$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
-										$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
-										$pago = ( $valor_pendente <= 0) ? true : false;
-									?>
-										<?php if (! $pago ) { ?>
-											<strong><?php echo 'R$ ' . number_format($valor_pendente,2,',','.'); ?></strong>
-										<?php } else{ ?>
-											<strong><?php echo 'R$ 0,00'; } ?></strong>
-								</td>
-								<td style="width: 80px; text-align: center;">
-									<?php
-										$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
-										$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
-										$pago = ( $valor_pendente <= 0) ? true : false;
-									?>
-									<?php if ( $pago ) : ?>
-										<span class="label label-success">Pago</span>
-									<?php else: ?>
-										<?php //echo $valor_pendente; ?>
-										<span class="label label-important">Pendente</span>
-									<?php endif; ?>
-								</td>
-								
-								<td>
-									<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Pagamentos</a>
-									<a class="btn btn-success" href="/aluno/index/fatura/idFatura/<?php echo $fatura['idFatura']; ?>">
-										<img src="/images/icons/small/white/download.png" width="20px;">
-									</a>
-								</td>
-							</tr>
-						<?php endforeach; ?>
+									<div class="modal-body">
+										<table class="table table-striped">
+											<thead>
+											<tr>
+												<th style="width: 30px; text-align: center;">#</th>
+												<th>Valor</th>
+												<th>Data</th>
+											</tr>
+											</thead>
+											<tbody>
+											<?php
+											$valor_total_pagamentos = 0;
+											$pagamentos_model = new Application_Model_DbTable_Pagamento();
+											$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+											foreach($pagamentos as $pagamento) : ?>
+												<tr>
+													<td style="width: 30px; text-align: center;"><?php echo $pagamento->idPagamento;?></td>
+													<td>
+														R$ <?php echo number_format($pagamento->valorPagamento,2); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
+													</td>
+													<td><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
+												</tr>
+											<?php endforeach; ?>
+											<tr>
+												<td><strong>Total:</strong></td>
+												<td><strong>R$ <?php echo number_format($valor_total_pagamentos, 2); ?></strong></td>
+												<td></td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<a href="#" class="btn" data-dismiss="modal">Fechar</a>
+									</div>
+								</div>
+								<?php echo $fatura['idFatura']; ?>
+							</td>
+							<td style="width: 80px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+							<td style="width: 60px; text-align: center; ">
 
-					</table>
-					<div class="clearfix"></div>
-				</div>
+								<?php
+								$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
+								$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
+								$pago = ( $valor_pendente <= 0) ? true : false;
+								?>
+								<?php if (! $pago ) { ?>
+									<strong><?php echo 'R$ ' . number_format($valor_pendente,2,',','.'); ?></strong>
+								<?php } else{ ?>
+								<strong><?php echo 'R$ 0,00'; } ?></strong>
+							</td>
+							<td style="width: 80px; text-align: center;">
+								<?php
+								$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
+								$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
+								$pago = ( $valor_pendente <= 0) ? true : false;
+								?>
+								<?php if ( $pago ) : ?>
+									<span class="label label-success">Pago</span>
+								<?php else: ?>
+									<?php //echo $valor_pendente; ?>
+									<span class="label label-important">Pendente</span>
+								<?php endif; ?>
+							</td>
+
+							<td>
+								<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Pagamentos</a>
+								<a class="btn btn-success" href="/aluno/index/fatura/idFatura/<?php echo $fatura['idFatura']; ?>">
+									<img src="/images/icons/small/white/download.png" width="20px;">
+								</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
+				</table>
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-		
+
 	<div class="">	
-		<div class="14">
-			<div class="panel panel-danger">
+		<div class="">
+			<div class="panel">
 				<div class="panel-heading">
-					<font size="3" class="panel-title" style="color: #E1526B"><strong>Débitos não Faturados</strong></font>
+					<font size="3" class="panel-title"><strong>Débitos não Faturados</strong></font>
 				</div>
 				<div class="panel-body">
 					<p style="text-align:center;"><strong>Os Débitos não faturados incidirão automaticamente na próxima fatura ou em fatura a ser definida pela Administração.</strong></p>
@@ -288,11 +287,6 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-		<div class="span12">
-
-		</div>
 		</div>
 	</div>
 </div>
