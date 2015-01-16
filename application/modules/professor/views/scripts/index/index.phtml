@@ -9,24 +9,24 @@
 	
 	<div class="row">
 		<div class="span5">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<?php 
 					
 					if(date('G') >= '0' && date('G') < '12'){
-						$saudacao = 'Bom dia';
+						$saudacao = 'Bom dia, ';
 					}
 					if(date('G') >= '12' && date('G') < '18' ){
-						$saudacao = 'Boa Tarde';
+						$saudacao = 'Boa Tarde, ';
 					}
 					
 					if(date('G') >= '18' && date('G') <= '23'){
-						$saudacao =  'Boa Noite';
+						$saudacao =  'Boa Noite, ';
 					}
 					?>
 	
 					<?php foreach($this->usuario as $usuario) : ?>
-						<h4 style="text-align: center;"><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
+						<h4 style="text-align: center; color: #fff; "><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
 					<?php endforeach; ?>
 				</div>
 				<div class="panel-body">
@@ -113,10 +113,10 @@
 			</div>
 		</div>
 		
-		<div class="span9">
-			<div class="panel panel-default">
+		<div class="span8">
+			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="panel-title" style="text-align: center; ">Detalhes dos Registros das Turmas</h3>
+					<h4 class="panel-title" style="text-align: center; font-size: 18px; color: #069; ">Detalhes dos Registros das Turmas</h4>
 				</div>
 				<div class="panel-body">
 					<table class="table table-bordered">
@@ -176,18 +176,18 @@
 	
 	<div class="">
 		<div class="">
-			<div class="panel panel-default">
+			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h3 class="panel-title">Turmas que leciona</h3>
+					<h4 class="panel-title" style="text-align: center; color: #085; font-size: 18px; ">Turmas que Leciono</h4>
 				</div>
 				<div class="panel-body">
 					<table class="table table-bordered data-table">
 						<thead>
 						<tr>
-							<th>#</th>
+							<th style="text-align: center; width: 30px;">#</th>
 							<th>Turma</th>
-							<th>Ano/Semestre</th>
-							<th>Ações</th>
+							<th style="text-align: center; width: 120px;">Ano/Semestre</th>
+							<th style="width: 420px;">Ações</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -202,10 +202,10 @@
 						foreach($turmas as $turma) :
 						?>
 							<tr>
-								<td><?php echo $turma->idTurma;?></td>
-								<td><?php echo $turma->Nome; ?></td>
-								<td><?php echo $turma->Ano . '.' . $turma->Semestre; ?></td>
-								<td>
+								<td style="text-align: center; width: 30px;"><strong><?php echo $turma->idTurma;?></strong></td>
+								<td><strong><?php echo $turma->Nome; ?></strong></td>
+								<td style="text-align: center; width: 120px;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
+								<td style="text-align: center; ">
 									<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 										array(
 											'controller'	=>	'Nota',

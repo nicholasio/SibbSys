@@ -9,24 +9,24 @@
 	
 	<div class="row">
 		<div class="span5">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<?php 
 					
 					if(date('G') >= '0' && date('G') < '12'){
-						$saudacao = 'Bom dia';
+						$saudacao = 'Bom dia, ';
 					}
 					if(date('G') >= '12' && date('G') < '18' ){
-						$saudacao = 'Boa Tarde';
+						$saudacao = 'Boa Tarde, ';
 					}
 					
 					if(date('G') >= '18' && date('G') <= '23'){
-						$saudacao =  'Boa Noite';
+						$saudacao =  'Boa Noite, ';
 					}
 					?>
 	
 					<?php foreach($this->usuario as $usuario) : ?>
-						<h4 style="text-align: center;"><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
+						<h4 style="text-align: center; color: #fff; "><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
 					<?php endforeach; ?>
 				</div>
 				<div class="panel-body">
@@ -114,9 +114,9 @@
 		</div>
 		
 		<div class="span8">
-			<div class="panel panel-default">
+			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="panel-title" style="text-align: center;">Aniversariantes do Mês</h3>
+					<h4 class="panel-title" style="text-align: center; font-size: 18px; color: #069; ">Aniversariantes do Mês</h4>
 				</div>
 				<div class="panel-body">
 					<table class="table table-bordered">
@@ -182,23 +182,24 @@
 			</div>
 		</div>
 	</div>
-	
+	<?php 
+		$auth = Zend_Auth::getInstance();
+		$data = $auth->getStorage()->read();
+		$user_id = $data->idUsuario;
+
+		$model = new Application_Model_DbTable_Turma();
+		$turmas = $model->turmas($user_id);
+		$pega_turma = $model->getTurma($user_id);
+		
+		if($pega_turma->Status != 'Encerrada'){ ?>
+ 	
 	<div class="">
 		<div class="">
-			<div class="panel panel-default">
+			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h3 class="panel-title" style="text-align: center; ">Meu módulo Professor - <small>Turmas que Leciono</small></h3>
+					<h4 class="panel-title" style="text-align: center; color: #085; font-size: 18px; ">Meu módulo Professor</h4>
 				</div>
 				<div class="panel-body">
-				<?php 
-					$auth = Zend_Auth::getInstance();
-					$data = $auth->getStorage()->read();
-					$user_id = $data->idUsuario;
-	
-					$model = new Application_Model_DbTable_Turma();
-					$turmas = $model->turmas($user_id);
-				
-				?> 
 					<table class="table table-bordered">
 						<thead>
 						<tr>
@@ -264,16 +265,13 @@
 			</div>
 		</div>
 	</div>
+	<?php } ?>
 	
-	
-	
-	
-	
-	<div class="">
+	<div class="row">
 		<div class="span8">
-			<div class="panel panel-default">
+			<div class="panel panel-danger">
 				<div class="panel-heading">
-					<h3 class="panel-title">Estatísticas</h3>
+					<font size="3" class="panel-title"><strong>Estatísticas</strong></font>
 				</div>
 				<div class="panel-body">
 					<table class="table table-bordered">
@@ -289,16 +287,6 @@
 				</div>
 			</div>
 		</div>
-		
-			
-	<div class="row">
-		
-		<div class="span6">
-			
-		</div>
-	</div>
-	<div class="row">
-		
-	</div>
+
 	<br />
 </div>

@@ -39,7 +39,8 @@
 	
 	<table border="1" cellpadding="5px" cellspacing="0" style="border-collapse: collapse;">
 		<thead>
-			<tr style="background: #BDA580; ">
+			<!-- <tr style="background: #BDA580; ">  -->
+			<tr>
 				<th width="150px">Disciplina</th>
 				<th width="150px">Ano/Semestre</th>
 				<th width="150px">Faltas</th>
@@ -64,7 +65,7 @@
 	$media = $tableNota->media($id);
 	?>
 	
-		<tr <?php if($i % 2 == 0) : ?> style="background: #EEE "<?php endif;?>>
+		<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
 			<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
 			<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
 			
@@ -93,7 +94,7 @@
 	
 	include(MPDF_PATH .'mpdf.php');
 	
-	$mpdf = new mPDF('pt','A4',10,5);
+	$mpdf = new mPDF('pt','A4',11);
 	
 	$mpdf->allow_charset_conversion = true;
 	$mpdf->charset_in = 'utf-8';
@@ -102,7 +103,7 @@
 	$mpdf->SetFooter('Histórico gerado no dia {DATE j/m/Y} | {PAGENO}');
 	$mpdf->WriteHTML($html);
 	
-	$arquivo = $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome .  '.pdf';
+	$arquivo = Histórico . ' - ' . $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome . '.pdf';
 	
 	$mpdf->Output($arquivo, 'D');
 	

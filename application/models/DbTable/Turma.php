@@ -57,25 +57,25 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function deletar($id){
+	public function ativar($id){
 	
 		$sql = $this->select()->where('idTurma = ?', $id);
 		$row = $this->fetchRow($sql);
 		
 		$linha = array(
-			'Status'=>'inativo'
+			'Status'=>'ativo'
 		);
 		
 		$where = $this->getAdapter()->quoteInto('idTurma = ?', $id);
 		$this->update($linha, $where);
+		
+		return $row;
 	}
 	
 	
 	public function listar($ano = false, $semestre = false){
 	
-		$where = 'ativo';
-		$sql = $this->select()
-					->where('Status = ?', $where);
+		$sql = $this->select();
 
 		if ( $ano !== false && $semestre !== false){
 			$sql->where('Ano = ?' , $ano)->where('Semestre = ?', $semestre);
@@ -131,12 +131,13 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	
 	
 	public function encerrarTurma($id){
-		$matricula = new Application_Model_DbTable_Matricula();
-		$turma = new Application_Model_DbTable_Turma();
-		$notas = new Application_Model_DbTable_Nota();
+		
+		$matricula_model = new Application_Model_DbTable_Matricula();
+		$turma_model = new Application_Model_DbTable_Turma();
+		$notas_model = new Application_Model_DbTable_Nota();
 
-		$alunos = $matricula->findForSelect($id)->toArray();
-		$notas  = $notas->findForSelect($id)->toArray();
+		$alunos = $matricula_model->findForSelect($id)->toArray();
+		$notas  = $notas_model->findForSelect($id)->toArray();
 
 		$podeEncerrar = true;
 
@@ -163,9 +164,9 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 				$media = $media/3;
 
 				if ( $media >= 7.0 ) {
-					$matricula->statusAprovado($aluno['idUsuario_has_Turma']);
+					$matricula_model->statusAprovado($aluno['idUsuario_has_Turma']);
 				} else {
-					$matricula->statusReprovado($aluno['idUsuario_has_Turma']);
+					$matricula_model->statusReprovado($aluno['idUsuario_has_Turma']);
 				}
 			}
 

@@ -2,7 +2,7 @@
 
 	<div class="cog">+</div>
 
-	<a href="index.php" class="logo display_none"><span>Adminica</span></a>
+	<!-- <a href="index.php" class="logo display_none"><span>Adminica</span></a>  -->
 
 	<div class="user_box dark_box clearfix">
 
@@ -13,12 +13,10 @@
 
 		?>
 	
-		<img src="/files/<?php echo $data->Foto; ?>" width="70" height="90"></img>
+		<img src="/files/<?php echo $data->Foto; ?>" width="84" height="110"></img>
 		
-		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
-		
-		<h3>
-			<?php switch($data->Tipo){
+		<p style="font-size: 11,5px;"><strong>
+		<?php switch($data->Tipo){
 				case 1:
 					echo "Administrador";
 					break;
@@ -28,14 +26,17 @@
 				case 3:
 					echo "Aluno";
 					break;
-			} ?>
-		</h3>
-
-		<br />
-		<ul>
-			<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1);?>">Alterar Senha</a><span class="divider">|</span></li>
-			<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1);?>">Sair</a></li>
-		</ul>
+		} ?>
+		</strong></p>
+		
+		<h3 style="font-size: 12px; "><a href="#"><?php echo $data->Nome;?></a></h3>
+		
+		<div style="margin: 0 0 0 55px;">
+			<ul>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1);?>" style="font-size: 12px; ">Alterar Senha</a><span class="divider">|</span></li>
+				<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1);?>" style="font-size: 12px; ">Sair</a></li>
+			</ul>
+		</div>
 	</div><!-- #user_box -->
 
 	<ul class="side_accordion" id="nav_side"> <!-- add class 'open_multiple' to change to from accordion to toggles -->

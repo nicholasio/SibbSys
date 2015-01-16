@@ -3,48 +3,47 @@
 <div class="grid_16">
 	<div class="page-header">
 		<h2>
-			Lista de turmas que há matérial de aulas disponíveis
+			Lista de Turmas em que há Matérial de Aulas Disponíveis
 		</h2>
 	</div>
 	
 	<br /><br />
 	
 	<?php if(!empty($this->rows['Nome'])){?>
-	
-	<table class="table table-striped data-table">
-		<thead>
-			<tr>
-				<th><font size="3" color="black"><strong>#</strong></font></th>
-				<th style="text-align: left"><font size="3" color="black"><strong>Turma</strong></font></th>
-				<th style="text-align: center"><font size="3" color="black"><strong>Ação</strong></font></th>
-			</tr>
-		</thead>
-		<tbody>
-	
-		<?php foreach($this->rows as $lista){?>
-			<?php foreach($this->file as $file){?>
-				<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
-					<tr style="background: #EEE;">
-						<td style="width: 100px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
-						<td style="width: 300px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
-						<td style="text-align: center;">
-							<a style="width: 60px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
-								array(
-									'controller'	=>	'index',
-									'action'		=>	'material',
-									'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
-								));?>">
-								Exibir
-							</a>
-						</td>
-					</tr>
 
-				<?php }
-				}
-			}?>
-		</tbody>
-	</table>
+		<table class="table table-striped data-table">
+			<thead>
+				<tr>
+					<th><font size="2" color="black"><strong>#</strong></font></th>
+					<th style="text-align: left"><font size="2" color="black"><strong>Turma</strong></font></th>
+					<th style="text-align: center"><font size="2" color="black"><strong>Ação</strong></font></th>
+				</tr>
+			</thead>
+			<tbody>
+			
+				<?php foreach($this->rows as $lista){?>
+				<?php foreach($this->file as $file){?>
+					<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+						<tr style="background: #EEE;">
+							<td style="width: 100px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
+							<td style="width: 300px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
+							<td style="text-align: center;">
+								<a style="width: 60px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'index',
+										'action'		=>	'material',
+										'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+									));?>">
+									Exibir
+								</a>
+							</td>
+						</tr>
 	
+					<?php }
+					}
+				}?>
+			</tbody>
+		</table>
 	<?php
 	}
 	else{

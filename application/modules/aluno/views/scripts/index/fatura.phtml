@@ -110,16 +110,30 @@
 		</tbody>
 	</table>
 	<div style="margin-left: 350px;">
+		<?php
+		$valor_total_pagamentos = 0;
+		$pagamentos_model = new Application_Model_DbTable_Pagamento();
+		$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+	?>
 		<h4>
 			SubTotal:  		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format($valor_total,2,',','.')?></div>
-			Descontos: 		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format('0',2,',','.'); ?> </div>
-			Total: 	   		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ '. number_format($valor_total,2,',','.')?> </div>
-			Total Recebido: <div style="margin: -19px 0 0px 248px;">  R$ <?php echo number_format('0',2,',','.'); ?> </div>
-			Total Restante: <div style="margin: -19px 0 0px 248px;"> R$ <?php echo number_format('0',2,',','.'); ?> </div>
+			Descontos: 		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format($fatura['desconto']/100,2,',','.'); ?> </div>
+			Total A Pagar: 	<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ '. number_format($valor_total,2,',','.')?> </div>
+			Total Recebido: <div style="margin: -19px 0 0px 248px;">  
+							R$ 	<?php foreach($pagamentos as $pagamento) : ?>
+									<?php $valor_total_pagamentos += $pagamento->valorPagamento; ?>
+								<?php endforeach; ?>
+								<?php echo number_format($valor_total_pagamentos,2,',','.');?> </div>
+		<br />
+		
+		Total Restante: <div style="margin: -19px 0 0px 248px; color: #FF1C3A;"> 
+				R$ <?php $valor_restante = $valor_total - $valor_total_pagamentos;?> 
+					<?php echo number_format($valor_restante,2,',','.');?>
+						</div>
+		
 		</h4>
-	</div>
 	<?php
-	//die;
+
 	$html = ob_get_contents();
 	ob_end_clean();
 

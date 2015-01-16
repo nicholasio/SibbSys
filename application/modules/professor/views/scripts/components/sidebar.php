@@ -1,7 +1,7 @@
 <div id="sidebar" class="sidebar pjax_links fixed">
 	<div class="cog">+</div>
 
-	<a href="index.php" class="logo display_none"><span>Adminica</span></a>
+	<!-- <a href="index.php" class="logo display_none"><span>Adminica</span></a>  -->
 
 	<div class="user_box dark_box clearfix">
 
@@ -12,28 +12,31 @@
 
 		?>
 				
-		<img src="/files/<?php echo $data->Foto; ?>" width="80" height="100"></img>
-		<h3><a href="#"><?php echo $data->Nome;?></a></h3>
+		<img src="/files/<?php echo $data->Foto; ?>" width="85" height="100"></img>
 		
-		<h3>
-			<?php switch($data->Tipo){
-				case 1:
-					echo "Administrador";
-					break;
-				case 2:
-					echo "Professor";
-					break;
-				case 3:
-					echo "Aluno";
-					break;
-			} ?>
-		</h3>
+		<p style="font-size: 13px;"><strong>
+		<?php switch($data->Tipo){
+			case 1:
+				echo "Administrador";
+				break;
+			case 2:
+				echo "Professor";
+				break;
+			case 3:
+				echo "Aluno";
+				break;
+		} ?>
+		</strong></p>
 		
-		<br />
-		<ul>
-			<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1);?>">Alterar Senha</a><span class="divider">|</span></li>
-			<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>">Sair</a></li>
-		</ul>
+		<h3 style="font-size: 12px; "><a href="#"><?php echo $data->Nome;?></a></h3>
+		
+		
+		<div style="margin: 10px 0 0 55px;">
+			<ul>
+				<li><a href="<?php echo $this->url(array('module'=>'professor','controller'=>'index','action'=>'altera-senha'),null,1);?>" style="font-size: 12px;" >Alterar Senha</a><span class="divider">|</span></li>
+				<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>" style="font-size: 12px;" >Sair</a></li>
+			</ul>
+		</div>
 	</div><!-- #user_box -->
 
 	<ul class="side_accordion" id="nav_side"> <!-- add class 'open_multiple' to change to from accordion to toggles -->

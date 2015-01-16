@@ -14,6 +14,10 @@ class Admin_TurmaController extends AppBaseController{
 	
 	
     public function indexAction(){
+    	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
     
     	$model = new Application_Model_DbTable_Turma();
     	
@@ -64,13 +68,15 @@ class Admin_TurmaController extends AppBaseController{
     	$this->view->form = $form;
     }
 
-    public function deleteAction(){
+    public function ativarAction(){
         	
     	$model = new Application_Model_DbTable_Turma();
     	
     	$id = $this->_getParam('idTurma');
     	
-    	$model->deletar($id);
+    	$turma_ativada = $model->ativar($id);
+    	
+    	$this->_helper->FlashMessenger->addMessage(" Turma ativada! ");
     	
     	$this->_redirect('/admin/turma');
     	

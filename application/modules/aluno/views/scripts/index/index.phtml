@@ -9,24 +9,24 @@
 
 	<div class="row">
 		<div class="span5">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<?php 
 					
 					if(date('G') >= '0' && date('G') < '12'){
-						$saudacao = 'Bom dia';
+						$saudacao = 'Bom dia, ';
 					}
 					if(date('G') >= '12' && date('G') < '18' ){
-						$saudacao = 'Boa Tarde';
+						$saudacao = 'Boa Tarde, ';
 					}
 					
 					if(date('G') >= '18' && date('G') <= '23'){
-						$saudacao =  'Boa Noite';
+						$saudacao =  'Boa Noite, ';
 					}
 					?>
 	
 					<?php foreach($this->usuario as $usuario) : ?>
-						<h4 style="text-align: center;"><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
+						<h4 style="text-align: center; color: white; "><?php echo $saudacao . ' ' . $usuario->Nome . '!'; ?></h4>
 					<?php endforeach; ?>
 				</div>
 				<div class="panel-body">
@@ -114,9 +114,9 @@
 		</div>
 		
 		<div class="span8">
-			<div class="panel panel-default">
+			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h3 class="panel-title">Faturas</h3>
+					<font size="3" class="panel-title" style="color: #069;"><strong>Minhas Faturas</strong></font>
 				</div>
 				<div class="panel-body">
 					<p style="text-align: center;"><strong>Aqui são listadas todas as faturas disponíveis</strong></p>
@@ -193,9 +193,10 @@
 										$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
 										$pago = ( $valor_pendente <= 0) ? true : false;
 									?>
-										<?php if (! $pago ) : ?>
-											<strong><?php echo 'R$ ' . $valor_pendente; ?></strong>
-										<?php endif; ?>
+										<?php if (! $pago ) { ?>
+											<strong><?php echo 'R$ ' . number_format($valor_pendente,2,',','.'); ?></strong>
+										<?php } else{ ?>
+											<strong><?php echo 'R$ 0,00'; } ?></strong>
 								</td>
 								<td style="width: 80px; text-align: center;">
 									<?php
@@ -229,9 +230,9 @@
 		
 	<div class="">	
 		<div class="14">
-			<div class="panel panel-default">
+			<div class="panel panel-danger">
 				<div class="panel-heading">
-					<h3 class="panel-title">Débitos não faturados</h3>
+					<font size="3" class="panel-title" style="color: #E1526B"><strong>Débitos não Faturados</strong></font>
 				</div>
 				<div class="panel-body">
 					<p style="text-align:center;"><strong>Os Débitos não faturados incidirão automaticamente na próxima fatura ou em fatura a ser definida pela Administração.</strong></p>

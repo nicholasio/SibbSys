@@ -207,5 +207,19 @@ class Admin_ProfessorController extends AppBaseController{
 
     	$this->_redirect("/admin/professor");
     }
+    
+    public function adminEncerrarturmaAction(){
+    	
+    	$turma = new Application_Model_DbTable_Turma();
+    	$id = $this->_getParam('idTurma');
+    	
+    	if ( $turma->encerrarTurma($id) ) {
+    		$this->_helper->FlashMessenger->addMessage(" Turma encerrada! ");
+    	} else {
+    		$this->_helper->FlashMessenger->addMessage(" Turma não pode ser encerrada, existem pendências associadas a essa turma.");
+    	}
+    	
+    	$this->_redirect("/admin/turma");
+    }
 	
 }
