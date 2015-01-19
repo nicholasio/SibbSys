@@ -1,6 +1,9 @@
 <?php $this->headTitle('Matérial de Aulas');?>
 
 <div class="grid_16">
+
+	<?php if(!empty($this->rows['Nome'])){?>
+
 	<div class="page-header">
 		<h2>
 			Lista de Turmas em que há matérial de aulas disponíveis
@@ -9,7 +12,7 @@
 	
 	<br />
 	
-	<?php if(!empty($this->rows['Nome'])){?>
+	
 	
 	<table class="table table-striped data-table" style="margin-bottom:0;">
 		<thead>
@@ -46,13 +49,22 @@
 			</tbody>
 		</table>
 	
-	<?php
-	}
-	else{
-		
-		echo '<h4>' . 'Não há matérial disponível até o momento.' . '</h4>';
-		
-	 }?>	
+	
+	<?php } else { ?>
+			<div class="page-header">
+				<div style="color: #000; font-size: 30px;">
+					<strong>Meus materiais disponiveis</strong>
+				</div>
+			</div>
+			
+			<br /><br />
+			
+			<div style="color: red; font-size: 20px;">
+				<strong>Não há matérial disponível até o momento.</strong>
+			</div>
+			
+			<br /><br /><br /><br />
+	<?php } 	?>
 		
 	<br /><br />	
 </div>

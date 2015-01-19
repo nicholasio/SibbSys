@@ -76,7 +76,7 @@ class Admin_TurmaController extends AppBaseController{
     	
     	$turma_ativada = $model->ativar($id);
     	
-    	$this->_helper->FlashMessenger->addMessage(" Turma ativada! ");
+    	$this->_helper->FlashMessenger->addMessage(" Turma ativada com sucesso! ");
     	
     	$this->_redirect('/admin/turma');
     	

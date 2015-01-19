@@ -14,10 +14,14 @@ class Admin_ServicosController extends AppBaseController{
 	
 	
 	public function indexAction(){
+		
+		if ($this->_helper->FlashMessenger->hasMessages()) {
+			$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+		}
 
 		$model = new Application_Model_DbTable_Servicos();
 		
-		$this->view->rows = $model->listar();
+		$this->view->rows = $model->findForSelect();
 	}
 	
 	
@@ -66,7 +70,7 @@ class Admin_ServicosController extends AppBaseController{
 	}
 	
 	
-	public function deleteAction(){
+	public function desativaAction(){
 		
 		$model = new Application_Model_DbTable_Servicos();
 		
@@ -74,6 +78,22 @@ class Admin_ServicosController extends AppBaseController{
 		
 		$model->deletar($id);
 		
+		$this->_helper->flashMessenger->addMessage("O Serviço foi desativado com sucesso!");
+		
+		$this->_redirect("/admin/servicos");
+	}
+	
+	
+	public function ativaAction(){
+	
+		$model = new Application_Model_DbTable_Servicos();
+	
+		$id = $this->_getParam('idServicos');
+	
+		$model->ativar($id);
+	
+		$this->_helper->flashMessenger->addMessage("O Serviço foi ativado com sucesso!");
+	
 		$this->_redirect("/admin/servicos");
 	}
 	

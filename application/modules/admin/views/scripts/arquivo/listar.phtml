@@ -8,12 +8,12 @@
 	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><font size="3" color="black"><strong>#</strong></font></th>
-				<th><font size="3" color="black"><strong>Nome</strong></font></th>
-				<th style=" text-align: center;"><font size="3" color="black"><strong>Ano/Semestre</strong></font></th>
-				<th style=" text-align: center;"><font size="3" color="black"><strong>Data</strong></font></th>
-				<th style=" text-align: center;"><font size="3" color="black"><strong>Compartilhado</strong></font></th>
-				<th style=" text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+				<th><font size="2" color="black"><strong>#</strong></font></th>
+				<th><font size="2" color="black"><strong>Nome</strong></font></th>
+				<th style=" text-align: center;"><font size="2" color="black"><strong>Ano/Semestre</strong></font></th>
+				<th style=" text-align: center;"><font size="2" color="black"><strong>Data</strong></font></th>
+				<th style=" text-align: center;"><font size="2" color="black"><strong>Compartilhado</strong></font></th>
+				<th style=" text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		
@@ -21,36 +21,47 @@
 			<?php foreach($this->rows as $lista){?>
 			<tr style="background: #EEE;">
 				<td style="width: 40px;"><strong><?php echo $lista->idArquivos; ?></strong></td>
-				<td style="width: 230px;"><strong><?php echo $lista->Nome; ?></strong></td>
-				<td style="width: 130px; text-align: center;"><strong><?php echo $lista->Ano . '/' . $lista->Semestre; ?></strong></td>
+				<td><strong><?php echo $lista->Nome; ?></strong></td>
+				<td style="width: 150px; text-align: center;"><strong><?php echo $lista->Ano . '/' . $lista->Semestre; ?></strong></td>
 				<td style="width: 150px; text-align: center;"><strong><?php echo $lista->Data; ?></strong></td>
-				<td style="width: 80px; text-align: center;"><strong><?php echo $lista->Status; ?></strong></td>
-				<td style="text-align: center;">
-					<a style="width: 55px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
+				<td style="width: 100px; text-align: center;"><strong>
+				
+				<?php switch ($lista->Status){
+					case 'ativo':
+						echo "<span class='label label-inverse'>$lista->Status</span>";
+						break;
+					case 'inativo':
+						echo "<span class='label label-important'>$lista->Status</span>";
+						break;
+				}?>
+				
+				</strong></td>
+				<td style="text-align: center; width: 350px;">
+					<a style="width: 55px; font-size: 11px;" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'editar',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Editar
+							<strong>Editar</strong>
 					</a>
 					
-					<a style="width: 55px; font-size: 12px;" class="btn btn-success" href="<?php echo $this->url(
+					<a style="width: 80px; font-size: 11px;" class="btn btn-success" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'download',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Download
+							<strong>Baixar Arquivo</strong>
 					</a>
 					
-					<a style="width: 55px; font-size: 12px;" class="btn btn-danger" href="<?php echo $this->url(
+					<a style="width: 55px; font-size: 11px;" class="btn btn-danger" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'delete',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Excluir
+							<strong>Excluir</strong>
 					</a>
 				</td>
 			</tr>

@@ -47,9 +47,23 @@ class Application_Model_DbTable_Igreja extends Zend_Db_Table_Abstract{
 	}
 	
 	
+	public function ativar($id){
+		
+		$sql = $this->select()->where('idIgreja = ?', $id);
+		
+		$row = $this->fetchRow($sql);
+		
+		$linha = array(
+				'Status'=>'ativo'
+		);
+		
+		$where = $this->getAdapter()->quoteInto('idIgreja = ?', $id);
+		
+		$this->update($linha, $where);
+	}
+	
 	public function listar(){
 		
-		$where = 'ativo';
 		$sql = $this->select()
 					->where('Status = ?', $where)
 					->order(array(new Zend_Db_Expr('Igreja ASC')));

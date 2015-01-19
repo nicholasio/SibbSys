@@ -6,8 +6,9 @@
 			<small>Seja bem vindo</small>
 		</h2>
 	</div>
-
-		<div class="container">
+	
+	<div class="row">
+		<div class="span4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<?php 
@@ -111,113 +112,8 @@
 				</div>
 			</div>
 		</div>
-
-	<?php 
-		$auth = Zend_Auth::getInstance();
-		$data = $auth->getStorage()->read();
-		$user_id = $data->idUsuario;
-
-		$model = new Application_Model_DbTable_Turma();
-		$turmas = $model->turmas($user_id);
-		$pega_turma = $model->getTurma($user_id);
 		
-		if($pega_turma && $pega_turma->Status != 'Encerrada'){ ?>
- 	
-	<div class="">
-		<div class="">
-			<div class="panel">
-				<div class="panel-heading">
-					<h4 class="panel-title" style="text-align: center; color: #085; font-size: 18px; ">Meu módulo Professor</h4>
-				</div>
-				<div class="panel-body">
-					<table class="table table-bordered">
-						<thead>
-						<tr>
-							<th  style="width: 30px; text-align: center;">#</th>
-							<th style="text-align: center;">Turma</th>
-							<th style="width: 100px; text-align: center;">Ano/Semestre</th>
-							<th style="width: 430px; text-align: center;">Ações</th>
-						</tr>
-						</thead>
-						<tbody>
-						<?php foreach($turmas as $turma) :?>
-						<tr>
-							<td style="width: 30px; text-align: center;"><strong><?php echo $turma->idTurma;?></strong></td>
-							<td><strong><?php echo $turma->Nome; ?></strong></td>
-							<td style="width: 100px; text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
-							<td style="width: 430px; text-align: center;">
-								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
-									array(
-										'controller'	=>	'professor',
-										'action'		=>	'nota',
-										'idTurma'		=>	$turma->idTurma
-									));?>">
-									Inserir Nota
-								</a>
-
-								<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
-									array(
-										'controller'	=>	'professor',
-										'action'		=>	'presenca',
-										'idTurma'		=>	$turma->idTurma
-									));?>">
-									Chamada
-								</a>
-
-								<a id="btn-turma" class="btn" href="<?php echo $this->url(
-									array(
-										'controller'	=>	'arquivo',
-										'action'		=>	'index',
-										'idTurma'		=>	$turma->idTurma
-									));?>">
-									Inserir Arquivo
-								</a>
-
-								<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
-									array(
-										'controller'	=>	'professor',
-										'action'		=>	'encerrar-turma',
-										'idTurma'		=>	$turma->idTurma
-									));?>">
-									Encerrar Turma
-								</a>
-							</td>
-							
-						</tr>
-					<?php endforeach; ?>
-						
-						</tbody>
-						<tfoot>
-
-						</tfoot>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<?php } ?>
-
-	<div class="row">
-		<div class="span6">
-			<div class="panel">
-				<div class="panel-heading">
-					<font size="3" class="panel-title"><strong>Estatísticas</strong></font>
-				</div>
-				<div class="panel-body">
-					<table class="table table-bordered">
-						<tr>
-							<td><strong>Total de Alunos </strong></td>
-							<td style="width: 100px; text-align: center;"><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></strong></td>
-						</tr>
-						<tr>
-							<td><strong>Total de Alunos Ativos</strong></td>
-							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></strong></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="span6">
+		<div class="span8">
 			<div class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title" style="text-align: center; font-size: 18px; color: #069; ">Aniversariantes do Mês</h4>
@@ -281,6 +177,170 @@
 
 						<?php endforeach; ?>
 						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<?php 
+		$auth = Zend_Auth::getInstance();
+		$data = $auth->getStorage()->read();
+		$user_id = $data->idUsuario;
+
+		$model = new Application_Model_DbTable_Turma();
+		$turmas = $model->turmas($user_id);
+		$pega_turma = $model->getTurma($user_id);
+		
+		if($pega_turma && $pega_turma->Status != 'Encerrada'){ ?>
+ 	
+	<div class="">
+		<div class="">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="panel-title" style="text-align: center; color: #085; font-size: 18px; ">Meu módulo Professor</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+						<tr>
+							<th  style="width: 30px; text-align: center;">#</th>
+							<th style="text-align: center;">Turma</th>
+							<th style="width: 100px; text-align: center;">Ano/Semestre</th>
+							<th style="width: 430px; text-align: center;">Ações</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach($turmas as $turma) :?>
+						<tr>
+							<td style="width: 10px; text-align: center;"><strong><?php echo $turma->idTurma;?></strong></td>
+							<td><strong><?php echo $turma->Nome; ?></strong></td>
+							<td style="width: 80px; text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
+							<td style="width: 400px; text-align: center;">
+								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'professor',
+										'action'		=>	'nota',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Inserir Nota
+								</a>
+
+								<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'professor',
+										'action'		=>	'presenca',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Chamada
+								</a>
+
+								<a id="btn-turma" class="btn" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'arquivo',
+										'action'		=>	'index',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Inserir Arquivo
+								</a>
+
+								<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
+									array(
+										'controller'	=>	'professor',
+										'action'		=>	'encerrar-turma',
+										'idTurma'		=>	$turma->idTurma
+									));?>">
+									Encerrar Turma
+								</a>
+							</td>
+							
+						</tr>
+					<?php endforeach; ?>
+						
+						</tbody>
+						<tfoot>
+
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+	<br />
+	
+	<div class="">
+		<div class="">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="panel-title" style="text-align: center; font-size: 18px;">Detalhes dos Registros das Turmas</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tbody>
+						<?php
+							$auth = Zend_Auth::getInstance();
+							$data = $auth->getStorage()->read();
+							$user_id = $data->idUsuario;
+	
+							$model = new Application_Model_DbTable_Turma();
+							$turmas = $model->turmas($user_id);
+	
+							foreach($turmas as $turma) :
+						?>
+						<tr>
+							<td style="width: 20px; text-align: center; "><strong><?php echo $turma->idTurma; ?></strong></td>
+							<td><strong><?php echo $turma->Nome; ?></strong></td>
+						
+							<td style="width: 410px; text-align: center; ">
+								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'presenca',
+											'action'		=>	'listar',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Faltas
+								</a>
+							
+								<a id="btn-turma" class="btn btn-warning" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'arquivo',
+											'action'		=>	'listar',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Arquivos
+								</a>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<?php } ?>
+	
+	<br /><br />
+	
+	<div class="">
+		<div class="">
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="color:#000"><strong>Estatísticas</strong></h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<td><strong>Total de Alunos </strong></td>
+							<td style="width: 400px; text-align: center;"><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></strong></td>
+						</tr>
+						<tr>
+							<td><strong>Total de Alunos Ativos</strong></td>
+							<td style="width: 400px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></strong></td>
+						</tr>
 					</table>
 				</div>
 			</div>

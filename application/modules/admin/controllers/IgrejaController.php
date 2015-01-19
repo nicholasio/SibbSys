@@ -15,9 +15,14 @@ class Admin_IgrejaController extends AppBaseController{
 	
     public function indexAction(){
     	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
+    	
+    	
     	$model = new Application_Model_DbTable_Igreja();
        	
-		$this->view->rows = $model->listar();
+		$this->view->rows = $model->findForSelect();
     }
 
     
@@ -74,14 +79,30 @@ class Admin_IgrejaController extends AppBaseController{
     }
     
     
-    public function deleteAction(){
+    public function desativaAction(){
         
     	$model = new Application_Model_DbTable_Igreja();
 
         $id = $this->_getParam('idIgreja');
         
         $model->deletar($id);
+        
+        $this->_helper->flashMessenger->addMessage("A Igreja foi desativada com sucesso!");
         	
         $this->_redirect("/admin/igreja");
+    }
+    
+    
+    public function ativaAction(){
+    	
+    	$model = new Application_Model_DbTable_Igreja();
+    	
+    	$id = $this->_getParam('idIgreja');
+    	
+    	$igreja = $model->ativar($id);
+    	
+    	$this->_helper->flashMessenger->addMessage("A Igreja foi ativada com sucesso!");
+    	
+    	$this->_redirect("/admin/igreja");
     }
 }

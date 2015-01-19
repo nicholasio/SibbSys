@@ -1,11 +1,13 @@
 <?php $this->headTitle('Boletim'); ?>
 
-<div class="grid_16">
-	<div class="page-header">
-		<h2>Boletim</h2>
-	</div>
-	<?php if($this->row != null){?>
-<br />	
+<?php if($this->row != null){?>
+
+	<div class="grid_16">
+		<div class="page-header">
+			<h2>Boletim</h2>
+		</div>
+		
+	<br />	
 
 		<form action="/professor/minhasturmas/boletim" method="post" id="boletim">
 	
@@ -26,153 +28,146 @@
 		</form>
 <br />
 
-<?php if($this->data != null){?>
-	<h4><?php echo $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
-<?php }?>
+        <?php if($this->data != null){?>
+            <h4><?php echo $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
+        <?php }?>
 
-<br /><br />
+        <br /><br />
 
-<?php
-	$nota = new Application_Model_DbTable_Nota();
-	$presenca = new Application_Model_DbTable_Presenca();
-	$model = new Application_Model_DbTable_Matricula();
-	$tableTurma = new Application_Model_DbTable_Turma();
-?>
-	
-		<div class="toggle_container">
-			<div class="block">
-				<div class="section">
-					<table class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th><h5>Disciplinas</h5></th>
-								<th style="text-align: center;"><h5>Unidade 1</h5></th>
-								<th style="text-align: center;"><h5>Unidade 2</h5></th>
-								<th style="text-align: center;"><h5>Unidade 3</h5></th>
-								<th style="text-align: center;"><h5>Faltas</h5></th>
-								<th style="text-align: center;"><h5>Média Final</h5></th>
-								<th style="text-align: center;"><h5>Situação</h5></th>
-							</tr>
-						</thead>
-						<tbody>
-						
-						
-						<?php if($this->data == null){?>
-						
-							<?php foreach($this->rows as $turma){
-								if($turma->Status != 'inativo'){
-									$id = $turma->idUsuario_has_Turma;
-									$idUser = $turma->Usuario_idUsuario;
-									$periodo = $tableTurma->getPeriodo($idUser);
-									$result = $nota->getNota($id);
-									$media = $nota->media($id);
-									$conta = $presenca->contaPresenca($id);
-								
-								if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
-									$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $periodo['Semestre']){?>
-							<tr>
-								<td>
-									<strong>										
-										<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
-									</strong>
-								</td>
-								<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
-								<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
-								<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->
-								<td style="text-align: center;"><strong>
-								<?php
-									if(! empty($conta["SUM(Faltas)"])){
-										echo $conta["SUM(Faltas)"];
-									}else{
-										echo ' - ';
-									}
-								?>
-								</strong></td><!-- Faltas -->
-								
-								<td style="text-align: center;"><strong>
-									
-										<?php echo number_format($media, 2,',','.'); ?>
-										
-																			
-								</strong></td><!-- Média Final -->
-								
-								<td style="text-align: center;"><strong><?php echo $turma->Status; ?></strong></td><!-- Situação -->
-							</tr>
-						<?php }?>
-					<?php }?>
-				<?php }?> <!-- Fim foreach -->
-			<?php }
-		
-					else{				
-						foreach($this->rows as $turma){
-							if($turma->Status != 'inativo'){							
-								if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $this->data['ano'] &&
-									$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $this->data['semestre']){
-						
-								$id = $turma->idUsuario_has_Turma;
-								$result = $nota->getNota($id);
-								$media = $nota->media($id);
-								$conta = $presenca->contaPresenca($id);?>
-				
-								<tr>
-									<td>
-										<strong>										
-											<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
-										</strong>
-									</td>
-							
-									<td style="text-align: center;"><strong><?php echo $result['Unit1']; ?></strong></td><!-- Unidade 1 -->
-									<td style="text-align: center;"><strong><?php echo $result['Unit2']; ?></strong></td><!-- Unidade 2 -->
-									<td style="text-align: center;"><strong><?php echo $result['Unit3']; ?></strong></td><!-- Unidade 3 -->							
-								
-									<td style="text-align: center;">
-										<strong>
-											<?php
-												if(! empty($conta["SUM(Faltas)"])){
-													print $conta["SUM(Faltas)"];
-												}else{
-													echo ' - ';
-												}
-											?>
-										</strong>
-									</td><!-- Faltas -->
-								
-									<td style="text-align: center;">
-										<strong>
-											<?php 
-											
-													echo substr($media,0,4);
-											
-													/*if($result['Unit3'] != null){
-														if($mediafinal < 7 || $conta["SUM(Faltas)"] >= 9){
-															$model->statusReprovado($id);
-														}
+        <?php
+        $nota = new Application_Model_DbTable_Nota();
+        $presenca = new Application_Model_DbTable_Presenca();
+        $model = new Application_Model_DbTable_Matricula();
+        $tableTurma = new Application_Model_DbTable_Turma();
+        ?>
 
-														else{
-															$model->statusAprovado($id);
-														}
-													}*/
-													
-											?>
-										</strong>
-									</td><!-- Média Final -->
-									<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
-							<?php }?>
-								</tr>
-						<?php }?>
-					<?php }?> <!-- Fim foreach -->
-				<?php }?>
-				</tbody>
-			</table>
+        <div class="toggle_container">
+            <div class="block">
+                <div class="section">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th><h5>Disciplinas</h5></th>
+                            <th style="text-align: center;"><h5>Unidade 1</h5></th>
+                            <th style="text-align: center;"><h5>Unidade 2</h5></th>
+                            <th style="text-align: center;"><h5>Unidade 3</h5></th>
+                            <th style="text-align: center;"><h5>Faltas</h5></th>
+                            <th style="text-align: center;"><h5>Média Final</h5></th>
+                            <th style="text-align: center;"><h5>Situação</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        <?php if($this->data == null){?>
+
+                            <?php foreach($this->rows as $turma){
+                                if($turma->Status != 'inativo'){
+                                    $id = $turma->idUsuario_has_Turma;
+                                    $idUser = $turma->Usuario_idUsuario;
+                                    $periodo = $tableTurma->getPeriodo($idUser);
+                                    $result = $nota->getNota($id);
+                                    $media = $nota->media($id);
+                                    $conta = $presenca->contaPresenca($id);
+
+                                    if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
+                                        $turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $periodo['Semestre']){?>
+                                        <tr>
+                                            <td>
+                                                <strong>
+                                                    <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
+                                                </strong>
+                                            </td>
+                                            <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
+                                            <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
+                                            <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->
+                                            <td style="text-align: center;"><strong>
+                                                    <?php
+                                                    if(! empty($conta["SUM(Faltas)"])){
+                                                        echo $conta["SUM(Faltas)"];
+                                                    }else{
+                                                        echo ' - ';
+                                                    }
+                                                    ?>
+                                                </strong></td><!-- Faltas -->
+
+                                            <td style="text-align: center;"><strong>
+                                                    <?php echo number_format($media,2,',','.'); ?>
+                                                </strong></td><!-- Média Final -->
+
+                                            <td style="text-align: center;"><strong><?php echo $turma->Status; ?></strong></td><!-- Situação -->
+                                        </tr>
+                                    <?php }?>
+                                <?php }?>
+                            <?php }?> <!-- Fim foreach -->
+                        <?php }
+
+                        else{
+                            foreach($this->rows as $turma){
+                                if($turma->Status != 'inativo'){
+                                    if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $this->data['ano'] &&
+                                        $turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $this->data['semestre']){
+
+                                        $id = $turma->idUsuario_has_Turma;
+                                        $result = $nota->getNota($id);
+                                        $media = $nota->media($id);
+                                        $conta = $presenca->contaPresenca($id);?>
+
+                                        <tr>
+                                        <td>
+                                            <strong>
+                                                <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
+                                            </strong>
+                                        </td>
+
+                                        <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
+                                        <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
+                                        <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->
+
+                                        <td style="text-align: center;">
+                                            <strong>
+                                                <?php
+                                                if(! empty($conta["SUM(Faltas)"])){
+                                                    print $conta["SUM(Faltas)"];
+                                                }else{
+                                                    echo ' - ';
+                                                }
+                                                ?>
+                                            </strong>
+                                        </td><!-- Faltas -->
+
+                                        <td style="text-align: center;">
+                                            <strong>
+                                                <?php echo number_format($media,2,',','.'); ?>
+                                            </strong>
+                                        </td><!-- Média Final -->
+                                        <td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
+                                    <?php }?>
+                                    </tr>
+                                <?php }?>
+                            <?php }?> <!-- Fim foreach -->
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br />
+    
+	<?php } else { ?>
+			<div class="page-header">
+				<div style="color: #000; font-size: 30px;">
+					<strong>Boletim.</strong>
+				</div>
 			</div>
-		</div>
-	</div>
-<br />
-<?php }
-		else{
-			echo '<br />' . '<h4>' . 'Usuário matriculado em nenhuma turma até o momento.' . '</h4>' . '<br />';
-		}
-	?>
-	
-	<br /><br />
+			
+			<br /><br />
+			
+			<div style="color: red; font-size: 20px;">
+				<strong>O Usuário não está matriculado em nenhuma turma até o momento.</strong>
+			</div>
+			
+			<br /><br /><br /><br />
+	<?php } 	?>
+
 </div>

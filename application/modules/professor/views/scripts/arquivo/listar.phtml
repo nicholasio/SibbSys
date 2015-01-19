@@ -24,33 +24,44 @@
 				<td style="width: 230px;"><strong><?php echo $lista->Nome; ?></strong></td>
 				<td style="width: 130px; text-align: center;"><strong><?php echo $lista->Ano . '/' . $lista->Semestre; ?></strong></td>
 				<td style="width: 150px; text-align: center;"><strong><?php echo $lista->Data; ?></strong></td>
-				<td style="width: 80px; text-align: center;"><strong><?php echo $lista->Status; ?></strong></td>
-				<td style="text-align: center;">
-					<a style="width: 55px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
+					<td style="width: 100px; text-align: center;"><strong>
+				
+				<?php switch ($lista->Status){
+					case 'ativo':
+						echo "<span class='label label-inverse'>$lista->Status</span>";
+						break;
+					case 'inativo':
+						echo "<span class='label label-important'>$lista->Status</span>";
+						break;
+				}?>
+				
+				</strong></td>
+				<td style="text-align: center; width: 350px;">
+					<a style="width: 55px; font-size: 11px;" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'editar',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Editar
+							<strong>Editar</strong>
 					</a>
 					
-					<a style="width: 55px; font-size: 12px;" class="btn btn-success" href="<?php echo $this->url(
+					<a style="width: 80px; font-size: 11px;" class="btn btn-success" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'download',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Download
+							<strong>Baixar Arquivo</strong>
 					</a>
 					
-					<a style="width: 55px; font-size: 12px;" class="btn btn-danger" href="<?php echo $this->url(
+					<a style="width: 55px; font-size: 11px;" class="btn btn-danger" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'arquivo',
 							'action'		=>	'delete',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Excluir
+							<strong>Excluir</strong>
 					</a>
 				</td>
 			</tr>

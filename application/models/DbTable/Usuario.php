@@ -32,6 +32,15 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 	}
 	
 	
+	public function selectPadrao(){
+		
+		$sql = $this->select();
+		$rows = $this->fetchAll($sql);
+		
+		return $rows;
+	}
+	
+	
 	public function selecionar(){
 		
 		$sql = $this->select()->where('Status = ?', 'ativo');
@@ -77,6 +86,20 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		$where = $this->getAdapter()->quoteInto('idUsuario = ?', $id);
 		$this->update($linha, $where);
 
+	}
+	
+	public function ativa($id){
+	
+		$sql = $this->select()->where('idUsuario = ?', $id);
+		$row = $this->fetchRow($sql);
+	
+		$linha = array(
+				'Status'=>'ativo'
+		);
+	
+		$where = $this->getAdapter()->quoteInto('idUsuario = ?', $id);
+		$this->update($linha, $where);
+	
 	}
 	
 	

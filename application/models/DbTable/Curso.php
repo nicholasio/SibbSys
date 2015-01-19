@@ -14,6 +14,14 @@ class Application_Model_DbTable_Curso extends Zend_Db_Table_Abstract{
     	
     }
     
+    public function findForSelect(){
+    	
+    	$sql = $this->select();
+    	$rows = $this->fetchAll($sql);
+    	
+    	return $rows;
+    }
+    
     
     public function editar($id){
     	
@@ -51,5 +59,20 @@ class Application_Model_DbTable_Curso extends Zend_Db_Table_Abstract{
     	return $rows;
     	
     }
+    
+    public function ativar($id){
+    	 
+    	$sql = $this->select()->where('idCurso = ?', $id);
+    	$row = $this->fetchRow($sql);
+    	 
+    	$linha = array(
+    			'Status' => 'ativo'
+    	);
+    	 
+    	$where = $this->getAdapter()->quoteInto('idCurso = ?', $id);
+    	$this->update($linha, $where);
+    	 
+    }
+    
     
 }

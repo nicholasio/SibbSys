@@ -14,15 +14,18 @@
 	<div class="page-header">
 		<h2>Lista de todos os serviços utilizados pelo usuário</h2>
 	</div>
-
+	
+	
 	<table class="table table-striped data-table">
+		
 		<thead>
+		
 		<tr>
 			<th><h5>#</h5></th>
 			<th><h5>Nome do Serviço</h5></th>
-			<th><h5>Valor do Serviço</h5></th>
-			<th><h5>Mês/Ano</h5></th>
-			<th><h5>Ação</h5></th>
+			<th style=" text-align: center;"><h5>Valor do Serviço</h5></th>
+			<th style=" text-align: center;"><h5>Mês/Ano</h5></th>
+			<th style=" text-align: center;"><h5>Ação</h5></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -32,12 +35,12 @@
 			<tr>
 				<td><strong><?php echo $lista->idUsuario_has_Servicos; ?></strong></td>
 				<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Servicos')->nome; ?></strong></td>
-				<td><strong>
-						<?php echo ' R$ ' . ' ' . $valor; ?>
+				<td style="width: 300px; text-align: center;"><strong>
+						<?php echo ' R$ ' . ' ' . number_format($valor,2,',','.'); ?>
 					</strong>
 				</td>
-				<td><?php echo $lista->mes . '/' . $lista->ano; ?></td>
-				<td>
+				<td style="width: 300px; text-align: center;"><strong><?php echo $lista->mes . '/' . $lista->ano; ?></strong></td>
+				<td style=" width: 100px; text-align: center;">
 					<a class="btn btn-warning" href="<?php echo $this->url(
 						array(
 							'controller'				=>	'usuarioservicos',
@@ -52,6 +55,8 @@
 		<?php }?>
 		</tbody>
 	</table>
-
+	
+	</div>
+	
 	<br /><br />
 </div>

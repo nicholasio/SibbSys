@@ -200,7 +200,7 @@ class Admin_ProfessorController extends AppBaseController{
     	$id = $this->_getParam('idTurma');
 
     	if ( $turma->encerrarTurma($id) ) {
-            $this->_helper->FlashMessenger->addMessage("Turma encerrada");
+            $this->_helper->FlashMessenger->addMessage("Turma encerrada com sucesso!");
         } else {
             $this->_helper->FlashMessenger->addMessage("Turma não pode ser encerrada, existem pendências associadas a essa turma.");
         }
@@ -214,7 +214,7 @@ class Admin_ProfessorController extends AppBaseController{
     	$id = $this->_getParam('idTurma');
     	
     	if ( $turma->encerrarTurma($id) ) {
-    		$this->_helper->FlashMessenger->addMessage(" Turma encerrada! ");
+    		$this->_helper->FlashMessenger->addMessage(" Turma encerrada com sucesso! ");
     	} else {
     		$this->_helper->FlashMessenger->addMessage(" Turma não pode ser encerrada, existem pendências associadas a essa turma.");
     	}

@@ -9,20 +9,20 @@
   	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><font size="3" color="black"><strong>#</strong></font></th>
-	        <th><font size="3" color="black"><strong>Igreja</strong></font></th>
-	        <th><font size="3" color="black"><strong>Pastor</strong></font></th>
-	        <th style="text-align: center;"><font size="3" color="black"><strong>Telefone</strong></font></th>
-	        <th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+	        <th style="width: 30px; text-align: center;"><font size="2" color="black"><strong>#</strong></font></th>
+	        <th><font size="2" color="black"><strong>Igreja</strong></font></th>
+	        <th style="width: 250px; text-align: center;"><font size="2" color="black"><strong>Pastor</strong></font></th>
+	        <th style="width: 150px; text-align: center;"><font size="2" color="black"><strong>Telefone</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	<?php foreach($this->rows as $lista){?>
 		<tr style="background: #EEE;">
 			<td style="width: 30px;"><strong><?php echo $lista->idIgreja; ?></strong></td>
-			<td style="width: 350px;"><strong><?php echo $lista->Igreja; ?></strong></td>
-			<td style="width: 200px;"><strong><?php echo $lista->Pastor?></strong></td>
-			<td style="width: 150px; text-align: center;">
+			<td><strong><?php echo $lista->Igreja; ?></strong></td>
+			<td style="width: 250px; text-align: center; "><strong><?php echo $lista->Pastor?></strong></td>
+			<td style="width: 150px; text-align: center; ">
 				<strong>
 					<?php if($lista->Telefone == null){
 						echo ' - ';
@@ -32,17 +32,30 @@
 					?>
 				</strong>
 			</td>
-			<td style="text-align: center;">
-				<a class="btn btn-info" href="<?php echo $this->url(
-					array(
-						'controller'	=>	'igreja',
-						'action'		=>	'detalhes',
-						'idIgreja'		=>	$lista->idIgreja
-					))?>">
-					<i class="icon-search icon-grey"></i>
-				</a>
+			<td style="text-align: center; width: 270px;">
 			
-				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
+			<a class="btn btn-default" data-toggle="modal" href="#myModal-<?php echo $lista->idIgreja; ?>"><i class="icon-search icon-grey"></i></a>
+			
+			<div id="myModal-<?php echo $lista->idIgreja; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    					<h3 id="myModalLabel">Dados Cadastrais da Igreja</h3>
+  				</div>
+  				<div class="modal-body">
+  					<div>
+						<h4 style="text-align: left;">Nome da Igreja: <span style="color:#069;"><?php echo $lista->Igreja; ?></span></h4><br/>
+						<h4 style="text-align: left;">Endereço: <span style="color:#069;"><?php echo $lista->Endereco . ', ' . $lista->Bairro; ?></span></h4><br/>
+						<h4 style="text-align: left;">CEP: <span style="color:#069;"><?php echo $lista->CEP; ?></span></h4><br/>
+						<h4 style="text-align: left;">Telefone: <span style="color:#069;"><?php echo $lista->Telefone; ?></span></h4><br/>
+						<h4 style="text-align: left;">Pastor: <span style="color:#069;"><?php echo $lista->Pastor; ?></span></h4><br/>
+					</div>
+  				</div>
+  				<div class="modal-footer">
+    				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+				</div>
+  			</div>
+			
+				<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
 						'action'		=>	'editar',
@@ -51,14 +64,26 @@
 						Editar
 				</a>
 				
+				<?php if($lista->Status == 'ativo'){?>
+				
 				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'igreja',
-						'action'		=>	'delete',
+						'action'		=>	'desativa',
 						'idIgreja'		=>	$lista->idIgreja
 					))?>">
-						Excluir	
+						Desativar Igreja
 				</a>
+				<?php }else{ ?>
+				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
+					array(
+						'controller'	=>	'igreja',
+						'action'		=>	'ativa',
+						'idIgreja'		=>	$lista->idIgreja
+					))?>">
+						Ativar Igreja
+				</a>
+				<?php } ?>
 			</td>
 		</tr>
 	<?php } ?>

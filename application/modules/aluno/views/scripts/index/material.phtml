@@ -15,9 +15,9 @@
 		<thead>
 			<tr>
 				<th><font size="3" color="black"><strong>#</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Data da Publicação</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Matérial</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Ação</strong></font></th>
+				<th style="text-align: center;"><font size="2" color="black"><strong>Data da Publicação</strong></font></th>
+				<th style="text-align: center;"><font size="2" color="black"><strong>Matérial</strong></font></th>
+				<th style="text-align: center;"><font size="2" color="black"><strong>Ação</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,14 +26,14 @@
 				<td style="width: 50px;"><strong><?php echo $lista->idArquivos; ?></strong></td>
 				<td style="width: 300px; text-align: center;"><strong><?php echo $lista->Data; ?></strong></td>
 				<td style="width: 250px; text-align: center;"><strong><?php echo $lista->Nome; ?></strong></td>
-				<td style="text-align: center;">
+				<td style="text-align: center; width: 250px;">
 					<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'index',
 							'action'		=>	'download',
 							'idArquivo'		=>	$lista->idArquivos
 						));?>">
-							Download	
+							<strong>Baixar Arquivo</strong>	
 					</a>
 				</td>
 			</tr>		

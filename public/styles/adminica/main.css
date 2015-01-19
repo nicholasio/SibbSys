@@ -1400,6 +1400,12 @@ td {
 	width: 90px;
 	font-size: 12px;
 }
+#btn-padrao{
+	width: 46px;
+	font-size: 12px;
+	text-align: center;
+}
+
 .valores{
 	margin:  0 0 0 200px;
 }

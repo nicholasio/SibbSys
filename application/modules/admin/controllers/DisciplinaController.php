@@ -15,9 +15,13 @@ class Admin_DisciplinaController extends AppBaseController{
 	
     public function indexAction(){
     	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
+    	
         $model = new Application_Model_DbTable_Disciplina();
 
-    	$this->view->rows = $model->listar();
+    	$this->view->rows = $model->findForSelect();
     	
     }
 
@@ -65,7 +69,7 @@ class Admin_DisciplinaController extends AppBaseController{
     }
     
     
-    public function deleteAction(){
+    public function desativaAction(){
     	
         $model = new Application_Model_DbTable_Disciplina();
         
@@ -73,6 +77,21 @@ class Admin_DisciplinaController extends AppBaseController{
         
         $model->deletar($id);
         
+        $this->_helper->flashMessenger->addMessage("A Disciplina foi desativada com sucesso!");
+        
         $this->_redirect("/admin/disciplina");
-    }    
+    }
+
+    public function ativaAction(){
+    	
+    	$model = new Application_Model_DbTable_Disciplina();
+    	
+    	$id = $this->_getParam('idDisciplina');
+    	
+    	$model->ativar($id);
+    	
+    	$this->_helper->flashMessenger->addMessage("A Disciplina foi ativada com sucesso!");
+    	
+    	$this->_redirect("/admin/disciplina");
+    }
 }

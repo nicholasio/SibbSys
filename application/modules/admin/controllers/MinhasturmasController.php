@@ -126,28 +126,33 @@ class Admin_MinhasTurmasController extends AppBaseController{
     
     public function boletimAction(){
     	
-    	    	$auth = Zend_Auth::getInstance();
+    	$auth = Zend_Auth::getInstance();
     	$result = $auth->getStorage()->read();
     	
     	$id = $result->idUsuario;
     	
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
+    	$configs = new Application_Model_DbTable_Configs();
     	
-    	if($this->_request->isPost()){
+    	$data = array();
+    	
+   		 if($this->_request->isPost()) {
     		
     		$data['semestre'] = $_POST['semestre'];
     		$data['ano'] = $_POST['ano'];
-    		 
-    		$ano = $data['ano'];
-    		$semestre = $data['semestre'];
-    		
-    		$this->view->data = $data;
-    	}
 
-    		$this->view->rows = $model->turmas($id);
-    		$this->view->row = $model->getTurma($id);
-    		$this->view->ano = $turma->_findAno($id);
-    		$this->view->semes = $turma->_findSemestre($id);
+    	} else {
+		    $data['semestre'] = $configs->findKey('semestre_atual');
+		    $data['ano'] = $configs->findKey('ano_atual');
+	    }
+
+	    $this->view->data = $data;
+
+    	$this->view->rows = $model->turmas($id);
+    	$this->view->row = $model->getTurma($id);
+    	$this->view->ano = $turma->_findAno($id);
+    	$this->view->semes = $turma->_findSemestre($id);
+    	
     }
 }

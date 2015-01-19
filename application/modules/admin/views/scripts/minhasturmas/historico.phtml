@@ -1,12 +1,140 @@
 <?php $this->headTitle('Histórico');?>
 
 <div class="grid_16">
+
+<?php if(! empty($this->row['Turma_idTurma'])){ ?>
+
+	<div class="container">
+		<div class="">
+			<div class="panel panel-default">
+		
+				
+				<div class="panel-body">
+				
+					<div style=" width: 750px; text-align: center; margin-left: 75px; ">
+						<div style=" width: 150px;"><img src="/images/logosibb2.gif" height="120px" width="120px" style="margin: 20px 0 0 0; "></div>
+							<div style=" width: 550px; margin: -90px 0 0px 140px;"><font size="5" color="#000"><strong>SEMINÁRIO E INSTITUTO BATISTA BEREIANO</strong></font>
+								<font size="3" color="#000;">Rua Mar do Leste, 100, Pajuçara - CEP: 59.133-380 / Natal-RN</font>
+								<p><font size="3" color="#000;">Email: <font color="blue">contato@seminariobereiano.com.br</font></font></p>
+								<p><font size="3" color="#000;">Fone: (084) 3221-2520 / 3201-0083 </font></p>
+							</div>
+						
+					<hr />
+	
+					<br />
+					
+					<div style="color:#000; font-size: 25px;">
+						<strong>Histórico Escolar</strong>
+					</div>
+					
+					<br /><br /><br />
+					
+					<div style="text-align: left; color:#000; font-size: 14px";>
+						Nome: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong></font>
+					</div>
+					
+					<br /><br /><br />
+					
+					<div style="color:#000; font-size: 13px;">
+					
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="width:350px;" >Disciplina</th>
+								<th style="width:100px; text-align: center;" >Ano/Semestre</th>
+								<th style="width:100px; text-align: center;" >Faltas</th>
+								<th style="width:100px; text-align: center;" >Média</th>
+								<th style="width:100px; text-align: center;" >Situação</th>
+							</tr>
+						</thead>
+						
+						<?php 
+	
+						$tableNota = new Application_Model_DbTable_Nota();
+						$presenca = new Application_Model_DbTable_Presenca();
+						
+						$i = 0;
+						
+						foreach($this->rows as $users){?>
+						
+						<?php 
+						$id = $users->idUsuario_has_Turma;
+						$chamada = $presenca->contaPresenca($id);
+						$media = $tableNota->media($id);
+						?>
+						
+							<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
+								<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
+								<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
+								
+								<?php if($chamada["SUM(Faltas)"] != null){?>
+										<td style="text-align: center; "><?php echo $chamada["SUM(Faltas)"]; ?></td>			
+								<?php }
+									else{?>
+							 
+										<td style="text-align: center; "><?php echo " - "; ?></td>
+					
+								<?php }?>
+								
+								<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<td style="text-align: center; ">
+									<?php switch ($users->Status){
+										case 'Aprovado':
+											echo "<span class='label label-success'>$users->Status</span>";
+											break;
+										case 'Reprovado':
+											echo "<span class='label label-important'>$users->Status</span>";
+											break;
+										case 'Cursando':
+											echo "<span class='label label-info'>$users->Status</span>";
+											break;
+									} ?>
+									
+								</td>
+								
+						<?php }?>
+											
+					
+					</table>
+					
+					<br /><br /><br /><br /><br /><br /><br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<br /><br /><br /><br /><br /><br />
+	
+	
+	<?php } else { ?>
+		<div class="page-header">
+			<div style="color: #000; font-size: 30px;">
+				<strong>Histórico.</strong>
+			</div>
+		</div>
+		
+		<br /><br />
+		
+		<div style="color: red; font-size: 20px;">
+			<strong>O Usuário não está matriculado em nenhuma turma até o momento.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } 	?>
+	
+</div>
+
+
+<!-- 
+
 	<div class="page-header">
 		<h2>Histórico Escolar</h2>
 	</div>
 	
 	<?php 
-	
+	/*
 	if(! empty($this->row['Turma_idTurma'])){
 	
 	
@@ -21,7 +149,7 @@
 				<font size="5">SEMINÁRIO E INSTITUTO BATISTA BEREIANO</font>
 				<p><font size="3">Rua Mar do Leste, 100, Pajuçara - CEP: 59.133-380 / Natal-RN</font></p>
 				<font size="3">Email: <font color="blue">contato@seminariobereiano.com.br</font></font>
-				<p><font size="3">Fone: (084) 3221-2520 / 3201-0083</font></p>
+				<p><font size="3">Fone: (084) 3221-2520</font></p>
 			</th>
 		</tr>
 	</table>
@@ -39,7 +167,6 @@
 	
 	<table border="1" cellpadding="5px" cellspacing="0" style="border-collapse: collapse;">
 		<thead>
-			<!-- <tr style="background: #BDA580; ">  -->
 			<tr>
 				<th width="150px">Disciplina</th>
 				<th width="150px">Ano/Semestre</th>
@@ -100,6 +227,7 @@
 	$mpdf->charset_in = 'utf-8';
 	
 	$mpdf->SetDisplayMode('fullpage');
+	//$mpdf->SetHeader('Seminário e Instituto Batista Bereiano - Histórico Escolar');
 	$mpdf->SetFooter('Histórico gerado no dia {DATE j/m/Y} | {PAGENO}');
 	$mpdf->WriteHTML($html);
 	
@@ -114,8 +242,8 @@
 	<?php }
 		else{
 			echo '<h4>' . 'Usuário Matricula em nenhuma Turma até o momento' . '</h4>';
-	}?>
+	} */?>
 
 	<br /><br />
-
-</div>
+	
+</div>--> 

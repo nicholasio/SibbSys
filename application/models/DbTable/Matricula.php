@@ -48,10 +48,6 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		->where('ut.idUsuario_has_Turma NOT IN (SELECT idUsuario_has_Turma from Debitos WHERE mesPagamento = '. $mesAtual .' AND idUsuario_has_Turma IS NOT NULL)');
 		$rows = $this->fetchAll($sql);
 
-		/*echo '<pre>';
-		var_dump($rows->toArray());
-		echo '</pre>';
-		die();*/
 		return $rows;
 
 	}

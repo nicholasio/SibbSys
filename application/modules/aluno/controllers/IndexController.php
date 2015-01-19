@@ -23,8 +23,14 @@ class Aluno_IndexController extends AppBaseController{
     	$auth = Zend_Auth::getInstance();
     	$data = $auth->getStorage()->read();
     	$id = $data->idUsuario;
-    	 
+    	
+    	
     	$usuario_model = new Application_Model_DbTable_Usuario();
+    	$model = new Application_Model_DbTable_Matricula();
+    	$fileTable = new Application_Model_DbTable_Arquivos();
+    	 
+    	$this->view->rows = $model->turmas($id);
+    	$this->view->file = $fileTable->findForSelect();
     	 
     	$this->view->usuario = $usuario_model->getUser($id);
     }

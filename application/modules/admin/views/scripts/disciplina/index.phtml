@@ -1,4 +1,4 @@
-<?php $this->headTitle('Listagme de Disciplinas'); ?>
+<?php $this->headTitle('Listagem de Disciplinas'); ?>
 
 <div class="grid_16">
   	<div class="page-header">
@@ -9,41 +9,57 @@
   	<table class="table table-striped data-table" style="margin-bottom:0;">
 	    <thead>
 	      <tr>
-	        <th><font size="3" color="black"><strong>#</strong></font></th>
-	        <th><font size="3" color="black"><strong>Disciplina</strong></font></th>
-	        <th style="text-align: center;"><font size="3" color="black"><strong>Qtd. Créditos</strong></font></th>
-	        <th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+	        <th><font size="2" color="black"><strong>#</strong></font></th>
+	        <th><font size="2" color="black"><strong>Disciplina</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Qtd. Créditos</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
-<?php foreach ($this->rows as $lista) { ?>
-	<tr style="background: #EEE;">
-		<td style="width: 50px;"><strong><?php echo $lista->idDisciplina; ?></strong></td>
-		<td style="width: 350px;"><strong><?php echo $lista->Disciplina; ?></strong></td>
-		<td style="width: 100px; text-align: center;"><strong><?php echo $lista->QntdCred; ?></strong></td>
-		<td  style="text-align: center;">
-			<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
-				array(
-					'controller'=>'disciplina',
-					'action'	=>'editar',
-					'idDisciplina'	=>$lista->idDisciplina
-				));?>">
-					Editar
-			</a>
+		<?php foreach ($this->rows as $lista) { ?>
+			<tr style="background: #EEE;">
+				<td style="width: 50px;"><strong><?php echo $lista->idDisciplina; ?></strong></td>
+				<td><strong><?php echo $lista->Disciplina; ?></strong></td>
+				<td style="width: 250px; text-align: center;"><strong><?php echo $lista->QntdCred; ?></strong></td>
+				<td style="text-align: center; width: 300px;">
+					<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
+						array(
+							'controller'=>'disciplina',
+							'action'	=>'editar',
+							'idDisciplina'	=>$lista->idDisciplina
+						));?>">
+							Editar
+					</a>
+					
+					<?php if($lista->Status == 'ativo'){?>
+					
+					<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
+						array(
+							'controller'=>'disciplina',
+							'action'	=>'desativa',
+							'idDisciplina'	=>$lista->idDisciplina
+						));?>">
+							Desativar
+					</a>
+					
+					<?php } else { ?>
+					
+					<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
+						array(
+							'controller'=>'disciplina',
+							'action'	=>'ativa',
+							'idDisciplina'	=>$lista->idDisciplina
+						));?>">
+							Ativar Disciplina
+					</a>
+					
+					<?php } ?>
+					
+				</td>
+			</tr>
 			
-			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
-				array(
-					'controller'=>'disciplina',
-					'action'	=>'delete',
-					'idDisciplina'	=>$lista->idDisciplina
-				));?>">
-					Excluir
-			</a>		
-		</td>
-	</tr>
-	
-<?php }?> <!-- fim foreach -->
-</table>
+		<?php }?> <!-- fim foreach -->
+	</table>
 
 	<br /><br />
 </div>

@@ -8,7 +8,6 @@
 	</div>
 
 
-
 	<div class="row">
 		<div class="span12">
 
@@ -42,14 +41,14 @@
 		<thead>
 			<tr>
 				<th><h5><strong>#</strong></h5></th>
-				<th style="text-align: center;"><h5>Aluno</h5></th>
+				<th style="text-align: left;"><h5>Aluno</h5></th>
 				<th style="text-align: center;"><h5>Mês/Ano</h5></th>
 				<th style="text-align: center;"><h5>Qtd Débitos</h5></th>
 				<th style="text-align: center;"><h5>Valor</h5></th>
 				<th style="text-align: center;"><h5>Desconto na Fatura</h5></th>
 				<th style="text-align: center;"><h5>A pagar</h5></th>
 				<th style="text-align: center;"><h5>Status</h5></th>
-				<th><h5>Ações</h5></th>
+				<th style="text-align: center;"><h5>Ações</h5></th>
 
 			</tr>
 		</thead>
@@ -57,7 +56,7 @@
 		<tbody>
 	<?php foreach ($this->rows as $fatura){ ?>
 		<tr>
-			<td style="text-align: center;">
+			<td style="text-align: center; width: 10px;">
 				<strong><?php echo $fatura['idFatura']; ?></strong>
 				<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
 					<div class="modal-header">
@@ -113,15 +112,15 @@
 					</div>
 				</div>
 			</td>
-			<td style="width: 90px; text-align: center; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
-			<td style="width: 30px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-			<td style="width: 10px; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
+			<td style="text-align: left; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
+			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+			<td style="width: 20px; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
 
-			<td style="width: 55px; text-align: center; "><strong>R$ <?php
+			<td style="width: 65px; text-align: center; "><strong>R$ <?php
 					$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
 					echo number_format($valor,2);
 					?></strong></td>
-			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
+			<td style="width: 30px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
 			<td style="width: 55px; text-align: center; "><strong>R$ <?php echo number_format($valor - $valor_total_pagamentos,2); ?></strong></td>
 			<td style="width: 30px; text-align: center; ">
 				<strong>
@@ -136,8 +135,8 @@
 					<?php endif; ?>
 				</strong>
 			</td>
-			<td>
-				<a style="color: black;" class="btn btn-info" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
+			<td  style="width: 480px;">
+				<a style=" width: 67px; color: black;" class="btn btn-info" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
 					Detalhamento
 				</a>
 				<?php if ( ! $pago ) : ?>
@@ -145,7 +144,7 @@
 				<?php endif; ?>
 				<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Ver Pagamentos</a>
 				<?php if ( $valor_total_pagamentos == 0 ) :?>
-					<a class="btn btn-primary" href="<?php echo $this->url(
+					<a style="width: 27px;" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'editar',
@@ -154,7 +153,7 @@
 							Editar
 					</a>
 
-					<a class="btn btn-warning" href="<?php echo $this->url(
+					<a style="width: 27px;" class="btn btn-warning" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'delete',
@@ -163,7 +162,7 @@
 							Excluir
 					</a>
 				<?php endif; ?>
-					<a class="btn btn-success" href="<?php echo $this->url(
+					<a style="width: 18px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'download',

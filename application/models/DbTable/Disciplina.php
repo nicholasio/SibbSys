@@ -23,19 +23,12 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function autoComplete(){
+	public function findForSelect(){
 		
-		$sql = $this->select();//->where('Disciplina LIKE ?', "%$query%");
+		$sql = $this->select();
+		$rows = $this->fetchAll($sql);
 		
-		$row = $this->fetchAll($sql);
-		
-		foreach($row as $dados){
-			$array[] = $dados['Disciplina'];
-		}
-		
-		return $array;
-	//echo  Zend_Json::encode($array, false, array('enableJsonExprFinder' => true));
-
+		return $rows;
 	}
 	
 	
@@ -61,6 +54,21 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 		$this->update($linha, $where);
 
 	}
+	
+	public function ativar($id){
+	
+		$sql = $this->select()->where('idDisciplina = ?', $id);
+		$row = $this->fetchRow($sql);
+	
+		$linha = array(
+				'Status' =>	'ativo'
+		);
+	
+		$where = $this->getAdapter()->quoteInto('idDisciplina = ?', $id);
+		$this->update($linha, $where);
+	
+	}
+	
 	
 	public function listar(){
 	

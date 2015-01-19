@@ -37,42 +37,61 @@
   	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><font size="3" color="black"><strong>#</strong></font></th>
-	        <th><font size="3" color="black"><strong>Nome</strong></font></th>
-	        <th style="padding-left: 50px"><font size="3" color="black"><strong>Turma</strong></font></th>
-	        <th><font size="3" color="black"><strong>Professor</strong></font></th>
-	        <th style="padding-left: 20px"><font size="3" color="black"><strong>Ações</strong></font></th>
+	        <th style="width: 30px; text-align: center;"><font size="2" color="black"><strong>#</strong></font></th>
+	        <th><font size="2" color="black"><strong>Nome</strong></font></th>
+	        <th style="padding-left: 50px"><font size="2" color="black"><strong>Turma</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Professor</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Status</strong></font></th>
+	        <th style=" text-align: center; "><font size="2" color="black"><strong>Ação</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
-<?php foreach ($this->rows as $lista) { ?>
-	<tr style="background: #EEE;">
-		<td style="width: 50px;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
-		<td style="width: 250px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-		<td style="width: 300px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
+		<?php foreach ($this->rows as $lista) { ?>
+		<tr style="background: #EEE;">
+			<td style="width: 30px; text-align: center;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
+			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
+			<td style="width: 250px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
-		<td style="width: 250px;"><strong>					
-		<?php foreach ($this->prof as $prof){?>
-				<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
-						 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
-						<?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
+			<td style="width: 200px; text-align: center;"><strong>					
+				<?php foreach ($this->prof as $prof){?>
+					<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
+							 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
+							<?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
 										 
-				<?php }?> <!-- fim if -->
+					<?php }?> <!-- fim if -->
 			
-		<?php }?> <!-- fim foreach -->
+				<?php }?> <!-- fim foreach -->
 		</strong></td>
-		<td>
-			<a style="width: 50px; font-size: 12px;" class="btn btn-danger" href="<?php echo $this->url(
+		<td style="width: 100px; text-align: center;"><strong>
+		
+		<?php switch($lista->Status){
+				case 'Aprovado':
+					echo "<span class='label label-success'>$lista->Status</span>";
+					break;
+				case 'Reprovado':
+					echo "<span class='label label-important'>$lista->Status</span>";
+					break;
+				case 'Cursando':
+					echo "<span class='label label-info'>$lista->Status</span>";
+					break;
+			} ?>
+		
+		</strong></td>
+		
+		<td  style="width: 200px; text-align: center;">
+		
+			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 				array(
 					'controller'			=>	'matricula',
 					'action'				=>	'delete',
 					'idUsuario_has_Turma'	=>	$lista->idUsuario_has_Turma
 				));
-			?>">Excluir</a>
+				?>">Excluir
+			</a>
 		</td>
 	</tr>
-	
+</tbody>
 <?php }?> <!-- fim foreach -->
 </table>
 

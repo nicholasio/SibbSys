@@ -14,10 +14,14 @@ class Admin_CursoController extends AppBaseController{
 	
 	
     public function indexAction(){
+    	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
         
     	$model = new Application_Model_DbTable_Curso();
     	
-    	$this->view->rows = $model->listar();
+    	$this->view->rows = $model->findForSelect();
     }
 
     
@@ -74,7 +78,7 @@ class Admin_CursoController extends AppBaseController{
     }
     
     
-    public function deleteAction(){
+    public function desativaAction(){
     
     	$model = new Application_Model_DbTable_Curso();
     	
@@ -82,6 +86,21 @@ class Admin_CursoController extends AppBaseController{
     	
     	$model->deletar($id);
     	
+    	$this->_helper->flashMessenger->addMessage("O Curso foi desativado com sucesso!");
+    	
+    	$this->_redirect("/admin/curso");
+    }
+    
+    public function ativaAction(){
+    	
+    	$model = new Application_Model_DbTable_Curso();
+    	 
+    	$id = $this->_getParam('idCurso');
+    	 
+    	$model->ativar($id);
+    	 
+    	$this->_helper->flashMessenger->addMessage("O Curso foi ativado com sucesso!");
+    	 
     	$this->_redirect("/admin/curso");
     }
 }

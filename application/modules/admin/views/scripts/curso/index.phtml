@@ -10,50 +10,77 @@
   	<table class="table table-striped data-table">
 	    <thead>
 	      <tr>
-	        <th><font size="3" color="black"><strong>#</strong></font></th>
-	        <th><font size="3" color="black"><strong>Curso</strong></font></th>
-	        <th style="text-align: center;"><font size="3" color="black"><strong>Duração</strong></font></th>
-	        <th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+	        <th><font size="2" color="black"><strong>#</strong></font></th>
+	        <th><font size="2" color="black"><strong>Curso</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Duração</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
 	      </tr>
 	    </thead>
 	    <tbody>
-<?php foreach ($this->rows as $lista) { ?>
-	<tr style="background: #EEE;">
-		<td style="width: 50px;"><strong><?php echo $lista->idCurso; ?></strong></td>
-		<td style="width: 300px;"><strong><?php echo $lista->Nome; ?></strong></td>
-		<td style="width: 300px; text-align: center;"><strong><?php echo $lista->Duracao; ?></strong></td>
-		<td style="text-align: center;">
-			<a class="btn btn-info" href="<?php echo $this->url(
-				array(
-					'controller'	=>	'curso',
-					'action'		=>	'detalhes',
-					'idCurso'		=>	$lista->idCurso	
-				))?>">
-					<i class="icon-search icon-grey"></i>
-			</a>
-				
-			<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
-				array(
-					'controller'=>'curso',
-					'action'	=>'editar',
-					'idCurso'	=>$lista->idCurso
-				));?>">
-					Editar
-			</a>
+		<?php foreach ($this->rows as $lista) { ?>
+		<tr style="background: #EEE;">
+			<td style="width: 50px;"><strong><?php echo $lista->idCurso; ?></strong></td>
+			<td><strong><?php echo $lista->Nome; ?></strong></td>
+			<td style="width: 300px; text-align: center;"><strong><?php echo $lista->Duracao; ?></strong></td>
+			<td style="text-align: center; width: 300px">
 			
-			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
-				array(
-					'controller'=>'curso',
-					'action'	=>'delete',
-					'idCurso'	=>$lista->idCurso
-				));?>">
-					Excluir
-			</a>		
-		</td>
-	</tr>
+			<a class="btn btn-default" data-toggle="modal" href="#myModal-<?php echo $lista->idCurso; ?>"><i class="icon-search icon-grey"></i></a>
+			
+			<div id="myModal-<?php echo $lista->idCurso; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    					<h3 id="myModalLabel">Dados Cadastrais do Curso</h3>
+  				</div>
+  				<div class="modal-body">
+  					<div>
+  						<h4 style="text-align: left;">Nome do Curso: <span style="color:#069;"><?php echo $lista->Nome; ?></span></h4><br/>
+						<h4 style="text-align: left;">Duração do Curso: <span style="color:#069;"><?php echo $lista->Duracao; ?></span></h4><br/>
+						<h4 style="text-align: left;">Descrição do Curso: <span style="color:#069;"><?php echo $lista->Descricao; ?></span></h4><br/>
+  					</div>
+  				</div>
+  				<div class="modal-footer">
+    				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+				</div>
+  			</div>
+		
+				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
+					array(
+						'controller'=>'curso',
+						'action'	=>'editar',
+						'idCurso'	=>$lista->idCurso
+					));?>">
+						Editar
+				</a>
+				
+				<?php if($lista->Status == 'ativo'){?>
+				
+				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
+					array(
+						'controller'=>'curso',
+						'action'	=>'desativa',
+						'idCurso'	=>$lista->idCurso
+					));?>">
+						Desativar Curso
+				</a>
+				
+				<?php } else {?>
+				
+				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
+					array(
+						'controller'=>'curso',
+						'action'	=>'ativa',
+						'idCurso'	=>$lista->idCurso
+					));?>">
+						Ativar Curso
+				</a>
+				
+				<?php  } ?>
+				
+			</td>
+		</tr>
 	
-<?php }?> <!-- fim foreach -->
-</table>
+	<?php }?> <!-- fim foreach -->
+	</table>
 	<br /><br />
 	
 </div>

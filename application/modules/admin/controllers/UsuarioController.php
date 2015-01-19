@@ -15,9 +15,13 @@ class Admin_UsuarioController extends AppBaseController{
 	
 	public function indexAction() {
 		
+		if ($this->_helper->FlashMessenger->hasMessages()) {
+			$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+		}
+		
 		$model = new Application_Model_DbTable_Usuario();
     	
-    	$this->view->rows = $model->listar();
+    	$this->view->rows = $model->selectPadrao();
     	
     }
 
@@ -67,7 +71,7 @@ class Admin_UsuarioController extends AppBaseController{
     	}
     }
     
-    public function deleteAction(){
+    public function desativaAction(){
         
         $model = new Application_Model_DbTable_Usuario();    	
     	$id = $this->_getParam('idUsuario');
@@ -77,13 +81,31 @@ class Admin_UsuarioController extends AppBaseController{
     	
     	if($data->idUsuario == $id){
     		
+    		$this->_helper->flashMessenger->addMessage("Você não pode desativar você mesmo!");
+    		
     		$this->_redirect("/admin/usuario");
     		
     	} else{
     		
     		$model->deletar($id);
-    		 
+    		
+    		$this->_helper->flashMessenger->addMessage("O Usuário foi desativado com sucesso!");
+    		
     		$this->_redirect("/admin/usuario");
     	}
     }
+    
+    public function ativaAction(){
+    
+    	$model = new Application_Model_DbTable_Usuario();
+    	$id = $this->_getParam('idUsuario');
+    
+   		$model->ativa($id);
+    
+   		$this->_helper->flashMessenger->addMessage("O Usuário foi ativado com sucesso!");
+    
+    	$this->_redirect("/admin/usuario");
+    	
+    }
+    
 }

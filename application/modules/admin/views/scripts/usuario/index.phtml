@@ -5,21 +5,21 @@
 	    </h1>
   	</div>
 
+  	<div>
 	<table class="table table-striped data-table">
 		<thead>
 			<tr>
-				<th><font size="3" color="black"><strong>Usuário</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Tipo</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Telefone</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Igreja</strong></font></th>
-				<th style="text-align: center;"><font size="3" color="black"><strong>Ações</strong></font></th>
+				<th><font size="2" color="black"><strong>Usuário</strong></font></th>
+				<th style="text-align: center;"><font size="2" color="black"><strong>Tipo</strong></font></th>
+				<th style="text-align: center;"><font size="2" color="black"><strong>Igreja</strong></font></th>
+				<th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
 			</tr>
 		</thead>
 		<tbody>
 	<?php foreach ($this->rows as $lista){?>
 		<tr style="background: #EEE;">
-			<td style="width: 175px;"><strong><?php echo $lista->Nome; ?></strong></td>
-			<td style="width: 50px; text-align: center;"><strong>
+			<td><strong><?php echo $lista->Nome; ?></strong></td>
+			<td style="width: 80px; text-align: center;"><strong>
 				<?php switch ($lista->Tipo) {
 					case 1:
 						echo "Admin";
@@ -32,9 +32,8 @@
 						break;
 				} ?>
 			</strong></td>
-			<td style="width: 70px; text-align:center;"><strong><?php echo $lista->Telefone; ?></strong></td>
-			<td style="width: 202px; text-align:center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
-			<td><a class="btn btn-default" data-toggle="modal" href="#myModal-<?php echo $lista->idUsuario; ?>"><i class="icon-search icon-grey"></i></a>
+			<td style="width: 230px; text-align:center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
+			<td  style="width: 490px; text-align: center;"><a class="btn btn-info" data-toggle="modal" href="#myModal-<?php echo $lista->idUsuario; ?>"><i class="icon-search icon-grey"></i></a>
 			
 			<div id="myModal-<?php echo $lista->idUsuario; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-header">
@@ -76,7 +75,7 @@
 			</div>
 			
 			
-				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
+				<a id="btn-padrao" class="btn btn-inverse" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'historico',
 						'action'		=>	'usuario',
@@ -86,7 +85,7 @@
 						Histórico
 				</a>
 				
-				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
+				<a id="btn-padrao" class="btn btn-default" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuarioservicos',
 						'action'		=>	'index',
@@ -96,15 +95,15 @@
 
 				</a>
 
-				<a id="btn-admin" class="btn btn-inverse" href="/admin/debitos?aluno=<?php echo $lista->idUsuario; ?>">
+				<a id="btn-padrao" class="btn btn-warning" href="/admin/debitos?aluno=<?php echo $lista->idUsuario; ?>">
 					Débitos
 				</a>
 
-				<a style="color:black;" id="btn-admin" class="btn btn-info" href="/admin/faturas?aluno=<?php echo $lista->idUsuario; ?>">
+				<a style="color:black;" id="btn-padrao" class="btn btn-info" href="/admin/faturas?aluno=<?php echo $lista->idUsuario; ?>">
 					Faturas
 				</a>
 
-				<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
+				<a id="btn-padrao" class="btn btn-primary" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuario',
 						'action'		=>	'editar',
@@ -112,20 +111,39 @@
 					));?>">
 					Editar
 				</a>
-				<a id="btn-admin" class="btn btn-warning" href="<?php echo $this->url(
+				
+				<?php if($lista->Status == 'ativo'){?>
+				
+				<a id="btn-padrao" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller'	=>	'usuario',
-						'action'		=>	'delete',
+						'action'		=>	'desativa',
 						'idUsuario'		=>	$lista->idUsuario
 					));?>">
-					Excluir
-				</a></td>
+					Desativar
+				</a>
+				
+				<?php } else { ?>
+				
+				<a id="btn-padrao" class="btn btn-success" href="<?php echo $this->url(
+					array(
+						'controller'	=>	'usuario',
+						'action'		=>	'ativa',
+						'idUsuario'		=>	$lista->idUsuario
+					));?>">
+					Ativar
+				</a>
+				
+				<?php } ?>
+			
+			</td>
 		</tr>
 	
 <?php }  ?>
 		
 	</tbody>
 	</table>
+	
 
 	<br /><br />
 </div>

@@ -31,4 +31,16 @@ class Admin_HistoricoController extends AppBaseController{
     	$this->view->rows = $model->turmas($id);
     	$this->view->row = $model->getTurma($id);
     }
+    
+    
+    public function historicoBaixarAction(){
+    
+    	$id = $this->_getParam('idUsuario');
+    	 
+    	$model = new Application_Model_DbTable_Matricula();
+    	 
+    	$this->view->rows = $model->turmas($id);
+    	$this->view->row = $model->getTurma($id);
+    	
+    }
 }
