@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `Arquivos`
 --
-/*
+
 CREATE TABLE IF NOT EXISTS `Arquivos` (
   `idArquivos` int(11) NOT NULL AUTO_INCREMENT,
   `Arquivo` text NOT NULL,
@@ -70,25 +70,6 @@ INSERT INTO `Configs` (`idConfigs`, `Meta_Key`, `Meta_Value`) VALUES
 (0, 'dia_fatura', '2'),
 (0, 'ano_atual', '2015'),
 (0, 'semestre_atual', '1');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `Credito`
---
-
-CREATE TABLE IF NOT EXISTS `Credito` (
-  `idCredito` int(11) NOT NULL,
-  `ValorCred` float NOT NULL,
-  PRIMARY KEY (`idCredito`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `Credito`
---
-
-INSERT INTO `Credito` (`idCredito`, `ValorCred`) VALUES
-(1, 16.5);
 
 -- --------------------------------------------------------
 
@@ -184,7 +165,7 @@ INSERT INTO `Disciplina` (`idDisciplina`, `Disciplina`, `QntdCred`, `Status`, `C
 (14, 'Hebraico I', '2', 'ativo', 1);
 
 -- --------------------------------------------------------
-*/
+
 --
 -- Estrutura da tabela `Faturas`
 --
@@ -244,7 +225,7 @@ INSERT INTO `Faturas_has_Debitos` (`idFatura_has_Debitos`, `Faturas_idFatura`, `
 (20, 8, 40);
 
 -- --------------------------------------------------------
-/*
+
 --
 -- Estrutura da tabela `Igreja`
 --
@@ -273,7 +254,7 @@ INSERT INTO `Igreja` (`idIgreja`, `Igreja`, `Endereco`, `Bairro`, `CEP`, `Telefo
 (5, 'Batista Fundamentalista de Santo Antonio', 'Santo Antonio do Salto da Onça', 'Santo Antonio', '59.600-000', '84 0000-0000', 'Pr. Almir', 'ativo');
 
 -- --------------------------------------------------------
-*/
+
 --
 -- Estrutura da tabela `Nota`
 --
@@ -309,7 +290,7 @@ INSERT INTO `Nota` (`idNota`, `Unit1`, `Unit2`, `Unit3`, `idUsuario_has_Turma`, 
 (12, '6', '7', '8', 43, 16);
 
 -- --------------------------------------------------------
-/*
+
 --
 -- Estrutura da tabela `Pagamento`
 --
@@ -336,7 +317,7 @@ INSERT INTO `Pagamento` (`idPagamento`, `valorPagamento`, `dataPagamento`, `Fatu
 (13, 33, '2015-01-12 00:00:00', 9, 'Seminarista não tinha todo o dinheiro, ficou de pagar até o final do mês.');
 
 -- --------------------------------------------------------
-*/
+
 --
 -- Estrutura da tabela `Presenca`
 --
@@ -370,7 +351,7 @@ INSERT INTO `Presenca` (`idPresenca`, `Data`, `Faltas`, `idUsuario_has_Turma`, `
 (17, '21/12/2014', '2', 33, 3);
 
 -- --------------------------------------------------------
-/*
+
 --
 -- Estrutura da tabela `Servicos`
 --
@@ -392,7 +373,7 @@ INSERT INTO `Servicos` (`idServicos`, `nome`, `descricao`, `valor`) VALUES
 (2, 'Xerox', 'Xerox (Valor precisa ser atualizado na hora de atribuir ao usuário)', 0.1);
 
 -- --------------------------------------------------------
-*/
+
 --
 -- Estrutura da tabela `Turma`
 --

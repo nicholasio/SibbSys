@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="#" style="">Sistema Acadêmico - SibbSys</a>
+      <a class="brand" href="#" style="">SIBB Acadêmico</a>
       <ul class="nav pull-right">
 
         <li class="divider-vertical"></li>
@@ -15,7 +15,7 @@
         </li>
         <li class="divider-vertical"></li>
         <li>
-          <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>">Logout</a>
+          <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>">Sair</a>
         </li>
       </ul>
      </div>
