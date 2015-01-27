@@ -38,12 +38,5 @@ class Application_Form_Disciplina extends Zend_Form{
         		'value' => 'ativo'
         ));
         
-        $model = new Application_Model_DbTable_Credito();
-        $list = $model->lista();
-        
-        $this->addElement('hidden','Credito_idCredito',
-        	array(
-        		'value' => $list['idCredito']	
-        ));
 	}
 }
