@@ -28,6 +28,7 @@
 				<td style="text-align: center; width: 450px; ">
 					<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 						array(
+							'module'		=>	'admin',
 							'controller'	=>	'professor',
 							'action'		=>	'nota',
 							'idTurma'		=>	$lista->idTurma	
@@ -37,6 +38,7 @@
 							
 					<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
 							array(
+								'module'		=>	'admin',
 								'controller'	=>	'professor',
 								'action'		=>	'presenca',
 								'idTurma'		=>	$lista->idTurma
@@ -46,6 +48,7 @@
 						
 						<a id="btn-turma" class="btn" href="<?php echo $this->url(
 							array(
+								'module'		=>	'admin',
 								'controller'	=>	'arquivo',
 								'action'		=>	'index',
 								'idTurma'		=>	$lista->idTurma
@@ -55,6 +58,7 @@
 						
 						<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
 							array(
+								'module'		=>	'admin',
 								'controller'	=>	'professor',
 								'action'		=>	'encerrar-turma',
 								'idTurma'		=>	$lista->idTurma
@@ -75,7 +79,4 @@
 		}?>
 		
 		<br /><br /><br />
-</div>
-	
-	
 </div>

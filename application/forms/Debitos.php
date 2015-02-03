@@ -37,7 +37,7 @@ class Application_Form_Debitos extends Zend_Form{
 		$submit = new Zend_Form_Element_Submit('Cadastrar', array('class'=>'btn btn-success'));
 		
 		$this->addElements(array(
-			$mes, $ano, $desconto,
+			$mes, $ano,
 		));
 		
 		$this->setElementDecorators(array(

@@ -66,26 +66,39 @@
 					<div class="modal-body">
 						<table class="table table-striped">
 							<tr>
-								<th>#</th>
-								<th>Valor</th>
-								<th>Data</th>
-								<th>Observações</th>
-								<th>Ações</th>
+								<th style="width: 10px; text-align: left;">#</th>
+								<th style="text-align: center;">Valor Pago</th>
+								<th style="text-align: center;">Data</th>
+								<th style="text-align: center;">Valor Restante</th>
+								<th style="text-align: center;">Observações</th>
+								<th style="text-align: center;">Ações</th>
 							</tr>
 							<tbody>
 							<?php
 							$valor_total_pagamentos = 0;
+							$total_restante = 0;
 							$pagamentos_model = new Application_Model_DbTable_Pagamento();
 							$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
 							foreach($pagamentos as $pagamento) : ?>
 								<tr>
-									<td><?php echo $pagamento->idPagamento; ; ?></td>
-									<td>
-										R$ <?php echo number_format($pagamento->valorPagamento,2); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
+									<td style="width: 10px; text-align: left;"><?php echo $pagamento->idPagamento; ; ?></td>
+									<td style="width: 60px; text-align: center;">
+										R$ <?php echo number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 									</td>
-									<td><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
-									<td><?php echo $pagamento->Descricao; ?></td>
-									<td>
+									<td style="width: 30px; text-align: center;"><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
+									<td style="width: 90px; text-align: center;"><?php $total_fatura = $fatura['valorFatura'] - ($fatura['valorFatura'] * $fatura['desconto']/100); ?>
+									 
+											<?php $valor_restante = $total_fatura - $pagamento->valorPagamento;?>
+											
+											<?php if($valor_total_pagamentos == $total_fatura ){ ?>
+												<span class="label label-success"><strong>Pago</strong></span>
+											<?php } else { ?>
+											<span class="label label-important"> R$ <?php echo number_format($valor_restante,2,',','.')?></span>
+											<?php } ?>
+											
+									</td>
+									<td style="text-align: center;"><?php echo $pagamento->Descricao; ?></td>
+									<td style="width: 30px; text-align: center;">
 										<a class="btn btn-warning" href="<?php echo $this->url(
 											array(
 												'controller'	=>	'pagamento',
@@ -97,10 +110,11 @@
 										</a>
 									</td>
 								</tr>
+								
 							<?php endforeach; ?>
 							<tr>
 								<td><strong>Total:</strong></td>
-								<td><strong>R$ <?php echo number_format($valor_total_pagamentos, 2); ?></strong></td>
+								<td><strong>R$ <?php echo number_format($valor_total_pagamentos,2,',','.'); ?></strong></td>
 								<td></td>
 								<td></td>
 							</tr>
@@ -113,16 +127,17 @@
 				</div>
 			</td>
 			<td style="text-align: left; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
-			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-			<td style="width: 20px; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
+			<td style="width: 10px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+			<td style="width: 10px; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
 
 			<td style="width: 65px; text-align: center; "><strong>R$ <?php
-					$valor = $fatura['valorFatura'] -  ($fatura['valorFatura'] *  $fatura['desconto']/100);
-					echo number_format($valor,2);
+					//echo $fatura['valorFatura'] * $fatura['desconto']/100;
+					$valor = $fatura['valorFatura'];
+					echo number_format($valor,2,',','.');
 					?></strong></td>
-			<td style="width: 30px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
-			<td style="width: 55px; text-align: center; "><strong>R$ <?php echo number_format($valor - $valor_total_pagamentos,2); ?></strong></td>
-			<td style="width: 30px; text-align: center; ">
+			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
+			<td style="width: 55px; text-align: center; "><strong>R$ <?php $total_apagar = $valor - ($valor * $fatura['desconto']/100); echo number_format($total_apagar,2,',','.'); ?></strong></td>
+			<td style="width: 10px; text-align: center; font-size: 10px;">
 				<strong>
 					<?php
 						$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
@@ -135,34 +150,34 @@
 					<?php endif; ?>
 				</strong>
 			</td>
-			<td  style="width: 480px;">
-				<a style=" width: 67px; color: black;" class="btn btn-info" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
-					Detalhamento
+			<td  style="width: 466px;">
+				<a style=" width: 63px; color: black; font-size:10px;" class="btn btn-info" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
+					<strong>Detalhamento</strong>
 				</a>
 				<?php if ( ! $pago ) : ?>
-					<a class="btn btn-inverse" data-toggle="modal" href="#fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>">Efetuar Pagamento</a>
+					<a style="font-size: 10px; width:93px;" class="btn btn-inverse" data-toggle="modal" href="#fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>"><strong>Efetuar Pagamento</strong></a>
 				<?php endif; ?>
-				<a class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Ver Pagamentos</a>
+				<a style="font-size: 10px; width: 81px;" class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>"><strong>Ver Pagamentos</strong></a>
 				<?php if ( $valor_total_pagamentos == 0 ) :?>
-					<a style="width: 27px;" class="btn btn-primary" href="<?php echo $this->url(
+					<a style="font-size:10px; width:25px;" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'editar',
 							'idFaturas'		=>	$fatura['idFatura']
 						));?>">
-							Editar
+							<strong>Editar</strong>
 					</a>
 
-					<a style="width: 27px;" class="btn btn-warning" href="<?php echo $this->url(
+					<a style="font-size:10px; width:29px;" class="btn btn-warning" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'delete',
 							'idFaturas'		=>	$fatura['idFatura']
 						));?>">
-							Excluir
+							<strong>Excluir</strong>
 					</a>
 				<?php endif; ?>
-					<a style="width: 18px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
+					<a style="width: 15px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'download',
@@ -229,6 +244,10 @@
 					</div>
 					<form action="/admin/pagamento/addpagamento" class="form-horizontal" method="POST">
 						<div class="modal-body">
+							
+							<p style="text-align: center;"><strong><?php if($valor_pendente == $fatura['valorFatura']){ echo 'Valor da Fatura: ' . 'R$ ' . number_format($total_apagar,2,',','.'); } else{ echo 'Valor Pendente da Fatura: ' . number_format($valor_restante,2,',','.'); }?></strong><p>
+							
+							<hr />
 							<div class="control-group">
 								<label class="control-label" for="data">Data: </label>
 								<div class="controls">

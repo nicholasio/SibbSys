@@ -1,43 +1,44 @@
 <?php $this->headTitle('Boletim'); ?>
 
 <div class="grid_16">
+
+	<?php if(! empty($this->row['Turma_idTurma'])){ ?>
+
 	<div class="page-header">
 		<h2>Boletim</h2>
 	</div>
-	<?php if($this->row != null){?>
-<br />	
+	<br />	
 
-		<form action="/admin/minhasturmas/boletim" method="post" id="boletim">
+	<form action="/admin/minhasturmas/boletim" method="post" id="boletim">
 	
-			<select name="semestre">
-				<?php foreach($this->semes as $semes){?>
-					<option value="<?php echo $semes->Semestre;?>"><?php echo $semes->Semestre; ?></option>
-				<?php }?>
-			</select>
+		<select name="semestre">
+			<?php foreach($this->semes as $semes){?>
+				<option value="<?php echo $semes->Semestre;?>"><?php echo $semes->Semestre; ?></option>				<?php }?>
+		</select>
 		
-			<select name="ano">
-				<?php foreach($this->ano as $ano){?>
-					<option value="<?php echo $ano->Ano; ?>"><?php echo $ano->Ano; ?></option>
-				<?php }?>
-			</select>
+		<select name="ano">
+			<?php foreach($this->ano as $ano){?>
+				<option value="<?php echo $ano->Ano; ?>"><?php echo $ano->Ano; ?></option>
+			<?php }?>
+		</select>
+	
+		<input type="submit" value="Exibir" class="btn btn-danger"/>
+	
+	</form>
+	<br />
+
+		<?php if($this->data != null){?>
+			<h4><?php echo $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
+		<?php }?>
 		
-			<input type="submit" value="Exibir" class="btn btn-danger"/>
+		<br /><br />
 		
-		</form>
-<br />
-
-<?php if($this->data != null){?>
-	<h4><?php echo $this->data['ano'] . '/' . $this->data['semestre'];?></h4>
-<?php }?>
-
-<br /><br />
-
-<?php
-	$nota = new Application_Model_DbTable_Nota();
-	$presenca = new Application_Model_DbTable_Presenca();
-	$model = new Application_Model_DbTable_Matricula();
-	$tableTurma = new Application_Model_DbTable_Turma();
-?>
+		<?php
+			$nota = new Application_Model_DbTable_Nota();
+			$presenca = new Application_Model_DbTable_Presenca();
+			$model = new Application_Model_DbTable_Matricula();
+			$tableTurma = new Application_Model_DbTable_Turma();
+		?>
 	
 		<div class="toggle_container">
 			<div class="block">
@@ -70,60 +71,95 @@
 								
 								if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
 									$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $periodo['Semestre']){?>
-							<tr>
-								<td>
-									<strong>										
-										<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
-									</strong>
-								</td>
-								<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
-                                <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
-                                <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->
-                                <td style="text-align: center;"><strong>
-								<?php
-									if(! empty($conta["SUM(Faltas)"])){
-										echo $conta["SUM(Faltas)"];
-									}else{
-										echo ' - ';
-									}
-								?>
-								</strong></td><!-- Faltas -->
+								<tr>
+									<td>
+										<strong>										
+											<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+										</strong>
+									</td>
+									<td style="text-align: center;"><strong>
+                                        <?php if ( $result['Unit1'] != 0  ){ 
+                                        		if($result['Unit1'] < 7 ){ ?> 
+                                       				<span style="color: red;"><?php echo number_format($result['Unit1'],2,',','.'); ?></span>
+                                       			<?php } else { echo number_format($result['Unit1'],2,',','.'); }?>
+                                       	<?php } else {	 echo ' ';} ?>
+                                    </strong></td><!-- Unidade 1 -->
+                                        
+                                    <td style="text-align: center;"><strong>
+                                       	<?php if ( $result['Unit2'] != 0  ){ 
+                                       			if($result['Unit2'] < 7 ){ ?> 
+                                       				<span style="color: red;"><?php echo number_format($result['Unit2'],2,',','.'); ?></span>
+                                       			<?php } else { echo number_format($result['Unit2'],2,',','.'); }?>
+                                       	<?php } else {	 echo ' ';} ?>
+                                    </strong></td><!-- Unidade 2 -->
+                                        
+                                    <td style="text-align: center;"><strong>
+                                       	<?php if ( $result['Unit3'] != 0  ){ 
+                                       			if($result['Unit3'] < 7 ){ ?> 
+                                       				<span style="color: red;"><?php echo number_format($result['Unit3'],2,',','.'); ?></span>
+                                       			<?php } else { echo number_format($result['Unit3'],2,',','.'); }?>
+                                       	<?php } else {	 echo ' ';} ?>
+                                    </strong></td><!-- Unidade 3 -->
+                                        
+	                                <td style="text-align: center;"><strong>
+									<?php
+										if(! empty($conta["SUM(Faltas)"])){
+											echo $conta["SUM(Faltas)"];
+										}else{
+											echo ' - ';
+										}
+									?>
+									</strong></td><!-- Faltas -->
 								
-								<td style="text-align: center;"><strong>
-
-								<?php echo number_format($media,2,',','.'); ?>
-																	
-								</strong></td><!-- Média Final -->
+									<td style="text-align: center;"><strong><?php echo number_format($media,2,',','.'); ?></strong></td><!-- Média Final -->
 								
-								<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
-							</tr>
+									<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
+								</tr>
+							<?php }?>
 						<?php }?>
-					<?php }?>
-				<?php }?> <!-- Fim foreach -->
-			<?php }
+					<?php }?> <!-- Fim foreach -->
+				<?php }
 		
-			else{				
-				foreach($this->rows as $turma){
-					if($turma->Status != 'inativo'){							
-						if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $this->data['ano'] &&
-							$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $this->data['semestre']){
+				else{				
+					foreach($this->rows as $turma){
+						if($turma->Status != 'inativo'){							
+							if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $this->data['ano'] &&
+								$turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $this->data['semestre']){
 				
-						$id = $turma->idUsuario_has_Turma;
-						$result = $nota->getNota($id);
-						$media = $nota->media($id);
-						$conta = $presenca->contaPresenca($id);?>
+							$id = $turma->idUsuario_has_Turma;
+							$result = $nota->getNota($id);
+							$media = $nota->media($id);
+							$conta = $presenca->contaPresenca($id);?>
 				
-						<tr>
-							<td><strong>
-																	
+							<tr>
+								<td><strong>
 									<?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
-									
-							</strong></td>
+								</strong></td>
 							
-							<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
-							<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
-							<td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->							
-								
+							<td style="text-align: center;"><strong>
+	                            <?php if ( $result['Unit1'] != 0  ){ 
+	           		           			if($result['Unit1'] < 7 ){ ?> 
+	                           				<span style="color: red;"><?php echo number_format($result['Unit1'],2,',','.'); ?></span>
+	                                   			<?php } else { echo number_format($result['Unit1'],2,',','.'); }?>
+	                           	<?php } else {	 echo ' ';} ?>
+	                        </strong></td><!-- Unidade 1 -->
+	                                        
+							<td style="text-align: center;"><strong>
+								<?php if ( $result['Unit2'] != 0  ){ 
+	                            			if($result['Unit2'] < 7 ){ ?> 
+	                                        	<span style="color: red;"><?php echo number_format($result['Unit2'],2,',','.'); ?></span>
+	                                        		<?php } else { echo number_format($result['Unit2'],2,',','.'); }?>
+								<?php } else {	 echo ' ';} ?>
+							</strong></td><!-- Unidade 2 -->
+	                                        
+							<td style="text-align: center;"><strong>
+								<?php if ( $result['Unit3'] != 0  ){ 
+	                            	if($result['Unit3'] < 7 ){ ?> 
+	                                	<span style="color: red;"><?php echo number_format($result['Unit3'],2,',','.'); ?></span>
+	                                    	<?php } else { echo number_format($result['Unit3'],2,',','.'); }?>
+	                         	<?php } else {	 echo ' ';} ?>
+       						</strong></td><!-- Unidade 3 -->							
+							
 							<td style="text-align: center;">
 								<strong>
 									<?php
@@ -136,14 +172,14 @@
 								</strong>
 							</td><!-- Faltas -->
 								
-									<td style="text-align: center;">
-										<strong>
-										
-											<?php echo number_format($media, 2,',','.'); ?>
-													
-										</strong>
-									</td><!-- Média Final -->
-									<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
+							<td style="text-align: center;">
+								<strong>
+								
+									<?php echo number_format($media, 2,',','.'); ?>
+											
+								</strong>
+							</td><!-- Média Final -->
+							<td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
 							<?php }?>
 								</tr>
 						<?php }?>
@@ -154,12 +190,21 @@
 			</div>
 		</div>
 	</div>
-<br />
-<?php }
-		else{
-			echo '<br />' . '<h4>' . 'Usuário matriculado em nenhuma turma até o momento.' . '</h4>' . '<br />';
-		}
-	?>
+	<br />
+	<?php } else { ?>
+		<div class="page-header">
+			<div style="color: #000; font-size: 30px;">
+				<strong>Boletim.</strong>
+			</div>
+		</div>
+		
+		<br /><br />
+		
+		<div style="color: red; font-size: 20px;">
+			<strong>O Usuário não está matriculado em nenhuma turma até o momento.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } 	?>
 	
-	<br /><br />
 </div>

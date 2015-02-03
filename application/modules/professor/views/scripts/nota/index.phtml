@@ -1,12 +1,20 @@
 <?php $this->headTitle('Inserir Notas'); ?>
 
 <div class="grid_16">
-
-	<div class="page-header">
 	
-		<?php if($this->row != null){
-			foreach ($this->linha as $disc){?>
-				<h2>Insira notas aos alunos da Turma de <?php echo $disc->Nome;?></h2>
+	<?php if(empty ($this->find['Turma_idTurma'])){ ?>
+		<br /><br />
+		<div style="color: red; font-size: 20px;">
+			<strong>Ainda não há alunos matriculados nessa Turma.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } else { 	?>
+	
+	
+	<div class="page-header">
+		<?php foreach ($this->linha as $disc){?>
+			<h2>Insira notas aos alunos da Turma de <?php echo $disc->Nome;?></h2>
 		<?php }?>
 	</div>
  
@@ -42,9 +50,9 @@
  							foreach($this->rows as $users) :
 
  								$idNota = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['idNota'] : '';
- 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : false;
- 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) )  ? $this->nota[$i]['Unit2']  : false;
- 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) )? $this->nota[$i]['Unit3']  : false;
+ 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : '0' ;
+ 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) ) ? $this->nota[$i]['Unit2']  : '0' ;
+ 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) ) ? $this->nota[$i]['Unit3']  : '0' ;
 
  							//var_dump($this->nota->toArray());
 							if($users->Status != 'inativo') : ?>
@@ -62,15 +70,15 @@
 								</td>
 								
 								<td style="text-align: center; padding-top: 7px; ">
-									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php if ( $unit1 !== false ) echo number_format($unit1,2); ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php if ( $unit1 == '0' ){echo ' ' ; } else{ echo number_format($unit1,2,',','.'); }  ?>"/>
 								</td>
 								
 								<td style="text-align: center;" >
-									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php if ( $unit2 !== false) echo number_format($unit2,2); ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php if ( $unit2 == '0' ){echo ' ' ; } else{ echo number_format($unit2,2,',','.'); }  ?>"/>
 								</td>
 								
 								<td style="text-align: center;" >
-									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 !== false)echo number_format($unit3,2); ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 == '0' ){echo ' ' ; } else{ echo number_format($unit3,2,',','.'); }  ?>"/>
 								</td>
 								<td style="text-align: center;" >
 									<strong><?php echo $users->Status; ?></strong>
@@ -90,14 +98,8 @@
  		</table>
  	</div>
  	
-	<br />
+	<br /><br /><br />
 	
-	<?php } 
-		else{
+	<?php } ?>
 	
-			echo '<h4>' . 'Ainda não há alunos matriculados nessa disciplina' . '</h4>'; 
-	
-		 }?>
-		 
-		 <br /><br />
 </div>

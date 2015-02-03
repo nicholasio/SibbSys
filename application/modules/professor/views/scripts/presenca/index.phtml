@@ -2,11 +2,20 @@
 
 <div class="grid_16">
 
+	<?php if(empty ($this->find['Turma_idTurma'])) {?>
+	
+	<br /><br />
+		<div style="color: red; font-size: 20px;">
+			<strong>Ainda não há alunos matriculados nessa Turma.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } else { 	?>
+
 	<div class="page-header">	
-		<?php if($this->row != null){
-			foreach ($this->linha as $disc){?>
-				<h2>Lista de chamada da Turma de <?php echo $disc->Nome;?></h2>
-		<?php }?>	 
+		<?php foreach ($this->linha as $disc) : ?>
+			<h2>Lista de chamada da Turma de <?php echo $disc->Nome;?></h2>
+		<?php endforeach; ?>	 
 	</div>
 		
 	<br /><br />
@@ -61,13 +70,8 @@
 		</table>	
 	</div>
 	
-	<br />
+	<br /><br /><br />
 	
-	<?php } else{
+	<?php } ?>
 	
-		echo '<h4>' . "Ainda não há alunos matriculados nessa disciplina" . '</h4>';
-		
-	 }?>
-
-	 <br /><br />
 </div>

@@ -190,20 +190,12 @@
 					<?php endforeach; ?>
 						
 						</tbody>
-						<tfoot>
-
-						</tfoot>
 					</table>
 				</div>
-			</div>
-		</div>		
-	</div>
-	
-	<br />
-	
-	<div class="">
-		<div class="">
-			<div class="panel">
+				
+				<br />
+					
+				<div class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title" style="text-align: center; font-size: 18px;">Detalhes dos Registros das Turmas</h4>
 				</div>
@@ -227,8 +219,9 @@
 							<td style="width: 410px; text-align: center; ">
 								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 										array(
-											'controller'	=>	'presenca',
-											'action'		=>	'listar',
+											'module'		=>	'admin',
+											'controller'	=>	'professor',
+											'action'		=>	'lista-presenca',
 											'idTurma'		=>	$turma->idTurma
 										));?>">
 										Faltas
@@ -250,7 +243,13 @@
 				</div>
 			</div>
 		</div>
+	
+			</div>
+		</div>		
 	</div>
+	
+	<br />
+	
 	
 	<?php } ?>
 	
@@ -265,19 +264,36 @@
 				<div class="panel-body">
 					<table class="table table-bordered">
 						<tr>
-							<td><strong>Total de Alunos </strong></td>
+							<td><strong>Total de Alunos Cadastrados</strong></td>
 							<td style="width: 100px; text-align: center;"><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) AS count FROM Usuario' );?></strong></td>
 						</tr>
 						<tr>
 							<td><strong>Total de Alunos Ativos</strong></td>
 							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Usuario WHERE status= \'ativo\' ' ); ?></strong></td>
 						</tr>
+						<tr>
+							<td><strong>Total de Turmas Ativas no Ano e Semestre Corrente</strong></td>
+							<?php $config = new Application_Model_DbTable_Configs(); $semestre = $config->findKey('semestre_atual'); $ano = $config->findKey('ano_atual'); ?>
+							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( "SELECT COUNT(*) as count FROM Turma WHERE Ano = $ano AND Semestre = $semestre " ); ?></strong></td>
+						</tr>
+						<tr>
+							<td><strong>Total de Igrejas Cadastradas</strong></td>
+							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Igreja WHERE status= \'ativo\' ' ); ?></strong></td>
+						</tr>
+						<tr>
+							<td><strong>Total de Disciplinas Cadastradas</strong></td>
+							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*) as count FROM Disciplina WHERE status= \'ativo\' ' ); ?></strong></td>
+						</tr>
+						<tr>
+							<td><strong>Total de Cursos Cadastrados</strong></td>
+							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*)-2 as count FROM Curso WHERE status= \'ativo\' ' ); ?></strong></td>
+						</tr>
 					</table>
 				</div>
 			</div>
 		</div>
 		
-		<div class="span6">
+		<div class="span7">
 			<div class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title" style="text-align: center; font-size: 18px; color: #069; ">Aniversariantes do Mês</h4>
@@ -286,18 +302,23 @@
 					<table class="table table-bordered">
 						<thead>
 						<tr>
-							<th style="width: 30px; text-align: center;">#</th>
 							<th style="text-align: center;">Aluno</th>
-							<th style="width: 120px; text-align: center;">Data de Nascimento</th>
+							<th style="width: 100px; text-align: center;">Data de Nascimento</th>
+							<th style="width: 30px;"> </th>
 						</tr>
 
 						</thead>
 						<tbody>
 						<?php foreach($this->aniversariantes as $aniversariante) : ?>
 							<tr>
-								<td  style="width: 30px; text-align: center;"><strong><?php echo $aniversariante->idUsuario; ?></strong></td>
+								
 								<td><a class="btn btn-inverse" data-toggle="modal" href="#myModal-<?php echo $aniversariante->idUsuario; ?>"><?php echo $aniversariante->Nome; ?></a></td>
-								<td style="width: 120px; text-align: center;"><strong><?php echo $aniversariante->DataNascimento; ?></strong></td>
+								<td style="width: 110px; text-align: center;"><strong><?php echo $aniversariante->DataNascimento; ?></strong></td>
+								<?php if(substr($aniversariante->DataNascimento,0,5) == date('d/m')){ ?>
+									<td style="text-align: center; width: 30px;"><span class="label label-success">PARABÉNS!!</span></td>
+								<?php } else { ?>
+									<td style="width: 50px;"> </td>
+								<?php } ?>
 							</tr>
 
 							<div id="myModal-<?php echo $aniversariante->idUsuario; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

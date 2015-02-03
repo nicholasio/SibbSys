@@ -46,6 +46,7 @@ class Admin_ProfessorController extends AppBaseController{
 		$this->view->rows = $matric->findForSelect($id);
 		$this->view->linha = $turma->findForSelect($id);
 		$this->view->row = $turma->hasTurma($id);
+		$this->view->find = $matric->_findId($id);
 		
 	}
 	
@@ -58,7 +59,7 @@ class Admin_ProfessorController extends AppBaseController{
 			$count = count($_POST['unit1']);
 			
 			for($i = 0; $i < $count; $i++){
-
+				$data = array();
 				if ( strlen($_POST['unit1'][$i]) > 0 )
 					$data['Unit1'] = abs(str_replace(',','.',$_POST['unit1'][$i]));
 
@@ -67,16 +68,16 @@ class Admin_ProfessorController extends AppBaseController{
 
 				if ( strlen($_POST['unit3'][$i]) > 0)
 					$data['Unit3'] = abs(str_replace(',','.',$_POST['unit3'][$i]));
-
+				
 				$data['idUsuario_has_Turma'] = $_POST['idMatricula'][$i];
 				$data['Turma_idTurma'] = $_POST['idTurma'][$i];
 
 				$id = $_POST['idNota'][$i];
 				$idTurma = $_POST['idTurma'][$i];
 				
-				$unit1 = isset($data['Unit1']) ? $data['Unit1'] : 0;
-				$unit2 = isset($data['Unit2']) ? $data['Unit2'] : 0;
-				$unit3 = isset($data['Unit3']) ? $data['Unit3'] : 0;
+				$unit1 = isset($data['Unit1']) ? (int) $data['Unit1'] : 0;
+				$unit2 = isset($data['Unit2']) ? (int) $data['Unit2'] : 0;
+				$unit3 = isset($data['Unit3']) ? (int) $data['Unit3'] : 0;
 
 				if ( $unit1 <= 10 && $unit2 <= 10 && $unit3 <= 10 ) {
 					if($id){
@@ -89,8 +90,9 @@ class Admin_ProfessorController extends AppBaseController{
 				}
 			}
 		}
-
+		
 		$this->_redirect("/admin/professor/nota/idTurma/$idTurma");
+
 	}
 	
 	
@@ -141,6 +143,7 @@ class Admin_ProfessorController extends AppBaseController{
 		
 		$matric = new Application_Model_DbTable_Matricula();
 		$this->view->rows = $matric->findForSelect($id);
+		$this->view->find = $matric->_findId($id);
 		
 	}
 	

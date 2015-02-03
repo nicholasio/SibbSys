@@ -207,4 +207,67 @@ class Aluno_IndexController extends AppBaseController{
 		$this->view->rows = $faturas_model->listagem($idFatura);
 
 	}
+	
+	public function alterarFotoAction(){
+		 
+		$auth = Zend_Auth::getInstance();
+		$dados = $auth->getStorage()->read();
+	
+		$id = $dados->idUsuario;
+		$nomeArquivo = $dados->Foto;
+		$path = "../public/files/" . $nomeArquivo;
+		 
+		 
+		$form = new Application_Form_Foto();
+		$model = new Application_Model_DbTable_Usuario();
+		 
+		if($this->_request->isPost()){
+			if($form->isValid($this->_request->getPost())){
+				unlink($path);
+				$data = $form->getValues();
+				if($id){
+					$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
+					$this->_helper->flashMessenger->addMessage("Foto alterada com sucesso! Por favor
+							conecte-se novamente para que as alterações sejam concluídas.");
+					$model->update($data, $where);
+					$this->_redirect("/aluno");
+				}
+			}
+		}
+		 
+		$this->view->form = $form;
+	}
+	
+	
+	public function alterarDadosAction(){
+		 
+		$auth = Zend_Auth::getInstance();
+		$dados = $auth->getStorage()->read();
+		 
+		$id = $dados->idUsuario;
+		 
+		$form = new Application_Form_AlterarDados();
+		$model = new Application_Model_DbTable_Usuario();
+		 
+		$data = $model->editar($id);
+		if(is_array($data)){
+			$form->populate($data);
+		}
+		 
+		if($this->_request->isPost()){
+			if($form->isValid($this->_request->getPost())){
+				$data = $form->getValues();
+				if($id){
+					$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
+					$model->update($data, $where);
+					$this->_helper->flashMessenger->addMessage("Dados Alterados com sucesso.");
+					$this->_redirect("/aluno");
+				}
+			}
+		}
+		$this->view->form = $form;
+	}
+	
+	
+	
 }

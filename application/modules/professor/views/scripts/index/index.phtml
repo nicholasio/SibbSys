@@ -134,16 +134,6 @@
 						<tr>
 							<td style="width: 300px;"><strong><?php echo $turma->Nome; ?></strong></td>
 							<td>
-								<a id="btn-turma" class="btn btn-inverse" href="<?php echo $this->url(
-										array(
-											'controller'	=>	'nota',
-											'action'		=>	'listar',
-											'idTurma'		=>	$turma->idTurma
-										));?>">
-										Notas
-								</a>
-							</td>
-							<td>
 								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 										array(
 											'controller'	=>	'presenca',

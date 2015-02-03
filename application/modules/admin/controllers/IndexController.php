@@ -21,10 +21,12 @@ class Admin_IndexController extends AppBaseController{
     	$data = $auth->getStorage()->read();
     	
     	$id = $data->idUsuario;
+    	$nomeArquivo = $data->Foto;
 
         if ($this->_helper->FlashMessenger->hasMessages()) {
             $this->view->messages = $this->_helper->FlashMessenger->getMessages();
         }
+        
 	    $mesAtual   = (int) date('m');
 
 		$usuario_model = new Application_Model_DbTable_Usuario();
@@ -32,7 +34,7 @@ class Admin_IndexController extends AppBaseController{
 	    $this->view->usuario = $usuario_model->getUser($id);
 
 	    $this->view->db = $usuario_model->getAdapter();
-
+	    
     }
 
 
@@ -76,6 +78,37 @@ class Admin_IndexController extends AppBaseController{
     			}
     		}
     	}
+    	$this->view->form = $form;
+    }
+    
+    
+    public function alterarFotoAction(){
+    	
+    	$auth = Zend_Auth::getInstance();
+    	$dados = $auth->getStorage()->read();
+    	 
+    	$id = $dados->idUsuario;
+    	$nomeArquivo = $dados->Foto;
+    	$path = "../public/files/" . $nomeArquivo;
+    	
+    	
+    	$form = new Application_Form_Foto();
+    	$model = new Application_Model_DbTable_Usuario();
+    	
+    	if($this->_request->isPost()){
+    		if($form->isValid($this->_request->getPost())){
+    			unlink($path);
+    			$data = $form->getValues();
+    			if($id){
+    				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
+    				$this->_helper->flashMessenger->addMessage("Foto alterada com sucesso! Por favor 
+    							conecte-se novamente para que as alterações sejam concluídas.");
+    				$model->update($data, $where);
+    				$this->_redirect("/admin");
+    			}
+    		}
+    	}
+    	
     	$this->view->form = $form;
     }
 }

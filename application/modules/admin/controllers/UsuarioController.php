@@ -26,6 +26,10 @@ class Admin_UsuarioController extends AppBaseController{
     }
 
     public function novoAction() {
+    	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
     
         $form = new Application_Form_Usuario();
         $model = new Application_Model_DbTable_Usuario();
@@ -37,6 +41,7 @@ class Admin_UsuarioController extends AppBaseController{
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
                 $model->insert($data);
+                $this->_helper->flashMessenger->addMessage("Usuário cadastrado com sucesso!");
                 $this->_redirect("/admin/usuario/novo");
             }
         }
@@ -60,15 +65,13 @@ class Admin_UsuarioController extends AppBaseController{
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idUsuario = ?', $id);
     				$model->update($data, $where);
+    				$this->_helper->flashMessenger->addMessage("Dados atualizados com sucesso!");
     				$this->_redirect("/admin/usuario");
     			}	
     		}
     	}
     	$this->view->form = $form; 
     	
-    	if($this->getRequest()->getPost('Voltar')){
-    		$this->_redirect("/admin/usuario");
-    	}
     }
     
     public function desativaAction(){

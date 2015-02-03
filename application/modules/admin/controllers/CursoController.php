@@ -27,6 +27,10 @@ class Admin_CursoController extends AppBaseController{
     
     public function novoAction() {
 
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
+    	
     	$model = new Application_Model_DbTable_Curso();
         $form  = new Application_Form_Curso();
 
@@ -34,6 +38,7 @@ class Admin_CursoController extends AppBaseController{
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
                 $model->insert($data);
+                $this->_helper->flashMessenger->addMessage("Curso cadastrado com sucesso!");
                 $this->_redirect("/admin/curso/novo");
             }
         }
@@ -59,6 +64,7 @@ class Admin_CursoController extends AppBaseController{
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idCurso = ?', $id);
     				$model->update($data, $where);
+    				$this->_helper->flashMessenger->addMessage("Dados atualizados com sucesso!");
     				$this->_redirect("/admin/curso");
     			}
     		}

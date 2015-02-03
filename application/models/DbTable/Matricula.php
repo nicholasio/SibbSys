@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 

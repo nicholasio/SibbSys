@@ -28,7 +28,46 @@
 	
 	<br />
 	
-	<h3 style="text-align: center">Extrato de Conta</h3>
+	<h3 style="text-align: center">Extrato de Conta do Mês de  
+			<?php switch ($fatura['mes']){
+				case 1 :
+					echo ' Janeiro';
+					break;
+				case 2 :
+					echo ' Fevereiro';
+					break;
+				case 3 :
+					echo ' Março';
+					break;
+				case 4 :
+					echo ' Abril';
+					break;
+				case 5 :
+					echo ' Maio';
+					break;
+				case 6 :
+					echo ' Junho';
+					break;
+				case 7 :
+					echo ' Julho';
+					break;
+				case 8 :
+					echo ' Agosto';
+					break;
+				case 9 :
+					echo ' Setembro';
+					break;
+				case 10 :
+					echo ' Outubro';
+					break;
+				case 11 :
+					echo ' Novembro';
+					break;
+				case 12 :
+					echo ' Dezembro';
+					break;
+			} ?>
+	</h3>
 	
 	<br />
 
@@ -109,26 +148,34 @@
 			
 		</tbody>
 	</table>
-	<div style="margin-left: 350px;">
+	<div style="margin: 10px 0 0 340px;">
 	
 	<?php
+		$idFatura = $fatura['idFatura'];
 		$valor_total_pagamentos = 0;
 		$pagamentos_model = new Application_Model_DbTable_Pagamento();
 		$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+		$pega_data = $pagamentos_model->pegaData($idFatura);
+		
 	?>
 		<h4>
-			SubTotal:  		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format($valor_total,2,',','.')?></div>
-			Descontos: 		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format($fatura['desconto']/100,2,',','.'); ?> </div>
-			Total A Pagar: 	<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ '. number_format($valor_total,2,',','.')?> </div>
-			Total Recebido: <div style="margin: -19px 0 0px 248px;">  
+			SubTotal:  		<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.')?></div>
+			Descontos: 		<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . number_format($fatura['desconto']) . '%'; ?> </div>
+			Total A Pagar: 	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php $valor_descontado = $valor_total - ($valor_total * $fatura['desconto']/100); echo 'R$ '. number_format($valor_descontado,2,',','.')?> </div>
+			Total Recebido: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">  
 							R$ 	<?php foreach($pagamentos as $pagamento) : ?>
 									<?php $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 								<?php endforeach; ?>
 								<?php echo number_format($valor_total_pagamentos,2,',','.');?> </div>
+			Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
+					<?php foreach($pega_data as $data) : ?>
+						<?php echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
+					<?php endforeach; ?>
+			</div>
 		<br />
 		
-		Total Restante: <div style="margin: -19px 0 0px 248px; color: #FF1C3A;"> 
-				R$ <?php $valor_restante = $valor_total - $valor_total_pagamentos;?> 
+		Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
+				R$ <?php $valor_restante = $valor_descontado - $valor_total_pagamentos;?> 
 					<?php echo number_format($valor_restante,2,',','.');?>
 						</div>
 		
@@ -155,7 +202,7 @@
 	
 	foreach($fatura['usuario'] as $usuario){ $nome =  $usuario['Nome']; }
 	
-	$arquivo = 'Fatura ' . ' - ' . $nome . 'pdf';
+	$arquivo = 'Fatura ' . ' - ' . $nome . '.pdf';
 	
 	$mpdf->Output($arquivo, 'D');
 	
@@ -164,5 +211,3 @@
 	?>
 	
 </div>
-
-

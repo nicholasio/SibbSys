@@ -28,13 +28,18 @@ class Admin_DisciplinaController extends AppBaseController{
     
     public function novoAction(){
     	
-        $model = new Application_Model_DbTable_Disciplina();
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
+    	
+    	$model = new Application_Model_DbTable_Disciplina();
         $form = new Application_Form_Disciplina();
 
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
                 $model->insert($data);
+                $this->_helper->flashMessenger->addMessage("Disciplina cadastrada com sucesso!");
                 $this->_redirect("/admin/disciplina/novo");
             }
         }
@@ -61,6 +66,7 @@ class Admin_DisciplinaController extends AppBaseController{
         		if($id){
         			$where = $model->getAdapter()->quoteInto('idDisciplina = ?', $id);
         			$model->update($data, $where);
+        			$this->_helper->flashMessenger->addMessage("Dados atualizados com sucesso!");
         			$this->_redirect("/admin/disciplina");
         		}
         	}

@@ -55,4 +55,17 @@ class Application_Model_DbTable_Pagamento extends Zend_Db_Table_Abstract{
 		return $rows;
 		
 	}
+	
+	public function pegaData($idFatura){
+
+		$sql = 	$this->select()
+					->from($this, array(new Zend_Db_Expr('max(dataPagamento) as dataPagamento')));
+		$sql->where('Faturas_idFatura = ?', $idFatura);
+		$query = $this->fetchAll($sql);
+		return $query;
+		
+		
+		//return $query->toArray();
+		
+	}
 }

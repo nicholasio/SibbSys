@@ -30,6 +30,7 @@ class Professor_NotaController extends AppBaseController{
 		$this->view->rows = $matric->findForSelect($id);
 		$this->view->linha = $turma->findForSelect($id);
 		$this->view->row = $turma->hasTurma($id);
+		$this->view->find = $matric->_findId($id);
 		
 	}
 	
@@ -51,7 +52,7 @@ class Professor_NotaController extends AppBaseController{
 
 				if ( strlen($_POST['unit3'][$i]) > 0)
 					$data['Unit3'] = abs(str_replace(',','.',$_POST['unit3'][$i]));
-
+				
 				$data['idUsuario_has_Turma'] = $_POST['idMatricula'][$i];
 				$data['Turma_idTurma'] = $_POST['idTurma'][$i];
 
@@ -75,6 +76,7 @@ class Professor_NotaController extends AppBaseController{
 		}
 
 		$this->_redirect("/professor/nota/index/idTurma/$idTurma");
+		
 	}
 	
 	

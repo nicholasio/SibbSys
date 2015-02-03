@@ -1,11 +1,11 @@
 <?php $this->headTitle('Fatura')?>
 <div class="grid_16">
 
-	<?php
+	<?php 
 	header("Content-type:text/html; charset=utf-8");
-	ob_start();
+	ob_start();	
 	?>
-
+	
 	<table>
 		<tr>
 			<th><img src="/images/logosibb2.gif" height="120px" width="120px"></th>
@@ -17,150 +17,197 @@
 			</th>
 		</tr>
 	</table>
-
+	
 	<hr />
-
+	
 	<?php foreach($this->rows as $fatura){
 		//echo $fatura['idFatura'];
-
+		
 	}?>
-
-
+	
+	
 	<br />
-
-	<h3 style="text-align: center">Extrato de Conta</h3>
-
+	
+	<h3 style="text-align: center">Extrato de Conta do Mês de  
+			<?php switch ($fatura['mes']){
+				case 1 :
+					echo ' Janeiro';
+					break;
+				case 2 :
+					echo ' Fevereiro';
+					break;
+				case 3 :
+					echo ' Março';
+					break;
+				case 4 :
+					echo ' Abril';
+					break;
+				case 5 :
+					echo ' Maio';
+					break;
+				case 6 :
+					echo ' Junho';
+					break;
+				case 7 :
+					echo ' Julho';
+					break;
+				case 8 :
+					echo ' Agosto';
+					break;
+				case 9 :
+					echo ' Setembro';
+					break;
+				case 10 :
+					echo ' Outubro';
+					break;
+				case 11 :
+					echo ' Novembro';
+					break;
+				case 12 :
+					echo ' Dezembro';
+					break;
+			} ?>
+	</h3>
+	
 	<br />
 
 	<strong>Nome: <?php foreach($fatura['usuario'] as $usuario){ echo $usuario['Nome']; } ?></strong>
-
+	
 	<br /> <br /> <br />
-
+	
 	<table cellpadding="5px" cellspacing="0" style="border-collapse: collapse; ">
 		<thead>
-		<tr>
-			<th style="text-align:center; width: 50px">Cód.</th>
-			<th style="text-align:left; width: 300px">Descrição do Item</th>
-			<th style="text-align:center; width: 50px">Quantidade</th>
-			<th style="text-align:center; width: 70px">Valor</th>
-			<th style="text-align:center; width: 90px">Total</th>
-		</tr>
+			<tr>
+				<th style="text-align:center; width: 50px">Cód.</th>
+				<th style="text-align:left; width: 300px">Descrição do Item</th>
+				<th style="text-align:center; width: 50px">Quantidade</th>
+				<th style="text-align:center; width: 70px">Valor</th>
+				<th style="text-align:center; width: 90px">Total</th>
+			</tr>
 		</thead>
-
+		
 		<tbody>
-
+		
 		<?php $i = 0; ?>
 		<?php $valor_total = 0; ?>
-
-		<?php foreach($fatura['debitos'] as $debito) : ?>
+		
+			<?php foreach($fatura['debitos'] as $debito) : ?>
 			<tr <?php if($i % 2 == 0) : ?> style="background: #F1F1F1 "<?php endif;?>>
 				<td style="text-align: center; width: 50px;" ><?php echo $debito['idDebitos']; ?>
 				<td style="text-align: left; width: 350px; " >
 					<?php
-					if ( $debito['type'] == 'servico' ) {
-						$desc_debito = $debito['servico']['nome_servico'];
-					} else if ( $debito['type'] == 'matricula' ) {
-						$desc_debito = $debito['matricula']['nome_turma'] . ' - ' .
-						               " {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
-					}
-					echo $desc_debito;
+						if ( $debito['type'] == 'servico' ) {
+							$desc_debito = $debito['servico']['nome_servico'];
+						} else if ( $debito['type'] == 'matricula' ) {
+							$desc_debito = $debito['matricula']['nome_turma'] . ' - ' . 
+							" {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
+						}
+						echo $desc_debito;
 					?>
 				</td>
 				<td style="text-align: center; width: 40px; " >
 					<?php
-					if ( $debito['type'] == 'servico' ) {
-						$desc_debito = $debito['servico']['qtd_servico'];
-					} else if ( $debito['type'] == 'matricula' ) {
-						$desc_debito = $debito['matricula']['qtd_creditos'];
-					}
-					echo $desc_debito;
+						if ( $debito['type'] == 'servico' ) {
+							$desc_debito = $debito['servico']['qtd_servico'];
+						} else if ( $debito['type'] == 'matricula' ) {
+							$desc_debito = $debito['matricula']['qtd_creditos'];
+						}
+						echo $desc_debito;
 					?>
 				</td>
 				<td style="text-align: center; width: 100px;" >
 					R$
 					<?php
-					if ( $debito['type'] == 'servico' ) {
-						$valor = $debito['servico']['valor_cobrado_servico'];
-					} else if ( $debito['type'] == 'matricula' ) {
-						$config = new Application_Model_DbTable_Configs();
-						$valor_cred = $config->findKey('valor_credito');
-						$valor = $valor_cred;
-					}
-					echo number_format($valor,2,',','.');
+						if ( $debito['type'] == 'servico' ) {
+							$valor = $debito['servico']['valor_cobrado_servico'];
+						} else if ( $debito['type'] == 'matricula' ) {
+							$config = new Application_Model_DbTable_Configs();
+							$valor_cred = $config->findKey('valor_credito');
+							$valor = $valor_cred;
+						}
+						echo number_format($valor,2,',','.');
 					?>
 				</td>
 				<td style="text-align: center; width: 100px;" >
 					R$
 					<?php
-
-					if ( $debito['type'] == 'servico' ) {
-						$valor = $debito['servico']['valor_cobrado_servico'];
-					} else if ( $debito['type'] == 'matricula' ) {
-						$valor = $debito['matricula']['valor_cobrado'];
-					}
-
-					echo number_format($valor,2,',','.');
-					$valor_total += $valor;
+						
+						if ( $debito['type'] == 'servico' ) {
+							$valor = $debito['servico']['valor_cobrado_servico'];
+						} else if ( $debito['type'] == 'matricula' ) {
+							$valor = $debito['matricula']['valor_cobrado'];
+						}
+						
+						echo number_format($valor,2,',','.');
+						$valor_total += $valor;
 					?>
 				</td>
 			</tr>
-
-		<?php endforeach; ?>
-
+			
+			<?php endforeach; ?>		
+			
 		</tbody>
 	</table>
-	<div style="margin-left: 350px;">
-		<?php
+	<div style="margin: 10px 0 0 340px;">
+	
+	<?php
+		$idFatura = $fatura['idFatura'];
 		$valor_total_pagamentos = 0;
 		$pagamentos_model = new Application_Model_DbTable_Pagamento();
 		$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+		$pega_data = $pagamentos_model->pegaData($idFatura);
+		
 	?>
 		<h4>
-			SubTotal:  		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format($valor_total,2,',','.')?></div>
-			Descontos: 		<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ ' . number_format($fatura['desconto']/100,2,',','.'); ?> </div>
-			Total A Pagar: 	<div style="margin: -19px 0 0px 248px;"><?php echo 'R$ '. number_format($valor_total,2,',','.')?> </div>
-			Total Recebido: <div style="margin: -19px 0 0px 248px;">  
+			SubTotal:  		<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.')?></div>
+			Descontos: 		<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . number_format($fatura['desconto']) . '%'; ?> </div>
+			Total A Pagar: 	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php $valor_descontado = $valor_total - ($valor_total * $fatura['desconto']/100); echo 'R$ '. number_format($valor_descontado,2,',','.')?> </div>
+			Total Recebido: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">  
 							R$ 	<?php foreach($pagamentos as $pagamento) : ?>
 									<?php $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 								<?php endforeach; ?>
 								<?php echo number_format($valor_total_pagamentos,2,',','.');?> </div>
+			Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
+					<?php foreach($pega_data as $data) : ?>
+						<?php echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
+					<?php endforeach; ?>
+			</div>
 		<br />
 		
-		Total Restante: <div style="margin: -19px 0 0px 248px; color: #FF1C3A;"> 
-				R$ <?php $valor_restante = $valor_total - $valor_total_pagamentos;?> 
+		Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
+				R$ <?php $valor_restante = $valor_descontado - $valor_total_pagamentos;?> 
 					<?php echo number_format($valor_restante,2,',','.');?>
 						</div>
 		
 		</h4>
-	<?php
+	</div>
+	<?php 
 
 	$html = ob_get_contents();
 	ob_end_clean();
-
+	
 	define('MPDF_PATH', APPLICATION_PATH . '/../library/mpdf/');
-
+	
 	include(MPDF_PATH .'mpdf.php');
-
+	
 	$mpdf = new mPDF('pt', 'A4', 11);
-
+	
 	$mpdf->allow_charset_conversion = true;
 	$mpdf->charset_in = 'utf-8';
-
+	
 	$mpdf->SetDisplayMode('fullpage');
 	//$mpdf->SetHeader('Seminário e Instituto Batista Bereiano - Extrato de Conta');
 	$mpdf->SetFooter('Fatura gerada no dia {DATE j/m/Y} | {PAGENO}');
 	$mpdf->WriteHTML($html);
-
+	
 	foreach($fatura['usuario'] as $usuario){ $nome =  $usuario['Nome']; }
-
-	$arquivo = 'Fatura ' . ' - ' . $nome . 'pdf';
-
+	
+	$arquivo = 'Fatura ' . ' - ' . $nome . '.pdf';
+	
 	$mpdf->Output($arquivo, 'D');
-
+	
 	exit();
-
+	
 	?>
-
-</div>
-
-
+	
+</div>	

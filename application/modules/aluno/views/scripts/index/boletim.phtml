@@ -67,6 +67,7 @@
                                     $result = $nota->getNota($id);
                                     $media = $nota->media($id);
                                     $conta = $presenca->contaPresenca($id);
+                                    
 
                                     if($turma->findParentRow('Application_Model_DbTable_Turma')->Ano == $periodo['Ano'] &&
                                         $turma->findParentRow('Application_Model_DbTable_Turma')->Semestre == $periodo['Semestre']){?>
@@ -76,9 +77,31 @@
                                                     <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
                                                 </strong>
                                             </td>
-                                            <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
-                                            <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
-                                            <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->
+                                            
+                                            <td style="text-align: center;"><strong>
+                    	                    	<?php if ( $result['Unit1'] != 0  ){ 
+                	                        			if($result['Unit1'] < 7 ){ ?> 
+            	                            				<span style="color: red;"><?php echo number_format($result['Unit1'],2,',','.'); ?></span>
+        	                                			<?php } else { echo number_format($result['Unit1'],2,',','.'); }?>
+    	                                    	<?php } else {	 echo ' ';} ?>
+	                                        </strong></td><!-- Unidade 1 -->
+	                                        
+	                                        <td style="text-align: center;"><strong>
+	                                        	<?php if ( $result['Unit2'] != 0  ){ 
+	                                        			if($result['Unit2'] < 7 ){ ?> 
+	                                        				<span style="color: red;"><?php echo number_format($result['Unit2'],2,',','.'); ?></span>
+	                                        			<?php } else { echo number_format($result['Unit2'],2,',','.'); }?>
+	                                        	<?php } else {	 echo ' ';} ?>
+	                                        </strong></td><!-- Unidade 2 -->
+                                        
+	                                        <td style="text-align: center;"><strong>
+	                                        	<?php if ( $result['Unit3'] != 0  ){ 
+	                                        			if($result['Unit3'] < 7 ){ ?> 
+	                                        				<span style="color: red;"><?php echo number_format($result['Unit3'],2,',','.'); ?></span>
+	                                        			<?php } else { echo number_format($result['Unit3'],2,',','.'); }?>
+	                                        	<?php } else {	 echo ' ';} ?>
+	                                        </strong></td><!-- Unidade 3 -->
+	                                        
                                             <td style="text-align: center;"><strong>
                                                     <?php
                                                     if(! empty($conta["SUM(Faltas)"])){
@@ -87,11 +110,9 @@
                                                         echo ' - ';
                                                     }
                                                     ?>
-                                                </strong></td><!-- Faltas -->
+                                            </strong></td><!-- Faltas -->
 
-                                            <td style="text-align: center;"><strong>
-                                                    <?php echo number_format($media,2,',','.'); ?>
-                                                </strong></td><!-- Média Final -->
+                                            <td style="text-align: center;"><strong><?php echo number_format($media,2,',','.'); ?></strong></td><!-- Média Final -->
 
                                             <td style="text-align: center;"><strong><?php echo $turma->Status; ?></strong></td><!-- Situação -->
                                         </tr>
@@ -110,17 +131,36 @@
                                         $result = $nota->getNota($id);
                                         $media = $nota->media($id);
                                         $conta = $presenca->contaPresenca($id);?>
-
                                         <tr>
                                         <td>
                                             <strong>
                                                 <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
                                             </strong>
                                         </td>
-
-                                        <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit1']) ) echo number_format($result['Unit1'],2,',','.'); ?></strong></td><!-- Unidade 1 -->
-                                        <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit2']) ) echo number_format($result['Unit2'],2,',','.'); ?></strong></td><!-- Unidade 2 -->
-                                        <td style="text-align: center;"><strong><?php if ( $result && isset($result['Unit3']) ) echo number_format($result['Unit3'],2,',','.'); ?></strong></td><!-- Unidade 3 -->
+										
+                                        <td style="text-align: center;"><strong>
+                                        	<?php if ( $result['Unit1'] != 0  ){ 
+                                        			if($result['Unit1'] < 7 ){ ?> 
+                                        				<span style="color: red;"><?php echo number_format($result['Unit1'],2,',','.'); ?></span>
+                                        			<?php } else { echo number_format($result['Unit1'],2,',','.'); }?>
+                                        	<?php } else {	 echo ' ';} ?>
+                                        </strong></td><!-- Unidade 1 -->
+                                        
+                                        <td style="text-align: center;"><strong>
+                                        	<?php if ( $result['Unit2'] != 0  ){ 
+                                        			if($result['Unit2'] < 7 ){ ?> 
+                                        				<span style="color: red;"><?php echo number_format($result['Unit2'],2,',','.'); ?></span>
+                                        			<?php } else { echo number_format($result['Unit2'],2,',','.'); }?>
+                                        	<?php } else {	 echo ' ';} ?>
+                                        </strong></td><!-- Unidade 2 -->
+                                        
+                                        <td style="text-align: center;"><strong>
+                                        	<?php if ( $result['Unit3'] != 0  ){ 
+                                        			if($result['Unit3'] < 7 ){ ?> 
+                                        				<span style="color: red;"><?php echo number_format($result['Unit3'],2,',','.'); ?></span>
+                                        			<?php } else { echo number_format($result['Unit3'],2,',','.'); }?>
+                                        	<?php } else {	 echo ' ';} ?>
+                                        </strong></td><!-- Unidade 3 -->
 
                                         <td style="text-align: center;">
                                             <strong>
@@ -136,7 +176,9 @@
 
                                         <td style="text-align: center;">
                                             <strong>
+                                            
                                                 <?php echo number_format($media,2,',','.'); ?>
+                                                
                                             </strong>
                                         </td><!-- Média Final -->
                                         <td style="text-align: center;"><strong><?php echo $turma->Status;?></strong></td><!-- Situação -->
@@ -151,11 +193,20 @@
             </div>
         </div>
         <br />
-    <?php }
-    else{
-        echo '<br />' . '<h4>' . 'Usuário matriculado em nenhuma turma até o momento.' . '</h4>' . '<br />';
-    }
-    ?>
-
-    <br /><br />
+        
+    	<?php } else { ?>
+			<div class="page-header">
+				<div style="color: #000; font-size: 30px;">
+					<strong>Boletim.</strong>
+				</div>
+			</div>
+			
+			<br /><br />
+			
+			<div style="color: red; font-size: 20px;">
+				<strong>O Usuário não está matriculado em nenhuma turma até o momento.</strong>
+			</div>
+			
+			<br /><br /><br /><br />
+		<?php } 	?>
 </div>

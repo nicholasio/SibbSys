@@ -33,6 +33,7 @@ class Professor_PresencaController extends AppBaseController{
 		
 		$matric = new Application_Model_DbTable_Matricula();
 		$this->view->rows = $matric->findForSelect($id);
+		$this->view->find = $matric->_findId($id);
 		
 	}
 	
@@ -73,6 +74,7 @@ class Professor_PresencaController extends AppBaseController{
 		
 		$matric = new Application_Model_DbTable_Matricula();
 		$this->view->rows = $matric->findForSelect($id);
+		$this->view->find = $matric->_findId($id);
 		
 	}
 	

@@ -42,6 +42,7 @@ class Admin_MatriculaController extends AppBaseController{
 
     public function novoAction() {
     	
+    	
     	//$form = new Application_Form_Matricula();
     	$model = new Application_Model_DbTable_Matricula();
     	$turma = new Application_Model_DbTable_Turma();
@@ -78,6 +79,7 @@ class Admin_MatriculaController extends AppBaseController{
     			if ( is_null($find) ) {
     				if ( is_null($professor) ) {
 	    				$data['Turma_idTurma'] = $turma_id;
+	    				$this->_helper->flashMessenger->addMessage("Matricula realizada com sucesso!");
 	    				$model->insert($data);    				
     				} else {
     					$this->_helper->flashMessenger->addMessage("Aluno é professor da turma: <strong>" . $turma_data['Nome'] . "</strong>");

@@ -1,6 +1,9 @@
 <?php $this->headTitle('Matérial de Aulas');?>
 
 <div class="grid_16">
+
+	<?php if(!empty($this->rows['Nome'])){?>
+	
 	<div class="page-header">
 		<h2>
 			Lista de Turmas em que há Matérial de Aulas Disponíveis
@@ -8,48 +11,56 @@
 	</div>
 	
 	<br /><br />
-	
-	<?php if(!empty($this->rows['Nome'])){?>
 
-		<table class="table table-striped data-table">
-			<thead>
-				<tr>
-					<th><font size="2" color="black"><strong>#</strong></font></th>
-					<th><font size="2" color="black"><strong>Turma</strong></font></th>
-					<th style="text-align: center"><font size="2" color="black"><strong>Ação</strong></font></th>
-				</tr>
-			</thead>
-			<tbody>
-			
-				<?php foreach($this->rows as $lista){?>
-				<?php foreach($this->file as $file){?>
-					<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
-						<tr style="background: #EEE;">
-							<td style="width: 50px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
-							<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
-							<td style="text-align: center; width: 300px;">
-								<a style="width: 80px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
-									array(
-										'controller'	=>	'index',
-										'action'		=>	'material',
-										'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
-									));?>">
-									Exibir
-								</a>
-							</td>
-						</tr>
+	<table class="table table-striped data-table">
+		<thead>
+			<tr>
+				<th><font size="2" color="black"><strong>#</strong></font></th>
+				<th><font size="2" color="black"><strong>Turma</strong></font></th>
+				<th style="text-align: center"><font size="2" color="black"><strong>Ação</strong></font></th>
+			</tr>
+		</thead>
+		<tbody>
+		
+			<?php foreach($this->rows as $lista){?>
+			<?php foreach($this->file as $file){?>
+				<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+					<tr style="background: #EEE;">
+						<td style="width: 50px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
+						<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
+						<td style="text-align: center; width: 300px;">
+							<a style="width: 80px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
+								array(
+									'controller'	=>	'index',
+									'action'		=>	'material',
+									'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+								));?>">
+								Exibir
+							</a>
+						</td>
+					</tr>
+
+				<?php }
+				}
+			}?>
+		</tbody>
+	</table>
 	
-					<?php }
-					}
-				}?>
-			</tbody>
-		</table>
-	<?php
-	}
-	else{
-		echo '<h4>'. 'Não há matérial disponível até o momento' . '</h4>';	
-	}?>	
-	
+	<?php } else { ?>
+		<div class="page-header">
+			<div style="color: #000; font-size: 30px;">
+				<strong>Meus materiais disponiveis</strong>
+			</div>
+		</div>
+		
+		<br /><br />
+		
+		<div style="color: red; font-size: 20px;">
+			<strong>Não há matérial disponível até o momento.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } 	?>
 	
 	<br /><br />
 	

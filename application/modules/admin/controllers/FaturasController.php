@@ -95,6 +95,7 @@ class Admin_FaturasController extends AppBaseController{
 		$idFatura = $this->_getParam('idFatura');
 		
 		$faturas_model = new Application_Model_DbTable_Faturas();
+		$pagamento_model = new Application_Model_DbTable_Pagamento();
 		
 		$this->view->rows = $faturas_model->listagem($idFatura);
 

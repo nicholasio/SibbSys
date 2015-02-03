@@ -1,6 +1,16 @@
 <?php $this->headTitle('Lista')?>
 
 <div class="grid_16">
+
+	<?php if(empty ($this->find['Turma_idTurma'])){ ?>
+		<br /><br />
+		<div style="color: red; font-size: 20px;">
+			<strong>Ainda não há alunos matriculados nessa Turma.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } else { 	?>
+
 	<div class="page-header">
 		<h2>
 			<?php foreach ($this->linha as $disc){?>
@@ -43,4 +53,9 @@
 			<?php }?>
 		</tbody>
 	</table>
+	
+	<br /><br /><br />
+	
+	<?php } ?>
+	
 </div>

@@ -1,6 +1,16 @@
 <?php $this->headTitle('Lista')?>
 
 <div class="grid_16">
+
+	<?php if(empty ($this->pegaArquivo)){;?>
+		<br /><br /><br />
+		<div style="color: red; font-size: 20px;">
+			<strong>Até o momento não foi disponibilizado nenhum arquivo à turma.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } else { 	?>
+
 	<div class="page-header">
 		<h2>Lista de arquivos da disciplina de <?php echo $this->turma; ?></h2>
 	</div>
@@ -69,5 +79,8 @@
 		</tbody>
 	</table>
 	
-	<br />
+	<br /><br /><br />
+	
+	<?php } ?>
+	
 </div>

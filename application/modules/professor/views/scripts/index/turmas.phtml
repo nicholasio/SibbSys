@@ -1,13 +1,22 @@
 <?php $this->headTitle('Turmas'); ?>
 
 <div class="grid_16">
+	
+	<?php if ($this->row['idTurma'] == null || $this->row['Status'] == 'Encerrada'){?>
+		
+		<br /><br />
+		<div style="color: red; font-size: 20px;">
+			<strong>Usuário não Leciona nenhuma Turma até o momento.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } else { 	?>
+	
 	<div class="page-header">
 		<h1>Lista de Turmas
 			<small>Veja todas as Turmas que leciona no semestre corrente</small>
 		</h1>
 	</div>
-	
-	<?php if($this->row != null){?>
 	
 	<table class="table table-striped data-table">
 		<thead>
@@ -67,10 +76,6 @@
 		</tbody>
 	</table>
 	
-	<?php 
-		}else{
-				
-				echo '<h4>' . 'Usuário não leciona nenhuma turma até o momento.' . '</h4>';
-						
-		}?>
+	<?php  } ?>
+	
 </div>

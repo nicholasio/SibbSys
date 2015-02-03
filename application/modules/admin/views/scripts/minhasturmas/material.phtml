@@ -1,6 +1,9 @@
 <?php $this->headTitle('Matérial de Aulas'); ?>
 
 <div class="grid_16">
+
+	<?php if(!empty($this->rows['Nome'])){?>
+
 	<div class="page-header">
 		<h2>
 			Matérial das Aulas de <?php echo $this->row->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?>
@@ -8,8 +11,6 @@
 	</div>
 
 <br />
-
-<?php if(!empty($this->rows['Nome'])){?>
 
 	<table class="table table-striped data-table">
 		<thead>
@@ -37,13 +38,25 @@
 					</a>
 				</td>
 			</tr>		
-	<?php }
-}else{
-		echo '<h4>' . 'Nenhum matérial disponível no momento!' . '</h4>';
-	}
-	?>
-	</tbody>
-</table>
+		</tbody>
+		<?php } ?>	
+	</table>
+	
+	<?php } else { ?>
+		<div class="page-header">
+			<div style="color: #000; font-size: 30px;">
+				<strong>Matérial de Aulas.</strong>
+			</div>
+		</div>
+		
+		<br /><br />
+		
+		<div style="color: red; font-size: 20px;">
+			<strong>Nenhum matérial disponível até o momento.</strong>
+		</div>
+		
+		<br /><br /><br /><br />
+	<?php } 	?>
 
 	<br /><br />
 	

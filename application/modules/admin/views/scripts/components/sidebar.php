@@ -2,7 +2,7 @@
 
 	<div class="cog">+</div>
 
-	<!-- <a href="index.php" class="logo display_none"><span>Adminica</span></a>  -->
+	<a href="index.php" class="logo display_none"><span>Adminica</span></a>
 
 	<div class="user_box dark_box clearfix">
 
@@ -13,9 +13,9 @@
 
 		?>
 	
-		<img src="/files/<?php echo $data->Foto; ?>" width="84" height="110"></img>
+		<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'alterar-foto'),null,1);?>"><img src="/files/<?php echo $data->Foto; ?>" width="85" height="110"></img></a>
 		
-		<p style="font-size: 11,5px;"><strong>
+		<p style="font-size: 10px;"><strong>
 		<?php switch($data->Tipo){
 				case 1:
 					echo "Administrador";
@@ -29,12 +29,12 @@
 		} ?>
 		</strong></p>
 		
-		<h3 style="font-size: 12px; "><a href="#"><?php echo $data->Nome;?></a></h3>
+		<h3 style="font-size: 11px; "><a href="#"><strong><?php echo $data->Nome;?></strong></a></h3>
 		
-		<div style="margin: 0 0 0 55px;">
+		<div style="margin: 15px 0 0 60px;">
 			<ul>
-				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1);?>" style="font-size: 12px; ">Alterar Senha</a><span class="divider">|</span></li>
-				<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1);?>" style="font-size: 12px; ">Sair</a></li>
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1);?>" style="font-size: 11px; "><strong>Alterar Senha</strong></a><span class="divider">|</span></li>
+				<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1);?>" style="font-size: 11px; "><strong>Sair</strong></a></li>
 			</ul>
 		</div>
 	</div><!-- #user_box -->
@@ -107,7 +107,6 @@
 							foreach($rows as $turma){	?>
 								<li><a href="#"><span><?php echo $turma->Nome; ?></span></a>
 									<ul class="drawer">
-										<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'professor','action'=>'lista-nota','idTurma'=>$turma->idTurma),null,1); ?>"><span>Notas</span></a></li>
 										<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'professor','action'=>'lista-presenca','idTurma'=>$turma->idTurma),null,1); ?>"><span>Presença</span></a></li>
 										<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'arquivo','action'=>'listar','idTurma'=>$turma->idTurma),null,1); ?>"><span>Arquivos</span></a></li>
 									</ul>

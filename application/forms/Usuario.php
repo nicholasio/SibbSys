@@ -222,6 +222,7 @@ class Application_Form_Usuario extends Zend_Form
 		
 		$foto = new Zend_Form_Element_File('Foto');
 		$foto->setDestination('files/')
+			 ->setRequired(true)
 			 ->addValidator('Count', false, 1)
 			 ->addValidator('Size', false, '15MB')
 			 ->addDecorators(array(

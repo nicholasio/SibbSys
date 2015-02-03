@@ -29,15 +29,24 @@ class Admin_PagamentoController extends AppBaseController{
 	public function addpagamentoAction() {
 
 		$pagamento_model = new Application_Model_DbTable_Pagamento();
+		
+		
+		
+		$pegaData = ($_POST['data']);
+		$ano = substr($pegaData,6,9);
+		$mes = substr($pegaData,3,2);
+		$dia = substr($pegaData,0,2);
+		
+		$array_data = $ano. '/' . $mes . '/' . $dia;
 
 		if ( $this->_request->isPost() ) {
 			$idFatura = $_POST['idFatura'];
-			$data     = $_POST['data'];
+			//$dataValor     = $_POST['data'];
 			$valor    = $_POST['valor'];
 			$user_id  = $_POST['user_id'];
 			$descricao = $_POST['descricao'];
 
-			$data = array( 'Faturas_idFatura' => $idFatura, 'dataPagamento' => $data, 'valorPagamento' => $valor, 'Descricao' => $descricao );
+			$data = array( 'Faturas_idFatura' => $idFatura, 'dataPagamento' => $array_data, 'valorPagamento' => $valor, 'Descricao' => $descricao );
 			$pagamento_model->insert($data);
 
 			$this->_helper->flashMessenger->addMessage("Pagamento adicionado na Fatura #{$idFatura}");

@@ -27,7 +27,11 @@ class Admin_TurmaController extends AppBaseController{
 
     public function novoAction() {
     	
-        $model = new Application_Model_DbTable_Turma();
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
+    	
+    	$model = new Application_Model_DbTable_Turma();
         $DiscTable = new Application_Model_DbTable_Disciplina();
         $form = new Application_Form_Turma();
     
@@ -35,6 +39,7 @@ class Admin_TurmaController extends AppBaseController{
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
                 $model->insert($data);
+                $this->_helper->flashMessenger->addMessage("Turma cadastrada com sucesso!");
                 $this->_redirect('/admin/turma/novo');
             }
         }
@@ -61,6 +66,7 @@ class Admin_TurmaController extends AppBaseController{
     			if($id){
     				$where = $model->getAdapter()->quoteInto('idTurma = ?', $id);
     				$model->update($data, $where);
+    				$this->_helper->flashMessenger->addMessage("Dados atualizados com sucesso!");
     				$this->_redirect('/admin/turma');
     			}
     		}

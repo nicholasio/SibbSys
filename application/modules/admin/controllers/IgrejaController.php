@@ -28,6 +28,10 @@ class Admin_IgrejaController extends AppBaseController{
     
     public function novoAction() {
     	
+    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+    	}
+    	
         $model = new Application_Model_DbTable_Igreja();
         $form = new Application_Form_Igreja();
 
@@ -35,6 +39,7 @@ class Admin_IgrejaController extends AppBaseController{
             if($form->isValid($this->_request->getPost())){
                     $data = $form->getValues();
                     $model->insert($data);
+                    $this->_helper->flashMessenger->addMessage("Dados atualizados com sucesso!");
                     $this->_redirect("/admin/igreja/novo");
             }
         }

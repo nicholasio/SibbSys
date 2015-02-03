@@ -1379,7 +1379,7 @@ td {
 }
 
 .btn-alterar{
-	float: right;
+//	float: right;
 	margin: 30px 120px 0 0;
 }
 

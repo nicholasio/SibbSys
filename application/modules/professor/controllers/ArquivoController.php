@@ -86,6 +86,7 @@ class Professor_ArquivoController extends AppBaseController{
     	$model = new Application_Model_DbTable_Arquivos();
     	
     	$this->view->rows = $model->listar($idDisc);
+    	$this->view->pegaArquivo = $model->seleciona($idDisc);
     }
     
     
