@@ -138,7 +138,8 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 
 	public function getAniversariantes($mes) {
 
-		$sql = $this->select()->where('SUBSTRING(DataNascimento,4,2)  = ?', $mes);
+		$sql = $this->select()->where('SUBSTRING(DataNascimento,4,2)  = ?', $mes)
+							  ->order(array(new Zend_Db_Expr('DataNascimento ASC')));
 
 		return $this->fetchAll($sql);
 	}
