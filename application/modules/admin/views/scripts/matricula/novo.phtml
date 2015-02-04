@@ -17,11 +17,12 @@
       <label for="aluno" class="">Aluno</label>
       <select class="sibb-select2 " id="aluno" style="width:200px" name="aluno">
             <?php 
-              $users = new Application_Model_DbTable_Usuario();
-              $users = $users->fetchAll();
-              foreach ($users as $user) : 
+              //$users = new Application_Model_DbTable_Usuario();
+              //$usuario = $users->fetchAll();
+              //$usuario->order(array(new Zend_Db_Expr('Nome ASC')));
+              foreach ($this->usuario as $user) : 
             ?>
-              <option value="<?= $user->idUsuario; ?>"><?= $user->Nome; ?></option>
+              <option value="<?php echo $user->idUsuario; ?>"><?php echo $user->Nome; ?></option>
             <?php endforeach; ?>
       </select>
       <br />

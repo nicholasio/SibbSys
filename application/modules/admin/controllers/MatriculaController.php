@@ -45,6 +45,7 @@ class Admin_MatriculaController extends AppBaseController{
     	
     	//$form = new Application_Form_Matricula();
     	$model = new Application_Model_DbTable_Matricula();
+    	$model_usuario = new Application_Model_DbTable_Usuario();
     	$turma = new Application_Model_DbTable_Turma();
 		$config = new Application_Model_DbTable_Configs();
 
@@ -53,7 +54,9 @@ class Admin_MatriculaController extends AppBaseController{
 		$semestre_atual = $config->findKey('semestre_atual');
 
 
-    	
+    	$this->view->usuario = $model_usuario->listaUsuario(); 
+		
+		
     	$this->view->turmas = $turma->listar($ano_atual, $semestre_atual);
 
     	if ($this->_helper->FlashMessenger->hasMessages()) {

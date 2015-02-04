@@ -17,7 +17,7 @@ class Application_Model_DbTable_Igreja extends Zend_Db_Table_Abstract{
 	
 	public function findForSelect(){
 		
-		$select = $this->select();
+		$select = $this->select()->order(array(new Zend_Db_Expr('Igreja ASC')));;
 		
 		return $this->fetchAll($select);
 	}

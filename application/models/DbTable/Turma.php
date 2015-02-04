@@ -81,7 +81,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 			$sql->where('Ano = ?' , $ano)->where('Semestre = ?', $semestre);
 		}
 
-		$sql->order(array(new Zend_Db_Expr('idTurma ASC')));
+		$sql->order(array(new Zend_Db_Expr('Nome ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		
@@ -92,6 +92,8 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	public function lista(){
 			
 		$sql = $this->select()->from($this, new Zend_Db_Expr("DISTINCT(idUsuario)"));
+		
+		$sql->order(array(new Zend_Db_Expr('Nome ASC')));
 	
 		$rows = $this->fetchAll($sql);
 	

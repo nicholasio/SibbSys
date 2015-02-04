@@ -108,7 +108,7 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		$where = 'ativo';
 		$sql = $this->select()
 					->where('Status = ?', $where)
-					->order(array(new Zend_Db_Expr('idUsuario ASC')));
+					->order(array(new Zend_Db_Expr('Nome ASC')));
     	
 		$rows = $this->fetchAll($sql);
 		
@@ -142,6 +142,18 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 							  ->order(array(new Zend_Db_Expr('DataNascimento ASC')));
 
 		return $this->fetchAll($sql);
+	}
+	
+	public function listaUsuario(){
+	
+		//$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
+		//$sql->order(array(new Zend_Db_Expr('idPagamento ASC')));
+	
+		$sql = $this->select()->order(array(new Zend_Db_Expr('Nome ASC')));
+	
+		$query = $this->fetchAll($sql);
+	
+		return $query;
 	}
 	
 }

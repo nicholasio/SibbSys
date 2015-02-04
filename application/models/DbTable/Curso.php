@@ -16,7 +16,7 @@ class Application_Model_DbTable_Curso extends Zend_Db_Table_Abstract{
     
     public function findForSelect(){
     	
-    	$sql = $this->select();
+    	$sql = $this->select()->order(array(new Zend_Db_Expr('Nome ASC')));;
     	$rows = $this->fetchAll($sql);
     	
     	return $rows;
