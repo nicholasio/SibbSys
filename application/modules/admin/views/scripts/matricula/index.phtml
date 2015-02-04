@@ -48,12 +48,12 @@
 	    <tbody>
 		<?php foreach ($this->rows as $lista) { ?>
 		<tr style="background: #EEE;">
-			<td style="width: 30px; text-align: center;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
+			<td style="width: 20px; text-align: center;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
 			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-			<td style="width: 250px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
+			<td style="width: 200px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
 							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
-			<td style="width: 200px; text-align: center;"><strong>					
+			<td style="width: 150px; text-align: center;"><strong>					
 				<?php foreach ($this->prof as $prof){?>
 					<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
 							 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
@@ -79,7 +79,7 @@
 		
 		</strong></td>
 		
-		<td  style="width: 200px; text-align: center;">
+		<td  style="width: 150px; text-align: center;">
 		
 			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 				array(
