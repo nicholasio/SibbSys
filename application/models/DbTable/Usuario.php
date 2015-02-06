@@ -55,6 +55,7 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		
 		$sql = $this->select()
 					->where('Tipo != ?', 3)
+					->where('Status = ?', 'ativo')
 					->order(array(new Zend_Db_Expr('Nome ASC')));
 		
 		$rows = $this->fetchAll($sql);

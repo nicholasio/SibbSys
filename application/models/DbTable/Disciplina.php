@@ -25,7 +25,9 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 	
 	public function findForSelect(){
 		
-		$sql = $this->select()->order(array(new Zend_Db_Expr('Disciplina ASC')));;
+		$sql = $this->select();
+		$sql->order(array(new Zend_Db_Expr('Disciplina ASC')));
+		
 		$rows = $this->fetchAll($sql);
 		
 		return $rows;

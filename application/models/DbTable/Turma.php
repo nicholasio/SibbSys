@@ -149,7 +149,8 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 
 		if ( $podeEncerrar ) {
 			foreach($notas as $nota) {
-				if ( is_null($nota['Unit1']) || is_null($nota['Unit2']) || is_null($nota['Unit3']) ) {
+				if($nota['Unit1'] == '0' || $nota['Unit2'] == '0' || $nota['Unit3'] == '0'){
+				//if ( is_null($nota['Unit1']) || is_null($nota['Unit2']) || is_null($nota['Unit3']) ) {
 					$podeEncerrar = false;
 					break;
 				}
@@ -231,6 +232,16 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 		
+	}
+	
+	public function listaData($idTurma){
+		
+		$sql = $this->select()->where('idTurma = ?', $idTurma)
+					->order(array(new Zend_Db_Expr('Ano, Semestre ASC')));
+		
+		$query = $this->fetchAll($sql);
+		
+		return $query;
 	}
 	
 }

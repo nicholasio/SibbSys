@@ -183,6 +183,21 @@ class Application_Form_UsuarioEdit extends Zend_Form
     	}
     	
     	
+    	$email = new Zend_Form_Element_Text('Email');
+    	$email->setLabel('Email:* ')
+    		->addValidator('EmailAddress')
+    		->setAttrib('placeholder', 'Insira um E-mail válido')
+    		->addErrorMessage('Insira um endereço de email válido.')
+    		->setRequired(true)
+    		->setDecorators(array(
+    			'Errors',
+    			'Label',
+    			'ViewHelper',
+    			array('HtmlTag', array('class'=>'right'))
+    		));
+    	
+    	
+    	
         $submit = new Zend_Form_Element_Submit('Cadastrar', array('class' => 'btn btn-success'));
         $submit->setDecorators(array(
         			'Errors',
@@ -192,7 +207,7 @@ class Application_Form_UsuarioEdit extends Zend_Form
         
         $this->addElements(array(
         	$nome,$end,$bairro,$cep,$tel,$cel,$nasc,
-        	$mae,$pai,$cpf,$igreja,$tipo,$curso,$submit
+        	$mae,$pai,$cpf,$igreja,$tipo,$curso,$email,$submit
         ));
         
                

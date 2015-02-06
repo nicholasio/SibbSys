@@ -106,6 +106,7 @@ class Aluno_IndexController extends AppBaseController{
     	$model = new Application_Model_DbTable_Matricula();
     	$this->view->rows = $model->turmas($id);
     	$this->view->row = $model->getTurma($id);
+    	
     }
 
     

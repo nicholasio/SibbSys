@@ -46,9 +46,9 @@
  							$i = 0;
  							foreach($this->rows as $users) : 
  								$idNota = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['idNota'] : '';
- 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : '0';
- 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) ) ? $this->nota[$i]['Unit2']  : '0';
- 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) ) ? $this->nota[$i]['Unit3']  : '0';
+ 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : ' ';
+ 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) ) ? $this->nota[$i]['Unit2']  : ' ';
+ 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) ) ? $this->nota[$i]['Unit3']  : ' ';
 
 							if($users->Status != 'inativo') : ?>
 							<tr style="background: #EEE ">

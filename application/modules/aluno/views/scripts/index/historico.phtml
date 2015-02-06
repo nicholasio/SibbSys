@@ -52,20 +52,30 @@
 	
 						$tableNota = new Application_Model_DbTable_Nota();
 						$presenca = new Application_Model_DbTable_Presenca();
+						$model_turma = new Application_Model_DbTable_Turma();
+						
+						//print $this->row['idUsuario_has_Turma'];
 						
 						$i = 0;
 						
 						foreach($this->rows as $users){?>
-						
+							
 						<?php 
 						$id = $users->idUsuario_has_Turma;
+						
+						//print $id; 
 						$chamada = $presenca->contaPresenca($id);
 						$media = $tableNota->media($id);
+						
+						$idTurma = $users->findParentRow('Application_Model_DbTable_Turma')->idTurma;
+
 						?>
 						
 							<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
 								<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
+								
 								<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
+								
 								
 								<?php if($chamada["SUM(Faltas)"] != null){?>
 										<td style="text-align: center; "><?php echo $chamada["SUM(Faltas)"]; ?></td>			

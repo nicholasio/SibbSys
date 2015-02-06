@@ -95,7 +95,8 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		/*
 		 * Lista todas as Turmas em que este usuário está matriculado;
 		 */
-		$sql = $this->select()->where('Usuario_idUsuario = ?', $id);
+		$sql = $this->select()->where('Usuario_idUsuario = ?', $id)
+					->order(array(new Zend_Db_Expr('Turma_idTurma')));
 		
 		$rows = $this->fetchAll($sql);
 		
