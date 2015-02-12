@@ -33,9 +33,18 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	
 	public function findForSelect($id){
 		
-		$sql = $this->select()->where('Turma_idTurma = ?', $id);
+		$sql = $this->select()->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
+							  ->joinInner('Usuario', 'idUsuario = Usuario_idUsuario', array())
+					->where('Turma_idTurma = ?', $id)
+					->where('Usuario.Status = ?', 'ativo')
+					->order('Nome');
+		$rows = $this->fetchAll($sql);
 		
-		return $this->fetchAll($sql);
+		return $rows;
+		
+		//$sql = $this->select()->where('Turma_idTurma = ?', $id);
+		
+		//return $this->fetchAll($sql);
 	}
 	
 	public function getMatriculasNaoProcessadas( $ano, $semestre, $mesAtual ) {
@@ -95,13 +104,20 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		/*
 		 * Lista todas as Turmas em que este usuário está matriculado;
 		 */
-		$sql = $this->select()->where('Usuario_idUsuario = ?', $id)
-					->order(array(new Zend_Db_Expr('Turma_idTurma')));
 		
-		$rows = $this->fetchAll($sql);
+		$sql = $this->select()->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
+							  ->joinInner('Turma', 'Turma_idTurma = idTurma', array())
+					->distinct('idUsuario_has_Turma')
+					->distinct('idTurma')
+					->where('Usuario_idUsuario = ?', $id)
+					//->order(array(new Zend_Db_Expr('Semestre ASC')))
+					->order(array(new Zend_Db_Expr('Ano ASC')));
+		$query = $this->fetchAll($sql);
 		
-		return $rows;
+		return $query;
+	
 	}
+	
 	
 	
 	public function getTurma($id){
@@ -162,6 +178,13 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		
 		$sql = $this->select()->where('Turma_idTurma = ?', $id);
 		
+		return $this->fetchRow($sql);
+	}
+	
+	public function selecionar($idTurma){
+	
+		$sql = $this->select()->where('Turma_idTurma = ?', $idTurma);
+					
 		return $this->fetchRow($sql);
 	}
 	

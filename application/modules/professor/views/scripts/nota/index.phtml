@@ -28,12 +28,10 @@
  			
  				<tr style="height: 25px; background: #1C94C4;">
  				
-					<th style="width: 300px; padding-top: 5px;"><font size="3" color="white">ALUNOS</font></th>
-					<th style="width: 300px;"><font size="3" color="white">UNIDADE 1</font></th>
-					<th style="width: 300px;"><font size="3" color="white">UNIDADE 2</font></th>
-					<th style="width: 300px;"><font size="3" color="white">UNIDADE 3</font></th>
-					<th style="width: 300px;"><font size="3" color="white">STATUS</font></th>
-
+					<th style="width: 500px; padding-top: 5px;"><font size="3" color="white">ALUNOS</font></th>
+					<th style="width: 250px;"><font size="3" color="white">UNIDADE 1</font></th>
+					<th style="width: 250px;"><font size="3" color="white">UNIDADE 2</font></th>
+					<th style="width: 250px;"><font size="3" color="white">UNIDADE 3</font></th>
 					
 				</tr>
 				
@@ -50,9 +48,9 @@
  							foreach($this->rows as $users) :
 
  								$idNota = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['idNota'] : '';
- 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : '0' ;
- 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) ) ? $this->nota[$i]['Unit2']  : '0' ;
- 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) ) ? $this->nota[$i]['Unit3']  : '0' ;
+ 								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : ' ' ;
+ 								$unit2  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit2']) ) ? $this->nota[$i]['Unit2']  : ' ' ;
+ 								$unit3  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit3']) ) ? $this->nota[$i]['Unit3']  : ' ' ;
 
  							//var_dump($this->nota->toArray());
 							if($users->Status != 'inativo') : ?>
@@ -70,20 +68,16 @@
 								</td>
 								
 								<td style="text-align: center; padding-top: 7px; ">
-									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php if ( $unit1 == '0' ){echo ' ' ; } else{ echo number_format($unit1,2,',','.'); }  ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit1[]" class="nota" value="<?php if ( $unit1 == 0 ){echo ' ' ; } else{ echo number_format($unit1,2,',','.'); }  ?>"/>
 								</td>
 								
 								<td style="text-align: center;" >
-									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php if ( $unit2 == '0' ){echo ' ' ; } else{ echo number_format($unit2,2,',','.'); }  ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit2[]" class="nota" value="<?php if ( $unit2 == 0 ){echo ' ' ; } else{ echo number_format($unit2,2,',','.'); }  ?>"/>
 								</td>
 								
 								<td style="text-align: center;" >
-									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 == '0' ){echo ' ' ; } else{ echo number_format($unit3,2,',','.'); }  ?>"/>
+									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 == 0 ){echo ' ' ; } else{ echo number_format($unit3,2,',','.'); }  ?>"/>
 								</td>
-								<td style="text-align: center;" >
-									<strong><?php echo $users->Status; ?></strong>
-								</td>
-								
 	    					</tr>
 	    					
 	    					<?php endif; ?>	

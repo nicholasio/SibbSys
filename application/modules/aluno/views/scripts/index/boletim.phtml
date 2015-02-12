@@ -74,7 +74,7 @@
                                         <tr>
                                             <td>
                                                 <strong>
-                                                    <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
+                                                    <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
                                                 </strong>
                                             </td>
                                             
@@ -112,7 +112,11 @@
                                                     ?>
                                             </strong></td><!-- Faltas -->
 
-                                            <td style="text-align: center;"><strong><?php echo number_format($media,2,',','.'); ?></strong></td><!-- Média Final -->
+                                            <?php if($media < 7){ ?>
+												<td style="text-align: center; color:red; "><?php echo number_format($media, 2,',','.'); ?></td>
+											<?php } else { ?>
+												<td style="text-align: center; "><?php echo number_format($media, 2,',','.'); ?></td>
+											<?php } ?>
 
                                             <td style="text-align: center;"><strong><?php echo $turma->Status; ?></strong></td><!-- Situação -->
                                         </tr>
@@ -134,7 +138,7 @@
                                         <tr>
                                         <td>
                                             <strong>
-                                                <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
+                                                <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
                                             </strong>
                                         </td>
 										

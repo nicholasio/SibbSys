@@ -102,8 +102,13 @@ class Aluno_IndexController extends AppBaseController{
     	$dados = $auth->getStorage()->read();
     	
     	$id = $dados->idUsuario;
+    	$idUsuario = $dados->idUsuario;
+    	
+    	$this->view->idusuario = $idUsuario;
     	
     	$model = new Application_Model_DbTable_Matricula();
+    	$turma_model = new Application_Model_DbTable_Turma();
+    	$this->view->usuario = $turma_model->listaData($idUsuario);
     	$this->view->rows = $model->turmas($id);
     	$this->view->row = $model->getTurma($id);
     	

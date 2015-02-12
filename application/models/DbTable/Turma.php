@@ -234,14 +234,30 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		
 	}
 	
-	public function listaData($idTurma){
+	public function listaData($idUsuario){
 		
-		$sql = $this->select()->where('idTurma = ?', $idTurma)
+		/*$sql = $this->select()->where('idTurma = ?', $idTurma)
 					->order(array(new Zend_Db_Expr('Ano, Semestre ASC')));
 		
 		$query = $this->fetchAll($sql);
 		
 		return $query;
+		*/
+		
+		$sql = $this->select()->from(array('m' => 'Usuario_has_Turma'), array())
+					->joinInner(array('t' => 'Turma'), 'm.Turma_idTurma = t.idTurma', array())
+					->distinct('m.idUsuario_has_Turma')
+					->distinct('t.idTurma')
+					->where('m.Usuario_idUsuario = ?', $idUsuario)
+					//->order(array(new Zend_Db_Expr('t.Semestre ASC')))
+					->order(array(new Zend_Db_Expr('t.Ano ASC')));
+		$query = $this->fetchAll($sql);
+		
+		return $query;
+		
+		//order(array(new Zend_Db_Expr('Nome ASC')));
+		
+		
 	}
 	
 }

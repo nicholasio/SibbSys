@@ -54,29 +54,17 @@
 						$presenca = new Application_Model_DbTable_Presenca();
 						$model_turma = new Application_Model_DbTable_Turma();
 						
-						//print $this->row['idUsuario_has_Turma'];
-						
 						$i = 0;
 						
 						foreach($this->rows as $users){?>
+							<?php $id = $users->idUsuario_has_Turma; ?>
 							
-						<?php 
-						$id = $users->idUsuario_has_Turma;
-						
-						//print $id; 
-						$chamada = $presenca->contaPresenca($id);
-						$media = $tableNota->media($id);
-						
-						$idTurma = $users->findParentRow('Application_Model_DbTable_Turma')->idTurma;
-
-						?>
-						
-							<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
-								<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
+							<?php $chamada = $presenca->contaPresenca($id); ?> 
+							<?php $media = $tableNota->media($id); ?>
+								<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
+									<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
 								
-								<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
-								
-								
+									<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
 								<?php if($chamada["SUM(Faltas)"] != null){?>
 										<td style="text-align: center; "><?php echo $chamada["SUM(Faltas)"]; ?></td>			
 								<?php }
@@ -86,25 +74,23 @@
 					
 								<?php }?>
 								
-								<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<?php if($media < 7){ ?>
+									<td style="text-align: center; color:red; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<?php } else { ?>
+									<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<?php } ?>
+								
 								<td style="text-align: center; ">
-									<?php switch ($users->Status){
-										case 'Aprovado':
-											echo "<span class='label label-success'>$users->Status</span>";
-											break;
-										case 'Reprovado':
-											echo "<span class='label label-important'>$users->Status</span>";
-											break;
-										case 'Cursando':
-											echo "<span class='label label-info'>$users->Status</span>";
-											break;
-									} ?>
+									<?php if($users['Status'] == 'Aprovado'){ ?>
+											<span class='label label-success'>Aprovado</span>
+									<?php } if($users['Status'] == 'Reprovado'){ ?>
+											<span class='label label-important'>Reprovado</span>
+									<?php } if($users['Status'] == 'Cursando'){?>
+											<span class='label label-info'>Cursando</span>
+									<?php } ?>
 									
 								</td>
-								
-						<?php }?>
-											
-					
+						<?php } ?>
 					</table>
 					
 					<br /><br /><br /><br /><br /><br /><br />

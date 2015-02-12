@@ -157,4 +157,13 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		return $query;
 	}
 	
+	public function verificaEmail($email){
+		
+		$sql = $this->select()->where('Email = ?', $email);
+		
+		$query = $this->fetchRow($sql);
+		
+		return $query;
+	}
+	
 }

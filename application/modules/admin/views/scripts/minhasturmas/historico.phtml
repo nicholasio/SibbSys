@@ -76,7 +76,12 @@
 					
 								<?php }?>
 								
-								<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<?php if($media < 7){ ?>
+									<td style="text-align: center; color:red; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<?php } else { ?>
+									<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
+								<?php } ?>
+								
 								<td style="text-align: center; ">
 									<?php switch ($users->Status){
 										case 'Aprovado':

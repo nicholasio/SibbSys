@@ -40,9 +40,16 @@ class Admin_UsuarioController extends AppBaseController{
         if($this->_request->isPost()){
             if($form->isValid($this->_request->getPost())){
                 $data = $form->getValues();
-                $model->insert($data);
-                $this->_helper->flashMessenger->addMessage("Usuário cadastrado com sucesso!");
-                $this->_redirect("/admin/usuario/novo");
+                $email = $data['Email'];
+                $verifica_email = $model->verificaEmail($email);
+                if( ! is_null($verifica_email['Email'])){
+                	$this->_helper->flashMessenger->addMessage("Cadastro não realizado pois o endereço de Email já está cadastrado no sistema!");
+					//$this->_redirect("/admin/usuario/novo");
+                }else{
+                	$model->insert($data);
+                	$this->_helper->flashMessenger->addMessage("Usuário cadastrado com sucesso!");
+                	$this->_redirect("/admin/usuario/novo");
+                }
             }
         }
     }
