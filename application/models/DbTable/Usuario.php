@@ -150,8 +150,9 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		//$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
 		//$sql->order(array(new Zend_Db_Expr('idPagamento ASC')));
 	
-		$sql = $this->select()->order(array(new Zend_Db_Expr('Nome ASC')));
-	
+		$sql = $this->select()->where('Status = ?', 'ativo')
+					->order(array(new Zend_Db_Expr('Nome ASC')));
+					
 		$query = $this->fetchAll($sql);
 	
 		return $query;
