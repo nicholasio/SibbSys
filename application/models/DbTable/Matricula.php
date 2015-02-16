@@ -42,9 +42,6 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		
 		return $rows;
 		
-		//$sql = $this->select()->where('Turma_idTurma = ?', $id);
-		
-		//return $this->fetchAll($sql);
 	}
 	
 	public function getMatriculasNaoProcessadas( $ano, $semestre, $mesAtual ) {
@@ -86,13 +83,14 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 
 
 		if ( $ano !== false && $semestre !== false ) {
-			$sql->from(array('t' => 'Turma'), array())
-				->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma')
-				->where('u.Status = ?', $where)
-				->where('t.Ano = ?', $ano)->where('t.Semestre = ?', $semestre);
+		$sql->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
+			->joinInner('Turma', 'Turma_idTurma = idTurma', array())
+			->where('Usuario_has_Turma.Status = ?', $where)
+			->order(array(new Zend_Db_Expr('Semestre ASC')))
+			->order(array(new Zend_Db_Expr('Ano ASC')));
 		}
 
-		$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
+		//$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
 		
 		$rows = $this->fetchAll($sql);
 		
@@ -107,11 +105,9 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		
 		$sql = $this->select()->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
 							  ->joinInner('Turma', 'Turma_idTurma = idTurma', array())
-					->distinct('idUsuario_has_Turma')
-					->distinct('idTurma')
-					->where('Usuario_idUsuario = ?', $id)
-					//->order(array(new Zend_Db_Expr('Semestre ASC')))
-					->order(array(new Zend_Db_Expr('Ano ASC')));
+							  ->where('Usuario_idUsuario = ?', $id)
+							  ->order(array(new Zend_Db_Expr('Semestre ASC')))
+							  ->order(array(new Zend_Db_Expr('Ano ASC')));
 		$query = $this->fetchAll($sql);
 		
 		return $query;

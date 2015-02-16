@@ -74,7 +74,7 @@
                                         <tr>
                                             <td>
                                                 <strong>
-                                                    <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+                                                    <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
                                                 </strong>
                                             </td>
                                             
@@ -138,7 +138,7 @@
                                         <tr>
                                         <td>
                                             <strong>
-                                                <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->Nome; ?><!-- Nome Turma -->
+                                                <?php echo $turma->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?><!-- Nome Turma -->
                                             </strong>
                                         </td>
 										

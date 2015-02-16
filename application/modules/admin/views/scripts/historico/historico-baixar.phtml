@@ -58,7 +58,7 @@ if(! empty($this->row['Turma_idTurma'])){
 	?>
 	
 		<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
-			<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
+			<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?></td>
 			<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
 			
 			<?php if($chamada["SUM(Faltas)"] != null){?>

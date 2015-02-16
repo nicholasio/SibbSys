@@ -124,7 +124,12 @@
 		$turmas = $model->turmas($user_id);
 		$pega_turma = $model->getTurma($user_id);
 		
-		if($pega_turma && $pega_turma->Status != 'Encerrada'){ ?>
+		foreach($turmas as $tem_turma){
+			$tem_turma->Status;
+		}
+		
+		
+		if($tem_turma->Status != 'Encerrada'){ ?>
  	
 	<div class="">
 		<div class="">
@@ -136,8 +141,8 @@
 					<table class="table table-bordered data-table">
 						<thead>
 						<tr>
-							<th  style="width: 30px; text-align: center;">#</th>
-							<th style="text-align: center;">Turma</th>
+							<th  style="width: 20px; text-align: center;">#</th>
+							<th style="text-align: center; width: 400px;">Turma</th>
 							<th style="width: 100px; text-align: center;">Ano/Semestre</th>
 							<th style="width: 430px; text-align: center;">Ações</th>
 						</tr>
@@ -202,15 +207,25 @@
 
 	</div>
 				
-				<br />
-		<div>		
+	<br />
+	<div class="">
+		<div class="">		
 			<div class="panel">
 				<div class="panel-heading">
 					<h4 class="panel-title" style="text-align: center; font-size: 18px;">Detalhes dos Registros das Turmas</h4>
 				</div>
 				<div class="panel-body">
-					<table class="table table-bordered">
+					<table class="table table-bordered data-table">
+						<thead>
+						<tr>
+							<th  style="width: 30px; text-align: center;">#</th>
+							<th style="text-align: center; width: 400px;">Turma</th>
+							<th style="width: 100px; text-align: center;">Ano/Semestre</th>
+							<th style="width: 430px; text-align: center;">Ações</th>
+						</tr>
+						</thead>
 						<tbody>
+						
 						<?php
 							$auth = Zend_Auth::getInstance();
 							$data = $auth->getStorage()->read();
@@ -224,6 +239,7 @@
 						<tr>
 							<td style="width: 20px; text-align: center; "><strong><?php echo $turma->idTurma; ?></strong></td>
 							<td><strong><?php echo $turma->Nome; ?></strong></td>
+							<td style="text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
 						
 							<td style="width: 410px; text-align: center; ">
 								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
@@ -248,21 +264,22 @@
 						</tr>
 						<?php endforeach; ?>
 						</tbody>
+						<tfoot>
+						</tfoot>
 					</table>
+					<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
-	
 	</div>
 	
 	<br />
-	
 	
 	<?php } ?>
 	
 	<br /><br />
 	
-	<div class="">
+	<div class="row">
 		<div class="span6">
 			<div class="panel">
 				<div class="panel-heading">
@@ -296,6 +313,7 @@
 							<td style="width: 100px; text-align: center; "><strong><?php echo $this->db->fetchOne( 'SELECT COUNT(*)-2 as count FROM Curso WHERE status= \'ativo\' ' ); ?></strong></td>
 						</tr>
 					</table>
+				<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
@@ -369,11 +387,15 @@
 
 						<?php endforeach; ?>
 						</tbody>
+						<tfoot>
+
+						</tfoot>
+
 					</table>
+				<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
-		
 	</div>
 
 	<br />

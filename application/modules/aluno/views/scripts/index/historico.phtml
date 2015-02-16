@@ -30,7 +30,7 @@
 					<br /><br /><br />
 					
 					<div style="text-align: left; color:#000; font-size: 14px";>
-						Nome: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong></font>
+						Nome: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong>
 					</div>
 					
 					<br /><br /><br />
@@ -62,7 +62,7 @@
 							<?php $chamada = $presenca->contaPresenca($id); ?> 
 							<?php $media = $tableNota->media($id); ?>
 								<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
-									<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></td>
+									<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?></td>
 								
 									<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
 								<?php if($chamada["SUM(Faltas)"] != null){?>

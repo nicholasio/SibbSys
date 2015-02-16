@@ -9,7 +9,7 @@
 
 	<div class="row">
 		<div class="span12">
-
+			
 			<form action="/admin/matricula" method="POST" class="row">
 				<fieldset class="span12">
 
@@ -17,21 +17,20 @@
 					<select name="ano" class="span2" style="margin-bottom: 0;">
 						<?php foreach($this->ano as $ano){?>
 							<option <?php if ( $this->curr_ano && $this->curr_ano ==  $ano->Ano) echo 'selected'; ?> value="<?php echo $ano->Ano; ?>"><?php echo $ano->Ano; ?></option>
-						<?php }?>
+						<?php } ?>
 					</select>
 
 					<select name="semestre" class="span2" style="margin-bottom: 0;">
 						<?php foreach($this->semes as $semes){?>
 							<option <?php if ( $this->curr_semestre && $this->curr_semestre ==  $semes->Semestre) echo 'selected'; ?> value="<?php echo $semes->Semestre; ?>"><?php echo $semes->Semestre; ?></option>
-						<?php }?>
+						<?php } ?>
 					</select>
-
+		
 					<input type="submit" value="Filtrar" class="btn btn-danger span2" />
-
+					
 				</fieldset>
-
-
 			</form>
+			
 		</div>
 	</div>
   	<table class="table table-striped data-table">
@@ -40,6 +39,7 @@
 	        <th style="width: 30px; text-align: center;"><font size="2" color="black"><strong>#</strong></font></th>
 	        <th><font size="2" color="black"><strong>Nome</strong></font></th>
 	        <th style="padding-left: 50px"><font size="2" color="black"><strong>Turma</strong></font></th>
+	        <th style="text-align: center;"><font size="2" color="black"><strong>Ano/Semestre</strong></font></th>
 	        <th style="text-align: center;"><font size="2" color="black"><strong>Professor</strong></font></th>
 	        <th style="text-align: center;"><font size="2" color="black"><strong>Status</strong></font></th>
 	        <th style=" text-align: center; "><font size="2" color="black"><strong>Ação</strong></font></th>
@@ -50,9 +50,9 @@
 		<tr style="background: #EEE;">
 			<td style="width: 20px; text-align: center;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
 			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-			<td style="width: 200px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome . ' ' .
-							$lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
-							$lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
+			<td style="width: 180px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></strong></td>
+			<td style="text-align: center; width: 110px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
+								   $lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
 			<td style="width: 150px; text-align: center;"><strong>					
 				<?php foreach ($this->prof as $prof){?>
 					<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 

@@ -104,7 +104,9 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		
 		$where = 'ativo';
 		$sql = $this->select()->where('idUsuario = ?', $id)
-							  ->where('Status = ?', $where);
+							  ->where('Status = ?', $where)
+							  ->order('Semestre ASC')
+							  ->order('Ano ASC');
 		
 		$rows = $this->fetchAll($sql);
 		

@@ -8,7 +8,7 @@
 	</div>
 	
 	<div class="row">
-		<div class="span5">
+		<div class="span6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<?php 
@@ -112,58 +112,8 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="span8">
-			<div class="panel">
-				<div class="panel-heading">
-					<h4 class="panel-title" style="text-align: center; font-size: 18px;">Detalhes dos Registros das Turmas</h4>
-				</div>
-				<div class="panel-body">
-					<table class="table table-bordered">
-						<tbody>
-						<?php
-							$auth = Zend_Auth::getInstance();
-							$data = $auth->getStorage()->read();
-							$user_id = $data->idUsuario;
-
-							$model = new Application_Model_DbTable_Turma();
-							$turmas = $model->turmas($user_id);
-
-							foreach($turmas as $turma) :
-						?>
-						<tr>
-							<td style="width: 300px;"><strong><?php echo $turma->Nome; ?></strong></td>
-							<td>
-								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
-										array(
-											'controller'	=>	'presenca',
-											'action'		=>	'listar',
-											'idTurma'		=>	$turma->idTurma
-										));?>">
-										Faltas
-								</a>
-							</td>
-							<td>
-								<a id="btn-turma" class="btn btn-warning" href="<?php echo $this->url(
-										array(
-											'controller'	=>	'arquivo',
-											'action'		=>	'listar',
-											'idTurma'		=>	$turma->idTurma
-										));?>">
-										Arquivos
-								</a>
-							</td>
-						</tr>
-						<?php endforeach; ?>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		
-		
 	</div>
-	
+			
 	<div class="">
 		<div class="">
 			<div class="panel">
@@ -232,7 +182,6 @@
 										Encerrar Turma
 									</a>
 								</td>
-								</td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>
@@ -245,8 +194,74 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
+	
+	<br />
+	
+	<div class="">
+		<div class="">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="panel-title" style="text-align: center; font-size: 18px;">Detalhes dos Registros das Turmas</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered data-table">
+						<thead>
+							<tr>
+								<th style="text-align: center; width: 20px;">#</th>
+								<th>Turma</th>
+								<th style="text-align: center; width: 120px;">Ano/Semestre</th>
+								<th style="width: 300px; text-align: center;">Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+							$auth = Zend_Auth::getInstance();
+							$data = $auth->getStorage()->read();
+							$user_id = $data->idUsuario;
+
+							$model = new Application_Model_DbTable_Turma();
+							$turmas = $model->turmas($user_id);
+
+							foreach($turmas as $turma) :
+						?>
+						<tr>
+							<td style="width: 20px; text-align: center;"><strong><?php echo $turma->idTurma; ?></strong></td>
+							<td style="width: 400px;"><strong><?php echo $turma->Nome; ?></strong></td>
+							<td style="width: 120px; text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
+							<td style="text-align: center; ">
+								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'presenca',
+											'action'		=>	'listar',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Faltas
+								</a>
+								
+								<a id="btn-turma" class="btn btn-warning" href="<?php echo $this->url(
+										array(
+											'controller'	=>	'arquivo',
+											'action'		=>	'listar',
+											'idTurma'		=>	$turma->idTurma
+										));?>">
+										Arquivos
+								</a>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+						</tbody>
+						<tfoot>
+
+						</tfoot>
+
+					</table>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
 
 </div>

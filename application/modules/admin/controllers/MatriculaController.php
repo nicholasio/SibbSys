@@ -29,6 +29,7 @@ class Admin_MatriculaController extends AppBaseController{
 
 		$this->view->curr_ano = $ano;
 		$this->view->curr_semestre = $semestre;
+		
 
 		$this->view->prof = $turma->lista();
 		
