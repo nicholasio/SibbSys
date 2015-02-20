@@ -6,10 +6,14 @@ class Default_IndexController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$this->_forward('login');
-			
+		
 	}
 
 	public function loginAction(){
+		
+		if ($this->_helper->FlashMessenger->hasMessages()) {
+			$this->view->menssagem = $this->_helper->FlashMessenger->getMessages();
+		}
 		
 		$form = new Application_Form_Login();
 
@@ -85,7 +89,7 @@ class Default_IndexController extends Zend_Controller_Action
 					$mail->setSubject('Recuperar Senha');
 					
 					$mail->send();
-					
+					$this->_helper->flashMessenger->addMessage("Foi enviado um e-mail para a sua conta de e-mail para continuarmos o processo de recuperação da sua senha. Obrigado!");
 					$this->_redirect("/default");
 					
 					
