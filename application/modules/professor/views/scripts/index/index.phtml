@@ -124,10 +124,10 @@
 					<table class="table table-bordered data-table">
 						<thead>
 						<tr>
-							<th style="text-align: center; width: 30px;">#</th>
-							<th>Turma</th>
-							<th style="text-align: center; width: 120px;">Ano/Semestre</th>
-							<th style="width: 420px;">Ações</th>
+							<th style="text-align: center;">#</th>
+							<th style="text-align: left;">Turma</th>
+							<th style="text-align: center;">Ano/Semestre</th>
+							<th>Ações</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -142,10 +142,10 @@
 						foreach($turmas as $turma) :
 						?>
 							<tr>
-								<td style="text-align: center; width: 30px;"><strong><?php echo $turma->idTurma;?></strong></td>
-								<td><strong><?php echo $turma->Nome; ?></strong></td>
-								<td style="text-align: center; width: 120px;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
-								<td style="text-align: center; ">
+								<td style="text-align: center; width: 20px;"><strong><?php echo $turma->idTurma;?></strong></td>
+								<td style="text-align: left; width: 380px;"><strong><?php echo $turma->Nome; ?></strong></td>
+								<td style="text-align: center; width: 100px;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
+								<td style="text-align: center;">
 									<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 										array(
 											'controller'	=>	'Nota',
