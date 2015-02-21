@@ -19,9 +19,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
   	}
   	
   	
-  	protected function _initDate(){
-  		
-  		ini_set('date.timezone', 'America/Fortaleza');
+  	protected function _initDate() {
+		date_default_timezone_set('America/Fortaleza');
   	}
 		
 	protected function _initViews(){
