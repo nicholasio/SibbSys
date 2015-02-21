@@ -18,7 +18,7 @@
 		<tbody>
 	<?php foreach ($this->rows as $lista){?>
 		<tr style="background: #EEE;">
-			<td style="width: 250px;"><strong><?php echo $lista->Nome; ?></strong></td>
+			<td><strong><?php echo $lista->Nome; ?></strong></td>
 			<td style="width: 70px; text-align: center;"><strong>
 				<?php switch ($lista->Tipo) {
 					case 1:
@@ -33,7 +33,7 @@
 				} ?>
 			</strong></td>
 			<td style="width: 230px; text-align:center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
-			<td  style="text-align: center; "><a class="btn btn-info" data-toggle="modal" href="#myModal-<?php echo $lista->idUsuario; ?>"><i class="icon-search icon-grey"></i></a>
+			<td  style="text-align: center; width: 500px;"><a class="btn btn-info" data-toggle="modal" href="#myModal-<?php echo $lista->idUsuario; ?>"><i class="icon-search icon-grey"></i></a>
 			
 			<div id="myModal-<?php echo $lista->idUsuario; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-header">

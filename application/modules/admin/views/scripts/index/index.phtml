@@ -151,9 +151,9 @@
 						<?php foreach($turmas as $turma) :?>
 						<tr>
 							<td style="width: 20px; text-align: center;"><strong><?php echo $turma->idTurma;?></strong></td>
-							<td style="width: 380px;"><strong><?php echo $turma->Nome; ?></strong></td>
+							<td><strong><?php echo $turma->Nome; ?></strong></td>
 							<td style="width: 100px; text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
-							<td style="text-align: center;">
+							<td style="text-align: center; width: 430px;">
 								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 									array(
 										'controller'	=>	'professor',

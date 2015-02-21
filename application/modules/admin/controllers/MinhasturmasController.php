@@ -29,7 +29,7 @@ class Admin_MinhasTurmasController extends AppBaseController{
     	$id = $dados->idUsuario;
     	
     	$model = new Application_Model_DbTable_Matricula();
-    	$this->view->rows = $model->turmas($id);
+    	$this->view->rows = $model->turmas_turmas($id);
     	$this->view->row = $model->getTurma($id);
     	
     }

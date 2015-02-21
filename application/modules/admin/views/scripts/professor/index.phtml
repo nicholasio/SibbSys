@@ -23,9 +23,9 @@
 		<?php foreach($this->rows as $lista){?>
 			<tr style="background: #EEE; ">
 				<td style="width: 30px; text-align: center; "><strong><?php echo $lista->idTurma;?></strong></td>
-				<td style="width: 380px;"><strong><?php echo $lista->Nome; ?></strong></td>
-				<td style="text-align:center; width: 120px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
-				<td style="text-align: center;">
+				<td><strong><?php echo $lista->Nome; ?></strong></td>
+				<td style="text-align:center; width: 150px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
+				<td style="text-align: center; width: 430px;">
 					<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'module'		=>	'admin',

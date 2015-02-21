@@ -109,7 +109,7 @@ class Aluno_IndexController extends AppBaseController{
     	$model = new Application_Model_DbTable_Matricula();
     	$turma_model = new Application_Model_DbTable_Turma();
     	$this->view->usuario = $turma_model->listaData($idUsuario);
-    	$this->view->rows = $model->turmas($id);
+    	$this->view->rows = $model->turmas_turmas($id);
     	$this->view->row = $model->getTurma($id);
     	
     }

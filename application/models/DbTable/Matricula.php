@@ -101,15 +101,33 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	public function turmas($id){
 		/*
 		 * Lista todas as Turmas em que este usuário está matriculado;
+		 * O boletim controller deve chamar essa função.
 		 */
 		
 		$sql = $this->select()->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
 							  ->joinInner('Turma', 'Turma_idTurma = idTurma', array())
 							  ->where('Usuario_idUsuario = ?', $id)
-							  ->order(array(new Zend_Db_Expr('Semestre ASC')))
-							  ->order(array(new Zend_Db_Expr('Ano ASC')));
+							  ->order(array(new Zend_Db_Expr('Nome ASC')));
+							  //->order(array(new Zend_Db_Expr('Ano ASC')));
 		$query = $this->fetchAll($sql);
 		
+		return $query;
+	
+	}
+	
+	
+	public function turmas_turmas($id){
+		/*
+		 * Lista todas as Turmas em que este usuário está matriculado sem listar pelo nome da turma;
+		 * O histórico controller deve chamar essa função.
+		*/
+	
+		$sql = $this->select()->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
+							  ->joinInner('Turma', 'Turma_idTurma = idTurma', array())
+							  ->where('Usuario_idUsuario = ?', $id);
+		//->order(array(new Zend_Db_Expr('Ano ASC')));
+		$query = $this->fetchAll($sql);
+	
 		return $query;
 	
 	}
