@@ -76,7 +76,7 @@ class Default_IndexController extends Zend_Controller_Action
 
 					$bodyText = ('<b>Olá ' . $getEmail['Nome'] . '</b>' . ' <br /><br />' . 
 					'Alguém solicitou o processo de recuperação da senha para sua conta.' . '<br />' . 
-					'Para completar o processo, por favor '  . '<a href="' . 'sibbsys.nicholasandre.com.br/index/form-recupera/?id='.$id .'">' . 'clique aqui' . '</a>' . 
+					'Para completar o processo, por favor '  . '<a href="' . 'academico.seminariobereiano.com.br/index/form-recupera/?id='.$id .'">' . 'clique aqui' . '</a>' . 
 					'<br /><br />' .  'A Família SIBB Agradece!' . '<br /><br /><br />' . 
 					'Para mais informações, Contate-nos em ' . Zend_Registry::get('config')->email->support . '<br />' . 
 					'http://seminariobereiano.com.br/'
