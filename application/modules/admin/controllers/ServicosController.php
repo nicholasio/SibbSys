@@ -70,7 +70,7 @@ class Admin_ServicosController extends AppBaseController{
 	}
 	
 	
-	public function desativaAction(){
+	public function excluirAction(){
 		
 		$model = new Application_Model_DbTable_Servicos();
 		
@@ -78,22 +78,8 @@ class Admin_ServicosController extends AppBaseController{
 		
 		$model->deletar($id);
 		
-		$this->_helper->flashMessenger->addMessage("O Serviço foi desativado com sucesso!");
+		$this->_helper->flashMessenger->addMessage("O Serviço foi deletado com sucesso!");
 		
-		$this->_redirect("/admin/servicos");
-	}
-	
-	
-	public function ativaAction(){
-	
-		$model = new Application_Model_DbTable_Servicos();
-	
-		$id = $this->_getParam('idServicos');
-	
-		$model->ativar($id);
-	
-		$this->_helper->flashMessenger->addMessage("O Serviço foi ativado com sucesso!");
-	
 		$this->_redirect("/admin/servicos");
 	}
 	

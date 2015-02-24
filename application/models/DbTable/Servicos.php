@@ -39,12 +39,8 @@ class Application_Model_DbTable_Servicos extends Zend_Db_Table_Abstract{
 		$sql = $this->select()->where('idServicos = ?', $id);
 		$row = $this->fetchRow($sql);
 		
-		$linha = array(
-			'Status' =>	'inativo'
-		);
-		
 		$where = $this->getAdapter()->quoteInto('idServicos = ?', $id);
-		$this->update($linha, $where);
+		$this->delete($$where);
 		
 	}
 	
@@ -55,20 +51,6 @@ class Application_Model_DbTable_Servicos extends Zend_Db_Table_Abstract{
 		$rows = $this->fetchAll($sql);
 		
 		return $rows;
-	}
-	
-	public function ativar($id){
-	
-		$sql = $this->select()->where('idServicos = ?', $id);
-		$row = $this->fetchRow($sql);
-	
-		$linha = array(
-				'Status' =>	'ativo'
-		);
-	
-		$where = $this->getAdapter()->quoteInto('idServicos = ?', $id);
-		$this->update($linha, $where);
-	
 	}
 	
 }

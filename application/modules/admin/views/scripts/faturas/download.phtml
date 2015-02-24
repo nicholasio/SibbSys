@@ -78,11 +78,11 @@
 	<table cellpadding="5px" cellspacing="0" style="border-collapse: collapse; ">
 		<thead>
 			<tr>
-				<th style="text-align:center; width: 50px">Cód.</th>
-				<th style="text-align:left; width: 300px">Descrição do Item</th>
-				<th style="text-align:center; width: 50px">Quantidade</th>
-				<th style="text-align:center; width: 70px">Valor</th>
-				<th style="text-align:center; width: 90px">Total</th>
+				<th style="text-align:center;">Cód.</th>
+				<th style="text-align:left;">Descrição do Item</th>
+				<th style="text-align:center;">Quantidade</th>
+				<th style="text-align:center;">Valor Unit.</th>
+				<th style="text-align:center;">Total</th>
 			</tr>
 		</thead>
 		
@@ -93,8 +93,8 @@
 		
 			<?php foreach($fatura['debitos'] as $debito) : ?>
 			<tr <?php if($i % 2 == 0) : ?> style="background: #F1F1F1 "<?php endif;?>>
-				<td style="text-align: center; width: 50px;" ><?php echo $debito['idDebitos']; ?>
-				<td style="text-align: left; width: 350px; " >
+				<td style="text-align: center; width: 40px;"><?php echo $debito['idDebitos']; ?>
+				<td style="text-align: left; width: 400px;">
 					<?php
 						if ( $debito['type'] == 'servico' ) {
 							$desc_debito = $debito['servico']['nome_servico'];
@@ -105,7 +105,7 @@
 						echo $desc_debito;
 					?>
 				</td>
-				<td style="text-align: center; width: 40px; " >
+				<td style="text-align: center; width: 120px;">
 					<?php
 						if ( $debito['type'] == 'servico' ) {
 							$desc_debito = $debito['servico']['qtd_servico'];
@@ -115,7 +115,7 @@
 						echo $desc_debito;
 					?>
 				</td>
-				<td style="text-align: center; width: 100px;" >
+				<td style="text-align: center; width: 100px;">
 					R$
 					<?php
 						if ( $debito['type'] == 'servico' ) {
@@ -128,7 +128,7 @@
 						echo number_format($valor,2,',','.');
 					?>
 				</td>
-				<td style="text-align: center; width: 100px;" >
+				<td style="text-align: center; width: 120px;">
 					R$
 					<?php
 						
@@ -166,12 +166,19 @@
 							R$ 	<?php foreach($pagamentos as $pagamento) : ?>
 									<?php $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 								<?php endforeach; ?>
+								
 								<?php echo number_format($valor_total_pagamentos,2,',','.');?> </div>
 			Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
-					<?php foreach($pega_data as $data) : ?>
-						<?php echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
-					<?php endforeach; ?>
+			
+			<?php if(! isset($pagamento['dataPagamento'])){
+						echo ' ';
+				  } else {	
+					foreach($pega_data as $data) :
+						echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
+			  		<?php endforeach;
+				}?>				
 			</div>
+			
 		<br />
 		
 		Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 

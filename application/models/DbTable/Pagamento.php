@@ -60,7 +60,8 @@ class Application_Model_DbTable_Pagamento extends Zend_Db_Table_Abstract{
 
 		$sql = 	$this->select()
 					->from($this, array(new Zend_Db_Expr('max(dataPagamento) as dataPagamento')));
-		$sql->where('Faturas_idFatura = ?', $idFatura);
+		$sql->where('Faturas_idFatura = ?', $idFatura)
+			->distinct(array(new Zend_Db_Expr('dataPagamento')));
 		$query = $this->fetchAll($sql);
 		return $query;
 		

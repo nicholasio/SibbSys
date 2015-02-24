@@ -33,29 +33,14 @@
 						Editar
 				</a>
 				
-				<?php if($lista->status == 'ativo'){ ?>
-				
 				<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
 					array(
 						'controller' => 'servicos',
-						'action'	 => 'desativa',
+						'action'	 => 'excluir',
 						'idServicos' => $lista->idServicos
 					));?>">
-						Desativar
+						Excluir
 				</a>
-				
-				<?php } else { ?>
-				
-				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
-					array(
-						'controller' => 'servicos',
-						'action'	 => 'ativa',
-						'idServicos' => $lista->idServicos
-					));?>">
-						Ativar Serviço
-				</a>
-				
-				<?php } ?>
 				
 			</td>
 		</tr>

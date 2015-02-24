@@ -30,14 +30,13 @@ class Admin_PagamentoController extends AppBaseController{
 
 		$pagamento_model = new Application_Model_DbTable_Pagamento();
 		
-		
-		
 		$pegaData = ($_POST['data']);
-		$ano = substr($pegaData,6,9);
-		$mes = substr($pegaData,3,2);
-		$dia = substr($pegaData,0,2);
+		$ano = substr($pegaData,0,4);
+		$mes = substr($pegaData,5,2);
+		$dia = substr($pegaData,8,10);
 		
 		$array_data = $ano. '/' . $mes . '/' . $dia;
+		
 
 		if ( $this->_request->isPost() ) {
 			$idFatura = $_POST['idFatura'];
