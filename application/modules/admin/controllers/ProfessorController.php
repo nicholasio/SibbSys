@@ -166,7 +166,8 @@ class Admin_ProfessorController extends AppBaseController{
 				}
 			}
 		}
-		$this->_redirect("/admin/professor/presenca/idTurma/$idTurma");
+		$this->_helper->flashMessenger->addMessage("Faltas Inseridas com sucesso!");
+		$this->_redirect("/admin/professor/");
 	}
 	
 	public function listaPresencaAction(){
