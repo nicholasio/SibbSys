@@ -20,6 +20,10 @@ class Professor_PresencaController extends AppBaseController{
 	
 	public function indexAction(){
 		
+		if ($this->_helper->FlashMessenger->hasMessages()) {
+			$this->view->messages = $this->_helper->FlashMessenger->getMessages();
+		}
+		
 		$id = $this->_getParam('idTurma');
 		 
 		$user = new Application_Model_DbTable_Usuario();
@@ -39,6 +43,7 @@ class Professor_PresencaController extends AppBaseController{
 	
 	
 	public function postPresencaAction(){
+		
 		$model = new Application_Model_DbTable_Presenca();
 
 		if ( $this->_request->isPost() ) {
@@ -55,7 +60,8 @@ class Professor_PresencaController extends AppBaseController{
 				}
 			}	
 		}
-		$this->_redirect("/professor/presenca/index/idTurma/$idTurma");
+		$this->_helper->flashMessenger->addMessage("Faltas Inseridas com sucesso!");
+		$this->_redirect("/professor/index/turmas");
 	}
 	
 	

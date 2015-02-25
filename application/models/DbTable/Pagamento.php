@@ -65,8 +65,5 @@ class Application_Model_DbTable_Pagamento extends Zend_Db_Table_Abstract{
 		$query = $this->fetchAll($sql);
 		return $query;
 		
-		
-		//return $query->toArray();
-		
 	}
 }
