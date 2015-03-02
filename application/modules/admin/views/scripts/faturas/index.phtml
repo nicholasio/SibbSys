@@ -136,13 +136,21 @@
 					echo number_format($valor,2,',','.');
 					?></strong></td>
 			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
-			<td style="width: 55px; text-align: center; "><strong>R$ <?php $total_apagar = $valor - ($valor * $fatura['desconto']/100); echo number_format($total_apagar,2,',','.'); ?></strong></td>
+			<td style="width: 55px; text-align: center; "><strong>
+				<?php $valor_pendente = number_format($valor - $valor_total_pagamentos,2); ?>
+				<?php $pago = ( $valor_pendente <= 0) ? true : false; ?>
+				
+				<?php if($valor_pendente == $fatura['valorFatura']){
+						$total_apagar = $valor - ($valor * $fatura['desconto']/100); echo 'R$ ' . number_format($total_apagar,2,',','.');
+				} else {
+					echo 'R$ ' . number_format($valor_restante,2,',','.');
+				}
+				
+				?>
+				
+			</strong></td>
 			<td style="width: 10px; text-align: center; font-size: 10px;">
 				<strong>
-					<?php
-						$valor_pendente = number_format($valor - $valor_total_pagamentos,2);
-						$pago = ( $valor_pendente <= 0) ? true : false;
-					?>
 					<?php if ( $pago ) : ?>
 					<span class="label label-success">Pago</span>
 					<?php else: ?>
