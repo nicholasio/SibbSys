@@ -37,10 +37,11 @@ class Application_Model_DbTable_Servicos extends Zend_Db_Table_Abstract{
 	public function deletar($id){
 		
 		$sql = $this->select()->where('idServicos = ?', $id);
+		
 		$row = $this->fetchRow($sql);
 		
-		$where = $this->getAdapter()->quoteInto('idServicos = ?', $id);
-		$this->delete($$where);
+		$row->delete();
+		
 		
 	}
 	
