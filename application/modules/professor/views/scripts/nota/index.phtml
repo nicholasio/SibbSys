@@ -28,10 +28,11 @@
  			
  				<tr style="height: 25px; background: #1C94C4;">
  				
-					<th style="width: 500px; padding-top: 5px;"><font size="3" color="white">ALUNOS</font></th>
+					<th style="width: 600px; padding-top: 5px;"><font size="3" color="white">ALUNOS</font></th>
 					<th style="width: 250px;"><font size="3" color="white">UNIDADE 1</font></th>
 					<th style="width: 250px;"><font size="3" color="white">UNIDADE 2</font></th>
 					<th style="width: 250px;"><font size="3" color="white">UNIDADE 3</font></th>
+					<th style="width: 250px;"><font size="3" color="white">MÉDIA FINAL</font></th>
 					
 				</tr>
 				
@@ -42,10 +43,13 @@
  				<form action="/professor/nota/post-nota" method="post" id="form-prof">
  				
  					<fieldset>
- 					
  						<?php 
  							$i = 0;
  							foreach($this->rows as $users) :
+ 							
+ 							$nota = new Application_Model_DbTable_Nota();
+ 							$id = $users->idUsuario_has_Turma;
+ 							$media = $nota->media($id);
 
  								$idNota = ( $this->nota && isset($this->nota[$i]) ) ? $this->nota[$i]['idNota'] : '';
  								$unit1  = ( $this->nota && isset($this->nota[$i]) && ! is_null($this->nota[$i]['Unit1']) ) ? $this->nota[$i]['Unit1']  : ' ' ;
@@ -78,6 +82,12 @@
 								<td style="text-align: center;" >
 									<input style="text-align: center" type="text" class="input-small" name="unit3[]" class="nota" value="<?php if ( $unit3 == 0 ){echo ' ' ; } else{ echo number_format($unit3,2,',','.'); }  ?>"/>
 								</td>
+								
+								<?php if($media < 7){ ?>
+									<td style="text-align: center; color:red; "><strong><?php echo number_format($media, 2,',','.'); ?></strong></td>
+								<?php } else { ?>
+									<td style="text-align: center; "><strong><?php echo number_format($media, 2,',','.'); ?></strong></td>
+								<?php } ?>
 	    					</tr>
 	    					
 	    					<?php endif; ?>	

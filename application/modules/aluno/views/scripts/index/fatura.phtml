@@ -165,8 +165,8 @@
 			Total Recebido: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">  
 							R$ 	<?php foreach($pagamentos as $pagamento) : ?>
 									<?php $valor_total_pagamentos += $pagamento->valorPagamento; ?>
-									<?php $pagemento->valorPagamento; ?>
 								<?php endforeach; ?>
+								
 								<?php echo number_format($valor_total_pagamentos,2,',','.');?> </div>
 								
 			Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
