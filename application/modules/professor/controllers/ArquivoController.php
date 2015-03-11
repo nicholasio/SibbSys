@@ -95,8 +95,7 @@ class Professor_ArquivoController extends AppBaseController{
     	$id = $this->_getParam('idArquivo');
     	$idTurma = $this->_getParam('idTurma');
     	
-    	
-    	$model = new Application_Model_DbTable_Arquivo();
+    	$model = new Application_Model_DbTable_Arquivos();
     	$model->deletar($id);
     	$this->_redirect("/professor/arquivo/listar/idTurma/$idTurma");
     }

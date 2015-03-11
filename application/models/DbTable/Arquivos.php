@@ -72,9 +72,10 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 		}
 	}
 	
+	
 	public function deletar($id){
 	
-		$sql = $this->select()->where('idArquivo = ?', $id);
+		$sql = $this->select()->where('idArquivos = ?', $id);
 		
 		$row = $this->fetchRow($sql);
 		
