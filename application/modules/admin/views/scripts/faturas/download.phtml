@@ -178,10 +178,15 @@
 				<br />
 				
 				<?php if(isset($pagamento['idPagamento'])) : ?>
-				
-				Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
-				R$ <?php echo number_format($valor_restante,2,',','.');?>
-						</div>
+					<?php if($valor_restante == 0){ ?>
+						<br /><br />
+						<div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;">PAGO!</div>
+					<?php } else { ?>
+						<br />
+						Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
+							R$ <?php echo number_format($valor_restante,2,',','.');?>
+							</div>
+					<?php } ?>
 				<?php endif; ?>
 			<!-- 
 				SubTotal:	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php /*echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
@@ -216,7 +221,7 @@
 		</h4>
 	</div>
 	<?php 
-	die; 
+	//die; 
 	$html = ob_get_contents();
 	ob_end_clean();
 	

@@ -121,7 +121,17 @@
 				
 			Valor Total Pago:	   <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">R$ <?php echo number_format($valor_total_pagamentos,2,',','.'); ?></div>
 				
-			Restante: 			   <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">R$ <?php echo number_format($valor_pendente,2,',','.'); ?></div>
+			<?php if(isset($pagamento['idPagamento'])) : ?>
+					<?php if($valor_pendente == 0){ ?>
+						<br /><br />
+						<div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;">PAGO!</div>
+					<?php } else { ?>
+						<br />
+						Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
+							R$ <?php echo number_format($valor_pendente,2,',','.');?>
+							</div>
+					<?php } ?>
+				<?php endif; ?>
 		</h4>	
 	</div>
 	
@@ -141,12 +151,12 @@
 	
 	$mpdf->SetDisplayMode('fullpage');
 	//$mpdf->SetHeader('Seminário e Instituto Batista Bereiano - Extrato de Conta');
-	$mpdf->SetFooter('Fatura gerada no dia {DATE j/m/Y} | {PAGENO}');
+	$mpdf->SetFooter('Recibo de Pagamentos da Fatura {DATE j/m/Y} | {PAGENO}');
 	$mpdf->WriteHTML($html);
 	
 	foreach($fatura['usuario'] as $usuario){ $nome =  $usuario['Nome']; }
 	
-	$arquivo = 'Fatura ' . ' - ' . $nome . '.pdf';
+	$arquivo = 'Recibo de Pagamento ' . ' - ' . $nome . '.pdf';
 	
 	$mpdf->Output($arquivo, 'D');
 	
