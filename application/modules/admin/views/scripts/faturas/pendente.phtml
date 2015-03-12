@@ -1,0 +1,161 @@
+<?php $this->headTitle('Fatura')?>
+<div class="grid_16">
+
+	<?php 
+	header("Content-type:text/html; charset=utf-8");
+	ob_start();	
+	?>
+	
+	<table>
+		<tr>
+			<th><img src="/images/logosibb2.gif" height="120px" width="120px"></th>
+			<th width="550px">
+				<font size="5">SEMINÁRIO E INSTITUTO BATISTA BEREIANO</font>
+				<p><font size="3">Rua Mar do Leste, 100, Pajuçara - CEP: 59.133-380 / Natal-RN</font></p>
+				<font size="3">Email: <font color="blue">contato@seminariobereiano.com.br</font></font>
+				<p><font size="3">Fone: (084) 3221-2520 / 3201-0083</font></p>
+			</th>
+		</tr>
+	</table>
+	
+	<hr />
+	
+	<?php foreach($this->rows as $fatura){
+		
+	}?>
+	
+	
+	<br />
+	
+	<h3 style="text-align: center">Recibo de Pagamentos da Fatura do Mês de   
+			<?php switch ($fatura['mes']){
+				case 1 :
+					echo ' Janeiro';
+					break;
+				case 2 :
+					echo ' Fevereiro';
+					break;
+				case 3 :
+					echo ' Março';
+					break;
+				case 4 :
+					echo ' Abril';
+					break;
+				case 5 :
+					echo ' Maio';
+					break;
+				case 6 :
+					echo ' Junho';
+					break;
+				case 7 :
+					echo ' Julho';
+					break;
+				case 8 :
+					echo ' Agosto';
+					break;
+				case 9 :
+					echo ' Setembro';
+					break;
+				case 10 :
+					echo ' Outubro';
+					break;
+				case 11 :
+					echo ' Novembro';
+					break;
+				case 12 :
+					echo ' Dezembro';
+					break;
+			} ?>
+	</h3>
+	
+	
+	<br />
+
+	<strong>Nome: <?php foreach($fatura['usuario'] as $usuario){ echo $usuario['Nome']; } ?></strong>
+	
+	<br /><br /><br /><br />
+	
+	<table class="table table-striped" cellpadding="5px" cellspacing="0" style="border-collapse: collapse; ">
+		<thead>
+			<tr>
+				<th style="text-align:center;">Cód.</th>
+				<th style="text-align:center;">Valor Recebido</th>
+				<th style="text-align:center;">Data do Pagamento</th>
+				<th style="text-align:center;">Observações</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		<?php
+		foreach ($this->rows as $fatura){
+			
+		}
+		
+		$i = 0;
+		$valor_total_pagamentos = 0;
+		$total_restante = 0;
+		$pagamentos_model = new Application_Model_DbTable_Pagamento();
+		$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
+		
+		foreach($pagamentos as $pagamento) : ?>
+		
+		<tr <?php if($i % 2 == 0) : ?> style="background: #F1F1F1 "<?php endif;?>>
+			<td style="text-align: center; width: 30px;"><?php echo $pagamento->idPagamento; ; ?></td>
+			<td style="text-align: center; width: 230px;">
+					R$ <?php echo number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
+			</td>
+			<td style="text-align: center; width: 200px;"><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
+			<td style="text-align: center; width: 300px;"><?php echo $pagamento->Descricao; ?></td>
+		<?php endforeach; ?>
+		
+	</table>
+		
+	<?php $valor = $fatura['valorFatura']; ?>
+	<?php $valor_pendente = number_format($valor - $valor_total_pagamentos,2); ?>
+	
+	<br /><br />
+	
+	<div style="margin: 10px 0 0 340px;">
+		<h4>	
+			Valor Total da Fatura:	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">R$ <?php echo number_format($fatura['valorFatura'],2,',','.'); ?></div>
+				
+			Valor Total Pago:	   <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">R$ <?php echo number_format($valor_total_pagamentos,2,',','.'); ?></div>
+				
+			Restante: 			   <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">R$ <?php echo number_format($valor_pendente,2,',','.'); ?></div>
+		</h4>	
+	</div>
+	
+	<?php 
+	//die; 
+	$html = ob_get_contents();
+	ob_end_clean();
+	
+	define('MPDF_PATH', APPLICATION_PATH . '/../library/mpdf/');
+	
+	include(MPDF_PATH .'mpdf.php');
+	
+	$mpdf = new mPDF('pt', 'A4', 11);
+	
+	$mpdf->allow_charset_conversion = true;
+	$mpdf->charset_in = 'utf-8';
+	
+	$mpdf->SetDisplayMode('fullpage');
+	//$mpdf->SetHeader('Seminário e Instituto Batista Bereiano - Extrato de Conta');
+	$mpdf->SetFooter('Fatura gerada no dia {DATE j/m/Y} | {PAGENO}');
+	$mpdf->WriteHTML($html);
+	
+	foreach($fatura['usuario'] as $usuario){ $nome =  $usuario['Nome']; }
+	
+	$arquivo = 'Fatura ' . ' - ' . $nome . '.pdf';
+	
+	$mpdf->Output($arquivo, 'D');
+	
+	exit();
+	
+	?>
+	
+</div>
+	
+	
+	
+	

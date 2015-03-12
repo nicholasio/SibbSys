@@ -47,6 +47,7 @@ class Admin_FaturasController extends AppBaseController{
 		if ( $user_id == -1 ) $user_id = null;
 
 		$this->view->rows = $faturas_model->listar($user_id);
+		
 	}
 	
 	
@@ -100,4 +101,16 @@ class Admin_FaturasController extends AppBaseController{
 		$this->view->rows = $faturas_model->listagem($idFatura);
 
 	}
+	
+	
+	public function pendenteAction(){
+		
+		$idFatura = $this->_getParam('idFatura');
+		
+		$faturas_model = new Application_Model_DbTable_Faturas();
+		$pagamento_model = new Application_Model_DbTable_Pagamento();
+		
+		$this->view->rows = $faturas_model->listagem($idFatura);
+	}
+	
 }

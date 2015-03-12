@@ -69,7 +69,6 @@
 								<th style="width: 10px; text-align: left;">#</th>
 								<th style="text-align: center;">Valor Pago</th>
 								<th style="text-align: center;">Data</th>
-								<th style="text-align: center;">Valor Restante</th>
 								<th style="text-align: center;">Observações</th>
 								<th style="text-align: center;">Ações</th>
 							</tr>
@@ -86,17 +85,6 @@
 										R$ <?php echo number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 									</td>
 									<td style="width: 30px; text-align: center;"><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
-									<td style="width: 90px; text-align: center;"><?php $total_fatura = $fatura['valorFatura'] - ($fatura['valorFatura'] * $fatura['desconto']/100); ?>
-									 
-											<?php $valor_restante = $total_fatura - $pagamento->valorPagamento;?>
-											
-											<?php if($valor_total_pagamentos == $total_fatura ){ ?>
-												<span class="label label-success"><strong>Pago</strong></span>
-											<?php } else { ?>
-											<span class="label label-important"> R$ <?php echo number_format($valor_restante,2,',','.')?></span>
-											<?php } ?>
-											
-									</td>
 									<td style="text-align: center;"><?php echo $pagamento->Descricao; ?></td>
 									<td style="width: 30px; text-align: center;">
 										<a class="btn btn-warning" href="<?php echo $this->url(
@@ -113,11 +101,32 @@
 								
 							<?php endforeach; ?>
 							<tr>
-								<td><strong>Total:</strong></td>
+								<td><strong>Total: </strong></td>
 								<td><strong>R$ <?php echo number_format($valor_total_pagamentos,2,',','.'); ?></strong></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
+							
+							<?php $valor = $fatura['valorFatura']; ?>
+							<?php $valor_pendente = number_format($valor - $valor_total_pagamentos,2); ?>
+							<?php if($valor_pendente != 0) { ?>
+							<tr>
+								<td><strong><span class="label label-important">Restante: </span></strong></td>
+								<td><strong><span class="label label-important">R$ <?php echo number_format($valor_pendente,2,',','.'); ?></span></strong></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<?php } else { ?>
+							<tr>
+								<td><strong><span class="label label-success">Pago </span></strong></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<?php } ?>
 							</tbody>
 						</table>
 					</div>
@@ -130,20 +139,16 @@
 			<td style="width: 10px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
 			<td style="width: 10px; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
 
-			<td style="width: 65px; text-align: center; "><strong>R$ <?php
-					//echo $fatura['valorFatura'] * $fatura['desconto']/100;
-					$valor = $fatura['valorFatura'];
-					echo number_format($valor,2,',','.');
-					?></strong></td>
+			<td style="width: 65px; text-align: center; "><strong>R$ <?php echo number_format($valor,2,',','.'); ?></strong></td>
 			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
 			<td style="width: 55px; text-align: center; "><strong>
-				<?php $valor_pendente = number_format($valor - $valor_total_pagamentos,2); ?>
+				
 				<?php $pago = ( $valor_pendente <= 0) ? true : false; ?>
 				
 				<?php if($valor_pendente == $fatura['valorFatura']){
 						$total_apagar = $valor - ($valor * $fatura['desconto']/100); echo 'R$ ' . number_format($total_apagar,2,',','.');
 				} else {
-					echo 'R$ ' . number_format($valor_restante,2,',','.');
+					echo 'R$ ' . number_format($valor_pendente,2,',','.');
 				}
 				
 				?>
@@ -167,7 +172,7 @@
 				<?php endif; ?>
 				<a style="font-size: 10px; width: 81px;" class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>"><strong>Ver Pagamentos</strong></a>
 				<?php if ( $valor_total_pagamentos == 0 ) :?>
-					<a style="font-size:10px; width:25px;" class="btn btn-primary" href="<?php echo $this->url(
+					<a style="font-size:10px; width:25px;" class="btn btn-default" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'faturas',
 							'action'		=>	'editar',
@@ -185,15 +190,26 @@
 							<strong>Excluir</strong>
 					</a>
 				<?php endif; ?>
-					<a style="width: 15px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
-						array(
-							'controller'	=>	'faturas',
-							'action'		=>	'download',
-							'idFatura'		=>	$fatura['idFatura']
-						));?>">
+		
+				<?php if($valor_total_pagamentos != 0) { ?>
+						<a style="width: 73px; font-size: 10px; " class="btn btn-primary" title="Baixar Fatura" href="<?php echo $this->url(
+							array(
+								'controller'	=>	'faturas',
+								'action'		=>	'pendente',
+								'idFatura'		=>	$fatura['idFatura']
+							));?>">
+							<strong>Recibo de Pag.</strong>
+						</a>
 						
-						<img src="/images/icons/small/white/download.png" width="20px;">
-					</a>
+				<?php } ?>
+						<a style="width: 15px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
+							array(
+								'controller'	=>	'faturas',
+								'action'		=>	'download',
+								'idFatura'		=>	$fatura['idFatura']
+							));?>">
+							<img src="/images/icons/small/white/download.png" width="20px;">
+						</a>
 				
 				<div class="modal hide fade" id="fatura-desc-<?php echo $fatura['idFatura']; ?>">
 					<div class="modal-header">
@@ -253,7 +269,7 @@
 					<form action="/admin/pagamento/addpagamento" class="form-horizontal" method="POST">
 						<div class="modal-body">
 							
-							<p style="text-align: center;"><strong><?php if($valor_pendente == $fatura['valorFatura']){ echo 'Valor da Fatura: ' . 'R$ ' . number_format($total_apagar,2,',','.'); } else{ echo 'Valor Pendente da Fatura: ' . number_format($valor_restante,2,',','.'); }?></strong><p>
+							<p style="text-align: center;"><strong><?php if($valor_pendente == $fatura['valorFatura']){ echo 'Valor da Fatura: ' . 'R$ ' . number_format($total_apagar,2,',','.'); } else{ echo 'Valor Pendente da Fatura: ' . number_format($valor_pendente,2,',','.'); }?></strong><p>
 							
 							<hr />
 							<div class="control-group">
