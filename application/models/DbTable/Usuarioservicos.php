@@ -43,6 +43,7 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 	public function listar($id){
 		
 		$sql = $this->select()->where('Usuario_idUsuario = ?', $id);
+		$sql->order(array(new Zend_Db_Expr('idUsuario_has_Servicos DESC')));
 		
 		$rows = $this->fetchAll($sql);
 		
@@ -69,4 +70,6 @@ class Application_Model_DbTable_Usuarioservicos extends Zend_Db_Table_Abstract{
 			return 'igual';
 		}
 	}
+
+	
 }

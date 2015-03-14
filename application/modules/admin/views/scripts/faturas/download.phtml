@@ -21,15 +21,25 @@
 	<hr />
 	
 	<?php foreach($this->rows as $fatura){
-		//echo $fatura['idFatura'];
+		$id = $fatura['Usuario_idUsuario'];
 		
 	}?>
 	
-	
 	<br />
 	
-	<h3 style="text-align: center">Extrato de Conta do Mês de  
-			<?php switch ($fatura['mes']){
+	<?php foreach($fatura['debitos'] as $lista){
+			if($lista['type'] == 'servico'){
+				$matricula = $lista['servico']['nome_servico'] == 'Taxa de Matrícula';
+			}
+		}
+			
+		if(isset ($matricula)){
+			echo '<h3 style="text-align: center">' . 'Fatura Referente a Matrícula' . '</h3>';
+		}
+		else{
+		
+			echo '<h3 style="text-align: center">' . 'Extrato de Conta do Mês de ';
+			switch ($fatura['mes']){
 				case 1 :
 					echo ' Janeiro';
 					break;
@@ -66,8 +76,11 @@
 				case 12 :
 					echo ' Dezembro';
 					break;
-			} ?>
-	</h3>
+			}
+			echo '</h3>';
+		}
+	?>
+	
 	
 	<br />
 
@@ -148,7 +161,7 @@
 			
 		</tbody>
 	</table>
-	<div style="margin: 10px 0 0 340px;">
+	<div style="margin: 10px 0 0 340px; font-size: 13px;">
 	
 	<?php
 		$idFatura = $fatura['idFatura'];
@@ -159,14 +172,20 @@
 		
 	?>
 		<h4>
-			<?php ?>
+			<?php $count = 0?>
 			
 			<?php foreach($pagamentos as $pagamento) : ?>
+					<?php $count += count($pagamento->valorPagamento);?>
+					
 					<?php $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 			<?php endforeach; ?>
 			
 			<?php $valor_descontado = $valor_total - ($valor_total * $fatura['desconto']/100); ?>
 			<?php $valor_restante = $valor_descontado - $valor_total_pagamentos; ?>
+			
+			<!-- Imprime a fatura que ainda não tem nenhum pagamento -->
+			
+			<?php if(! isset ($pagamento)){?>
 			
 			
 				SubTotal:	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
@@ -175,26 +194,46 @@
 			
 				Total a Pagar: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
 				
-				<br />
+			<?php } ?>
+			
+			<!--  Imprime a fatura que foi feito apenas um pagamento e o foi o valor total da fatura -->
+			
+			<?php if(isset($pagamento) && $valor_total == $valor_total_pagamentos){?>
 				
-				<?php if(isset($pagamento['idPagamento'])) : ?>
-					<?php if($valor_restante == 0){ ?>
-						<br /><br />
-						<div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;">PAGO!</div>
-					<?php } else { ?>
-						<br />
-						Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
-							R$ <?php echo number_format($valor_restante,2,',','.');?>
-							</div>
-					<?php } ?>
-				<?php endif; ?>
-			<!-- 
-				SubTotal:	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php /*echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
+				SubTotal:	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
 				
 				Descontos:	   <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . number_format($fatura['desconto']) . '%'; ?> </div>
 			
 				Total a Pagar: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
 
+				<?php	// $recebido = count($pagamento['valorPagamento']); ?>
+				
+				<?php if($count >= 2){?>
+					Total Recebido: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($pagamento->valorPagamento,2,',','.'); ?></div>
+					
+					Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
+			
+					<?php foreach($pega_data as $data) :
+								echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
+			  		<?php endforeach; ?>	
+				</div>
+				<br />
+				Valor Total Acumulado: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total_pagamentos,2,',','.');?> </div>
+				
+						<?php if(isset($pagamento['idPagamento'])) : ?>
+					<?php if($valor_restante == 0){ ?>
+						<br />
+						<div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;">PAGO!</div>
+					<?php } else { ?>
+						
+						Valor Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
+							R$ <?php echo number_format($valor_restante,2,',','.');?>
+							</div>
+					<?php } ?>
+				<?php endif; ?>
+					
+					
+				<?php } else {?>
 				Total Recebido: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">  
 							R$ 	<?php //foreach($pagamentos as $pagamento) : ?>
 									<?php //$valor_total_pagamentos += $pagamento->valorPagamento; ?>
@@ -202,20 +241,58 @@
 								
 								<?php echo number_format($valor_total_pagamentos,2,',','.');?> </div>
 				Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
-			
+		
 					<?php if(! isset($pagamento['dataPagamento'])){
 							echo ' ';
-				  	} else {	
+			  		} else {	
 						foreach($pega_data as $data) :
 							echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
-			  			<?php endforeach;
-					}?>	
+		  			<?php endforeach; }?>	
 				</div>
 				
-				Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
-				R$ <?php //echo number_format($valor_restante,2,',','.'); */?>
-						</div>
-			 -->
+				<?php } ?>
+				
+			<!-- Imprime a fatura que está sendo paga em partes -->
+			
+			<?php } ?>
+
+			<?php if(isset($pagamento) && $valor_total != $valor_total_pagamentos){?>
+			
+				SubTotal:	<div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
+				
+				Descontos:	   <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . number_format($fatura['desconto']) . '%'; ?> </div>
+			
+				Total a Pagar: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total,2,',','.'); ?></div>
+				
+				Total Recebido: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($pagamento->valorPagamento,2,',','.'); ?></div>  
+							<?php //foreach($pagamentos as $pagamento) : ?>
+									<?php //$valor_total_pagamentos += $pagamento->valorPagamento; ?>
+								<?php //endforeach; ?>
+								
+				Data de Pagamento: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;">
+			
+					<?php foreach($pega_data as $data) :
+								echo date('d/m/Y', strtotime($data['dataPagamento'])); ?>
+			  		<?php endforeach; ?>	
+				</div>
+				<br />
+				Valor Total Acumulado: <div style="margin-top: -19px; padding-bottom: 3px; text-align: right;"><?php echo 'R$ ' . number_format($valor_total_pagamentos,2,',','.');?> </div>
+				
+						<?php if(isset($pagamento['idPagamento'])) : ?>
+					<?php if($valor_restante == 0){ ?>
+						<br />
+						<div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;">PAGO!</div>
+					<?php } else { ?>
+						
+						Valor Total Restante: <div style="margin-top: -19px; color: #FF1C3A; padding-bottom: 3px; text-align: right;"> 
+							R$ <?php echo number_format($valor_restante,2,',','.');?>
+							</div>
+					<?php } ?>
+				<?php endif; ?>
+				
+			<?php  } ?>
+				<br />
+							
 		<br />
 		
 		</h4>
