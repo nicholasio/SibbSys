@@ -131,6 +131,17 @@
 						</table>
 					</div>
 					<div class="modal-footer">
+					<?php if($valor_total_pagamentos != 0) { ?>
+						<a style="width: 80px; font-size: 10px; " class="btn btn-primary" title="Baixar Fatura" target="_blank" href="<?php echo $this->url(
+							array(
+								'controller'	=>	'faturas',
+								'action'		=>	'pendente',
+								'idFatura'		=>	$fatura['idFatura']
+							));?>">
+							<strong>Imprimir Recibo</strong>
+						</a>
+						
+					<?php } ?>
 						<a href="#" class="btn" data-dismiss="modal">Fechar</a>
 					</div>
 				</div>
@@ -190,19 +201,8 @@
 							<strong>Excluir</strong>
 					</a>
 				<?php endif; ?>
-		
-				<?php if($valor_total_pagamentos != 0) { ?>
-						<a style="width: 35px; font-size: 10px; " class="btn btn-primary" title="Baixar Fatura" href="<?php echo $this->url(
-							array(
-								'controller'	=>	'faturas',
-								'action'		=>	'pendente',
-								'idFatura'		=>	$fatura['idFatura']
-							));?>">
-							<strong>Recibo</strong>
-						</a>
-						
-				<?php } ?>
-						<a style="width: 15px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
+				
+						<a style="width: 17px;" class="btn btn-success" title="Baixar Fatura" href="<?php echo $this->url(
 							array(
 								'controller'	=>	'faturas',
 								'action'		=>	'download',

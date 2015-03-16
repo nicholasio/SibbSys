@@ -113,7 +113,8 @@ class Application_Model_DbTable_Debitos extends Zend_Db_Table_Abstract
 						'nome_servico'			=> $servico_data['nome'],
 						'descricao_servico'		=> $servico_data['descricao'],
 						'qtd_servico'			=> '1',
-						'valor_unitario_servico' => $servico_data['valor']
+						'valor_unitario_servico' => $servico_data['valor'],
+						'taxa_matricula'		=> $servico_data['nome'] == 'Taxa de Matrícula'
 					);
 
 					$rowData['servico']['valor_final'] = $rowData['servico']['valor_cobrado_servico'] - ($rowData['servico']['valor_cobrado_servico'] * $rowData['descontoMes']/100 );
