@@ -20,6 +20,8 @@ class Admin_TurmaController extends AppBaseController{
     	}
     
     	$model = new Application_Model_DbTable_Turma();
+    	$model_matricula = new Application_Model_DbTable_Matricula();
+   
     	
     	$this->view->rows = $model->listar();	
     	
