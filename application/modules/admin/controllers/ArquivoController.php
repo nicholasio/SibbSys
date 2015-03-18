@@ -82,10 +82,10 @@ class Admin_ArquivoController extends AppBaseController{
 		$result = $turma->editar($id);
 		$this->view->turma = $result['Nome'];
 		 
-		$idDisc = $result['Disciplina_idDisciplina'];
+		$idTurma = $result['idTurma'];
 		$model = new Application_Model_DbTable_Arquivos();
 		 
-		$this->view->rows = $model->listar($idDisc);
+		$this->view->rows = $model->listar($idTurma);
 	}
 
 
@@ -93,7 +93,6 @@ class Admin_ArquivoController extends AppBaseController{
 		 
 		$id = $this->_getParam('idArquivo');
 		$idTurma = $this->_getParam('idTurma');
-		 
 		 
 		$model = new Application_Model_DbTable_Arquivos();
 		$model->deletar($id);

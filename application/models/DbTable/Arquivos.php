@@ -7,10 +7,10 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 	protected $_referenceMap = array(
 	
-		'Disciplina' => array(
-			'columns'		=>	array('Disciplina_idDisciplina'),
-			'refTableClass'	=>	'Application_Model_DbTable_Disciplina',
-			'refColumns'	=>	array('idDisciplina')
+		'Turma' => array(
+			'columns'		=>	array('Turma_idTurma'),
+			'refTableClass'	=>	'Application_Model_DbTable_Turma',
+			'refColumns'	=>	array('idTurma')
 		)
 	);
 	
@@ -22,7 +22,7 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 	public function findForSelect(){
 	
-		$sql = $this->select()->from($this, new Zend_Db_Expr("DISTINCT(Disciplina_idDisciplina)"));
+		$sql = $this->select()->from($this, new Zend_Db_Expr("DISTINCT(Turma_idTurma)"));
 		
 		$rows =  $this->fetchAll($sql);
 		
@@ -32,7 +32,7 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 	public function seleciona($id){
 	
-		$sql = $this->select()->where('Disciplina_idDisciplina =?', $id);
+		$sql = $this->select()->where('Turma_idTurma = ?', $id);
 		
 		$row =  $this->fetchRow($sql);
 		
@@ -41,9 +41,9 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar($idDisc){
+	public function listar($idTurma){
 	
-		$sql = $this->select()->where('Disciplina_idDisciplina = ?', $idDisc);
+		$sql = $this->select()->where('Turma_idTurma = ?', $idDisc);
 		
 		$rows = $this->fetchAll($sql);
 		
@@ -55,7 +55,7 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 		
 		$status = 'ativo';
 		
-		$select = $this->select()->where('Disciplina_idDisciplina = ?', $id)
+		$select = $this->select()->where('Turma_idTurma = ?', $id)
 								 ->where('Status = ?', $status);
 		
 		return $this->fetchAll($select);
