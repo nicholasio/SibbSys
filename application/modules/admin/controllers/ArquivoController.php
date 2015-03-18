@@ -26,15 +26,14 @@ class Admin_ArquivoController extends AppBaseController{
 		$result = $turma->editar($id);
 		$this->view->turma = $result['Nome'];
 
-		$idDisc = $result['Disciplina_idDisciplina'];
+		$idTurma = $result['idTurma'];
 		
-
 		$form = new Application_Form_Arquivo();
 
 		if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 				$data = $form->getValues();
-				$data['Disciplina_idDisciplina'] = $idDisc;
+				$data['Turma_idTurma'] = $idTurma;
 				$model->insert($data);
 				$this->_redirect("/admin/arquivo/listar/idTurma/$id");
 			}
@@ -120,11 +119,15 @@ class Admin_ArquivoController extends AppBaseController{
 		// Determine Content Type
 		switch ($ext) {
 			case "pdf": $ctype="application/pdf"; break;
-			case "exe": $ctype="application/octet-stream"; break;
 			case "zip": $ctype="application/zip"; break;
 			case "doc": $ctype="application/msword"; break;
+			case "docx": $ctype="application/msword"; break;
+			case "odt": $ctype="application/msword"; break;
+			case "xlsx": $ctype="application/vnd.ms-excel"; break;
 			case "xls": $ctype="application/vnd.ms-excel"; break;
+			case "ods": $ctype="application/msword"; break;
 			case "ppt": $ctype="application/vnd.ms-powerpoint"; break;
+			case "pptx": $ctype="application/vnd.ms-powerpoint"; break;
 			case "gif": $ctype="image/gif"; break;
 			case "png": $ctype="image/png"; break;
 			case "jpeg": $ctype="image/jpeg"; break;

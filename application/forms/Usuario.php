@@ -267,5 +267,12 @@ class Application_Form_Usuario extends Zend_Form
         	array(
         		'value' => 'ativo'
         	));
+        
+        $this->addElement('hidden', 'Ano',
+        	array(
+        		'value' => date('Y')
+        	));
+        
+        
     }
 }
