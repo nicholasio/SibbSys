@@ -92,7 +92,7 @@
 					</ul>-->
 				</li>
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'faturas','action'=>'index'),null,1);?>"><img src="/images/icons/small/white/post_card.png"><span>Fatura</span></a></li>
-				<!--<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'pagamento','action'=>'index'),null,1); ?>"><img src="/images/icons/small/white/cash_register.png"><span>Pagamento</span></a></li>-->
+				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'faturas','action'=>'relatorio'),null,1); ?>"><img src="/images/icons/small/white/list.png"><span>Lista de Pendentes</span></a></li>
 			</ul>
 		</li>
 		

@@ -26,14 +26,14 @@ class Professor_ArquivoController extends AppBaseController{
     	$result = $turma->editar($id);
     	$this->view->turma = $result['Nome'];
     	 
-    	$idDisc = $result['Disciplina_idDisciplina'];
+    	$idTurma = $result['idTurma'];
     
     	$form = new Application_Form_Arquivo();
     	 
     	if($this->_request->isPost()){
     		if($form->isValid($this->_request->getPost())){
     			$data = $form->getValues();
-    			$data['Disciplina_idDisciplina'] = $idDisc;
+    			$data['Turma_idTurma'] = $idTurma;
     			$model->insert($data);
     			$this->_redirect("/professor/arquivo/listar/idTurma/$id");
     		}
@@ -82,11 +82,11 @@ class Professor_ArquivoController extends AppBaseController{
     	$result = $turma->editar($id);
     	$this->view->turma = $result['Nome'];
     	
-    	$idDisc = $result['Disciplina_idDisciplina'];
+    	$idTurma = $result['idTurma'];
     	$model = new Application_Model_DbTable_Arquivos();
     	
-    	$this->view->rows = $model->listar($idDisc);
-    	$this->view->pegaArquivo = $model->seleciona($idDisc);
+    	$this->view->rows = $model->listar($idTurma);
+    	$this->view->pegaArquivo = $model->seleciona($idTurma);
     }
     
     

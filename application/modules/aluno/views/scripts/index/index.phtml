@@ -122,13 +122,13 @@
 				<?php if(!empty($this->rows['Nome'])){?>
 					<?php foreach($this->rows as $lista){?>
 					<?php foreach($this->file as $file){?>
-						<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+						<?php if($file->Turma_idTurma == $lista->findParentRow('Application_Model_DbTable_Turma')->idTurma){?>
 						
 						<a style="margin: 15px; " class="btn btn-inverse" href="<?php echo $this->url(
 							array(
 								'controller'	=>	'index',
 								'action'		=>	'material',
-								'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+								'idTurma'		=>	$lista->findParentRow('Application_Model_DbTable_Turma')->idTurma
 							));?>">
 							<span><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></span>
 						</a>

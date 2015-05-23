@@ -5,7 +5,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
     protected $_name = 'Turma';
     protected $_primary = 'idTurma';
     
-    protected $_dependentTables = array('Application_Model_DbTable_Matricula');
+    protected $_dependentTables = array('Application_Model_DbTable_Matricula', 'Application_Model_DbTable_Arquivos');
     
     protected $_referenceMap = array(
     

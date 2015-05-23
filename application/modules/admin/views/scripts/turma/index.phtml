@@ -22,9 +22,9 @@
 	<tr style="background: #EEE; ">
 		<td style="text-align: center; width: 20px; "><strong><?php echo $lista->idTurma; ?></strong></td>
 		<td><strong><?php echo $lista->Nome; ?></strong></td>
-		<td style="text-align: center; width: 50px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
+		<td style="text-align: center; width: 100px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
 		<td style="text-align: center; width: 250px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-		<td style="text-align: center; width: 300px;">
+		<td style="text-align: center; width: 380px;">
 			<a class="btn btn-info" data-toggle="modal" href="#myModal-<?php echo $lista->idTurma; ?>"><i class="icon-search icon-grey"></i></a>
 			
 			<div id="myModal-<?php echo $lista->idTurma; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -103,8 +103,19 @@
 					'idTurma'		=>	$lista->idTurma
 				));
 				?>">
-				Editar
+				<strong>Editar</strong>
 			</a>
+			
+			<a id="btn-admin" class="btn btn-inverse" href="<?php echo $this->url(
+				array(
+					'controller'	=> 'turma',
+					'action'		=> 'caderneta',
+					'idTurma'		=> $lista->idTurma		
+				));
+				?>">
+				<strong>Caderneta</strong>
+			</a>
+			
 			<?php if($lista->Status == 'ativo'){?>
 			
 			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
@@ -114,7 +125,7 @@
 					'idTurma'		=>	$lista->idTurma
 				));
 				?>">
-				Encerrar Turma
+				<strong>Encerrar Turma</strong>
 			</a>
 			<?php } else{?>
 			
@@ -125,7 +136,7 @@
 					'idTurma'		=>	$lista->idTurma
 				));
 				?>">
-				Ativar Turma
+				<strong>Ativar Turma</strong>
 			</a>
 			<?php }?>
 		</td>

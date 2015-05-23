@@ -113,4 +113,20 @@ class Admin_FaturasController extends AppBaseController{
 		$this->view->rows = $faturas_model->listagem($idFatura);
 	}
 	
+	public function relatorioAction(){
+		
+		$faturas_model = new Application_Model_DbTable_Faturas();
+		
+		$this->view->rows = $faturas_model->listar();
+		
+	}
+	
+	public function relatorioDownloadAction(){
+		
+		$faturas_model = new Application_Model_DbTable_Faturas();
+		
+		$this->view->rows = $faturas_model->listar();
+		
+	}
+	
 }

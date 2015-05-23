@@ -24,8 +24,8 @@
 			<tr style="background: #EEE; ">
 				<td style="width: 30px; text-align: center; "><strong><?php echo $lista->idTurma;?></strong></td>
 				<td><strong><?php echo $lista->Nome; ?></strong></td>
-				<td style="text-align:center; width: 150px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
-				<td style="text-align: center; width: 430px;">
+				<td style="text-align:center; width: 180px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
+				<td style="text-align: center; width: 490px;">
 					<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'module'		=>	'admin',
@@ -33,7 +33,7 @@
 							'action'		=>	'nota',
 							'idTurma'		=>	$lista->idTurma	
 						));?>">
-							Inserir Nota
+							<strong>Inserir Nota</strong>
 					</a>
 							
 					<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
@@ -43,7 +43,7 @@
 								'action'		=>	'presenca',
 								'idTurma'		=>	$lista->idTurma
 							));?>">
-								Chamada
+								<strong>Chamada</strong>
 						</a>
 						
 						<a id="btn-turma" class="btn" href="<?php echo $this->url(
@@ -53,7 +53,7 @@
 								'action'		=>	'index',
 								'idTurma'		=>	$lista->idTurma
 							));?>">
-								Inserir Arquivo
+								<strong>Inserir Arquivo</strong>
 						</a>
 						
 						<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
@@ -63,7 +63,7 @@
 								'action'		=>	'encerrar-turma',
 								'idTurma'		=>	$lista->idTurma
 							));?>">
-								Encerrar Turma
+								<strong>Encerrar Turma</strong>
 						</a>
 					</td>
 				</tr>		

@@ -43,7 +43,7 @@ class Application_Model_DbTable_Arquivos extends Zend_Db_Table_Abstract{
 	
 	public function listar($idTurma){
 	
-		$sql = $this->select()->where('Turma_idTurma = ?', $idDisc);
+		$sql = $this->select()->where('Turma_idTurma = ?', $idTurma);
 		
 		$rows = $this->fetchAll($sql);
 		

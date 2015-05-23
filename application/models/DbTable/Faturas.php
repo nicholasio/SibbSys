@@ -52,17 +52,18 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 		return false;
 	}
 	
+	
 	public function listar($user_id = NULL){
 
 		$faturas_debitos_model = new Application_Model_DbTable_FaturasDebitos();
 		$debitos_model 		   = new Application_Model_DbTable_Debitos();
 
-		$sql = $this->select();
-
+		$sql = $this->select()->from(array('Faturas'), array('idFatura', 'Usuario_idUsuario', 'mes', 'ano', 'valorFatura', 'desconto'))
+							  ->joinInner(array('Usuario'), 'idUsuario = Usuario_idUsuario', array());
 		if ( ! is_null($user_id) )
 			$sql->where('Usuario_idUsuario = ?', $user_id);
 
-		$sql->order(array(new Zend_Db_Expr('idFatura ASC')));
+		$sql->order(array(new Zend_Db_Expr('Nome ASC')));
 		
 		$rows = $this->fetchAll($sql);
 
@@ -83,6 +84,7 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 		return $data;
 	}
 
+	
 	public function gerarFatura($debitos_id, $user_id) {
 		$faturas_debitos_model = new Application_Model_DbTable_FaturasDebitos();
 		$debitos_model 		   = new Application_Model_DbTable_Debitos();

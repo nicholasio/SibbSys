@@ -75,6 +75,18 @@ class Admin_TurmaController extends AppBaseController{
     	}
     	$this->view->form = $form;
     }
+    
+    public function cadernetaAction(){
+    	
+    	$total = 0;
+    	$id = $this->_getParam('idTurma');
+    	$model = new Application_Model_DbTable_Matricula();
+    	$turma = new Application_Model_DbTable_Turma();
+    	$this->view->dados = $model->findForSelect($id);
+    	$this->view->turma = $turma->hasTurma($id);
+    }
+    
+    
 
     public function ativarAction(){
         	

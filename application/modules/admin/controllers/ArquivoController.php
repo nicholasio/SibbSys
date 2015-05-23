@@ -83,9 +83,11 @@ class Admin_ArquivoController extends AppBaseController{
 		$this->view->turma = $result['Nome'];
 		 
 		$idTurma = $result['idTurma'];
+		
 		$model = new Application_Model_DbTable_Arquivos();
 		 
-		$this->view->rows = $model->listar($idTurma);
+		$this->view->rows = $model->listar($id);
+		
 	}
 
 

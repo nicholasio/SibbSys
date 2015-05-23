@@ -16,6 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
+		
 	<?php foreach ($this->rows as $lista){?>
 		<tr style="background: #EEE;">
 			<td><strong><?php echo $lista->Nome; ?></strong></td>
@@ -23,14 +24,42 @@
 				<?php switch ($lista->Tipo) {
 					case 1:
 						echo "Admin";
+						$tipo = '01';
 						break;
 					case 2:
 						echo "Professor";
+						$tipo = '02';
 						break;
 					case 3:
 						echo "Aluno";
+						$tipo = '03';
 						break;
 				} ?>
+			
+			<?php switch ($lista->findParentRow('Application_Model_DbTable_Curso')->Nome) {
+				case 'Bíblico Geral':
+					$curso = '01';	
+					break;
+				case 'Bacharel em Teologia':
+					$curso = '02';
+					break;
+				case 'Bacharel em Missões':
+					$curso = '03';
+					break;
+				case 'Bacharel em Educação Cristã':
+					$curso = '04';
+					break;
+				case 'Pastoral (Teológico)':
+					$curso = '05';
+					break;
+				default:
+					$curso = '06';
+					break;
+			} ?>
+					
+			
+				
+			
 			</strong></td>
 			<td style="width: 230px; text-align:center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Igreja')->Igreja; ?></strong></td>
 			<td  style="text-align: center; width: 500px;"><a class="btn btn-info" data-toggle="modal" href="#myModal-<?php echo $lista->idUsuario; ?>"><i class="icon-search icon-grey"></i></a>
@@ -43,7 +72,8 @@
   				<div class="modal-body">
     				<div style="margin: 0 0px 0 30px; width: 100px;"><img src="/files/<?php echo $lista->Foto; ?>" width="100" height="120"></img></div>
     				<div style="margin: -120px 0px 0 140px; text-align: left;">
-    					
+    						
+    						<p><strong><font size="2">Matrícula: <span style="color:#069;"><?php echo $lista->Ano . $tipo . $curso . $lista->idUsuario; ?></span></font></strong></p>
     						<p><strong><font size="2">Nome do Usuário: <span style="color:#069;"><?php echo $lista->Nome; ?></span></font></strong></p>
     						<p><strong><font size="2">Endereço: <span style="color:#069;"><?php echo $lista->Endereco; ?></span></font></strong></p>
     						<p><strong><font size="2">CEP: <span style="color:#069;"><?php echo $lista->CEP; ?></span></font></strong></p>

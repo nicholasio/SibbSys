@@ -27,32 +27,8 @@
 	
 	<br />
 
-	<?php /*$model = new Application_Model_DbTable_Usuarioservicos(); ?>
-	<?php $taxa = $model->listar($id); ?>
-	<?php $conta = '';?>
-	<?php foreach($taxa as $taxa){
-		$nome = $taxa->findParentRow('Application_Model_DbTable_Servicos')->nome;
-		echo $nome;
-		if($nome == 'Taxa de Matrícula'){
-			$conta = 1;
-		}else{
-			$conta = 0;
-		}
-
-	}?>
-	<?php echo $conta; ?>
-	<?php foreach($fatura['debitos'] as $lista){
-			if($lista['type'] == 'servico'){
-				$servico = $lista['servico']['taxa_matricula'];
-			
-			}
-			//echo $servico;
-	}	
-
-			if ($conta == 1){
-				echo '<h3 style="text-align: center">' . 'Fatura Referente a Matrícula' . '</h3>';
-			}
-			else{*/
+	<?php 
+	
 				echo '<h3 style="text-align: center">' . 'Extrato da Mensalidade do Mês de ';
 				switch ($fatura['mes']){
 					case 1 :
@@ -212,7 +188,7 @@
 				
 			<?php } ?>
 			
-			<!--  Imprime a fatura que foi feito apenas um pagamento e o foi o valor total da fatura -->
+			<!--  Imprime a fatura que foi feito apenas um pagamento e foi o valor total da fatura -->
 			
 			<?php if(isset($pagamento) && $valor_total == $valor_total_pagamentos){?>
 				

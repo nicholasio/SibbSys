@@ -153,14 +153,14 @@
 							<td style="width: 20px; text-align: center;"><strong><?php echo $turma->idTurma;?></strong></td>
 							<td><strong><?php echo $turma->Nome; ?></strong></td>
 							<td style="width: 100px; text-align: center;"><strong><?php echo $turma->Ano . '.' . $turma->Semestre; ?></strong></td>
-							<td style="text-align: center; width: 430px;">
+							<td style="text-align: center; width: 480px;">
 								<a id="btn-turma" class="btn btn-primary" href="<?php echo $this->url(
 									array(
 										'controller'	=>	'professor',
 										'action'		=>	'nota',
 										'idTurma'		=>	$turma->idTurma
 									));?>">
-									Inserir Nota
+									<strong>Inserir Nota</strong>
 								</a>
 
 								<a id="btn-turma" class="btn btn-success" href="<?php echo $this->url(
@@ -169,7 +169,7 @@
 										'action'		=>	'presenca',
 										'idTurma'		=>	$turma->idTurma
 									));?>">
-									Chamada
+									<strong>Chamada</strong>
 								</a>
 
 								<a id="btn-turma" class="btn" href="<?php echo $this->url(
@@ -178,7 +178,7 @@
 										'action'		=>	'index',
 										'idTurma'		=>	$turma->idTurma
 									));?>">
-									Inserir Arquivo
+									<strong>Inserir Arquivo</strong>
 								</a>
 
 								<a id="btn-turma" class="btn btn-danger" href="<?php echo $this->url(
@@ -187,7 +187,7 @@
 										'action'		=>	'encerrar-turma',
 										'idTurma'		=>	$turma->idTurma
 									));?>">
-									Encerrar Turma
+									<strong>Encerrar Turma</strong>
 								</a>
 							</td>
 							
@@ -249,7 +249,7 @@
 											'action'		=>	'lista-presenca',
 											'idTurma'		=>	$turma->idTurma
 										));?>">
-										Faltas
+										<strong>Faltas</strong>
 								</a>
 							
 								<a id="btn-turma" class="btn btn-warning" href="<?php echo $this->url(
@@ -258,8 +258,9 @@
 											'action'		=>	'listar',
 											'idTurma'		=>	$turma->idTurma
 										));?>">
-										Arquivos
+										<strong>Arquivos</strong>
 								</a>
+								
 							</td>
 						</tr>
 						<?php endforeach; ?>

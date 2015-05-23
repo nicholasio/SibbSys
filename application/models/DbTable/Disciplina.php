@@ -4,17 +4,9 @@ class Application_Model_DbTable_Disciplina extends Zend_Db_Table_Abstract{
 	protected $_name = 'Disciplina';
 	protected $_primary = 'idDisciplina';
 	
-	protected $_dependentTables = array('Application_Model_DbTable_Turma','Application_Model_DbTable_Arquivos');
+	protected $_dependentTables = array('Application_Model_DbTable_Turma');
 	
-	protected $_refereTables = array(
-		
-		'Credito'	=>	array(
-			'columns'		=>	array('Credito_idCredito'),
-			'refTableClass'	=>	'Application_Model_DbTable_Credito',
-			'refColumns'	=>	array('idCredito')
-		)
-	);
-
+	
 	
 	public function insert( Array $data){
 				

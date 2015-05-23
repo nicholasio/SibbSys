@@ -53,7 +53,7 @@ class Professor_MinhasTurmasController extends AppBaseController{
     
     public function materialAction(){
     
-    	$id = $this->_getParam('idDisciplina');
+    	$id = $this->_getParam('idTurma');
     	
     	$model = new Application_Model_DbTable_Arquivos();
     	$this->view->rows = $model->download($id);

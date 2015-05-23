@@ -44,7 +44,7 @@ class Application_Form_Arquivo extends Zend_Form{
 			 ->setDestination(APPLICATION_PATH . '/../public/arquivos/')
 			 ->addValidator('Count', false, 1)
 			 ->addValidator('Size', false, '100MB')
-			 ->addValidator('Extension', false, 'jpg,png,docx,doc,pdf,odt,ods,ppt,pptx,xlsx');
+			 ->addValidator('Extension', false, 'jpg,png,docx,doc,pdf,odt,ods,ppt,pptx,xls,xlsx');
 			 
 			 
 		$status = new Zend_Form_Element_Select('Status');

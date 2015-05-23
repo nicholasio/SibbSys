@@ -27,7 +27,7 @@
 			
 			<?php foreach($this->rows as $lista){?>
 				<?php foreach($this->file as $file){?>
-					<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+					<?php if($file->Turma_idTurma == $lista->findParentRow('Application_Model_DbTable_Turma')->idTurma){?>
 						<tr style="background: #EEE; ">
 							<td style="width: 50px; padding-left: 30px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
 							<td style="width: 350px; text-align: center;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
@@ -37,7 +37,7 @@
 									array(
 										'controller'	=>	'minhasturmas',
 										'action'		=>	'material',
-										'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+										'idTurma'		=>	$lista->findParentRow('Application_Model_DbTable_Turma')->idTurma
 										));?>">
 									Exibir
 								</a>

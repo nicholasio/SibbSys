@@ -16,7 +16,7 @@
 		<thead>
 			<tr>
 				<th><font size="2" color="black"><strong>#</strong></font></th>
-				<th><font size="2" color="black"><strong>Turma</strong></font></th>
+				<th style="text-align: center"><font size="2" color="black"><strong>Turma</strong></font></th>
 				<th style="text-align: center"><font size="2" color="black"><strong>Ação</strong></font></th>
 			</tr>
 		</thead>
@@ -24,16 +24,16 @@
 		
 			<?php foreach($this->rows as $lista){?>
 			<?php foreach($this->file as $file){?>
-				<?php if($file->Disciplina_idDisciplina == $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina){?>
+				<?php if($file->Turma_idTurma == $lista->findParentRow('Application_Model_DbTable_Turma')->idTurma){?>
 					<tr style="background: #EEE;">
-						<td style="width: 50px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina;?></strong></td>
-						<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
-						<td style="text-align: center; width: 300px;">
+						<td style="width: 50px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->idTurma;?></strong></td>
+						<td style="text-align: center; width: 300px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome;?></strong></td>
+						<td style="text-align: center; width: 200px;">
 							<a style="width: 80px; font-size: 12px;" class="btn btn-primary" href="<?php echo $this->url(
 								array(
 									'controller'	=>	'index',
 									'action'		=>	'material',
-									'idDisciplina'	=>	$lista->findParentRow('Application_Model_DbTable_Turma')->Disciplina_idDisciplina
+									'idTurma'		=>	$lista->findParentRow('Application_Model_DbTable_Turma')->idTurma
 								));?>">
 								Exibir
 							</a>

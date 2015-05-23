@@ -1,0 +1,135 @@
+<div class="grid_16">
+	<div class="page-header">
+	</div>
+	
+	<br /><br />
+	<?php
+	 
+	header("Content-type: text/html; charset=utf-8");
+	ob_start();
+	
+	?>
+	<table border="1" cellpadding="4px" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+		<thead>
+			<tr>
+				<th style="font-size:11px;">Nome do Aluno</th>
+				<th colspan="30" style="width: 400px; font-size:11px;">Controle de Frequência às Aulas</th>
+				<th colspan="3" style="width: 50px; font-size:11px; " >Testes</th>
+				<th colspan="3" style="width: 50px; font-size:11px; " >Trabs</th>
+				<th colspan="3" style="width: 50px; font-size:11px;" >Leits</th>
+				<th colspan="3" style="width: 50px; font-size:11px;" >Provas</th>
+				<th  style="width: 60px; font-size:11px;" >Nt. Final</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php $a = 0; ?>
+			<?php foreach($this->dados as $dados) : ?>
+				<tr>
+					<td><?php echo $dados->findParentRow('Application_Model_DbTable_Usuario')->Nome; $a++?></td>
+					<?php for ($i=0; $i<30; $i++) : ?>
+						<td style="width: 15px;"></td>								
+					<?php endfor;?>
+					<?php for ($i=0; $i<13; $i++) : ?>
+						<td style="width: 12px;"></td>
+					<?php endfor; ?>
+				</tr>
+			<?php endforeach; ?>
+				<tr>
+					<td style="color: white">t</td>
+					<?php for ($i=0; $i<30; $i++) : ?>
+						<td style="width: 15px;"></td>								
+					<?php endfor;?>
+					<?php for ($i=0; $i<13; $i++) : ?>
+						<td style="width: 12px;"></td>
+					<?php endfor; ?>
+				</tr>
+				<tr>
+					<td style="color: white">t</td>
+					<?php for ($i=0; $i<30; $i++) : ?>
+						<td style="width: 15px;"></td>								
+					<?php endfor;?>
+					<?php for ($i=0; $i<13; $i++) : ?>
+						<td style="width: 12px;"></td>
+					<?php endfor; ?>
+				</tr>
+				<tr>
+					<td style="color: white">t</td>
+					<?php for ($i=0; $i<30; $i++) : ?>
+						<td style="width: 15px;"></td>								
+					<?php endfor;?>
+					<?php for ($i=0; $i<13; $i++) : ?>
+						<td style="width: 12px;"></td>
+					<?php endfor; ?>
+				</tr>
+		</tbody>
+	</table>
+	
+	Total de Alunos: <strong><?php echo $a; ?></strong><br />
+	Observações:
+	
+	<table border="1" cellpadding="4px" cellspacing="0" style="border-collapse: collapse; width: 50%;">
+		<?php for($i=0; $i<5; $i++) : ?>
+			<tr>
+				<td style="padding: 10px;"></td>
+			</tr>
+		<?php endfor; ?>
+	</table>
+	
+	
+	
+	<?php 
+	
+	$capa = '<div  style="margin-left: 524px; text-align: center; ">' . 
+					'<h2>SEMINÁRIO E INSTITUTO BATISTA BEREIANO</h2>' . 
+						'<p style="font-size: 11px;" >Rua Mar do Leste, 100, Pajuçara - CEP: 59.133-380 / Natal-RN  (084) 3221-2520</p>'.
+						'<hr />' .
+						'<br /><br /><br /><br />' .
+					'<table style="margin-left: 130px;">' .
+						'<tr>' .
+							'<th><img src="/images/logosibb2.gif" height="220px" width="220px"></th>' .
+						'</tr>' .
+					'</table>' .
+					'<br /><br /><br /><br /><br />' .
+					'<div style="text-align: left; font-size: 13px;">' .
+						'<p style="font-size: 15px"><strong>'.'Disciplina: </strong>' . $this->turma->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina . '</p>' .
+						'<p style="font-size: 15px"><strong>'.'Ano Letivo: </strong>' . $this->turma['Ano'] . '.' . $this->turma['Semestre'] . '</p>' .
+						'<p style="font-size: 15px"><strong>'.'Turma: </strong>' .	 $this->turma->Nome . '</p>'.
+						'<p style="font-size: 15px"><strong>'.'Professor: </strong>' . $this->turma->findParentRow('Application_Model_DbTable_Usuario')->Nome . '</p>'.
+					'</div>' .
+					'<hr />' .
+				'</div>';
+	?>
+	
+	
+	
+	
+	<?php 
+	$html = ob_get_contents();
+
+	ob_end_clean();
+	
+	define('MPDF_PATH', APPLICATION_PATH . '/../library/mpdf/');
+	
+	include(MPDF_PATH .'mpdf.php');
+	
+	$mpdf = new mPDF('pt','A4-L',10);
+	
+	$mpdf->allow_charset_conversion = true;
+	$mpdf->charset_in = 'utf-8';
+	
+	$mpdf->SetDisplayMode('fullpage');
+
+	$mpdf->WriteHTML($html);
+	
+	$mpdf->AddPage();
+	$mpdf->WriteHTML($capa);
+	
+	$arquivo = Caderneta . ' - ' . $this->turma->Nome .	' - ' . $this->turma->Ano . '.' . $this->turma->Semestre . '.pdf';
+	
+	$mpdf->Output($arquivo, 'D');
+	
+	exit();
+	
+	?>
+		
+</div>

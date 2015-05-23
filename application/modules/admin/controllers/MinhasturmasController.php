@@ -52,7 +52,7 @@ class Admin_MinhasTurmasController extends AppBaseController{
     
     public function materialAction(){
     
-    	$id = $this->_getParam('idDisciplina');
+    	$id = $this->_getParam('idTurma');
     	
     	$model = new Application_Model_DbTable_Arquivos();
     	$this->view->rows = $model->download($id);
@@ -82,6 +82,7 @@ class Admin_MinhasTurmasController extends AppBaseController{
       		case "exe": $ctype="application/octet-stream"; break;
       		case "zip": $ctype="application/zip"; break;
       		case "doc": $ctype="application/msword"; break;
+      		case "docx": $ctype="application/msword"; break;
       		case "xls": $ctype="application/vnd.ms-excel"; break;
       		case "ppt": $ctype="application/vnd.ms-powerpoint"; break;
       		case "gif": $ctype="image/gif"; break;
@@ -155,4 +156,6 @@ class Admin_MinhasTurmasController extends AppBaseController{
     	$this->view->semes = $turma->_findSemestre($id);
     	
     }
+   
+    
 }
