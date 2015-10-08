@@ -189,6 +189,53 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 	
 	
+	public function excluir ($id){
+		
+		$matricula_model = new Application_Model_DbTable_Matricula();
+		$turma_model = new Application_Model_DbTable_Turma();
+		$notas_model = new Application_Model_DbTable_Nota();
+		
+		$alunos = $matricula_model->findForSelect($id)->toArray();
+		$notas  = $notas_model->findForSelect($id)->toArray();
+		
+		$excluir = 1;
+		
+		if ( count($alunos) != count($notas) ) {
+			$excluir = 0;
+		}
+		
+		if ( $excluir ) {
+			foreach($notas as $nota) {
+				if($nota['Unit1'] == '0' || $nota['Unit2'] == '0' || $nota['Unit3'] == '0'){
+					//if ( is_null($nota['Unit1']) || is_null($nota['Unit2']) || is_null($nota['Unit3']) ) {
+					$excluir = 0;
+					break;
+				}
+		
+			}
+		}
+		
+		
+		return $excluir;
+		//if ( $excluir ) {
+		
+			//$sql = $this->select()->where('idTurma = ?', $id);
+			
+			//$row = $this->fetchRow($sql);
+			
+			//$row->delete();
+			
+			//return true;
+			
+		//} else {
+			
+			//return false;
+		//}
+		
+	}
+	
+	
+	
 	public function _findAno($id){
 	
 		$sql = $this->select()

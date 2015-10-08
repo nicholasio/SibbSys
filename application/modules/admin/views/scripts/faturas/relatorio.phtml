@@ -20,6 +20,7 @@
 				<th style="text-align: center;"><h5>Status</h5></th>
 			</tr>
 		</thead>
+		<tbody>
 			<?php foreach ($this->rows as $fatura){ ?>
 					
 			<?php
@@ -40,7 +41,7 @@
 				$valor_pendente = number_format($valor - $valor_total_pagamentos,2); 
 			?>
 						
-		<tbody>
+		
 			<?php if ( $valor_pendente != 0 ) : ?>
 				<tr>
 					<td style="text-align: center; width: 30px;"><strong><?php echo $fatura['idFatura']; ?></strong></td>

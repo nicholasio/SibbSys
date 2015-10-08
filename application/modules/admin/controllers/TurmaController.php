@@ -102,4 +102,18 @@ class Admin_TurmaController extends AppBaseController{
     	
     }
     
+    public function deletarAction(){
+    	
+    	$model = new Application_Model_DbTable_Turma();
+    	
+    	$id = $this->_getParam('idTurma');
+
+    	$this->view->result = $model->excluir($id);
+    	
+    	//$excluir = $model->excluir($id);
+    	
+    	
+    }
+    
+    
 }

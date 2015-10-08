@@ -47,6 +47,8 @@
 						$total = 0;
 						$id = $lista->idTurma;
 						$matric = new Application_Model_DbTable_Matricula();
+						$turma = new Application_Model_DbTable_Turma();
+						$excluir = $turma->excluir($id);
 						$dados = $matric->findForSelect($id);
 						foreach($dados as $nomes) : 
 							$nota = new Application_Model_DbTable_Nota();
@@ -129,7 +131,7 @@
 			</a>
 			<?php } else{?>
 			
-				<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
+			<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
 				array(
 					'controller'	=>	'turma',
 					'action'		=>	'ativar',
@@ -138,7 +140,9 @@
 				?>">
 				<strong>Ativar Turma</strong>
 			</a>
-			<?php }?>
+			
+			<?php } ?>
+		
 		</td>
 	</tr>
 <?php }?> <!-- fim foreach -->
