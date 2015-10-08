@@ -158,9 +158,10 @@
 						<thead>
 						<tr>
 							<th style="width: 50px; text-align: center;">#</th>
-							<th style="width: 150px; text-align: center;">Mês/Ano</th>
+							<th style="width: 100px; text-align: center;">Mês/Ano</th>
+							<th style="width: 150px; text-align: center;">Valor da Fatura</th>
 							<th style="width: 150px; text-align: center;">Valor Pendente</th>
-							<th style="width: 150px; text-align: center;">Status</th>
+							<th style="width: 100px; text-align: center;">Status</th>
 							<th style="width: 200px; text-align: center;">Ações</th>
 						</tr>
 						</thead>
@@ -220,6 +221,7 @@
 									<?php echo $fatura['idFatura']; ?>
 								</td>
 								<td style="text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+								<td style="text-align: center; "><strong><?php echo number_format($fatura['valorFatura'],2,',','.'); ?></strong></td>
 								<td style="text-align: center; ">
 	
 									<?php

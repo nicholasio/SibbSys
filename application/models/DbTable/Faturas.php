@@ -115,6 +115,8 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 		$usuario_model		   = new Application_Model_DbTable_Usuario();
 		
 		$sql = $this->select()->where('idFatura = ?', $idFatura);
+		$sql->order(array(new Zend_Db_Expr('idFatura DESC')));
+		
 		
 		$rows = $this->fetchAll($sql);
 		
