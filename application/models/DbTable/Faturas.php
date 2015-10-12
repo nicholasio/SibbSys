@@ -57,7 +57,7 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 
 		$faturas_debitos_model = new Application_Model_DbTable_FaturasDebitos();
 		$debitos_model 		   = new Application_Model_DbTable_Debitos();
-
+		
 		$sql = $this->select()->from(array('Faturas'), array('idFatura', 'Usuario_idUsuario', 'mes', 'ano', 'valorFatura', 'desconto'))
 							  ->joinInner(array('Usuario'), 'idUsuario = Usuario_idUsuario', array());
 		if ( ! is_null($user_id) )
@@ -66,6 +66,7 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 		$sql->order(array(new Zend_Db_Expr('Nome ASC')));
 		
 		$rows = $this->fetchAll($sql);
+		
 
 		if ( $rows )
 			$rows = $rows->toArray();
@@ -114,6 +115,8 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 		$usuario_model		   = new Application_Model_DbTable_Usuario();
 		
 		$sql = $this->select()->where('idFatura = ?', $idFatura);
+		$sql->order(array(new Zend_Db_Expr('idFatura DESC')));
+		
 		
 		$rows = $this->fetchAll($sql);
 		
