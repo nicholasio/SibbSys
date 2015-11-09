@@ -11,11 +11,11 @@
 
         <li class="divider-vertical"></li>
         <li>
-          <a target="_blank" href="#">Sobre</a>
+          <a href="<?php echo $this->url(array('module'=>'aluno','controller'=>'index','action'=>'sobre'),null,1); ?>" style="font-size: 12px;">Sobre</a>
         </li>
         <li class="divider-vertical"></li>
         <li>
-          <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>">Sair</a>
+          <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'),null,1); ?>" style="font-size: 12px;">Sair</a>
         </li>
       </ul>
      </div>

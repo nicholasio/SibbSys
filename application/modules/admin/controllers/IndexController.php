@@ -111,4 +111,12 @@ class Admin_IndexController extends AppBaseController{
     	
     	$this->view->form = $form;
     }
+    
+    
+    public function sobreAction(){
+    	
+    	
+    }
+    
+    
 }
