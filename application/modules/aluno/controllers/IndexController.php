@@ -186,8 +186,8 @@ class Aluno_IndexController extends AppBaseController{
     		header("Expires: 0");
     		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
     		header("Cache-Control: public",true); // required for certain browsers
-    		header("Content-Type: $ctype");
-    		header("Content-Disposition: attachment; filename=\"".basename($nome)."\";" );
+    		//header("Content-Type: $ctype");
+    		header("Content-Disposition: attachment; filename=\"".basename($nome)."\" .$ext;" );
     		header("Content-Transfer-Encoding: binary");
     		header("Content-Length: ". filesize($location));
     		ob_clean();
@@ -273,5 +273,13 @@ class Aluno_IndexController extends AppBaseController{
 		}
 		$this->view->form = $form;
 	}
+	
+	
+	public function sobreAction(){
+		
+		
+		
+	}
+	
 	
 }

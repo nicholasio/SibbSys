@@ -90,6 +90,12 @@ class Professor_IndexController extends AppBaseController{
 	}
 	
 	
+	public function sobreAction(){
+		
+		
+	}
+	
+	
 	public function alterarFotoAction(){
     	
     	$auth = Zend_Auth::getInstance();
