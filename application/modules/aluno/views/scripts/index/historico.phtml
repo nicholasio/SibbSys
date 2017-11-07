@@ -15,7 +15,7 @@
 						<div style=" width: 150px;"><img src="/images/logosibb2.gif" height="120px" width="120px" style="margin: 20px 0 0 0; "></div>
 							<div style=" width: 550px; margin: -90px 0 0px 140px;"><font size="5" color="#000"><strong>SEMINÁRIO E INSTITUTO BATISTA BEREIANO</strong></font>
 								<font size="3" color="#000;">Rua Mar do Leste, 100, Pajuçara - CEP: 59.133-380 / Natal-RN</font>
-								<p><font size="3" color="#000;">Email: <font color="blue">contato@seminariobereiano.com.br</font></font></p>
+								<p><font size="3" color="#000;">Email: <span style="color:blue">sibbereiano@gmail.com</span></font></p>
 								<p><font size="3" color="#000;">Fone: (084) 3221-2520 / 3201-0083 </font></p>
 							</div>
 						
@@ -31,6 +31,7 @@
 					
 					<div style="text-align: left; color:#000; font-size: 14px";>
 						Nome: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong>
+						Curso: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->findParentRow('Application_Model_DbTable_Curso')->Nome; ?></strong>
 					</div>
 					
 					<br /><br /><br />
@@ -41,9 +42,10 @@
 						<thead>
 							<tr>
 								<th style="width:350px;" >Disciplina</th>
+								<th style="width:50px;"" >Créditos</th>
 								<th style="width:100px; text-align: center;" >Ano/Semestre</th>
-								<th style="width:100px; text-align: center;" >Faltas</th>
-								<th style="width:100px; text-align: center;" >Média</th>
+								<th style="width:50px; text-align: center;" >Faltas</th>
+								<th style="width:50px; text-align: center;" >Média</th>
 								<th style="width:100px; text-align: center;" >Situação</th>
 							</tr>
 						</thead>
@@ -55,17 +57,29 @@
 						$model_turma = new Application_Model_DbTable_Turma();
 						
 						$i = 0;
+						$c = 0;
 						
 						foreach($this->rows as $users){?>
-							<?php $id = $users->idUsuario_has_Turma; ?>
+
+						<?php 
+							$id = $users->idUsuario_has_Turma;
 							
-							<?php $chamada = $presenca->contaPresenca($id); ?> 
-							<?php $media = $tableNota->media($id); ?>
-								<tr <?php //if($i % 2 == 0) : ?>> <!-- style="background: #EEE " --><?php //endif;?>
+							$chamada = $presenca->contaPresenca($id);
+
+							$media = $tableNota->media($id); 
+
+							$cred = $users->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->QntdCred; 
+						?>
+
+
+								<tr>
 									<td><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->Disciplina; ?></td>
+
+									<td style="text-align: center;" ><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->findParentRow('Application_Model_DbTable_Disciplina')->QntdCred; ?></td>
 								
 									<td style="text-align: center;"><?php echo $users->findParentRow('Application_Model_DbTable_Turma')->Ano . '/' . $users->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></td>
-								<?php if($chamada["SUM(Faltas)"] != null){?>
+
+								<?php if($chamada["SUM(Faltas)"] != 0){?>
 										<td style="text-align: center; "><?php echo $chamada["SUM(Faltas)"]; ?></td>			
 								<?php }
 									else{?>
@@ -90,8 +104,20 @@
 									<?php } ?>
 									
 								</td>
+
+								<?php $c = $c + $cred; ?>
+
 						<?php } ?>
 					</table>
+
+
+					<br /><hr />
+
+					<div style="text-align: left; color:#000; font-size: 14px";>
+						<p>Total de Créditos: <strong><?php echo $c; ?></strong> </p>
+					</div>
+
+
 					
 					<br /><br /><br /><br /><br /><br /><br />
 						</div>
