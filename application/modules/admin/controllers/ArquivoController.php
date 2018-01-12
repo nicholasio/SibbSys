@@ -98,7 +98,7 @@ class Admin_ArquivoController extends AppBaseController{
 		 
 		$model = new Application_Model_DbTable_Arquivos();
 		$model->deletar($id);
-		$this->_redirect("/professor/arquivo/listar/idTurma/$idTurma");
+		$this->_redirect("/admin/arquivo/listar/idTurma/$idTurma");
 	}
 
 
@@ -150,9 +150,9 @@ class Admin_ArquivoController extends AppBaseController{
 			header("Expires: 0");
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 			header("Cache-Control: public",true); // required for certain browsers
-			header("Content-Type: $ctype");
-			header("Content-Disposition: attachment; filename=\"".basename($nome)."\";" );
-			header("Content-Transfer-Encoding: binary");
+			//header("Content-Type: );
+			header("Content-Disposition: attachment; filename=\"".basename($nome)."\" .$ext;" );
+			//header("Content-Transfer-Encoding: binary");
 			header("Content-Length: ". filesize($location));
 			ob_clean();
 			flush();

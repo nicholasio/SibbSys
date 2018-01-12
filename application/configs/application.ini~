@@ -47,7 +47,7 @@ resources.db.isDefaultTableAdapter = "true"
 email.server   = "smtp.gmail.com"
 email.port     = 587
 email.username = "sibbereiano@gmail.com"
-email.password = "########"
+email.password = " b3r314n01630"
 ;email.support  = "sibbereiano@gmail.com"
 email.protocol = "tls" 
 

@@ -29,8 +29,11 @@
 		} ?>
 		</strong></p>
 		
-		<h3 style="font-size: 11px; "><a href="#"><strong><?php echo $data->Nome;?></strong></a></h3>
+		<h3 style="font-size: 11px; "><strong><a href="#"><?php echo $data->Nome; ?></a></strong></h3>
 		
+  		
+  						
+
 		<div style="margin: 15px 0 0 60px;">
 			<ul>
 				<li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'index','action'=>'altera-senha'),null,1);?>" style="font-size: 11px; "><strong>Alterar Senha</strong></a><span class="divider">|</span></li>
