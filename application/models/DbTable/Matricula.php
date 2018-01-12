@@ -125,6 +125,7 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 		$sql = $this->select()->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
 							  ->joinInner('Turma', 'Turma_idTurma = idTurma', array())
 							  ->where('Usuario_idUsuario = ?', $id);
+							  //->order(array(new Zend_Db_Expr('Nome ASC')));
 		//->order(array(new Zend_Db_Expr('Ano ASC')));
 		$query = $this->fetchAll($sql);
 	

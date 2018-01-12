@@ -172,7 +172,8 @@
 						$user_id = $data->idUsuario;
 	
 						$faturas_model = new Application_Model_DbTable_Faturas();
-						$faturas = $faturas_model->listar($user_id);
+						$faturas = $faturas_model->aluno($user_id);
+
 	
 						foreach($faturas as $fatura) :
 							?>

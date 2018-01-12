@@ -39,9 +39,9 @@
 		<table class="table table-striped data-table" style="margin-bottom:0;">
 			<thead>
 				<tr>
-					<th style="text-align: left;"><font size="2" color="black"><strong>Marcar</strong></font></th>
-					<th style="text-align: left;"><font size="2" color="black"><strong>#</strong></font></th>
-					<th ><font size="2" color="black"><strong>Aluno</strong></font></th>
+					<th style="text-align: left; width: 5px;"><font size="2" color="black"><strong>Marcar</strong></font></th>
+					<th style="text-align: left; "><font size="2" color="black"><strong>#</strong></font></th>
+					<th style="width: 300px;"><font size="2" color="black"><strong>Aluno</strong></font></th>
 					<th style="text-align: center;"><font size="2" color="black"><strong>Descrição</strong></font></th>
 					<th style="text-align: center;"><font size="2" color="black"><strong>Mes/Ano</strong></font></th>
 					<th style="text-align: center;"><font size="2" color="black"><strong>Valor</strong></font></th>
@@ -55,9 +55,9 @@
 				<?php $user_id = $debito['user']['idUsuario']; ?>
 			<tr style="background: #EEE;">
 				<td style="text-align: left; width: 5px;"> <input type="checkbox" name="debitos[]" value="<?php echo $debito['idDebitos']; ?>" class="single-debito" /></td>
-				<td style="text-align: left; width: 5px;"><strong><?php echo $debito['idDebitos']; ?></strong></td>
-				<td style="text-align: left; width: 220px;"><strong><?php echo $debito['user']['Nome']; ?></strong></td>
-				<td style="width: 280px;"><strong>
+				<td style="text-align: left; "><strong><?php echo $debito['idDebitos']; ?></strong></td>
+				<td style="text-align: left; width: 300px;"><strong><?php echo $debito['user']['Nome']; ?></strong></td>
+				<td style="width: 200px;"><strong>
 					<?php
 						$desc_debito = '';
 						if ( $debito['type'] == 'servico' ) {
