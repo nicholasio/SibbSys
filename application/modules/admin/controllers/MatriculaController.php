@@ -29,15 +29,16 @@ class Admin_MatriculaController extends AppBaseController{
 		$turma = new Application_Model_DbTable_Turma();
 
 		$ano      = isset( $_GET['ano'] ) ? $_GET['ano'] : false;
-		$semestre = isset( $_GET['semestre'] ) ? $_GET['semestre'] : false;
-		$start    = isset( $_GET['start'] ) ? $_GET['start'] : 0;
-		$length   = isset( $_GET['length'] ) ? $_GET['length'] : 30;
+		$semestre = isset( $_GET['semestre'] ) ? (int) $_GET['semestre'] : false;
+		$start    = isset( $_GET['start'] ) ? (int) $_GET['start'] : 0;
+		$length   = isset( $_GET['length'] ) ? (int) $_GET['length'] : 30;
+		$draw     = isset( $_GET['draw'] ) ? (int) $_GET['draw'] : 1;
 
 		$prof = $turma->lista();
 		$rows = $model->listar( $ano, $semestre, $start, $length );
 
 		$data = array(
-			'draw'         => 1,
+			'draw'         => $draw,
 			'recordsTotal' => $model->numeroMatriculas(),
 			'data'         => array()
 		);
