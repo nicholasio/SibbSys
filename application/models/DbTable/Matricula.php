@@ -76,29 +76,35 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar($ano = false, $semestre = false, $start = 0, $length = 30){
+	public function listar($ano = false, $semestre = false, $search = false, $start = 0, $length = 30){
 
 		$where = 'Cursando';
 		$sql = $this->select();
+		$sql->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'statusMatricula' => 'Status' ) )
+			->joinInner( 'Usuario', 'idUsuario = Usuario_idUsuario' )
+			->joinInner('Turma', 'Turma_idTurma = idTurma', array())
+			->setIntegrityCheck( false );
 
-
-		if ( $ano !== false && $semestre !== false ) {
-			$sql->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
-				->joinInner('Turma', 'Turma_idTurma = idTurma', array())
-				->where('Usuario_has_Turma.Status = ?', $where)
-				->order(array(new Zend_Db_Expr('Semestre ASC')))
-				->order(array(new Zend_Db_Expr('Ano ASC')));
+		if ( $search ) {
+			$sql->where( 'Usuario.Nome LIKE ?', '%' . $search . '%' );
 		}
 
-		$sql->limit( $length, $start );
+		$sql->order(array(new Zend_Db_Expr('Semestre DESC')))
+			->order(array(new Zend_Db_Expr('Ano DESC')))
+			->limit( $length, $start );
 
 		$rows = $this->fetchAll($sql);
 		
 		return $rows;
 	}
 
-	public function numeroMatriculas($ano = false, $semestre = false) {
+	public function numeroMatriculas($search = false, $ano = false, $semestre = false) {
 		$sql = $this->select()->from($this, array('count(*) as total'));
+
+		if ( $search ) {
+			//@Todo Include search query
+		}
+
 		$rows = $this->fetchAll($sql);
 
 		return $rows[0]->total;
