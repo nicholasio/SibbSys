@@ -33,7 +33,7 @@
 			
 		</div>
 	</div>
-  	<table class="table table-striped data-table">
+  	<table class="table table-striped data-table-ajax" data-endpoint="/admin/matricula/get">
 	    <thead>
 	      <tr>
 	        <th style="width: 30px; text-align: center;"><font size="2" color="black"><strong>#</strong></font></th>
@@ -46,52 +46,7 @@
 	      </tr>
 	    </thead>
 	    <tbody>
-		<?php foreach ($this->rows as $lista) { ?>
-		<tr style="background: #EEE;">
-			<td style="width: 20px; text-align: center;"><strong><?php echo $lista->idUsuario_has_Turma; ?></strong></td>
-			<td><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-			<td style="width: 180px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Nome; ?></strong></td>
-			<td style="text-align: center; width: 110px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Turma')->Ano . '.' . 
-								   $lista->findParentRow('Application_Model_DbTable_Turma')->Semestre; ?></strong></td>
-			<td style="width: 150px; text-align: center;"><strong>					
-				<?php foreach ($this->prof as $prof){?>
-					<?php if($prof->findParentRow('Application_Model_DbTable_Usuario')->idUsuario == 
-							 $lista->findParentRow('Application_Model_DbTable_Turma')->idUsuario){?>
-							<?php echo $prof->findParentRow('Application_Model_DbTable_Usuario')->Nome;?>
-										 
-					<?php }?> <!-- fim if -->
-			
-				<?php }?> <!-- fim foreach -->
-		</strong></td>
-		<td style="width: 100px; text-align: center;"><strong>
-		
-		<?php switch($lista->Status){
-				case 'Aprovado':
-					echo "<span class='label label-success'>$lista->Status</span>";
-					break;
-				case 'Reprovado':
-					echo "<span class='label label-important'>$lista->Status</span>";
-					break;
-				case 'Cursando':
-					echo "<span class='label label-info'>$lista->Status</span>";
-					break;
-			} ?>
-		
-		</strong></td>
-		
-		<td  style="width: 150px; text-align: center;">
-		
-			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
-				array(
-					'controller'			=>	'matricula',
-					'action'				=>	'delete',
-					'idUsuario_has_Turma'	=>	$lista->idUsuario_has_Turma
-				));
-				?>">Excluir
-			</a>
-		</td>
-	</tr>
-<?php }?> <!-- fim foreach -->
+
 		</tbody>
 </table>
 
