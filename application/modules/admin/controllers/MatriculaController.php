@@ -14,31 +14,80 @@ class Admin_MatriculaController extends AppBaseController{
 	
 	
 	public function indexAction(){
-    	
-    	
-		$model = new Application_Model_DbTable_Matricula();
 		$turma = new Application_Model_DbTable_Turma();
-
-
-		$ano = $semestre = false;
-
-		if($this->_request->isPost()){
-			$ano =  $_POST['ano'];
-			$semestre =  $_POST['semestre'];
-		}
-
-		$this->view->curr_ano = $ano;
-		$this->view->curr_semestre = $semestre;
-		
-
-		$this->view->prof = $turma->lista();
-		
-		$this->view->rows = $model->listar($ano, $semestre);
 
 		$this->view->ano = $turma->_findAno(false);
 		$this->view->semes = $turma->_findSemestre(false);
+    }
 
-				
+	public function getAction() {
+		$this->getHelper( 'Layout' )->disableLayout();
+		$this->getHelper( 'ViewRenderer' )->setNoRender();
+		$this->getResponse()->setHeader( 'Content-Type', 'application/json' );
+
+		$model = new Application_Model_DbTable_Matricula();
+		$turma = new Application_Model_DbTable_Turma();
+
+		$ano      = isset( $_GET['ano'] ) ? (int) $_GET['ano'] : false;
+		$semestre = isset( $_GET['semestre'] ) ? (int) $_GET['semestre'] : false;
+		$start    = isset( $_GET['start'] ) ? (int) $_GET['start'] : 0;
+		$length   = isset( $_GET['length'] ) ? (int) $_GET['length'] : 30;
+		$draw     = isset( $_GET['draw'] ) ? (int) $_GET['draw'] : 1;
+		$search   = isset( $_GET['search']['value'] ) ? filter_var( $_GET['search']['value'], FILTER_SANITIZE_STRING ): false;
+
+		$prof = $turma->lista();
+		$rows = $model->listar( $ano, $semestre, $search, $start, $length );
+
+		$numeroMatriculas = $model->numeroMatriculas( $search );
+		$data = array(
+			'draw'         => $draw,
+			'recordsTotal' => $numeroMatriculas,
+			'recordsFiltered' => $numeroMatriculas,
+			'data'         => array()
+		);
+
+		foreach ( $rows as $row ) {
+			$prof_name = '';
+			foreach ( $prof as $_prof ) {
+				if ( $_prof->findParentRow( 'Application_Model_DbTable_Usuario' )->idUsuario ==
+				     $row->findParentRow( 'Application_Model_DbTable_Turma' )->idUsuario ) {
+					$prof_name = $_prof->findParentRow( 'Application_Model_DbTable_Usuario' )->Nome;
+				}
+			}
+			$status = $row->statusMatricula;
+			switch($status){
+				case 'Aprovado':
+					$status = sprintf( "<span class='label label-success'>%s</span>", $status );
+					break;
+				case 'Reprovado':
+					$status = sprintf( "<span class='label label-important'>%s</span>", $status );
+					break;
+				case 'Cursando':
+					$status = sprintf( "<span class='label label-info'>%s</span>", $status );
+					break;
+				default:
+					$status = sprintf( "<span class='label label-info'>%s</span>", $status );
+					break;
+			}
+			$action = sprintf( "<a id='btn-admin' class='btn btn-danger' href='%s'>Excluir</a>", $this->getHelper('url')->url(
+				array(
+					'controller'          => 'matricula',
+					'action'              => 'delete',
+					'idUsuario_has_Turma' => $row->idUsuario_has_Turma
+				) ) );
+			$_data          = array(
+				$row->idUsuario_has_Turma,
+				$row->findParentRow( 'Application_Model_DbTable_Usuario' )->Nome,
+				$row->findParentRow( 'Application_Model_DbTable_Turma' )->Nome,
+				$row->findParentRow( 'Application_Model_DbTable_Turma' )->Ano . '/' . $row->findParentRow( 'Application_Model_DbTable_Turma' )->Semestre,
+				$prof_name,
+				$status,
+				$action
+			);
+			$data['data'][] = $_data;
+		}
+
+		return $this->getHelper( 'json' )->sendJson( $data );
     }
 
     public function novoAction() {
