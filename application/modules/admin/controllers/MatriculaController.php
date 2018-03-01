@@ -14,31 +14,57 @@ class Admin_MatriculaController extends AppBaseController{
 	
 	
 	public function indexAction(){
-    	
-    	
-		$model = new Application_Model_DbTable_Matricula();
 		$turma = new Application_Model_DbTable_Turma();
-
-
-		$ano = $semestre = false;
-
-		if($this->_request->isPost()){
-			$ano =  $_POST['ano'];
-			$semestre =  $_POST['semestre'];
-		}
-
-		$this->view->curr_ano = $ano;
-		$this->view->curr_semestre = $semestre;
-		
-
-		$this->view->prof = $turma->lista();
-		
-		$this->view->rows = $model->listar($ano, $semestre);
 
 		$this->view->ano = $turma->_findAno(false);
 		$this->view->semes = $turma->_findSemestre(false);
+    }
 
-				
+	public function getAction() {
+		$this->getHelper( 'Layout' )->disableLayout();
+		$this->getHelper( 'ViewRenderer' )->setNoRender();
+		$this->getResponse()->setHeader( 'Content-Type', 'application/json' );
+
+		$model = new Application_Model_DbTable_Matricula();
+		$turma = new Application_Model_DbTable_Turma();
+
+		$ano      = isset( $_GET['ano'] ) ? $_GET['ano'] : false;
+		$semestre = isset( $_GET['semestre'] ) ? $_GET['semestre'] : false;
+		$start    = isset( $_GET['start'] ) ? $_GET['start'] : 0;
+		$length   = isset( $_GET['length'] ) ? $_GET['length'] : 30;
+
+		$prof = $turma->lista();
+		$rows = $model->listar( $ano, $semestre, $start, $length );
+
+		$data = array(
+			'draw'         => 1,
+			'recordsTotal' => $model->numeroMatriculas(),
+			'data'         => array()
+		);
+
+		foreach ( $rows as $row ) {
+			$prof_name = '';
+			foreach ( $prof as $_prof ) {
+				if ( $_prof->findParentRow( 'Application_Model_DbTable_Usuario' )->idUsuario ==
+				     $row->findParentRow( 'Application_Model_DbTable_Turma' )->idUsuario ) {
+					$prof_name = $_prof->findParentRow( 'Application_Model_DbTable_Usuario' )->Nome;
+				}
+			}
+			$status         = 'test';
+			$action         = 'Excluir';
+			$_data          = array(
+				$row->idUsuario_has_Turma,
+				$row->findParentRow( 'Application_Model_DbTable_Usuario' )->Nome,
+				$row->findParentRow( 'Application_Model_DbTable_Turma' )->Nome,
+				$row->findParentRow( 'Application_Model_DbTable_Turma' )->Semestre,
+				$prof_name,
+				$status,
+				$action
+			);
+			$data['data'][] = $_data;
+		}
+
+		return $this->getHelper( 'json' )->sendJson( $data );
     }
 
     public function novoAction() {

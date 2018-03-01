@@ -93,7 +93,7 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 			
 		$sql = $this->select()->from($this, new Zend_Db_Expr("DISTINCT(idUsuario)"));
 		
-		$sql->order(array(new Zend_Db_Expr('Nome ASC')));
+		//$sql->order(array(new Zend_Db_Expr('Nome ASC')));
 	
 		$rows = $this->fetchAll($sql);
 	
@@ -190,33 +190,35 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	
 	
 	public function _findAno($id){
-	
+
 		$sql = $this->select()
-				   ->from(array('t' => 'Turma'), array())
-				   ->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Ano'))
-				   ->distinct('t.Ano')
-				   ->order('t.Ano DESC');
-		if ( $id !== false )
-			$sql->where('Usuario_idUsuario = ?', $id);
-		
-		$rows = $this->fetchAll($sql);
-	
+		            ->from( array( 't' => 'Turma' ), array() )
+		            ->joinInner( array( 'u' => 'Usuario_has_Turma' ), 't.idTurma = u.Turma_idTurma', array( 't.Ano' ) )
+		            ->distinct( 't.Ano' )
+		            ->order( 't.Ano DESC' );
+		if ( $id !== false ) {
+			$sql->where( 'Usuario_idUsuario = ?', $id );
+		}
+
+		$rows = $this->fetchAll( $sql );
+
 		return $rows;
 	}
 	
 	
 	public function _findSemestre($id){
-		
-		$sql = $this->select()
-		->from(array('t' => 'Turma'), array())
-		->joinInner(array('u' => 'Usuario_has_Turma'), 't.idTurma = u.Turma_idTurma', array('t.Semestre'))
-		->distinct('t.Semestre');
 
-		if ( $id !== false )
-			$sql->where('Usuario_idUsuario = ?', $id);
-		
-		$rows = $this->fetchAll($sql);
-		
+		$sql = $this->select()
+		            ->from( array( 't' => 'Turma' ), array() )
+		            ->joinInner( array( 'u' => 'Usuario_has_Turma' ), 't.idTurma = u.Turma_idTurma', array( 't.Semestre' ) )
+		            ->distinct( 't.Semestre' );
+
+		if ( $id !== false ) {
+			$sql->where( 'Usuario_idUsuario = ?', $id );
+		}
+
+		$rows = $this->fetchAll( $sql );
+
 		return $rows;
 	}
 	
@@ -237,29 +239,18 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 	
 	public function listaData($idUsuario){
-		
-		/*$sql = $this->select()->where('idTurma = ?', $idTurma)
-					->order(array(new Zend_Db_Expr('Ano, Semestre ASC')));
-		
-		$query = $this->fetchAll($sql);
-		
-		return $query;
-		*/
-		
-		$sql = $this->select()->from(array('m' => 'Usuario_has_Turma'), array())
-					->joinInner(array('t' => 'Turma'), 'm.Turma_idTurma = t.idTurma', array())
-					->distinct('m.idUsuario_has_Turma')
-					->distinct('t.idTurma')
-					->where('m.Usuario_idUsuario = ?', $idUsuario)
-					//->order(array(new Zend_Db_Expr('t.Semestre ASC')))
-					->order(array(new Zend_Db_Expr('t.Ano ASC')));
-		$query = $this->fetchAll($sql);
+
+
+		$sql   = $this->select()->from( array( 'm' => 'Usuario_has_Turma' ), array() )
+		              ->joinInner( array( 't' => 'Turma' ), 'm.Turma_idTurma = t.idTurma', array() )
+		              ->distinct( 'm.idUsuario_has_Turma' )
+		              ->distinct( 't.idTurma' )
+		              ->where( 'm.Usuario_idUsuario = ?', $idUsuario )
+			//->order(array(new Zend_Db_Expr('t.Semestre ASC')))
+			          ->order( array( new Zend_Db_Expr( 't.Ano ASC' ) ) );
+		$query = $this->fetchAll( $sql );
 		
 		return $query;
-		
-		//order(array(new Zend_Db_Expr('Nome ASC')));
-		
-		
 	}
 	
 }

@@ -76,25 +76,32 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar($ano = false, $semestre = false){
+	public function listar($ano = false, $semestre = false, $start = 0, $length = 30){
 
 		$where = 'Cursando';
 		$sql = $this->select();
 
 
 		if ( $ano !== false && $semestre !== false ) {
-		$sql->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
-			->joinInner('Turma', 'Turma_idTurma = idTurma', array())
-			->where('Usuario_has_Turma.Status = ?', $where)
-			->order(array(new Zend_Db_Expr('Semestre ASC')))
-			->order(array(new Zend_Db_Expr('Ano ASC')));
+			$sql->from('Usuario_has_Turma', array('idUsuario_has_Turma', 'Usuario_idUsuario', 'Turma_idTurma', 'Status'))
+				->joinInner('Turma', 'Turma_idTurma = idTurma', array())
+				->where('Usuario_has_Turma.Status = ?', $where)
+				->order(array(new Zend_Db_Expr('Semestre ASC')))
+				->order(array(new Zend_Db_Expr('Ano ASC')));
 		}
 
-		//$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma ASC')));
-		
+		$sql->limit( $length, $start );
+
 		$rows = $this->fetchAll($sql);
 		
 		return $rows;
+	}
+
+	public function numeroMatriculas($ano = false, $semestre = false) {
+		$sql = $this->select()->from($this, array('count(*) as total'));
+		$rows = $this->fetchAll($sql);
+
+		return $rows[0]->total;
 	}
 	
 	

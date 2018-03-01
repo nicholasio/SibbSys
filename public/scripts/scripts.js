@@ -54,8 +54,16 @@ jQuery(document).ready(function($) {
                 $dependentBtn.attr('disabled', 'disabled');
             }
         });
-    }
+    };
 
+    $('.data-table-ajax').each(function() {
+        var $this = $(this);
+	    $this.DataTable({
+		    'processing': true,
+		    'serverSide': true,
+		    'ajax': $this.data('endpoint')
+	    });
+    });
 
 
 
