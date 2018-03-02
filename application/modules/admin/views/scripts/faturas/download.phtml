@@ -293,12 +293,8 @@
 	//die; 
 	$html = ob_get_contents();
 	ob_end_clean();
-	
-	define('MPDF_PATH', APPLICATION_PATH . '/../library/mpdf/');
-	
-	include(MPDF_PATH .'mpdf.php');
-	
-	$mpdf = new mPDF('pt', 'A4', 11);
+
+	$mpdf = new \Mpdf\Mpdf( array('pt', 'A4', 11 ) );
 	
 	$mpdf->allow_charset_conversion = true;
 	$mpdf->charset_in = 'utf-8';

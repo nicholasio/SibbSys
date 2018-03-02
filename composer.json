@@ -1,0 +1,14 @@
+{
+    "name": "nicholas/sibb-sys",
+    "description": "Sistema Academico do Sibb",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Nícholas André",
+            "email": "nicholas.andre@10up.com"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "^7.0"
+    }
+}
