@@ -89,8 +89,8 @@ class Application_Model_DbTable_Matricula extends Zend_Db_Table_Abstract{
 			$sql->where( 'Usuario.Nome LIKE ?', '%' . $search . '%' );
 		}
 
-		$sql->order(array(new Zend_Db_Expr('Semestre DESC')))
-			->order(array(new Zend_Db_Expr('Ano DESC')))
+		$sql->order(array(new Zend_Db_Expr('idUsuario_has_Turma DESC')))
+			//->order(array(new Zend_Db_Expr('Ano DESC')))
 			->limit( $length, $start );
 
 		$rows = $this->fetchAll($sql);

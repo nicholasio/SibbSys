@@ -15,17 +15,116 @@ class Admin_TurmaController extends AppBaseController{
 	
     public function indexAction(){
     	
-    	if ($this->_helper->FlashMessenger->hasMessages()) {
+    	/**if ($this->_helper->FlashMessenger->hasMessages()) {
     		$this->view->messages = $this->_helper->FlashMessenger->getMessages();
-    	}
+    	}**/
     
     	$model = new Application_Model_DbTable_Turma();
-    	$model_matricula = new Application_Model_DbTable_Matricula();
+    	//$model_matricula = new Application_Model_DbTable_Matricula();
+
+        $this->view->ano = $model->_findAno(false);
+        $this->view->semes = $model->_findSemestre(false);
    
     	
-    	$this->view->rows = $model->listar();	
+    	//$this->view->rows = $model->listar();	
     	
     }
+
+
+    public function getAction(){
+
+        $this->getHelper( 'Layout' )->disableLayout();
+        $this->getHelper( 'ViewRenderer' )->setNoRender();
+        $this->getResponse()->setHeader( 'Content-Type', 'application/json' );
+
+        $turma = new Application_Model_DbTable_Turma();
+        $model = new Application_Model_DbTable_Matricula();
+       
+
+
+        $ano      = isset( $_GET['ano'] ) ? $_GET['ano'] : false;
+        $semestre = isset( $_GET['semestre'] ) ? $_GET['semestre'] : false;
+        $start    = isset( $_GET['start'] ) ? $_GET['start'] : 0;
+        $length   = isset( $_GET['length'] ) ? $_GET['length'] : 30;
+        $draw     = isset( $_GET['draw'] ) ? (int) $_GET['draw'] : 1;
+        $search   = isset( $_GET['search']['value'] ) ? filter_var( $_GET['search']['value'], FILTER_SANITIZE_STRING ): false;
+ 
+        $prof = $turma->lista();
+        $rows = $turma->listar($ano, $semestre, $search, $start, $length );
+
+
+        $numeroTurmas = $turma->numeroTurmas( $search );
+        $data = array(
+            'draw'         => $draw,
+            'recordsTotal' => $numeroTurmas,
+            'recordsFiltered' => $numeroTurmas,
+            'data'         => array()
+        );
+
+        foreach ( $rows as $row ) {
+           $prof_name = '';
+           foreach ( $prof as $_prof ) {
+               if ( $_prof->findParentRow( 'Application_Model_DbTable_Usuario' )->idUsuario ==
+                    $row->findParentRow( 'Application_Model_DbTable_Turma' )->idUsuario ) {
+                   $prof_name = $_prof->findParentRow( 'Application_Model_DbTable_Usuario' )->Nome;
+               }
+           }
+           
+           $editar = sprintf( "<a id='btn-admin' class='btn btn-primary' href='%s'>Editar</a>", $this->getHelper('url')->url(
+                array(
+                    'controller'          => 'turma',
+                    'action'              => 'editar',
+                    'idUsuario_has_Turma' => $row->idTurma
+            ) ) );
+
+           $caderneta = sprintf( "<a id='btn-admin' class='btn btn-inverse' href='%s'>Caderneta</a>", $this->getHelper('url')->url(
+                array(
+                    'controller'          => 'turma',
+                    'action'              => 'caderneta',
+                    'idUsuario_has_Turma' => $row->idTurma
+            ) ) );
+
+            if($row->Status == 'ativo'){
+            
+           $status = sprintf( "<a id='btn-admin' class='btn btn-danger' href='%s'>Encerrar Turma</a>", $this->getHelper('url')->url(
+                array(
+                    'controller'          => 'professor',
+                    'action'              => 'admin-encerrarturma',
+                    'idUsuario_has_Turma' => $row->idTurma
+            ) ) );
+
+           }
+           else{
+
+           $status = sprintf( "<a id='btn-admin' class='btn btn-inverse' href='%s'>Caderneta</a>", $this->getHelper('url')->url(
+                array(
+                    'controller'          => 'turma',
+                    'action'              => 'ativar',
+                    'idUsuario_has_Turma' => $row->idTurma
+            ) ) );
+           }
+
+           $_data          = array(
+               $row->findParentRow( 'Application_Model_DbTable_Turma' )->idTurma,
+               $row->findParentRow( 'Application_Model_DbTable_Turma' )->Nome,
+               $row->findParentRow( 'Application_Model_DbTable_Turma' )->Ano . '/' . $row->findParentRow( 'Application_Model_DbTable_Turma' )->Semestre,
+               $prof_name,
+               $editar,
+               $caderneta,
+               $status
+           );
+
+           $data['data'][] = $_data;
+
+        }
+
+        return $this->getHelper( 'json' )->sendJson( $data );
+
+
+        var_dump($data);
+
+    }
+
 
     public function novoAction() {
     	
