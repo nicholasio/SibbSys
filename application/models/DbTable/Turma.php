@@ -78,15 +78,15 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 
 			$sql = $this->select();
 						
-			$sql->from('Turma', array('idTurma', 'Nome', 'Ano', 'Semestre', 'Disciplina_idDisciplina', 'idUsuario' ) )
+			$sql->from('Turma', array('idTurma', 'Nome', 'Ano', 'Semestre', 'Disciplina_idDisciplina', 'Status', 'idUsuario' ) )
 				//->joinInner( 'Usuario', 'idUsuario = idUsuario', array() )
 				->joinInner('Disciplina', 'Disciplina_idDisciplina = idDisciplina', array())
-				->where('Ano = ?' , $ano)
-				->where('Semestre = ?', $semestre)
+				//->where('Ano = ?' , $ano)
+				//->where('Semestre = ?', $semestre)
 				->setIntegrityCheck( false );
 
 			if ( $search ) {
-				$sql->where( 'Usuario.Nome LIKE ?', '%' . $search . '%' );
+				$sql->where( 'Turma.Nome LIKE ?', '%' . $search . '%' );
 			}
 
 			$sql->order(array(new Zend_Db_Expr('idTurma DESC')));
@@ -272,9 +272,9 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		              ->joinInner( array( 't' => 'Turma' ), 'm.Turma_idTurma = t.idTurma', array() )
 		              ->distinct( 'm.idUsuario_has_Turma' )
 		              ->distinct( 't.idTurma' )
-		              ->where( 'm.Usuario_idUsuario = ?', $idUsuario )
+		              ->where( 'm.Usuario_idUsuario = ?', $idUsuario );
 			//->order(array(new Zend_Db_Expr('t.Semestre ASC')))
-			          ->order( array( new Zend_Db_Expr( 't.Ano ASC' ) ) );
+			          //->order( array( new Zend_Db_Expr( 't.Ano ASC' ) ) );
 		$query = $this->fetchAll( $sql );
 		
 		return $query;
