@@ -1349,16 +1349,19 @@ td {
 }
 
 #boletim{
-	margin: 0 0 0 650px;
+	margin: 0 0 0 -50px;
+  width: 500px;
 }
 
 #boletim .btn{
 	margin: 0 0 0 40px;
+  
 }
 
 #boletim select{
 	width: 60px;
-	margin: 0 0 0 60px;
+	margin: 0 0 0 50px;
+  
 }
 
 .right{

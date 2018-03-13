@@ -1,0 +1,21 @@
+.data-table-ajax.data-table-row-details > tbody > tr[role="row"] > td:first-child {
+	cursor: pointer;
+}
+
+.data-table-ajax.data-table-row-details > tbody > tr[role="row"] > td:first-child {
+	padding-left: 25px;
+	position: relative;
+}
+.data-table-ajax.data-table-row-details > tbody > tr[role="row"] > td:first-child:before {
+	position: absolute;
+	content: '*';
+	text-indent: -99999px;
+	left: 0;
+	top: 6px;
+	width: 20px;
+	height: 20px;
+	background: url('/images/details_open.png') no-repeat top left;
+}
+.data-table-ajax.data-table-row-details > tbody > tr[role="row"].details > td:first-child:before {
+	background: url('/images/details_close.png') no-repeat top left;
+}

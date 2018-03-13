@@ -63,10 +63,10 @@
 				</tr>
 		</tbody>
 	</table>
-	
+	<br />
 	Total de Alunos: <strong><?php echo $a; ?></strong><br />
 	Observações:
-	
+	<br />
 	<table border="1" cellpadding="4px" cellspacing="0" style="border-collapse: collapse; width: 50%;">
 		<?php for($i=0; $i<5; $i++) : ?>
 			<tr>
@@ -96,7 +96,6 @@
 						'<p style="font-size: 15px"><strong>'.'Turma: </strong>' .	 $this->turma->Nome . '</p>'.
 						'<p style="font-size: 15px"><strong>'.'Professor: </strong>' . $this->turma->findParentRow('Application_Model_DbTable_Usuario')->Nome . '</p>'.
 					'</div>' .
-					'<hr />' .
 				'</div>';
 	?>
 	
@@ -108,10 +107,12 @@
 
 	ob_end_clean();
 
-	$mpdf = new \Mpdf\Mpdf( array('pt', 'A4-L', 10 ) );
+	$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L'] );
 
 	$mpdf->allow_charset_conversion = true;
-	$mpdf->charset_in = 'utf-8';
+	//$mpdf->charset_in = 'utf-8';
+	//$mpdf->orientation = 'L';
+
 	
 	$mpdf->SetDisplayMode('fullpage');
 
@@ -120,7 +121,7 @@
 	$mpdf->AddPage();
 	$mpdf->WriteHTML($capa);
 	
-	$arquivo = Caderneta . ' - ' . $this->turma->Nome .	' - ' . $this->turma->Ano . '.' . $this->turma->Semestre . '.pdf';
+	$arquivo = 'Caderneta - ' . $this->turma->Nome .' - ' . $this->turma->Ano . '.' . $this->turma->Semestre . '.pdf';
 	
 	$mpdf->Output($arquivo, 'D');
 	

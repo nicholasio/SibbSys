@@ -26,17 +26,19 @@ if(! empty($this->row['Turma_idTurma'])){
 	
 	<br />
 	
-	Aluno(a):<strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong>
-	Curso: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->findParentRow('Application_Model_DbTable_Curso')->Nome; ?></strong></p>
+	Aluno(a):<strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->Nome;?></strong> <br />
+	Curso: <strong><?php echo $this->row->findParentRow('Application_Model_DbTable_Usuario')->findParentRow('Application_Model_DbTable_Curso')->Nome; ?></strong>
 	
-	<br /><br />
+	<br />
+	<br />
+	&nbsp;
 	
 	<table border="1" cellpadding="5px" cellspacing="0" style="border-collapse: collapse;">
 		<thead>
 			<tr>
-				<th width="150px">Disciplina</th>
+				<th width="300px">Disciplina</th>
 				<th width="50px">Créditos</th>
-				<th width="10px">Ano/Semestre</th>
+				<th width="70px">Ano/Semestre</th>
 				<th width="50px">Faltas</th>
 				<th width="70px">Média</th>
 				<th width="100px">Situação</th>
