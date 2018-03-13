@@ -124,11 +124,24 @@
 					R$
 					<?php
 						if ( $debito['type'] == 'servico' ) {
-							$valor = $debito['servico']['valor_cobrado_servico'];
+							if($fatura['ano'] <= '2017' && $debito['servico']['nome_servico'] == 'Desconto Ministério Prático'){
+								$valor = '-33';
+								//$valor = $debito['servico']['valor_cobrado_servico'];
+							}
+							else{
+								$valor = $debito['servico']['valor_cobrado_servico'];
+							}
 						} else if ( $debito['type'] == 'matricula' ) {
 							$config = new Application_Model_DbTable_Configs();
 							$valor_cred = $config->findKey('valor_credito');
-							$valor = $valor_cred;
+							if( $debito['matricula']['ano_turma'] <= '2017'){
+								$valor = '16.50';	
+							}
+							else{
+								$valor = $valor_cred;
+							}
+
+							
 						}
 						echo number_format($valor,2,',','.');
 					?>
@@ -136,11 +149,20 @@
 				<td style="text-align: center; width: 120px;">
 					R$
 					<?php
-						
+
+
 						if ( $debito['type'] == 'servico' ) {
-							$valor = $debito['servico']['valor_cobrado_servico'];
+							if($fatura['ano'] <= '2017' && $debito['servico']['nome_servico'] == 'Desconto Ministério Prático'){
+								$valor = '-33';
+								//$valor = $debito['servico']['valor_cobrado_servico'];
+							}
+							else{
+								$valor = $debito['servico']['valor_cobrado_servico'];
+							}
 						} else if ( $debito['type'] == 'matricula' ) {
-							$valor = $debito['matricula']['valor_cobrado'];
+							$qtd_cred = $debito['matricula']['qtd_creditos'];
+							$valor = $valor * $qtd_cred;
+							//$valor = $debito['matricula']['valor_cobrado'];
 						}
 						
 						echo number_format($valor,2,',','.');

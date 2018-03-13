@@ -1,150 +1,43 @@
-<?php $this->headTitle('Listagem de Turmas'); ?>
+<?php $this->headTitle( 'Listagem de Turmas' ); ?>
 
 <div class="grid_16">
-  	<div class="page-header">
-	    <h1>Turmas Cadastradas
-		    <small>Veja toda a lista das turmas cadastradas</small>
-	    </h1>
-  	</div>
-  	
-  	<table class="table table-striped data-table">
-	    <thead>
-	      <tr>
-	        <th style="text-align: center; width: 20px; "><font size="2" color="black"><strong>#</strong></font></th>
-	        <th><font size="2" color="black"><strong>Turma</strong></font></th>
-	        <th style="text-align: center; width: 50px; "><font size="2" color="black"><strong>Ano/Semestre</strong></font></th>
-	        <th style="text-align: center;"><font size="2" color="black"><strong>Professor</strong></font></th>
-	        <th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
-	      </tr>
-	    </thead>
-	    <tbody>
-<?php foreach ($this->rows as $lista) { ?>
-	<tr style="background: #EEE; ">
-		<td style="text-align: center; width: 20px; "><strong><?php echo $lista->idTurma; ?></strong></td>
-		<td><strong><?php echo $lista->Nome; ?></strong></td>
-		<td style="text-align: center; width: 100px; "><strong><?php echo $lista->Ano . '.' . $lista->Semestre; ?></strong></td>
-		<td style="text-align: center; width: 250px;"><strong><?php echo $lista->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></strong></td>
-		<td style="text-align: center; width: 380px;">
-			<a class="btn btn-info" data-toggle="modal" href="#myModal-<?php echo $lista->idTurma; ?>"><i class="icon-search icon-grey"></i></a>
-			
-			<div id="myModal-<?php echo $lista->idTurma; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    					<h4 id="myModalLabel">Alunos Matriculados na Turma de <?php echo $lista->Nome; ?></h4>
-  				</div>
-  				<div class="modal-body">
-  					<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th style="width:350px;" >Alunos</th>
-							<th style="width:100px; text-align: center;" >Faltas</th>
-							<th style="width:100px; text-align: center;" >Média</th>
-							<th style="width:100px; text-align: center;" >Situação</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$total = 0;
-						$id = $lista->idTurma;
-						$matric = new Application_Model_DbTable_Matricula();
-						$dados = $matric->findForSelect($id);
-						foreach($dados as $nomes) : 
-							$nota = new Application_Model_DbTable_Nota();
-							$presenca = new Application_Model_DbTable_Presenca();
- 							$idUsuario = $nomes->idUsuario_has_Turma;
- 							$media = $nota->media($idUsuario);
- 							$chamada = $presenca->contaPresenca($idUsuario);
-						?>
-							<tr>
-								<td><?php echo $nomes->findParentRow('Application_Model_DbTable_Usuario')->Nome; ?></td>
-								<?php if($chamada["SUM(Faltas)"] != null){?>
-										<td style="text-align: center; "><?php echo $chamada["SUM(Faltas)"]; ?></td>			
-								<?php }
-									else{?>
-							 
-										<td style="text-align: center; "><?php echo " - "; ?></td>
-					
-								<?php }?>
-								<?php if($media < 7){ ?>
-									<td style="text-align: center; color:red; "><?php echo number_format($media, 1,',','.'); ?></td>
-								<?php } else { ?>
-									<td style="text-align: center; "><?php echo number_format($media, 1,',','.'); ?></td>
-								<?php } ?>
-								<td style="text-align: center; ">
-									<?php switch ($nomes->Status){
-										case 'Aprovado':
-											echo "<span class='label label-success'>$nomes->Status</span>";
-											break;
-										case 'Reprovado':
-											echo "<span class='label label-important'>$nomes->Status</span>";
-											break;
-										case 'Cursando':
-											echo "<span class='label label-info'>$nomes->Status</span>";
-											break;
-									} ?>
-								</td>
-							</tr>
-							<?php $total++;?>
-						<?php endforeach; ?>
-						<tr>
-							<th>Total de Alunos Matrículados &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo  $total; ?></th>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-					</table>
-  				</div>
-			</div>
-			<a id="btn-admin" class="btn btn-primary" href="<?php echo $this->url(
-				array(
-					'controller'	=>	'turma',
-					'action'		=>	'editar',
-					'idTurma'		=>	$lista->idTurma
-				));
-				?>">
-				<strong>Editar</strong>
-			</a>
-			
-			<a id="btn-admin" class="btn btn-inverse" href="<?php echo $this->url(
-				array(
-					'controller'	=> 'turma',
-					'action'		=> 'caderneta',
-					'idTurma'		=> $lista->idTurma		
-				));
-				?>">
-				<strong>Caderneta</strong>
-			</a>
-			
-			<?php if($lista->Status == 'ativo'){?>
-			
-			<a id="btn-admin" class="btn btn-danger" href="<?php echo $this->url(
-				array(
-					'controller'	=>	'professor',
-					'action'		=>	'admin-encerrarturma',
-					'idTurma'		=>	$lista->idTurma
-				));
-				?>">
-				<strong>Encerrar Turma</strong>
-			</a>
-			<?php } else{?>
-			
-			<a id="btn-admin" class="btn btn-success" href="<?php echo $this->url(
-				array(
-					'controller'	=>	'turma',
-					'action'		=>	'ativar',
-					'idTurma'		=>	$lista->idTurma
-				));
-				?>">
-				<strong>Ativar Turma</strong>
-			</a>
-			
-			<?php } ?>
-		
-		</td>
-	</tr>
-<?php }?> <!-- fim foreach -->
-</table>
+    <div class="page-header">
+        <h1>Turmas Cadastradas
+            <small>Veja toda a lista das turmas cadastradas</small>
+        </h1>
+    </div>
 
-	<br /><br />
+    <table class="table table-striped data-table-ajax data-table-row-details"
+           data-endpoint="/admin/turma/get" data-more-endpoint="/admin/turma/notas">
+        <thead>
+        <tr>
+            <th style="text-align: center; width: 20px; ">
+                <font size="2" color="black">
+                    <strong>#</strong>
+                </font>
+            </th>
+            <th><font size="2" color="black"><strong>Turma</strong></font></th>
+            <th style="text-align: center; width: 50px; ">
+                <font size="2" color="black">
+                    <strong>Ano/Semestre</strong>
+                </font>
+            </th>
+            <th style="text-align: center;">
+                <font size="2" color="black">
+                    <strong>Professor</strong>
+                </font>
+            </th>
+            <th style="text-align: center;">
+                <font size="2" color="black">
+                    <strong>Ações</strong>
+                </font>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
 </div>
+
+<br/><br/>
