@@ -33,85 +33,78 @@ class Admin_TurmaController extends AppBaseController{
 
     public function getAction(){
 
-        $this->getHelper( 'Layout' )->disableLayout();
-        $this->getHelper( 'ViewRenderer' )->setNoRender();
-        $this->getResponse()->setHeader( 'Content-Type', 'application/json' );
+	    $this->getHelper( 'Layout' )->disableLayout();
+	    $this->getHelper( 'ViewRenderer' )->setNoRender();
+	    $this->getResponse()->setHeader( 'Content-Type', 'application/json' );
 
-        $turma = new Application_Model_DbTable_Turma();
-       
+	    $turma = new Application_Model_DbTable_Turma();
 
+	    $ano      = isset( $_GET['ano'] ) ? $_GET['ano'] : false;
+	    $semestre = isset( $_GET['semestre'] ) ? $_GET['semestre'] : false;
+	    $start    = isset( $_GET['start'] ) ? $_GET['start'] : 0;
+	    $length   = isset( $_GET['length'] ) ? $_GET['length'] : 30;
+	    $draw     = isset( $_GET['draw'] ) ? (int) $_GET['draw'] : 1;
+	    $search   = isset( $_GET['search']['value'] ) ? filter_var( $_GET['search']['value'], FILTER_SANITIZE_STRING ) : false;
 
-        $ano      = isset( $_GET['ano'] ) ? $_GET['ano'] : false;
-        $semestre = isset( $_GET['semestre'] ) ? $_GET['semestre'] : false;
-        $start    = isset( $_GET['start'] ) ? $_GET['start'] : 0;
-        $length   = isset( $_GET['length'] ) ? $_GET['length'] : 30;
-        $draw     = isset( $_GET['draw'] ) ? (int) $_GET['draw'] : 1;
-        $search   = isset( $_GET['search']['value'] ) ? filter_var( $_GET['search']['value'], FILTER_SANITIZE_STRING ): false;
-
-        $rows = $turma->listar($ano, $semestre, $search, $start, $length );
+	    $rows = $turma->listar( $ano, $semestre, $search, $start, $length );
 
 
-        $numeroTurmas = $turma->numeroTurmas( $search );
-        $data = array(
-            'draw'         => $draw,
-            'recordsTotal' => $numeroTurmas,
-            'recordsFiltered' => $numeroTurmas,
-            'data'         => array()
-        );
+	    $numeroTurmas = $turma->numeroTurmas( $search );
+	    $data         = array(
+		    'draw'            => $draw,
+		    'recordsTotal'    => $numeroTurmas,
+		    'recordsFiltered' => $numeroTurmas,
+		    'data'            => array()
+	    );
 
-        foreach ( $rows as $row ) {
-           
-           $editar = sprintf( "<a id='btn-admin' class='btn btn-primary' href='%s'>Editar</a>", $this->getHelper('url')->url(
-                array(
-                    'controller'          => 'turma',
-                    'action'              => 'editar',
-                    'idTurma'             => $row->idTurma
-            ) ) );
+	    foreach ( $rows as $row ) {
 
-           $caderneta = sprintf( "<a id='btn-admin' class='btn btn-inverse' href='%s'>Caderneta</a>", $this->getHelper('url')->url(
-                array(
-                    'controller'          => 'turma',
-                    'action'              => 'caderneta',
-                    'idTurma' => $row->idTurma
-            ) ) );
+		    $editar = sprintf( "<a id='btn-admin' class='btn btn-primary' href='%s'>Editar</a>", $this->getHelper( 'url' )->url(
+			    array(
+				    'controller' => 'turma',
+				    'action'     => 'editar',
+				    'idTurma'    => $row->idTurma
+			    ) ) );
 
-            if($row->Status == 'ativo'){
-            
-           $status = sprintf( "<a id='btn-admin' class='btn btn-danger' href='%s'>Encerrar Turma</a>", $this->getHelper('url')->url(
-                array(
-                    'controller'          => 'professor',
-                    'action'              => 'admin-encerrarturma',
-                    'idTurma' => $row->idTurma
-            ) ) );
+		    $caderneta = sprintf( "<a id='btn-admin' class='btn btn-inverse' href='%s'>Caderneta</a>", $this->getHelper( 'url' )->url(
+			    array(
+				    'controller' => 'turma',
+				    'action'     => 'caderneta',
+				    'idTurma'    => $row->idTurma
+			    ) ) );
 
-           }
-           else{
+		    if ( $row->Status == 'ativo' ) {
 
-           $status = sprintf( "<a id='btn-admin' class='btn btn-inverse' href='%s'>Caderneta</a>", $this->getHelper('url')->url(
-                array(
-                    'controller'          => 'turma',
-                    'action'              => 'ativar',
-                    'idTurma' => $row->idTurma
-            ) ) );
-           }
+			    $status = sprintf( "<a id='btn-admin' class='btn btn-danger' href='%s'>Encerrar Turma</a>", $this->getHelper( 'url' )->url(
+				    array(
+					    'controller' => 'professor',
+					    'action'     => 'admin-encerrarturma',
+					    'idTurma'    => $row->idTurma
+				    ) ) );
 
-           $_data          = array(
-               $row->idTurma,
-               $row->Nome,
-               $row->Ano . '/' . $row->Semestre,
-               $row->findParentRow('Application_Model_DbTable_Usuario')->Nome,
-               $editar . "&nbsp;" . $caderneta . "&nbsp;" . $status
-           );
+		    } else {
 
-           $data['data'][] = $_data;
+			    $status = sprintf( "<a id='btn-admin' class='btn btn-success' href='%s'>Ativar Turma</a>", $this->getHelper( 'url' )->url(
+				    array(
+					    'controller' => 'turma',
+					    'action'     => 'ativar',
+					    'idTurma'    => $row->idTurma
+				    ) ) );
+		    }
 
-        }
+		    $_data = array(
+			    $row->idTurma,
+			    $row->Nome,
+			    $row->Ano . '/' . $row->Semestre,
+			    $row->findParentRow( 'Application_Model_DbTable_Usuario' )->Nome,
+			    $editar . "&nbsp;" . $caderneta . "&nbsp;" . $status
+		    );
 
-        return $this->getHelper( 'json' )->sendJson( $data );
+		    $data['data'][] = $_data;
 
+	    }
 
-        var_dump($data);
-
+	    return $this->getHelper( 'json' )->sendJson( $data );
     }
 
 
@@ -188,6 +181,12 @@ class Admin_TurmaController extends AppBaseController{
     	
     	$this->_redirect('/admin/turma');
     	
+    }
+
+    public function notasAction() {
+	    $this->_helper->layout()->disableLayout();
+	    $this->view->turma_id = $this->_getParam('idTurma');
+
     }
     
     

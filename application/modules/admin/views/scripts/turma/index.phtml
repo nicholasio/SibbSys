@@ -1,26 +1,43 @@
-<?php $this->headTitle('Listagem de Turmas'); ?>
+<?php $this->headTitle( 'Listagem de Turmas' ); ?>
 
 <div class="grid_16">
-  	<div class="page-header">
-	    <h1>Turmas Cadastradas
-		    <small>Veja toda a lista das turmas cadastradas</small>
-	    </h1>
-  	</div>
-  	
-  	<table class="table table-striped data-table-ajax" data-endpoint="/admin/turma/get">
-	    <thead>
-	      <tr>
-	        <th style="text-align: center; width: 20px; "><font size="2" color="black"><strong>#</strong></font></th>
-	        <th><font size="2" color="black"><strong>Turma</strong></font></th>
-	        <th style="text-align: center; width: 50px; "><font size="2" color="black"><strong>Ano/Semestre</strong></font></th>
-	        <th style="text-align: center;"><font size="2" color="black"><strong>Professor</strong></font></th>
-	        <th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
-	      </tr>
-	    </thead>
-	    <tbody>
-		
-		</tbody>
-	</table>
+    <div class="page-header">
+        <h1>Turmas Cadastradas
+            <small>Veja toda a lista das turmas cadastradas</small>
+        </h1>
+    </div>
+
+    <table class="table table-striped data-table-ajax data-table-row-details"
+           data-endpoint="/admin/turma/get" data-more-endpoint="/admin/turma/notas">
+        <thead>
+        <tr>
+            <th style="text-align: center; width: 20px; ">
+                <font size="2" color="black">
+                    <strong>#</strong>
+                </font>
+            </th>
+            <th><font size="2" color="black"><strong>Turma</strong></font></th>
+            <th style="text-align: center; width: 50px; ">
+                <font size="2" color="black">
+                    <strong>Ano/Semestre</strong>
+                </font>
+            </th>
+            <th style="text-align: center;">
+                <font size="2" color="black">
+                    <strong>Professor</strong>
+                </font>
+            </th>
+            <th style="text-align: center;">
+                <font size="2" color="black">
+                    <strong>Ações</strong>
+                </font>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
 </div>
-		
-<br /><br />
+
+<br/><br/>
