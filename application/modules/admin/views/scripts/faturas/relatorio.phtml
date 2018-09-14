@@ -2,70 +2,27 @@
 
 <div class="grid_16">
 	<div class="page-header">
-		<h1>Relatório de Pendências -  
+		<h1 style="font-family: Georgia;">Relatório de Pendências -  
 			<small>Lista de Alunos com faturas pendentes</small>
 		</h1>
 	</div>
 	
 	<br />
 	
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped data-table-ajax data-table-row-details" data-endpoint="/admin/faturas/getRelatorio">
 		<thead>
-			<tr>
-				<th style="text-align: center;"><h5><strong>#</strong></h5></th>
-				<th style="text-align: left;"><h5>Aluno</h5></th>
-				<th style="text-align: center;"><h5>Mês/Ano</h5></th>
-				<th style="text-align: center;"><h5>Valor da Fatura</h5></th>
-				<th style="text-align: center;"><h5>Total à pagar</h5></th>
-				<th style="text-align: center;"><h5>Status</h5></th>
+			<tr style="font-family: Liberation Serif; font-size: 16px; color: #000;">
+				<th style="text-align: center;"><strong>#</strong></th>
+				<th style="text-align: left;"><strong>Aluno</strong></th>
+				<th style="text-align: center;"><strong>Mês/Ano</strong></th>
+				<th style="text-align: center;"><strong>Valor da Fatura</strong></th>
+				<th style="text-align: center;"><strong>Total à Pagar</strong></th>
+				<th style="text-align: center;"><strong>Situação</strong></th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($this->rows as $fatura){ ?>
-					
-			<?php
-				$valor_total_pagamentos = 0;
-				$total_restante = 0;
-				$pagamentos_model = new Application_Model_DbTable_Pagamento();
-				$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
-				foreach($pagamentos as $pagamento) :
-									
-						$pagamento->idPagamento;
-											
-						number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; 
-										
-										
-				endforeach;
-									
-				$valor = $fatura['valorFatura']; 
-				$valor_pendente = number_format($valor - $valor_total_pagamentos,2); 
-			?>
-						
-		
-			<?php if ( $valor_pendente != 0 ) : ?>
-				<tr>
-					<td style="text-align: center; width: 30px;"><strong><?php echo $fatura['idFatura']; ?></strong></td>
-					<td style="text-align: left; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
-					<td style="width: 120px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-					<td style="width: 150px; text-align: center;"><strong>R$ <?php echo number_format($valor,2,',','.'); ?></strong></td>
-					<td style="width: 150px; text-align: center; "><strong>
-				
-						<?php if($valor_pendente == $fatura['valorFatura']){
-							$total_apagar = $valor - ($valor * $fatura['desconto']/100); echo 'R$ ' . number_format($total_apagar,2,',','.');
-							} else {
-								echo 'R$ ' . number_format($valor_pendente,2,',','.');
-							}
-						?>
-					</strong></td>
-					<td style="width: 150px; text-align: center; font-size: 10px;">
-						<strong>
-							<span class="label label-important">Pendente</span>
-						</strong>
-					</td>			
-						<?php endif; ?>
-				</tr>
+			
 
-			<?php }?>
 		</tbody>
 	</table>
 	
@@ -73,7 +30,7 @@
 	
 	<div style="text-align: right;">
 		<br /><br /><br />
-			<a style="font-size: 12px; height: 20px; " class="btn btn-inverse" href="<?php echo $this->url(
+			<a style="font-size: 12px; height: 21px; width: 150px; " class="btn btn-inverse" href="<?php echo $this->url(
 				array(
 						'module'		=>	'admin',
 						'controller'	=>	'faturas',
@@ -82,6 +39,6 @@
 							
 				<strong>Baixar em .pdf</strong>
 			</a>
-		<br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br /><br /><br />
 	</div>
 </div>
