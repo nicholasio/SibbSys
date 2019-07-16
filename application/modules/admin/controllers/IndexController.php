@@ -34,7 +34,7 @@ class Admin_IndexController extends AppBaseController{
 	    $this->view->usuario = $usuario_model->getUser($id);
 
 	    $this->view->db = $usuario_model->getAdapter();
-	    
+	    $this->view->verso = $usuario_model->versiculo();
     }
 
 

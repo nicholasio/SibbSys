@@ -166,5 +166,17 @@ class Application_Model_DbTable_Usuario extends Zend_Db_Table_Abstract{
 		
 		return $query;
 	}
+
+	public function versiculo(){
+
+		$file = getcwd() . '/scripts/versículos.txt';
+		$input = file($file);
+		$texto = array_rand($input, 2);
+		
+		$verso = $input[$texto[0]];
+
+		return $verso;
+
+	}
 	
 }
