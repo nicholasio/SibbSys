@@ -44,10 +44,17 @@ class Admin_FaturasController extends AppBaseController{
 			$this->view->user_id = $user_id;
 		}
 
+		$start    = isset( $_GET['start'] ) ? (int) $_GET['start'] : 1;
+		$length   = isset( $_GET['length'] ) ? (int) $_GET['length'] : 50;
+		$pagina   = isset( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
+
 		if ( $user_id == -1 ) $user_id = null;
 
-		$this->view->rows = $faturas_model->listar($user_id);
-		
+		$this->view->rows = $faturas_model->listar($user_id, $start, $length, $pagina);
+		$this->view->total = $faturas_model->numeroFaturas($user_id);
+		$this->view->per_page = $length;
+		$this->view->page = $start > 0 ? ceil( $this->view->total / ($start * $length) ) : 1;
+		$this->view->pagina = $pagina;
 	}
 	
 	
