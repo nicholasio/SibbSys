@@ -37,27 +37,27 @@
 
 	<form action="/admin/faturas/novo" method="POST">
 		<table class="table table-striped data-table" style="margin-bottom:0;">
-			<thead>
+			<thead style="color: #000; font-size: 16px; font-weight: 700; font-family: Georgia; ">
 				<tr>
-					<th style="text-align: left; width: 5px;"><font size="2" color="black"><strong>Marcar</strong></font></th>
-					<th style="text-align: left; "><font size="2" color="black"><strong>#</strong></font></th>
-					<th style="width: 300px;"><font size="2" color="black"><strong>Aluno</strong></font></th>
-					<th style="text-align: center;"><font size="2" color="black"><strong>Descrição</strong></font></th>
-					<th style="text-align: center;"><font size="2" color="black"><strong>Mes/Ano</strong></font></th>
-					<th style="text-align: center;"><font size="2" color="black"><strong>Valor</strong></font></th>
-					<th style="text-align: center;"><font size="2" color="black"><strong>Ações</strong></font></th>
+					<th style="">Marcar</th>
+					<th style="">#</th>
+					<th style="">Aluno</th>
+					<th style="text-align: center;">Descrição</th>
+					<th style="text-align: center;">Mes/Ano</th>
+					<th style="text-align: center;">Valor</th>
+					<th style="text-align: center;">Ações</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="font-weight: 700; font-size: 12px;">
 		<?php
 			$valor_total = 0;
 			foreach($this->rows as $debito){?>
 				<?php $user_id = $debito['user']['idUsuario']; ?>
 			<tr style="background: #EEE;">
-				<td style="text-align: left; width: 5px;"> <input type="checkbox" name="debitos[]" value="<?php echo $debito['idDebitos']; ?>" class="single-debito" /></td>
-				<td style="text-align: left; "><strong><?php echo $debito['idDebitos']; ?></strong></td>
-				<td style="text-align: left; width: 300px;"><strong><?php echo $debito['user']['Nome']; ?></strong></td>
-				<td style="width: 200px;"><strong>
+				<td style="text-align: left; width: 6%;"> <input type="checkbox" name="debitos[]" value="<?php echo $debito['idDebitos']; ?>" class="single-debito" /></td>
+				<td style="text-align: left; width: 6%;"><?php echo $debito['idDebitos'];?></td>
+				<td style="text-align: left; width: 22%;"><?php echo $debito['user']['Nome']; ?></td>
+				<td style="width: 26%;">
 					<?php
 						$desc_debito = '';
 						if ( $debito['type'] == 'servico' ) {
@@ -68,20 +68,21 @@
 						}
 						echo $desc_debito;
 					?>
-				</strong></td>
+				</td>
 
 
-				<td style="text-align: center; width: 80px;"><strong><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></strong></td>
-				<td style="text-align: center; width: 110px;">
-					<strong>
-						R$
-						<?php
-							$valor = $debito[$debito['type']]['valor_final'];
-							echo number_format($valor,2) . " (" . $debito['descontoMes'] . "%)";
-							$valor_total += $valor;
-						?>
-					</strong></td>
-				<td style="text-align: center; width: 140px;">
+				<td style="text-align: center; width: 7%;">
+					<?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?>
+				</td>
+				<td style="text-align: center; width: 9%;">
+					R$
+					<?php
+						$valor = $debito[$debito['type']]['valor_final'];
+						echo number_format($valor,2) . " (" . $debito['descontoMes'] . "%)";
+						$valor_total += $valor;
+					?>
+				</td>
+				<td style="text-align: center; width: 18%;">
 					<a id="btn-padrao" class="btn btn-primary" href="<?php echo $this->url(
 						array(
 							'controller'	=>	'debitos',
