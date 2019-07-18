@@ -37,7 +37,7 @@
 	</div>
 
 		
-	<table class="table table-striped data-table" style="margin-bottom:0;">
+	<table class="table table-striped" style="margin-bottom:0;">
 		<thead>
 			<tr>
 				<th><h5><strong>#</strong></h5></th>
@@ -146,13 +146,13 @@
 					</div>
 				</div>
 			</td>
-			<td style="text-align: left; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
-			<td style="width: 10px; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-			<td style="width: 10px; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
+			<td style="width: 20%; text-align: left; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
+			<td style="width: 5%; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
+			<td style="width: 4%; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
 
-			<td style="width: 65px; text-align: center; "><strong>R$ <?php echo number_format($valor,2,',','.'); ?></strong></td>
-			<td style="width: 20px; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
-			<td style="width: 55px; text-align: center; "><strong>
+			<td style="width: 7%; text-align: center; "><strong>R$ <?php echo number_format($valor,2,',','.'); ?></strong></td>
+			<td style="width: 4%; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
+			<td style="width: 7%; text-align: center; "><strong>
 				
 				<?php $pago = ( $valor_pendente <= 0) ? true : false; ?>
 				
@@ -165,7 +165,7 @@
 				?>
 				
 			</strong></td>
-			<td style="width: 10px; text-align: center; font-size: 10px;">
+			<td style="width: 5%; text-align: center; font-size: 10px;">
 				<strong>
 					<?php if ( $pago ) : ?>
 					<span class="label label-success">Pago</span>
@@ -174,7 +174,7 @@
 					<?php endif; ?>
 				</strong>
 			</td>
-			<td  style="width: 466px;">
+			<td  style="width: 50%">
 				<a style=" width: 63px; color: black; font-size:10px;" class="btn btn-info" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
 					<strong>Detalhamento</strong>
 				</a>
@@ -312,7 +312,94 @@
 	<?php }?>
 		</tbody>
 	</table>
+
+	<?php 
+
+		$start = (isset($_GET['start']))? $_GET['start'] : 1;
+		$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
+		$total = $this->total;
+		$per_page = $this->per_page;
+		$current_page = $this->page;
+		$n_pages = ceil ($total / $per_page);
+		$asc = 14;
+
+	?>
+	<br />
+	<hr style="border: 1px solid #ddd" />
+	<br />
+
+	<div style="font-size: 12px; padding-left: 15px;" class="pagination pagination-centered">
+    
+
+	<?php
+
+		for ( $ipage = $pagina; $ipage <= $n_pages - $asc; $ipage++) {
+			
+			if($ipage >= 1){
+				if ( $start == $per_page * ( $ipage - 1 )) {
+				echo sprintf(
+					'<span style="margin: 0 2px; font-weight: 700; float: left; padding: 9px 16px; text-decoration: none; 
+								background-color: #4CAF50;
+								color: white;
+								border-radius: 5px;" class="pagination_active">'. $ipage .'</span>');
+				} else {
+					echo sprintf(
+					'<a style="margin: 0 2px;
+							color: black;
+							float: left;
+							border-radius: 5px;"
+							class="pagination"
+					href="%s"> %d </a>',
+					$this->url(
+							array(
+								'controller'=> 'faturas',
+								'action' 	=> 'index',
+							)
+						) . '?start=' . $per_page * ( $ipage - 1 ) . '&length=' . $per_page,
+						$ipage
+					);
+				}
+			}
+		}
+		
+
+		/**
+		for ( $page = 1; $page <= $n_pages; $page++) {
+			if ( $start == $per_page * ( $ipage - 1 )) {
+				echo sprintf('<strong>'. $ipage . '</strong>');
+				echo '<br />';
+				//echo $ipage;
+			} else {
+				echo sprintf(
+					'<li><a class="page-link" href="%s">%d</a></li>',
+					$this->url(
+							array(
+								'controller'=> 'faturas',
+								'action' 	=> 'index',
+							)
+					) . '?start=' . $per_page * ( $ipage - 1 ) . '&pagina' . $ipage . '&length=' . $per_page,
+					$ipage
+				);
+			}
+		}
+
+		/**
+		echo sprintf('<li class="page-item"><a class="page-link" href="%s">Próximo</a></li>',
+      		$this->url(
+					array(
+						'controller'=> 'faturas',
+						'action' 	=> 'index',
+					)
+			) . '?start=' . $per_page * ( $page - 1 ) . '&length=' . $per_page,
+			$page
+		);
+		**/
+
+		//echo sprintf('</ul>');
+	?>
+
+	</div>
 	
-	<br /><br />
+	<br /><br /><br /><br /><br /><br />
 	
 </div>

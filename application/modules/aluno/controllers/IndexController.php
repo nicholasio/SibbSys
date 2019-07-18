@@ -33,6 +33,7 @@ class Aluno_IndexController extends AppBaseController{
     	$this->view->file = $fileTable->findForSelect();
     	 
     	$this->view->usuario = $usuario_model->getUser($id);
+        $this->view->verso = $usuario_model->versiculo();
     }
 
     public function boletimAction(){

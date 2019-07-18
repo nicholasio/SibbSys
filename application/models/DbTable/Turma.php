@@ -73,19 +73,46 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 	
 	
-	public function listar($ano = false, $semestre = false){
+	public function listar($ano = false, $semestre = false, $search = false, $start = 0, $length = 30){
 	
-		$sql = $this->select();
 
-		if ( $ano !== false && $semestre !== false){
-			$sql->where('Ano = ?' , $ano)->where('Semestre = ?', $semestre);
+			$sql = $this->select();
+						
+			$sql->from('Turma', array('idTurma', 'Nome', 'Ano', 'Semestre', 'Disciplina_idDisciplina', 'Status', 'idUsuario' ) )
+				//->joinInner( 'Usuario', 'idUsuario = idUsuario', array() )
+				->joinInner('Disciplina', 'Disciplina_idDisciplina = idDisciplina', array())
+				//->where('Ano = ?' , $ano)
+				//->where('Semestre = ?', $semestre)
+				->setIntegrityCheck( false );
+
+			if ( $search ) {
+				$sql->where( 'Turma.Nome LIKE ?', '%' . $search . '%' );
+			}
+
+			$sql->order(array(new Zend_Db_Expr('idTurma DESC')));
+			
+			$sql->limit($length, $start);
+		
+			$rows = $this->fetchAll($sql);
+		
+			return $rows;
+
+		//$sql->order(array(new Zend_Db_Expr('Nome ASC')));
+
+	}
+
+
+	public function numeroTurmas($search = false, $ano = false, $semestre = false){
+
+		$sql = $this->select()->from($this, array('count(*) as total'));
+
+		if ( $search ) {
+			//@Todo Include search query
 		}
 
-		$sql->order(array(new Zend_Db_Expr('Nome ASC')));
-		
 		$rows = $this->fetchAll($sql);
-		
-		return $rows;
+
+		return $rows[0]->total;
 	}
 	
 	
@@ -245,9 +272,9 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 		              ->joinInner( array( 't' => 'Turma' ), 'm.Turma_idTurma = t.idTurma', array() )
 		              ->distinct( 'm.idUsuario_has_Turma' )
 		              ->distinct( 't.idTurma' )
-		              ->where( 'm.Usuario_idUsuario = ?', $idUsuario )
+		              ->where( 'm.Usuario_idUsuario = ?', $idUsuario );
 			//->order(array(new Zend_Db_Expr('t.Semestre ASC')))
-			          ->order( array( new Zend_Db_Expr( 't.Ano ASC' ) ) );
+			          //->order( array( new Zend_Db_Expr( 't.Ano ASC' ) ) );
 		$query = $this->fetchAll( $sql );
 		
 		return $query;

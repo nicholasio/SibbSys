@@ -7,32 +7,34 @@
 	    </h1>
   	</div>
 
+<!--
 	<div class="row">
 		<div class="span12">
-			
-			<form action="/admin/matricula" method="POST" class="row">
+	
+			<form action="/admin/matricula/index" method="post" class="row">
 				<fieldset class="span12">
-
 					<legend>Escolha o Semestre Letivo</legend>
 					<select name="ano" class="span2" style="margin-bottom: 0;">
-						<?php foreach($this->ano as $ano){?>
-							<option <?php if ( $this->curr_ano && $this->curr_ano ==  $ano->Ano) echo 'selected'; ?> value="<?php echo $ano->Ano; ?>"><?php echo $ano->Ano; ?></option>
-						<?php } ?>
+						<?php //foreach($this->ano as $ano){?>
+							<option value="<?php //echo $ano->Ano; ?>"><?php //echo $ano->Ano; ?></option>
+						<?php //} ?>
 					</select>
-
+					
 					<select name="semestre" class="span2" style="margin-bottom: 0;">
-						<?php foreach($this->semes as $semes){?>
-							<option <?php if ( $this->curr_semestre && $this->curr_semestre ==  $semes->Semestre) echo 'selected'; ?> value="<?php echo $semes->Semestre; ?>"><?php echo $semes->Semestre; ?></option>
-						<?php } ?>
+						<?php //foreach($this->semes as $semes){?>
+							<option value="<?php //echo $semes->Semestre; ?>"><?php //echo $semes->Semestre; ?></option>
+						<?php //} ?>
 					</select>
 		
 					<input type="submit" value="Filtrar" class="btn btn-danger span2" />
 					
 				</fieldset>
 			</form>
-			
+		
 		</div>
 	</div>
+
+-->
   	<table class="table table-striped data-table-ajax" data-endpoint="/admin/matricula/get">
 	    <thead>
 	      <tr>
