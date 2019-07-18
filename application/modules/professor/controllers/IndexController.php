@@ -26,6 +26,7 @@ class Professor_IndexController extends AppBaseController{
     	$usuario_model = new Application_Model_DbTable_Usuario();
     	
     	$this->view->usuario = $usuario_model->getUser($id);
+        $this->view->verso = $usuario_model->versiculo();
     }
     
 
