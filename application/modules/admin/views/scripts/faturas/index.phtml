@@ -321,14 +321,14 @@
 		$per_page = $this->per_page;
 		$current_page = $this->page;
 		$n_pages = ceil ($total / $per_page);
-		$asc = 14;
+		$asc = 20;
 
 	?>
 	<br />
 	<hr style="border: 1px solid #ddd" />
 	<br />
 
-	<div style="font-size: 12px; padding-left: 15px;" class="pagination pagination-centered">
+	<ul style="font-size: 12px; text-align: center;" class="pagination">
     
 
 	<?php
@@ -338,18 +338,20 @@
 			if($ipage >= 1){
 				if ( $start == $per_page * ( $ipage - 1 )) {
 				echo sprintf(
-					'<span style="margin: 0 2px; font-weight: 700; float: left; padding: 9px 16px; text-decoration: none; 
+					'<li style="margin: 0 2px; font-weight: 700;
+								float: left; padding: 9px 16px;
+								text-decoration: none; 
 								background-color: #4CAF50;
 								color: white;
-								border-radius: 5px;" class="pagination_active">'. $ipage .'</span>');
+								border-radius: 5px;" class="pagination_active">'. 
+								$ipage .
+					'</li>');
 				} else {
 					echo sprintf(
-					'<a style="margin: 0 2px;
-							color: black;
-							float: left;
-							border-radius: 5px;"
-							class="pagination"
-					href="%s"> %d </a>',
+					'<li style="margin: 0 2px; color: black;
+							float: left; border-radius: 5px;"
+							class="pagination">
+					<a style="text-align: center;"	href="%s"> %d </a></li>',
 					$this->url(
 							array(
 								'controller'=> 'faturas',
@@ -398,7 +400,7 @@
 		//echo sprintf('</ul>');
 	?>
 
-	</div>
+	</ul>
 	
 	<br /><br /><br /><br /><br /><br />
 	
