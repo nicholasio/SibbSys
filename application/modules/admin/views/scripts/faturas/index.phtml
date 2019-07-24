@@ -38,22 +38,22 @@
 
 		
 	<table class="table table-striped" style="margin-bottom:0;">
-		<thead>
+		<thead style="color: #000; font-size: 13px; font-weight: 700; font-family: Georgia; ">
 			<tr>
-				<th><h5><strong>#</strong></h5></th>
-				<th style="text-align: left;"><h5>Aluno</h5></th>
-				<th style="text-align: center;"><h5>Mês/Ano</h5></th>
-				<th style="text-align: center;"><h5>Qtd Débitos</h5></th>
-				<th style="text-align: center;"><h5>Valor</h5></th>
-				<th style="text-align: center;"><h5>Desconto na Fatura</h5></th>
-				<th style="text-align: center;"><h5>A pagar</h5></th>
-				<th style="text-align: center;"><h5>Status</h5></th>
-				<th style="text-align: center;"><h5>Ações</h5></th>
+				<th>#</th>
+				<th style="text-align: left;">Aluno</th>
+				<th style="text-align: center;">Mês/Ano</th>
+				<th style="text-align: center;">Qtd Débitos</th>
+				<th style="text-align: center;">Valor</th>
+				<th style="text-align: center;">Desconto na Fatura</th>
+				<th style="text-align: center;">à pagar</th>
+				<th style="text-align: center;">Status</th>
+				<th style="text-align: center;">Ações</th>
 
 			</tr>
 		</thead>
 		
-		<tbody>
+		<tbody style="font-weight: 700; font-size: 12px;">
 	<?php foreach ($this->rows as $fatura){ ?>
 		<tr>
 			<td style="text-align: center; width: 10px;">
@@ -61,17 +61,24 @@
 				<div class="modal hide fade" id="fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3>Listagem de pagamentos da Fatura #<?php echo $fatura['idFatura']; ?></h3>
+						<span style="color: #000; font-size: 20px; font-weight: 700; font-family: Georgia; ">
+							Listagem de pagamentos da Fatura #
+								<span style="font-family: Liberation-Serif;">
+									<?php echo $fatura['idFatura']; ?>
+								</span>
+						</span>
 					</div>
 					<div class="modal-body">
 						<table class="table table-striped">
+							<thead style="color: #000; font-size: 13px; font-weight: 700; font-family: Georgia; ">
 							<tr>
-								<th style="width: 10px; text-align: left;">#</th>
+								<th style="text-align: center;">#</th>
 								<th style="text-align: center;">Valor Pago</th>
 								<th style="text-align: center;">Data</th>
 								<th style="text-align: center;">Observações</th>
 								<th style="text-align: center;">Ações</th>
 							</tr>
+							</thead>
 							<tbody>
 							<?php
 							$valor_total_pagamentos = 0;
@@ -80,13 +87,16 @@
 							$pagamentos = $pagamentos_model->listar($fatura['idFatura']);
 							foreach($pagamentos as $pagamento) : ?>
 								<tr>
-									<td style="width: 10px; text-align: left;"><?php echo $pagamento->idPagamento; ; ?></td>
-									<td style="width: 60px; text-align: center;">
+									<td style="width: 10%; text-align: center;">	<?php echo $pagamento->idPagamento; ; ?>
+									</td>
+									<td style="width: 20%; text-align: center;">
 										R$ <?php echo number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; ?>
 									</td>
-									<td style="width: 30px; text-align: center;"><?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?></td>
-									<td style="text-align: center;"><?php echo $pagamento->Descricao; ?></td>
-									<td style="width: 30px; text-align: center;">
+									<td style="width: 20%; text-align: center;">	<?php echo date('d/m/Y', strtotime($pagamento->dataPagamento)); ?>
+									</td>
+									<td style="width: 30%; text-align: center;">	<?php echo $pagamento->Descricao; ?>
+									</td>
+									<td style="width: 20%; text-align: center;">
 										<a class="btn btn-warning" href="<?php echo $this->url(
 											array(
 												'controller'	=>	'pagamento',
@@ -101,8 +111,9 @@
 								
 							<?php endforeach; ?>
 							<tr>
-								<td><strong>Total: </strong></td>
-								<td><strong>R$ <?php echo number_format($valor_total_pagamentos,2,',','.'); ?></strong></td>
+								<td>Total: </td>
+								<td>R$ <?php echo number_format($valor_total_pagamentos,2,',','.'); ?>
+								</td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -112,15 +123,23 @@
 							<?php $valor_pendente = number_format($valor - $valor_total_pagamentos,2); ?>
 							<?php if($valor_pendente != 0) { ?>
 							<tr>
-								<td><strong><span class="label label-important">Restante: </span></strong></td>
-								<td><strong><span class="label label-important">R$ <?php echo number_format($valor_pendente,2,',','.'); ?></span></strong></td>
+								<td>
+									<span class="label label-important">Restante: 
+									</span>
+								</td>
+								<td>
+									<span class="label label-important">R$ <?php echo number_format($valor_pendente,2,',','.'); ?>
+									</span>
+								</td>
 								<td></td>
 								<td></td>
 								<td></td>
 							</tr>
 							<?php } else { ?>
 							<tr>
-								<td><strong><span class="label label-success">Pago </span></strong></td>
+								<td>
+									<span class="label label-success">Pago</span>
+								</td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -138,7 +157,7 @@
 								'action'		=>	'pendente',
 								'idFatura'		=>	$fatura['idFatura']
 							));?>">
-							<strong>Imprimir Recibo</strong>
+							Imprimir Recibo
 						</a>
 						
 					<?php } ?>
@@ -146,13 +165,13 @@
 					</div>
 				</div>
 			</td>
-			<td style="width: 20%; text-align: left; "><strong><?php echo $fatura['debitos'][0]['user']['Nome']; ?></strong></td>
-			<td style="width: 5%; text-align: center; "><strong><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></strong></td>
-			<td style="width: 4%; text-align: center; "><strong><?php echo count($fatura['debitos']); ?></strong></td>
+			<td style="width: 20%; text-align: left; "><?php echo $fatura['debitos'][0]['user']['Nome']; ?></td>
+			<td style="width: 4%; text-align: center; "><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></td>
+			<td style="width: 3%; text-align: center; "><?php echo count($fatura['debitos']); ?></td>
 
-			<td style="width: 7%; text-align: center; "><strong>R$ <?php echo number_format($valor,2,',','.'); ?></strong></td>
-			<td style="width: 4%; text-align: center; "><strong><?php echo $fatura['desconto']; ?> % </strong></td>
-			<td style="width: 7%; text-align: center; "><strong>
+			<td style="width: 7%; text-align: center; ">R$ <?php echo number_format($valor,2,',','.'); ?></td>
+			<td style="width: 4%; text-align: center; "><?php echo $fatura['desconto']; ?> % </td>
+			<td style="width: 7%; text-align: center; ">
 				
 				<?php $pago = ( $valor_pendente <= 0) ? true : false; ?>
 				
@@ -164,7 +183,7 @@
 				
 				?>
 				
-			</strong></td>
+			</td>
 			<td style="width: 5%; text-align: center; font-size: 10px;">
 				<strong>
 					<?php if ( $pago ) : ?>
@@ -176,12 +195,13 @@
 			</td>
 			<td  style="width: 50%">
 				<a style=" width: 63px; color: black; font-size:10px;" class="btn btn-info" data-toggle="modal" href="#fatura-desc-<?php echo $fatura['idFatura']; ?>">
-					<strong>Detalhamento</strong>
+					Detalhamento
 				</a>
 				<?php if ( ! $pago ) : ?>
-					<a style="font-size: 10px; width:93px;" class="btn btn-inverse" data-toggle="modal" href="#fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>"><strong>Efetuar Pagamento</strong></a>
+					<a style="font-size: 10px; width:93px;" class="btn btn-inverse" data-toggle="modal" href="#fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>">Efetuar Pagamento
+					</a>
 				<?php endif; ?>
-				<a style="font-size: 10px; width: 81px;" class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>"><strong>Ver Pagamentos</strong></a>
+				<a style="font-size: 10px; width: 81px;" class="btn btn-danger"  data-toggle="modal" href="#fatura-pagamentos-<?php echo $fatura['idFatura']; ?>">Ver Pagamentos</a>
 				<?php if ( $valor_total_pagamentos == 0 ) :?>
 					<a style="font-size:10px; width:25px;" class="btn btn-default" href="<?php echo $this->url(
 						array(
@@ -189,7 +209,7 @@
 							'action'		=>	'editar',
 							'idFaturas'		=>	$fatura['idFatura']
 						));?>">
-							<strong>Editar</strong>
+							Editar
 					</a>
 
 					<a style="font-size:10px; width:29px;" class="btn btn-warning" href="<?php echo $this->url(
@@ -198,7 +218,7 @@
 							'action'		=>	'delete',
 							'idFaturas'		=>	$fatura['idFatura']
 						));?>">
-							<strong>Excluir</strong>
+							Excluir
 					</a>
 				<?php endif; ?>
 				
@@ -214,38 +234,45 @@
 				<div class="modal hide fade" id="fatura-desc-<?php echo $fatura['idFatura']; ?>">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3>Detalhes da Fatura</h3>
+						<span style="color: #000; font-size: 20px; font-weight: 700; font-family: Georgia; ">
+							Detalhes da Fatura
+						</span>
 					</div>
 					<div class="modal-body">
 						<table class="table table-striped">
-							<tr>
-								<th>#</th>
-								<th>Descrição</th>
-								<th>Mês/Ano</th>
-								<th>Valor</th>
-							</tr>
-							<tbody>
+							<thead style="color: #000; font-size: 14px; font-weight: 700; font-family: Georgia;">
+								<tr>
+									<th style="text-align: center;">#</th>
+									<th style="text-align: center;">Descrição</th>
+									<th style="text-align: center;">Mês/Ano</th>
+									<th style="text-align: center;">Valor</th>
+								</tr>
+							</thead>
+							<tbody style="font-size: 11px;">
 							<?php
 							$valor_total = 0;
 							foreach($fatura['debitos'] as $debito) : ?>
 								<tr>
-									<td><?php echo $debito['idDebitos']; ?></td>
-									<td>
+									<td style="width: 5%; text-align: center;">	<?php echo $debito['idDebitos']; ?>
+									</td>
+									<td style="width: 60%">
 										<?php
 										$desc_debito = '';
 										$valor_cobrado = 0;
 										if ( $debito['type'] == 'servico' ) {
 											$desc_debito = "Serviço: " . $debito['servico']['nome_servico'] . ' - ' . $debito['servico']['descricao_servico'];
 										} else if ( $debito['type'] == 'matricula' ) {
-											$desc_debito = 'Matrícula: ' . $debito['matricula']['nome_turma'] .
+											$desc_debito = $debito['matricula']['nome_turma'] .
 												" ({$debito['matricula']['disciplina']}) {$debito['matricula']['ano_turma']}.{$debito['matricula']['semestre_turma']}";
 
 										}
 										echo $desc_debito;
 										?>
 									</td>
-									<td><?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?></td>
-									<td>
+									<td style="width: 10%; text-align: center;">
+										<?php echo $debito['mesPagamento'] .'/' . $debito['anoPagamento'];?>
+									</td>
+									<td style="width: 20%; text-align: center;">
 										R$
 										<?php
 										$valor = $debito[$debito['type']]['valor_final'];
@@ -264,34 +291,44 @@
 				<div class="modal hide fade" id="fatura-add-pagamento-<?php echo $fatura['idFatura']; ?>">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3>Adicionar Pagamento a Fatura #<?php echo $fatura['idFatura']; ?></h3>
+						<span style="color: #000; font-size: 20px; font-weight: 700; font-family: Georgia; ">
+							Adicionar Pagamento a Fatura <span style="font-family: Liberation-Serif;">#<?php echo $fatura['idFatura']; ?></span>
+						</span>
 					</div>
 					<form action="/admin/pagamento/addpagamento" class="form-horizontal" method="POST">
 						<div class="modal-body">
 							
-							<p style="text-align: center;"><strong><?php if($valor_pendente == $fatura['valorFatura']){ echo 'Valor da Fatura: ' . 'R$ ' . number_format($total_apagar,2,',','.'); } else{ echo 'Valor Pendente da Fatura: ' . number_format($valor_pendente,2,',','.'); }?></strong><p>
+							<p style="text-align: center; font-size: 15px; font-weight: 700; font-family: Liberation-Serif; ">
+								<?php if($valor_pendente == $fatura['valorFatura']){ echo 'Valor da Fatura: ' . 'R$ ' . number_format($total_apagar,2,',','.'); } else{ echo 'Valor Pendente da Fatura: ' . number_format($valor_pendente,2,',','.'); }?>
+							<p>
 							
 							<hr />
 							<div class="control-group">
-								<label class="control-label" for="data">Data: </label>
+								<label style="font-family: Liberation-Serif; font-size: 14px;" class="control-label" for="data">
+									Data: 
+								</label>
 								<div class="controls">
-									<input type="date" placeholder="Data" name="data" class="input-medium" required/>
+									<input style="font-family: Liberation-Serif; font-size: 14px;" type="date" placeholder="Data" name="data" class="input-medium" required/>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="valor">Valor</label>
+								<label style="font-family: Liberation-Serif; font-size: 14px;" class="control-label" for="valor">
+									Valor
+								</label>
 								<div class="controls">
 									<div class="input-prepend">
 										<span class="add-on">R$</span>
-										<input type="text" class="input-small" name="valor" placeholder="Valor" required/>
+										<input style="font-family: Liberation-Serif; font-size: 14px;" type="text" class="input-small" name="valor" placeholder="Valor" required/>
 									</div>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="descricao">Observações</label>
+								<label style="font-family: Liberation-Serif; font-size: 14px;" class="control-label" for="descricao">
+									Observações
+								</label>
 								<div class="controls">
 									<label class="controles">
-										<textarea name="descricao"  cols="30" rows="10"></textarea>
+										<textarea style="font-family: Liberation-Serif; font-size: 14px;" name="descricao"  cols="30" rows="10"></textarea>
 									</label>
 								</div>
 							</div>
@@ -321,16 +358,15 @@
 		$per_page = $this->per_page;
 		$current_page = $this->page;
 		$n_pages = ceil ($total / $per_page);
-		$asc = 20;
+		$asc = 23;
 
 	?>
 	<br />
 	<hr style="border: 1px solid #ddd" />
 	<br />
 
-	<ul style="font-size: 12px; text-align: center;" class="pagination">
+	<ul style="font-size: 12px; " class="pagination">
     
-
 	<?php
 
 		for ( $ipage = $pagina; $ipage <= $n_pages - $asc; $ipage++) {
@@ -401,7 +437,7 @@
 	?>
 
 	</ul>
-	
+
 	<br /><br /><br /><br /><br /><br />
 	
 </div>
