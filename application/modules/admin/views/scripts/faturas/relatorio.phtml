@@ -21,9 +21,9 @@
 			</tr>
 		</thead>
 		<tbody style="font-weight: 700; font-size: 12px;">
-			<?php foreach ($this->rows as $fatura){ ?>
-					
-			<?php
+	
+			<?php foreach ($this->rows as $fatura) {
+
 				$valor_total_pagamentos = 0;
 				$total_restante = 0;
 				$pagamentos_model = new Application_Model_DbTable_Pagamento();
@@ -34,18 +34,29 @@
 											
 						number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; 
 										
-										
 				endforeach;
-									
-				$valor = $fatura['valorFatura']; 
-				$valor_pendente = number_format($valor - $valor_total_pagamentos,2); 
-			?>
 						
-		
-			<?php if ( $valor_pendente != 0 ) : ?>
+				$valor = $fatura['valorFatura']; 
+				$valor_pendente = number_format($valor - $valor_total_pagamentos,2);  ?>
+
+				<?php if ( $valor_pendente != 0 ) : ?>
+
 				<tr>
 					<td style="text-align: center; width: 5%;"><?php echo $fatura['idFatura']; ?></td>
-					<td style="text-align: left; width: 30%;"><?php echo $fatura['debitos'][0]['user']['Nome']; ?></td>
+					<td style="text-align: left; width: 30%;">
+
+						<?php foreach($this->user as $user) :
+
+							if($fatura['Usuario_idUsuario'] == $user['idUsuario']){
+
+								echo $user['Nome'];
+
+							}
+
+
+						endforeach; ?>
+							
+					</td>
 					<td style="width: 15%; text-align: center; "><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></td>
 					<td style="width: 15%; text-align: center;">R$ <?php echo number_format($valor,2,',','.'); ?></td>
 					<td style="width: 15%; text-align: center; ">
@@ -59,14 +70,17 @@
 					</td>
 					<td style="width: 15%; text-align: center;">
 						<span class="label label-important">Pendente</span>
-					</td>			
-						<?php endif; ?>
+					</td>	
+
+					<?php endif; ?>		
 				</tr>
 
-			<?php }?>
+
+			<?php } ?>
+
 		</tbody>
 	</table>
-	
+
 	<br /><br />
 	
 	<div style="text-align: right;">

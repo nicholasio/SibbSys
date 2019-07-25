@@ -27,16 +27,19 @@
 	<br />
 	
 	<table border="1" cellpadding="5px" cellspacing="0" style="border-collapse: collapse; ">
-		<thead>
-			<tr style="padding: 3px;">
-				<th style="text-align: left;"><h5><strong>Aluno</strong></h5></th>
-				<th style="text-align: center;"><h5><strong>Mês/Ano</strong></h5></th>
-				<th style="text-align: center;"><h5><strong>Valor da Fatura</strong></h5></th>
-				<th style="text-align: center;"><h5><strong>Total à pagar</strong></h5></th>
-				<th style="text-align: center;"><h5><strong>Status</strong></h5></th>
+		<thead style="color: #000; font-size: 16px; font-weight: 700; font-family: Georgia; ">
+			<tr>
+				<th style="text-align: center;">#</th>
+				<th style="text-align: left;">Aluno</th>
+				<th style="text-align: center;">Mês/Ano</th>
+				<th style="text-align: center;">Valor da Fatura</th>
+				<th style="text-align: center;">Valor Pendente</th>
+				<th style="text-align: center;">Status</th>
 			</tr>
 		</thead>
-			<?php foreach ($this->rows as $fatura){
+		<tbody style="font-weight: 700; font-size: 12px;">
+	
+			<?php foreach ($this->rows as $fatura) {
 
 				$valor_total_pagamentos = 0;
 				$total_restante = 0;
@@ -45,21 +48,34 @@
 				foreach($pagamentos as $pagamento) :
 									
 						$pagamento->idPagamento;
+											
 						number_format($pagamento->valorPagamento,2,',','.'); $valor_total_pagamentos += $pagamento->valorPagamento; 
 										
 				endforeach;
-									
-				$valor = $fatura['valorFatura']; 
-				$valor_pendente = number_format($valor - $valor_total_pagamentos,2); 
-			?>
 						
-		<tbody>
-			<?php if ( $valor_pendente != 0 ) : ?>
-				<tr style="padding: 3px; ">
-					<td style="text-align: left; width: 300px; font-size: 12px; "><?php echo $fatura['debitos'][0]['user']['Nome']; ?></td>
-					<td style="width: 80px; text-align: center; font-size: 12px; "><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></td>
-					<td style="width: 110px; text-align: center; font-size: 12px; ">R$ <?php echo number_format($valor,2,',','.'); ?></td>
-					<td style="width: 110px; text-align: center; font-size: 12px; ">
+				$valor = $fatura['valorFatura']; 
+				$valor_pendente = number_format($valor - $valor_total_pagamentos,2);  ?>
+
+				<?php if ( $valor_pendente != 0 ) : ?>
+
+				<tr>
+					<td style="text-align: center; width: 5%;"><?php echo $fatura['idFatura']; ?></td>
+					<td style="text-align: left; width: 30%;">
+
+						<?php foreach($this->user as $user) :
+
+							if($fatura['Usuario_idUsuario'] == $user['idUsuario']){
+
+								echo $user['Nome'];
+
+							}
+
+						endforeach; ?>
+							
+					</td>
+					<td style="width: 15%; text-align: center; "><?php echo $fatura['mes'] . '/' . $fatura['ano']; ?></td>
+					<td style="width: 15%; text-align: center;">R$ <?php echo number_format($valor,2,',','.'); ?></td>
+					<td style="width: 15%; text-align: center; ">
 				
 						<?php if($valor_pendente == $fatura['valorFatura']){
 							$total_apagar = $valor - ($valor * $fatura['desconto']/100); echo 'R$ ' . number_format($total_apagar,2,',','.');
@@ -68,13 +84,17 @@
 							}
 						?>
 					</td>
-					<td style="width: 100px; text-align: center; font-size: 12px;"><span class="label label-important">Pendente</span></td>
-				</tr>			
-			<?php endif; ?>
-				
-			<?php }?>
+					<td style="width: 15%; text-align: center;">
+						<span class="label label-important">Pendente</span>
+					</td>	
+
+					<?php endif; ?>		
+				</tr>
+
+
+			<?php } ?>
+
 		</tbody>
-		
 	</table>
 	
 	<br /><br />
