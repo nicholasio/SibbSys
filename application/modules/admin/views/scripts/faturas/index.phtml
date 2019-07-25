@@ -352,13 +352,14 @@
 
 	<?php 
 
-		$start = (isset($_GET['start']))? $_GET['start'] : 1;
+		$start = (isset($_GET['start']))? $_GET['start'] : 0;
 		$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
 		$total = $this->total;
 		$per_page = $this->per_page;
 		$current_page = $this->page;
 		$n_pages = ceil ($total / $per_page);
 		$asc = 23;
+
 
 	?>
 	<br />
@@ -372,6 +373,8 @@
 		for ( $ipage = $pagina; $ipage <= $n_pages - $asc; $ipage++) {
 			
 			if($ipage >= 1){
+
+
 				if ( $start == $per_page * ( $ipage - 1 )) {
 				echo sprintf(
 					'<li style="margin: 0 2px; font-weight: 700;
@@ -399,41 +402,6 @@
 				}
 			}
 		}
-		
-
-		/**
-		for ( $page = 1; $page <= $n_pages; $page++) {
-			if ( $start == $per_page * ( $ipage - 1 )) {
-				echo sprintf('<strong>'. $ipage . '</strong>');
-				echo '<br />';
-				//echo $ipage;
-			} else {
-				echo sprintf(
-					'<li><a class="page-link" href="%s">%d</a></li>',
-					$this->url(
-							array(
-								'controller'=> 'faturas',
-								'action' 	=> 'index',
-							)
-					) . '?start=' . $per_page * ( $ipage - 1 ) . '&pagina' . $ipage . '&length=' . $per_page,
-					$ipage
-				);
-			}
-		}
-
-		/**
-		echo sprintf('<li class="page-item"><a class="page-link" href="%s">Próximo</a></li>',
-      		$this->url(
-					array(
-						'controller'=> 'faturas',
-						'action' 	=> 'index',
-					)
-			) . '?start=' . $per_page * ( $page - 1 ) . '&length=' . $per_page,
-			$page
-		);
-		**/
-
-		//echo sprintf('</ul>');
 	?>
 
 	</ul>

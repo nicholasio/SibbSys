@@ -49,7 +49,7 @@ class Admin_FaturasController extends AppBaseController{
 
 		if ( $user_id == -1 ) $user_id = null;
 
-		$this->view->rows = $faturas_model->listar($user_id, $start, $length, $pagina);
+		$this->view->rows = $faturas_model->listar($user_id, $start, $length);
 		$this->view->total = $faturas_model->numeroFaturas($user_id);
 		$this->view->per_page = $length;
 		$this->view->page = $start > 0 ? ceil( $this->view->total / ($start * $length) ) : 1;
@@ -119,22 +119,22 @@ class Admin_FaturasController extends AppBaseController{
 	}
 	
 	public function relatorioAction(){
-		
-		$start    = isset( $_GET['start'] ) ? (int) $_GET['start'] : 0;
-		
+
+		$usuario_model = new Application_Model_DbTable_Usuario();
 		$faturas_model = new Application_Model_DbTable_Faturas();
 		
-		$this->view->rows = $faturas_model->listar(null, $tart, $length);
-		
+		$this->view->rows = $faturas_model->listarPendentes();
+		$this->view->user = $usuario_model->selectPadrao();
+
 	}
 	
 	public function relatorioDownloadAction(){
-		
-		$start    = isset( $_GET['start'] ) ? (int) $_GET['start'] : 0;
-		
+
+		$usuario_model = new Application_Model_DbTable_Usuario();
 		$faturas_model = new Application_Model_DbTable_Faturas();
 		
-		$this->view->rows = $faturas_model->listar(null, $tart, $length);
+		$this->view->rows = $faturas_model->listarPendentes();
+		$this->view->user = $usuario_model->selectPadrao();
 		
 	}
 	

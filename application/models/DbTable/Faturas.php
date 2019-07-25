@@ -64,7 +64,7 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 			$sql->where('Usuario_idUsuario = ?', $user_id);
 
 		$sql->limit( $length, $start );
-		$sql->order(array(new Zend_Db_Expr('idFatura DESC')));
+		$sql->order(array(new Zend_Db_Expr('idFatura desc')));
 		
 		$rows = $this->fetchAll($sql);
 		
@@ -85,6 +85,20 @@ class Application_Model_DbTable_Faturas extends Zend_Db_Table_Abstract{
 
 		return $data;
 	}
+
+
+	public function listarPendentes() {
+
+		$sql = $this->select();
+
+		$sql->order(array(new Zend_Db_Expr('idFatura desc')));
+
+		$rows = $this->fetchAll($sql);
+
+		if(null !== $rows)
+			return $rows->toArray();
+	}
+
 
 
 	public function numeroFaturas($user_id = NULL) {
