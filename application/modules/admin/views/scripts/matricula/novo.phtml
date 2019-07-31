@@ -3,72 +3,76 @@
 
 
 <div class="grid_16">
-  	<div class="page-header">
-	    <h1>Matricular Aluno
-		    <small>Gerenciamento de matrículas</small>
-	    </h1>
-  	</div>
-  	
-<br />  	
+    <div class="page-header">
+      <h1>Matricular Aluno
+        <small>Gerenciamento de matrículas</small>
+      </h1>
+    </div>
+    
+<br />    
 
     <form action="" method="POST" class="container">
-    	<!-- sheepIt Form -->
+      <!-- sheepIt Form -->
 
-      <label for="aluno" class="">Aluno</label>
+      <h5 for="aluno" class="">Aluno</h5>
       <select class="sibb-select2 " id="aluno" style="width:200px" name="aluno">
-            <?php 
-              //$users = new Application_Model_DbTable_Usuario();
-              //$usuario = $users->fetchAll();
-              //$usuario->order(array(new Zend_Db_Expr('Nome ASC')));
-              foreach ($this->usuario as $user) : 
-            ?>
-              <option value="<?php echo $user->idUsuario; ?>"><?php echo $user->Nome; ?></option>
-            <?php endforeach; ?>
+
+        <?php  foreach ($this->usuario as $user) : ?>
+
+             <option value="<?php echo $user->idUsuario; ?>"><?php echo $user->Nome; ?></option>
+
+        <?php endforeach; ?>
+
       </select>
+
+      <br />
+      <br />
       <br />
       
       <h5>Turmas:</h5>
       <div id="sheepItForm" >
           <!-- Form template-->
           <div id="sheepItForm_template">
-              <select = id="sheepItForm_#index#_turma" name="matricula[#index#][turma]">
-                <?php
-                  foreach ($this->turmas as $turma) :
-                ?>
+              <select class="sibb-select2" id="sheepItForm_#index#_turma" name="matricula[#index#][turma]">
+                
+                <?php foreach ($this->turmas as $turma) : ?>
+                
                   <option value="<?= $turma->idTurma; ?>"><?= $turma->Nome; ?></option>
+
                 <?php endforeach; ?>
               </select>
 
-              
               <a id="sheepItForm_remove_current" class="btn  btn-warning">
                 Remover
               </a>
           </div>
           <!-- /Form template-->
-           
+
           <!-- No forms template -->
           <div id="sheepItForm_noforms_template">Sem Alunos</div>
           <!-- /No forms template-->
-           
+
           <!-- Controls -->
           <div id="sheepItForm_controls">
+            <br />
             <div id="sheepItForm_add"><a class="btn"><span>Adicionar Turma</span></a></div>
             <br />
             <div id="sheepItForm_remove_last"><a class="btn btn-warning"><span>Remover Último</span></a></div>
             <br />
             <div id="sheepItForm_remove_all"><a><span>Remover Todos</span></a></div>
+            <br />
           </div>
           <!-- /Controls -->
         
-          <input class="btn btn-primary" id="btn-turma" type="submit" value="Matricular">
+          <input style="font-size: 11px;" class="btn btn-success" id="btn-turma" type="submit" value="Matricular">
       </div> <!-- form -->
       
     </form>
 
 <!-- /sheepIt Form -->
-  		
-  	</div>  	  	
-  	
-  	<br /><br /><br /><br />
-  	
+      
+    </div>        
+    
+    <br /><br /><br /><br />
+    
 </div>

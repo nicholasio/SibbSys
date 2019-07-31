@@ -102,6 +102,21 @@ class Application_Model_DbTable_Turma extends Zend_Db_Table_Abstract{
 	}
 
 
+	public function listaTurma_corrente($ano_atual, $semestre_atual){
+
+		$sql = $this->select()
+			->where('Ano = ?', $ano_atual)
+			->where('Semestre = ?', $semestre_atual);
+		$sql->order(array(new Zend_Db_Expr('idTurma desc')));
+
+
+		$rows = $this->fetchAll($sql);
+
+		return $rows;
+
+	}
+
+
 	public function numeroTurmas($search = false, $ano = false, $semestre = false){
 
 		$sql = $this->select()->from($this, array('count(*) as total'));
