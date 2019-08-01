@@ -107,7 +107,7 @@ class Admin_MatriculaController extends AppBaseController{
     	$this->view->usuario = $model_usuario->listaUsuario(); 
 		
 		
-    	$this->view->turmas = $turma->listar($ano_atual, $semestre_atual);
+    	$this->view->turmas = $turma->listaTurma_corrente($ano_atual, $semestre_atual);
 
     	if ($this->_helper->FlashMessenger->hasMessages()) {
             $this->view->messages = $this->_helper->FlashMessenger->getMessages();
